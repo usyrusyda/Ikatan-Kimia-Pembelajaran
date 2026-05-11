@@ -1,0 +1,2865 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> Kepolaran — Phase Engagement</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --gold:#ffc107;
+      --batik-blue:#3a7caf;
+      --cream:#fffdf2;
+      --soft-blue:#e3f2fd;
+      --green:#a8e6cf;
+      --gray:#b2bec3;
+      --shadow: 0 10px 30px rgba(0,0,0,.06);
+      --red:#ff6b6b;
+    }
+    body{
+      font-family:'Quicksand',sans-serif;
+      margin:0;
+      background:var(--cream);
+      color:var(--batik-blue);
+      overflow-x:hidden;
+    }
+    h1,h2,h3,h4{font-family:'Fredoka',sans-serif;margin:10px 0}
+    .hidden{display:none !important;}
+
+    /* ===== MATERI KEPOLARAN - STYLE SERASI PALET LKPD ===== */
+.material-wrap{
+  background:
+    radial-gradient(circle at 50% 10%, rgba(255,193,7,.18), transparent 22%),
+    radial-gradient(circle at 85% 18%, rgba(58,124,175,.10), transparent 14%),
+    linear-gradient(180deg, #fffdf2 0%, #f7fbff 55%, #fffdf2 100%);
+  border-radius:30px;
+  padding:24px;
+  color:var(--batik-blue);
+  position:relative;
+  overflow:hidden;
+  border:3px solid var(--soft-blue);
+  box-shadow:var(--shadow);
+}
+
+.material-wrap::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background-image:
+    radial-gradient(circle, rgba(255,193,7,.20) 0 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(58,124,175,.16) 0 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(168,230,207,.22) 0 1px, transparent 1.5px);
+  background-size:180px 180px, 260px 260px, 320px 320px;
+  background-position:0 0, 60px 100px, 120px 40px;
+  opacity:.45;
+}
+
+.material-wrap > *{
+  position:relative;
+  z-index:1;
+}
+
+.material-hero{
+  text-align:center;
+  margin-bottom:22px;
+}
+
+.material-badge{
+  display:inline-block;
+  padding:7px 14px;
+  border-radius:999px;
+  background:#fff;
+  color:var(--batik-blue);
+  border:2px dashed #d9ecff;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.04em;
+  margin-bottom:12px;
+}
+
+.material-hero h3{
+  font-size:34px;
+  margin:0 0 10px 0;
+  line-height:1.1;
+  color:var(--batik-blue);
+}
+
+.material-hero p{
+  color:#4d6f8f;
+  line-height:1.8;
+  font-size:14px;
+  max-width:780px;
+  margin:0 auto;
+}
+
+.material-nav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content:center;
+  margin:18px 0 24px;
+}
+
+.material-nav a{
+  text-decoration:none;
+  color:var(--batik-blue);
+  border:2px solid #d9ecff;
+  background:#fff;
+  padding:8px 14px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:700;
+  transition:.2s;
+}
+
+.material-nav a:hover{
+  background:var(--soft-blue);
+}
+
+.material-section{
+  margin-top:26px;
+  scroll-margin-top:20px;
+}
+
+.material-title{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:14px;
+}
+
+.material-title .line{
+  width:5px;
+  height:34px;
+  border-radius:999px;
+  background:linear-gradient(180deg, var(--gold), var(--batik-blue));
+}
+
+.material-title h4{
+  margin:0;
+  font-size:22px;
+  color:var(--batik-blue);
+}
+
+.material-card{
+  background:#fff;
+  border:2px solid #e6f2fb;
+  border-radius:22px;
+  padding:20px 18px;
+  box-shadow:0 8px 20px rgba(0,0,0,.04);
+  margin-bottom:16px;
+}
+
+.material-card h5{
+  font-size:20px;
+  margin:0 0 12px 0;
+  color:var(--batik-blue);
+}
+
+.material-card p{
+  color:#4d6f8f;
+  font-size:14px;
+  line-height:1.8;
+  margin-bottom:10px;
+  text-align:justify;
+}
+
+.material-card ul{
+  padding-left:20px;
+  color:#4d6f8f;
+}
+
+.material-card li{
+  margin-bottom:8px;
+  line-height:1.8;
+  font-size:14px;
+}
+
+.material-grid{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(260px, 1fr));
+  gap:16px;
+}
+
+.material-mini{
+  background:#fff;
+  border:2px solid #e6f2fb;
+  border-radius:20px;
+  padding:18px;
+  box-shadow:0 8px 20px rgba(0,0,0,.04);
+}
+
+.material-mini h5{
+  font-size:18px;
+  margin:0 0 10px 0;
+  color:var(--batik-blue);
+}
+
+.material-mini p,
+.material-mini li{
+  color:#4d6f8f;
+  line-height:1.8;
+  font-size:14px;
+}
+
+.material-mini ul{
+  padding-left:18px;
+}
+
+.material-tag{
+  display:inline-block;
+  font-size:12px;
+  font-weight:700;
+  padding:6px 11px;
+  border-radius:999px;
+  margin-bottom:10px;
+  background:var(--soft-blue);
+  color:var(--batik-blue);
+  border:1px solid #cde7fb;
+}
+
+.material-formula{
+  font-weight:700;
+  color:var(--batik-blue);
+  font-size:14px;
+  line-height:1.9;
+  background:var(--soft-blue);
+  border:1px solid #cde7fb;
+  padding:14px 16px;
+  border-radius:14px;
+  margin-top:10px;
+}
+
+.material-note{
+  padding:14px 16px;
+  border-radius:16px;
+  background:var(--green);
+  border:2px solid #8bd7bb;
+  color:#2f5f56;
+  line-height:1.8;
+  margin-top:10px;
+  font-size:14px;
+}
+
+.material-img-box{
+  margin-top:12px;
+  border:2px dashed #cde7fb;
+  border-radius:16px;
+  padding:16px;
+  text-align:center;
+  color:#6e8aa4;
+  background:var(--soft-blue);
+  line-height:1.7;
+  font-size:13px;
+}
+
+.material-img-box img{
+  display:block;
+  margin:auto;
+  max-width:100%;
+  border-radius:14px;
+}
+
+.material-caption{
+  text-align:center;
+  font-size:13px;
+  color:#6e8aa4;
+  margin-top:8px;
+  line-height:1.6;
+}
+
+@media (max-width: 768px){
+  .material-grid{grid-template-columns:1fr;}
+  .material-hero h3{font-size:26px;}
+  .material-title h4{font-size:18px;}
+}
+
+    /* NAV */
+    nav{
+      background:#fff;
+      padding:8px 5%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      border-bottom-left-radius:30px;
+      border-bottom-right-radius:30px;
+      box-shadow:0 5px 20px rgba(0,0,0,.05);
+      position:sticky;
+      top:0;
+      z-index:10;
+    }
+    .nav-left,.nav-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+    .pill{
+      display:inline-block;padding:6px 12px;border-radius:999px;
+      background:#fff;border:2px dashed #d9ecff;font-size:12px;font-weight:800;opacity:.9;
+    }
+
+    /* BUTTON */
+    button{
+      padding:12px 20px;
+      background:var(--batik-blue);
+      color:#fff;
+      border:none;
+      border-radius:50px;
+      font-family:'Fredoka',sans-serif;
+      font-size:15px;
+      cursor:pointer;
+      box-shadow:0 5px 0 #2a5a82;
+      transition:.2s;
+      position:relative;
+      display:inline-block;
+      margin:4px;
+    }
+    button:hover{background:#4a8cbf;top:-2px;box-shadow:0 7px 0 #2a5a82}
+    button:active{top:3px;box-shadow:0 2px 0 #2a5a82}
+    .btn-back{background:var(--gray);box-shadow:0 5px 0 #636e72}
+    .btn-next{background:var(--gold);box-shadow:0 5px 0 #c79a00;color:#444}
+    .btn-green{background:#27ae60;box-shadow:0 5px 0 #1e8449}
+    .btn-logout{background:var(--red);box-shadow:0 5px 0 #cc4d4d;padding:8px 15px;font-size:12px}
+    .mini{font-size:12px;padding:8px 12px}
+
+    /* LAYOUT */
+    .module-container{
+      max-width:980px;
+      margin:18px auto;
+      padding:26px;
+      background:#fff;
+      border-radius:40px;
+      border:6px solid var(--soft-blue);
+      box-shadow:var(--shadow);
+    }
+    .section-box{
+      background:var(--soft-blue);
+      padding:18px;
+      border-radius:25px;
+      margin-bottom:16px;
+      border-left:10px solid var(--gold);
+    }
+    .section-green{
+      background:var(--green);
+      border-left:10px solid #27ae60;
+    }
+.capaian-box{
+      background:#fff;
+      border:2px solid #d9ecff;
+      border-left:10px solid var(--batik-blue);
+      border-radius:20px;
+      padding:18px;
+      margin-top:14px;
+      box-shadow:0 4px 10px rgba(0,0,0,.04);
+    }
+    .tujuan-box{
+      background:#fff;
+      border:2px solid #d9ecff;
+      border-left:10px solid var(--gold);
+      border-radius:20px;
+      padding:18px;
+      margin-top:14px;
+      box-shadow:0 4px 10px rgba(0,0,0,.04);
+    }
+    .capaian-box h4,.tujuan-box h4{color:var(--batik-blue);}
+    .capaian-box p,.tujuan-box li{color:#4d6f8f;}
+
+    /* LKPD */
+    .progress-bar{
+      width:100%;height:12px;background:#eee;border-radius:10px;
+      margin:0 0 16px 0;overflow:hidden;border:2px solid #fff;
+    }
+    .progress-fill{height:100%;background:var(--gold);width:0%;transition:.5s}
+    .badge-5e{
+      background:var(--batik-blue);color:#fff;padding:5px 14px;
+      border-radius:15px;font-size:13px;font-weight:bold;
+      margin-bottom:10px;display:inline-block;
+    }
+    .phase-card{display:none;animation:fadeIn .35s}
+    .phase-card.active{display:block}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+    input,select,textarea{
+      width:100%;
+      padding:12px;
+      margin-bottom:10px;
+      border:3px solid #f0f0f0;
+      border-radius:15px;
+      font-family:'Quicksand',sans-serif;
+      font-weight:700;
+      box-sizing:border-box;
+      background:#fff;
+    }
+    textarea{min-height:86px}
+
+    .mcq-option{
+      display:block;background:#fff;padding:10px;border-radius:12px;
+      margin:6px 0;border:2px solid #eee;cursor:pointer;
+      transition:.2s;text-align:left;font-size:13px;
+    }
+    .mcq-option:hover{background:var(--soft-blue)}
+    input[type="radio"]{width:auto;margin-right:8px}
+
+    .hint{
+      background:#fff;
+      border:2px dashed #d9ecff;
+      border-radius:18px;
+      padding:12px;
+      display:none;
+      margin-top:8px;
+      font-size:13px;
+    }
+
+    .teacher-only{
+  display:none;
+}
+
+.answer-key-box{
+  background:#fff;
+  border:2px dashed #d9ecff;
+  border-left:10px solid #27ae60;
+  border-radius:20px;
+  padding:16px;
+  margin-top:16px;
+  color:#2f5f56;
+}
+
+.answer-key-box h3{
+  margin-top:0;
+  color:#1e8449;
+}
+
+.answer-key-box table{
+  width:100%;
+  border-collapse:collapse;
+  background:#fff;
+  font-size:12px;
+}
+
+.answer-key-box th,
+.answer-key-box td{
+  border:1px solid #d9ecff;
+  padding:8px;
+  text-align:left;
+}
+
+.answer-key-box th{
+  background:#27ae60;
+  color:#fff;
+}
+.feedback-auto-box{
+  display:none;
+  background:#fff;
+  border:2px dashed #d9ecff;
+  border-left:10px solid #27ae60;
+  border-radius:22px;
+  padding:18px;
+  margin-top:16px;
+  color:#2f5f56;
+  box-shadow:0 6px 16px rgba(0,0,0,.05);
+}
+
+.feedback-auto-box h3{
+  margin-top:0;
+  color:#1e8449;
+}
+
+.feedback-item{
+  background:#f8fff9;
+  border:1px solid #bdebd4;
+  border-radius:16px;
+  padding:12px 14px;
+  margin-bottom:12px;
+  font-size:14px;
+  line-height:1.7;
+}
+
+.feedback-item b{
+  color:#1e8449;
+}
+
+.locked-answer{
+  background:#f3f6f8 !important;
+  color:#555 !important;
+  border-color:#d0d7de !important;
+  cursor:not-allowed !important;
+}
+  </style>
+</head>
+
+<body onload="initLKPD()">
+
+  <nav>
+    <div class="nav-left">
+      <button class="btn-back mini" onclick="goMenu()">⬅️ Menu</button>
+      <button class="btn-next mini" onclick="goMateri()">📚 Materi</button>
+      <span class="pill" id="user-pill">Belum isi identitas</span>
+    </div>
+
+    <strong>Kepolaran</strong>
+
+    <div class="nav-right">
+      <button class="btn-logout" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <div class="module-container">
+    <div class="progress-bar"><div id="fill" class="progress-fill"></div></div>
+
+    <!-- ================= PHASE 0 ================= -->
+    <div class="phase-card active" id="p0">
+      <center><h2 style="margin-top:0;">IDENTITAS & INFORMASI</h2></center>
+
+      <div class="section-box section-green">
+        <p style="margin:0 0 8px 0;"><b>Isi identitas dulu ya:</b></p>
+        <input type="text" id="nama" placeholder="Nama kamu...">
+        <input type="text" id="kelas" placeholder="Kelas... (contoh: X-IPA 1)">
+        <input type="date" id="tgl">
+        <button class="btn-next" onclick="saveIdentity()">Simpan Identitas ✅</button>
+      </div>
+
+        <div class="capaian-box">
+          <h4 style="margin-top:0; margin-bottom:8px;">📘 Capaian Pembelajaran</h4>
+          <p style="margin:0; text-align:left; font-size:14px; line-height:1.7;">
+          Pada akhir Fase F, peserta didik mampu memahami sifat, struktur, dan interaksi partikel dalam membentuk berbagai senyawa serta kaitannya dengan sifat zat dalam kehidupan sehari-hari.
+        </p>
+      </div> 
+
+      <div class="tujuan-box">
+  <h4 style="margin-top:0; margin-bottom:8px;">🎯 Tujuan Pembelajaran</h4>
+  <ol style="text-align:left; font-size:14px; line-height:1.7; margin:0; padding-left:20px;">
+    <li>Siswa mampu menjelaskan kepolaran ikatan berdasarkan perbedaan keelektronegatifan atom.</li>
+    <li>Siswa mampu menjelaskan distribusi elektron dalam ikatan kovalen menggunakan konsep muatan parsial δ⁺ dan δ⁻.</li>
+    <li>Siswa mampu menjelaskan kepolaran molekul berdasarkan dipol ikatan dan bentuk molekul.</li>
+    <li>Siswa mampu menghubungkan konsep kepolaran molekul dengan fenomena kelarutan zat polar dan nonpolar dalam kehidupan sehari-hari.</li>
+  </ol>
+</div>
+
+      <center><button class="btn-next" onclick="requireIdentityThenGo(1)">Mulai Engagement ➡️</button></center>
+    </div>
+
+   <!-- ================= PHASE 1 ================= -->
+<div class="phase-card" id="p1">
+  <span class="badge-5e">1. Engagement</span>
+
+  <!-- PENGANTAR FENOMENA -->
+  <div class="section-box" style="border-left:10px solid var(--batik-blue);">
+    <h2 style="margin-top:0;color:var(--batik-blue);">🔵 Engagement</h2>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Pernahkah kalian melihat sirup yang dituangkan ke dalam air? Pada awalnya warna sirup
+      tampak pekat di satu bagian. Setelah diaduk, sirup perlahan menyebar dan akhirnya
+      bercampur merata dengan air.
+    </p>
+
+    <center>
+      <img src="pemantik_polar1.png"
+           alt="Sirup bercampur dengan air"
+           style="width:90%;max-width:620px;border-radius:18px;display:block;margin:10px 0;box-shadow:0 8px 20px rgba(0,0,0,.08);">
+      <p style="font-size:12px;opacity:.8;margin:8px 0 14px;">
+        Sirup dapat bercampur dengan air
+      </p>
+    </center>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Sekarang bandingkan dengan minyak. Ketika minyak dicampurkan ke dalam air,
+      meskipun sudah diaduk, minyak tetap terpisah dan membentuk lapisan di permukaan.
+    </p>
+
+    <center>
+      <img src="pemantik_polar2.png"
+           alt="Minyak tidak bercampur dengan air"
+           style="width:90%;max-width:620px;border-radius:18px;display:block;margin:10px 0;box-shadow:0 8px 20px rgba(0,0,0,.08);">
+      <p style="font-size:12px;opacity:.8;margin:8px 0 14px;">
+        Minyak tidak bercampur dengan air
+      </p>
+    </center>
+
+    <div style="background:#fff;padding:15px;border-radius:18px;border:2px dashed #d9ecff;margin-top:14px;">
+      <p style="font-size:14px;line-height:1.8;text-align:justify;margin:0;">
+        Fenomena ini menarik karena air, sirup, dan minyak sama-sama tersusun dari partikel,
+        tetapi perilakunya saat dicampurkan berbeda. Ada zat yang mudah bercampur dengan air,
+        dan ada zat yang tetap terpisah. Perbedaan ini berkaitan dengan sifat partikel
+        penyusunnya, khususnya <b>kepolaran</b>.
+      </p>
+    </div>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;margin-top:14px;">
+      Pada tahap ini, kamu <b>belum harus menjawab dengan benar</b>. Tuliskan dugaan awalmu
+      berdasarkan pengetahuan yang sudah kamu miliki. Jawaban yang lebih lengkap akan kamu
+      temukan setelah membaca materi, melakukan simulasi, mengisi tabel pengamatan,
+      menjelaskan hasil eksplorasi, dan mengerjakan evaluasi pada LKPD ini.
+    </p>
+  </div>
+
+  <!-- RUMUSAN MASALAH -->
+  <div class="section-box" style="background:white;border-left:10px solid var(--batik-blue);border:2px dashed #d9ecff;">
+    <h3 style="margin-top:0;color:var(--batik-blue);">❓ Rumusan Masalah</h3>
+
+    <p style="font-size:15px;line-height:1.8;text-align:justify;margin-bottom:0;">
+      <b>
+        Bagaimana perbedaan keelektronegatifan, distribusi elektron, muatan parsial,
+        dipol ikatan, dan bentuk molekul dapat menjelaskan kepolaran molekul serta
+        perbedaan kemampuan zat untuk bercampur dengan air?
+      </b>
+    </p>
+  </div>
+
+  <!-- HIPOTESIS AWAL -->
+  <div class="section-box" style="background:var(--green);border-left:10px solid #27ae60;">
+    <h3 style="margin-top:0;color:#1e8449;">💭 Hipotesis Awal</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Berdasarkan fenomena sirup, air, dan minyak di atas, tuliskan dugaan awalmu untuk
+      menjawab rumusan masalah. Dugaan ini tidak harus langsung benar.
+    </p>
+
+    <textarea id="eng1-kepolaran" rows="5"
+      placeholder="Contoh awal: Menurut saya, sirup dapat bercampur dengan air karena..."></textarea>
+  </div>
+
+  <!-- ARAH KEGIATAN -->
+  <div class="section-box">
+    <h3 style="margin-top:0;">🧭 Arah Kegiatan Selanjutnya</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Untuk membuktikan hipotesismu, kerjakan kegiatan LKPD ini secara berurutan:
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;margin-bottom:0;">
+      Setelah semua tahap selesai, kamu akan lebih memahami mengapa ada zat yang dapat bercampur
+      dengan air, sedangkan zat lain tetap terpisah.
+    </p>
+  </div>
+
+  <center>
+    <button class="btn-back" onclick="nextPhase(0)">⬅️</button>
+    <button class="btn-next" onclick="nextPhase(2)">Lanjut ke Exploration ➡️</button>
+  </center>
+</div>
+
+ <!-- ================= PHASE 2 ================= -->
+<div class="phase-card" id="p2">
+  <span class="badge-5e">2. Exploration</span>
+
+  <!-- PENGANTAR EXPLORATION -->
+  <div class="section-box" style="border-left:10px solid var(--batik-blue);">
+    <h2 style="margin-top:0;color:var(--batik-blue);">🔍 Exploration</h2>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Pada tahap Engagement, kamu sudah menuliskan hipotesis awal tentang mengapa sirup
+      dapat bercampur dengan air, sedangkan minyak tidak. Sekarang, kamu akan menyelidiki
+      konsep yang berkaitan dengan fenomena tersebut melalui bacaan materi, simulasi PhET,
+      tabel pengamatan, dan pertanyaan eksplorasi.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      <b>Sebelum melakukan simulasi dan mengisi tabel, bacalah materi pendukung terlebih dahulu.</b>
+      Materi ini akan membantumu memahami hubungan antara keelektronegatifan, muatan parsial,
+      dipol ikatan, dan kepolaran molekul.
+    </p>
+
+    <center>
+      <button class="btn-next" onclick="openMateriKepolaran()">📚 Baca Materi Dulu</button>
+    </center>
+  </div>
+
+  <!-- PETUNJUK KEGIATAN -->
+  <div class="section-box" style="border-left:10px solid var(--gold);">
+    <h3 style="margin-top:0;color:var(--batik-blue);">🧭 Petunjuk Kegiatan Eksplorasi</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Setelah membaca materi, lakukan kegiatan eksplorasi berikut menggunakan simulasi
+      PhET <b>Molecule Polarity</b>. Fokus pengamatanmu adalah perubahan kepolaran ikatan
+      ketika keelektronegatifan dua atom berbeda.
+    </p>
+
+    <ol style="font-size:14px;line-height:1.8;text-align:left;padding-left:22px;">
+      <li>Buka simulasi PhET <b>Molecule Polarity</b>.</li>
+      <li>Pilih bagian <b>Two Atoms</b>.</li>
+      <li>Aktifkan tampilan <b>Bond Dipole</b>, <b>Partial Charges</b>, <b>Bond Character</b>, dan <b>Electron Density</b></b>.</li>
+      <li>Atur keelektronegatifan atom A dan atom B sesuai kondisi pada tabel.</li>
+      <li>Amati muncul atau tidaknya muatan parsial δ⁺ dan δ⁻.</li>
+      <li>Amati arah panah dipol ikatan.</li>
+      <li>Amati besar kecilnya momen dipol.</li>
+      <li>Lengkapi tabel pengamatan berdasarkan hasil simulasi.</li>
+      <li>Setelah tabel selesai, jawablah pertanyaan eksplorasi di bagian bawah.</li>
+    </ol>
+  </div>
+
+  <!-- SIMULASI PHET -->
+  <div class="section-box" style="background:white;border-left:10px solid var(--batik-blue);">
+    <h3 style="margin-top:0;color:var(--batik-blue);">🔬 Simulasi PhET: Molecule Polarity</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Gunakan simulasi berikut untuk mengamati bagaimana perbedaan keelektronegatifan
+      memengaruhi muatan parsial, arah dipol, momen dipol, dan kepolaran ikatan.
+    </p>
+
+    <div style="width:100%;height:560px;border-radius:18px;overflow:hidden;border:3px solid #d9ecff;background:#fff;">
+      <iframe
+        src="https://phet.colorado.edu/sims/html/molecule-polarity/latest/molecule-polarity_all.html"
+        width="100%"
+        height="100%"
+        style="border:none;"
+        loading="lazy"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <p style="font-size:12px;opacity:.75;margin:10px 0 0;">
+      Jika simulasi tidak tampil, buka langsung:
+      <a href="https://phet.colorado.edu/sims/html/molecule-polarity/latest/molecule-polarity_all.html"
+         target="_blank" rel="noopener noreferrer">PhET Molecule Polarity</a>
+    </p>
+  </div>
+
+  <!-- TABEL PENGAMATAN -->
+  <div class="section-box">
+    <h3 style="margin-top:0;color:var(--batik-blue);">📋 Tabel Pengamatan</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Lengkapi tabel berikut berdasarkan hasil pengamatan pada simulasi. Kolom jawaban
+      sengaja dikosongkan agar kamu mengisinya sendiri berdasarkan data yang kamu amati.
+    </p>
+
+    <div style="overflow:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;min-width:820px;background:white;border-radius:15px;overflow:hidden;">
+        <tr style="background:#3a7caf;color:#fff;">
+          <th style="padding:10px;border:1px solid #e3f2fd;">No</th>
+          <th style="padding:10px;border:1px solid #e3f2fd;">Kondisi Keelektronegatifan A–B</th>
+          <th style="padding:10px;border:1px solid #e3f2fd;">Muatan Parsial δ⁺/δ⁻</th>
+          <th style="padding:10px;border:1px solid #e3f2fd;">Arah Panah Dipol</th>
+          <th style="padding:10px;border:1px solid #e3f2fd;">Momen Dipol Ikatan</th>
+          <th style="padding:10px;border:1px solid #e3f2fd;">Kepolaran Ikatan</th>
+        </tr>
+
+        <tr>
+          <td style="padding:8px;border:1px solid #e3f2fd;text-align:center;"><b>1</b></td>
+          <td style="padding:8px;border:1px solid #e3f2fd;">Keelektronegatifan A = B</td>
+          <td style="padding:8px;border:1px solid #e3f2fd;"><input id="obs1_muatan" type="text"></td>
+          <td style="padding:8px;border:1px solid #e3f2fd;"><input id="obs1_dipol" type="text"></td>
+          <td style="padding:8px;border:1px solid #e3f2fd;"><input id="obs1_momen" type="text"></td>
+          <td style="padding:8px;border:1px solid #e3f2fd;"><input id="obs1_polar" type="text"></td>
+        </tr>
+
+        <tr>
+          <td style="padding:8px;border:1px solid #e3f2fd;text-align:center;"><b>2</b></td>
+          <td style="padding:8px;border:1px solid #e3f2fd;">Keelektronegatifan B sedikit lebih besar daripada A</td>
+          <td style="padding:8px;border:1px solid #e3f2fd;"><input id="obs2_muatan" type="text"></td>
+          <td style="padding:8px;border:1px solid #e3f2fd;"><input id="obs2_dipol" type="text"></td>
+          <td style="padding:8px;border:1px solid #e3f2fd;"><input id="obs2_momen" type="text"></td>
+          <td style="padding:8px;border:1px solid #e3f2fd;"><input id="obs2_polar" type="text"></td>
+        </tr>
+
+        <tr>
+          <td style="padding:8px;border:1px solid #e3f2fd;text-align:center;"><b>3</b></td>
+          <td style="padding:8px;border:1px solid #e3f2fd;">Keelektronegatifan B jauh lebih besar daripada A</td>
+          <td style="padding:8px;border:1px solid #e3f2fd;"><input id="obs3_muatan" type="text"></td>
+          <td style="padding:8px;border:1px solid #e3f2fd;"><input id="obs3_dipol" type="text"></td>
+          <td style="padding:8px;border:1px solid #e3f2fd;"><input id="obs3_momen" type="text"></td>
+          <td style="padding:8px;border:1px solid #e3f2fd;"><input id="obs3_polar" type="text"></td>
+        </tr>
+      </table>
+    </div>
+
+    <button class="btn-green" onclick="saveExplorationPolarity()">💾 Simpan Tabel Pengamatan</button>
+    <div id="save-explore-msg" class="hint"></div>
+  </div>
+<!-- KUNCI JAWABAN GURU - EXPLORATION -->
+<div class="teacher-only answer-key-box">
+  <h3>🔐 Kunci Jawaban Guru — Tabel Pengamatan Exploration</h3>
+
+  <table>
+    <tr>
+      <th>Kondisi</th>
+      <th>Muatan Parsial</th>
+      <th>Arah Panah Dipol</th>
+      <th>Momen Dipol</th>
+      <th>Kepolaran Ikatan</th>
+    </tr>
+    <tr>
+      <td>Keelektronegatifan A = B</td>
+      <td>Tidak muncul δ⁺ dan δ⁻ yang berarti</td>
+      <td>Tidak ada panah dipol</td>
+      <td>Tidak ada / nol</td>
+      <td>Nonpolar</td>
+    </tr>
+    <tr>
+      <td>Keelektronegatifan B sedikit lebih besar daripada A</td>
+      <td>A menjadi δ⁺, B menjadi δ⁻</td>
+      <td>Mengarah ke atom B</td>
+      <td>Kecil / sedang</td>
+      <td>Polar</td>
+    </tr>
+    <tr>
+      <td>Keelektronegatifan B jauh lebih besar daripada A</td>
+      <td>A δ⁺ semakin jelas, B δ⁻ semakin jelas</td>
+      <td>Mengarah kuat ke atom B</td>
+      <td>Besar</td>
+      <td>Sangat polar / mendekati ionik</td>
+    </tr>
+  </table>
+</div>
+
+  <!-- PERTANYAAN EKSPLORASI -->
+  <div class="section-box" style="background:var(--green);border-left:10px solid #27ae60;">
+    <h3 style="margin-top:0;color:#1e8449;">🧠 Pertanyaan Eksplorasi</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Jawablah pertanyaan berikut setelah kamu membaca materi, melakukan simulasi,
+      dan mengisi tabel pengamatan.
+    </p>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      1. Apa yang terjadi pada muatan parsial ketika keelektronegatifan atom A dan B sama?
+    </p>
+    <textarea id="eks-pol-q1" rows="3"></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      2. Bagaimana arah panah dipol ketika salah satu atom lebih elektronegatif?
+    </p>
+    <textarea id="eks-pol-q2" rows="3"></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      3. Bagaimana pengaruh selisih keelektronegatifan terhadap besar kecilnya momen dipol?
+    </p>
+    <textarea id="eks-pol-q3" rows="3"></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      4. Berdasarkan hasil simulasi, kapan suatu ikatan kovalen dapat disebut polar?
+    </p>
+    <textarea id="eks-pol-q4" rows="3"></textarea>
+  </div>
+<!-- KUNCI JAWABAN GURU - PERTANYAAN EKSPLORASI -->
+<div class="teacher-only answer-key-box">
+  <h3>🔐 Kunci Jawaban Guru — Pertanyaan Eksplorasi</h3>
+
+  <ol style="font-size:13px;line-height:1.8;">
+    <li>
+      Jika keelektronegatifan atom A dan B sama, pasangan elektron ikatan tertarik sama kuat.
+      Akibatnya tidak terbentuk muatan parsial δ⁺ dan δ⁻ yang jelas, sehingga ikatan bersifat nonpolar.
+    </li>
+    <li>
+      Panah dipol mengarah ke atom yang lebih elektronegatif karena atom tersebut menarik pasangan
+      elektron ikatan lebih kuat dan memiliki muatan parsial negatif δ⁻.
+    </li>
+    <li>
+      Semakin besar selisih keelektronegatifan, semakin tidak merata distribusi elektron dalam ikatan.
+      Akibatnya muatan parsial semakin jelas dan momen dipol semakin besar.
+    </li>
+    <li>
+      Ikatan kovalen disebut polar jika pasangan elektron ikatan tidak terbagi merata akibat adanya
+      perbedaan keelektronegatifan antara dua atom, sehingga terbentuk δ⁺ dan δ⁻.
+    </li>
+  </ol>
+</div>
+
+  <center>
+    <button class="btn-back" onclick="nextPhase(1)">⬅️ Kembali ke Engagement</button>
+    <button class="btn-next" onclick="nextPhase(3)">Lanjut ke Explanation ➡️</button>
+  </center>
+</div>
+
+<!-- ================= MATERI KEPOLARAN TERPISAH ================= -->
+<div class="phase-card" id="pMateriKepolaran">
+  <span class="badge-5e">Materi Pendukung</span>
+
+  <div class="section-box" style="border-left:10px solid var(--batik-blue);">
+    <h2 style="margin-top:0;color:var(--batik-blue);">📚 Materi</h2>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Bacalah materi berikut sebelum melakukan simulasi PhET dan mengisi tabel pengamatan.
+      Materi ini membantumu memahami mengapa perbedaan keelektronegatifan dapat menyebabkan
+      ikatan menjadi polar, serta mengapa kepolaran molekul juga dipengaruhi oleh bentuk molekul.
+    </p>
+
+    <center>
+      <button class="btn-back" onclick="backToExplorationKepolaran()">⬅️ Kembali ke Exploration</button>
+    </center>
+  </div>
+
+  <div class="section-box material-wrap">
+    <div class="material-hero">
+      <div class="material-badge">🧲 MATERI KEPOLARAN</div>
+      <h3>Kepolaran Ikatan Kovalen</h3>
+      <p>
+        Kepolaran berkaitan dengan pembagian pasangan elektron dalam ikatan kovalen.
+        Jika pasangan elektron tertarik lebih kuat ke salah satu atom, maka terbentuk
+        muatan parsial dan dipol ikatan.
+      </p>
+    </div>
+
+    <div class="material-nav">
+      <a href="#materi-en">Keelektronegatifan</a>
+      <a href="#materi-parsial">Muatan Parsial</a>
+      <a href="#materi-dipol">Dipol Ikatan</a>
+      <a href="#materi-molekul">Molekul Polar / Nonpolar</a>
+      <a href="#materi-contoh">Contoh H₂O dan CO₂</a>
+    </div>
+
+    <!-- 1. KEELEKTRONEGATIFAN -->
+    <div class="material-section" id="materi-en">
+      <div class="material-title">
+        <div class="line"></div>
+        <h4>1. Keelektronegatifan</h4>
+      </div>
+
+      <div class="material-card">
+        <h5>Pengertian Keelektronegatifan</h5>
+        <p>
+          Keelektronegatifan adalah kemampuan atom untuk menarik pasangan elektron
+          dalam suatu ikatan kovalen. Atom yang memiliki keelektronegatifan lebih besar
+          akan menarik pasangan elektron lebih kuat.
+        </p>
+
+        <p>
+          Dalam tabel periodik, keelektronegatifan umumnya meningkat dari kiri ke kanan
+          dalam satu periode dan menurun dari atas ke bawah dalam satu golongan.
+        </p>
+
+        <div class="material-img-box">
+          <img src="pauling.jpeg" alt="Tabel skala keelektronegatifan Pauling">
+          <p class="material-caption">Tabel skala keelektronegatifan menurut Pauling</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. MUATAN PARSIAL -->
+    <div class="material-section" id="materi-parsial">
+      <div class="material-title">
+        <div class="line"></div>
+        <h4>2. Muatan Parsial δ⁺ dan δ⁻</h4>
+      </div>
+
+      <div class="material-card">
+        <h5>Distribusi Elektron Tidak Merata</h5>
+        <p>
+          Jika dua atom memiliki keelektronegatifan berbeda, pasangan elektron ikatan
+          tidak terbagi sama rata. Atom yang lebih elektronegatif menarik elektron lebih kuat
+          sehingga memiliki muatan negatif parsial atau <b>δ⁻</b>.
+        </p>
+
+        <p>
+          Atom yang kurang elektronegatif kehilangan sebagian kerapatan elektronnya sehingga
+          memiliki muatan positif parsial atau <b>δ⁺</b>.
+        </p>
+
+        <div class="material-formula">
+          Atom lebih elektronegatif → δ⁻<br>
+          Atom kurang elektronegatif → δ⁺
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. DIPOL IKATAN -->
+    <div class="material-section" id="materi-dipol">
+      <div class="material-title">
+        <div class="line"></div>
+        <h4>3. Dipol Ikatan</h4>
+      </div>
+
+      <div class="material-card">
+        <h5>Arah Dipol Ikatan</h5>
+        <p>
+          Dipol ikatan menunjukkan arah ketidakseimbangan distribusi elektron dalam suatu ikatan.
+          Panah dipol umumnya mengarah ke atom yang lebih elektronegatif, yaitu atom yang memiliki
+          muatan parsial negatif.
+        </p>
+
+        <p>
+          Semakin besar perbedaan keelektronegatifan antara dua atom, semakin besar pula
+          momen dipol ikatan yang terbentuk.
+        </p>
+
+        <div class="material-note">
+          Jika keelektronegatifan dua atom sama atau hampir sama, pasangan elektron dibagi
+          lebih merata sehingga ikatan cenderung nonpolar.
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. MOLEKUL POLAR / NONPOLAR -->
+    <div class="material-section" id="materi-molekul">
+      <div class="material-title">
+        <div class="line"></div>
+        <h4>4. Kepolaran Molekul</h4>
+      </div>
+
+      <div class="material-card">
+        <h5>Ikatan Polar Belum Tentu Molekul Polar</h5>
+        <p>
+          Kepolaran molekul tidak hanya ditentukan oleh ada atau tidaknya ikatan polar.
+          Bentuk molekul juga sangat memengaruhi kepolaran molekul secara keseluruhan.
+        </p>
+
+        <p>
+          Jika dipol-dipol ikatan saling meniadakan karena bentuk molekul simetris,
+          molekul dapat bersifat nonpolar meskipun memiliki ikatan polar.
+          Sebaliknya, jika resultan dipol tidak saling meniadakan, molekul bersifat polar.
+        </p>
+
+        <div class="material-note">
+          Jadi, untuk menentukan kepolaran molekul, perhatikan dua hal:
+          <b>kepolaran ikatan</b> dan <b>bentuk molekul</b>.
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. CONTOH H2O DAN CO2 -->
+    <div class="material-section" id="materi-contoh">
+      <div class="material-title">
+        <div class="line"></div>
+        <h4>5. Contoh H₂O dan CO₂</h4>
+      </div>
+
+      <div class="material-grid">
+        <div class="material-mini">
+          <h5>H₂O Bersifat Polar</h5>
+          <p>
+            Molekul H₂O memiliki ikatan O–H yang polar karena O lebih elektronegatif
+            daripada H. Bentuk molekul H₂O bengkok, sehingga dipol ikatan tidak saling
+            meniadakan.
+          </p>
+
+          <div class="material-formula">
+            H₂O → bentuk bengkok → polar
+          </div>
+
+          <div class="material-img-box">
+            <img src="polar.png" alt="Molekul H2O polar">
+            <p class="material-caption">H₂O memiliki resultan dipol sehingga bersifat polar</p>
+          </div>
+        </div>
+
+        <div class="material-mini">
+          <h5>CO₂ Bersifat Nonpolar</h5>
+          <p>
+            Molekul CO₂ memiliki ikatan C–O yang polar karena O lebih elektronegatif
+            daripada C. Namun, bentuk CO₂ linier dan simetris sehingga dipol ikatan
+            saling meniadakan.
+          </p>
+
+          <div class="material-formula">
+            CO₂ → bentuk linier simetris → nonpolar
+          </div>
+
+          <div class="material-img-box">
+            <img src="co2_nonpolar.png" alt="Molekul CO2 nonpolar">
+            <p class="material-caption">CO₂ nonpolar karena dipol ikatannya saling meniadakan</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KESIMPULAN -->
+    <div class="material-note" style="margin-top:20px;">
+      <b>Kesimpulan:</b> Ikatan menjadi polar jika terdapat perbedaan keelektronegatifan
+      yang menyebabkan distribusi elektron tidak merata. Molekul menjadi polar jika
+      resultan dipol ikatannya tidak saling meniadakan. Konsep ini membantu menjelaskan
+      mengapa air dapat bercampur dengan zat polar, sedangkan minyak yang nonpolar tidak
+      bercampur dengan air.
+    </div>
+  </div>
+
+  <center>
+    <button class="btn-next" onclick="backToExplorationKepolaran()">Saya Sudah Membaca, Kembali ke Exploration ➡️</button>
+  </center>
+</div>
+
+<!-- ================= PHASE 3 ================= -->
+<div class="phase-card" id="p3">
+  <span class="badge-5e">3. Explanation</span>
+
+  <!-- PENGANTAR EXPLANATION -->
+  <div class="section-box" style="border-left:10px solid var(--batik-blue);">
+    <h2 style="margin-top:0;color:var(--batik-blue);">🟡 Explanation</h2>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Pada tahap Exploration, kamu sudah membaca materi, melakukan simulasi PhET,
+      mengisi tabel pengamatan, dan menjawab pertanyaan eksplorasi. Sekarang,
+      jelaskan kembali hasil eksplorasimu dengan bahasamu sendiri.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+     Jelaskan
+      bukan hanya jawabannya, tetapi juga <b>alasan mengapa kamu menjawab seperti itu</b>.
+      Gunakan data dari tabel pengamatan sebagai dasar penjelasanmu.
+    </p>
+  </div>
+
+  <!-- PRESENTASI PEMAHAMAN SISWA -->
+  <div class="section-box">
+    <h3 style="margin-top:0;color:var(--batik-blue);">🎤 Penjelasan Pemahaman Siswa</h3>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      1. Berdasarkan tabel pengamatan, jelaskan apa yang terjadi ketika keelektronegatifan atom A dan B sama.
+    </p>
+    <textarea id="exp-pol-q1" rows="4"
+      placeholder="Jelaskan berdasarkan muatan parsial, arah dipol, momen dipol, dan kepolaran ikatan..."></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      2. Berdasarkan hasil simulasi, mengapa atom yang lebih elektronegatif memiliki muatan parsial δ⁻?
+    </p>
+    <textarea id="exp-pol-q2" rows="4"
+      placeholder="Jelaskan hubungan keelektronegatifan dengan tarikan pasangan elektron ikatan..."></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      3. Jelaskan mengapa panah dipol mengarah ke atom yang lebih elektronegatif.
+    </p>
+    <textarea id="exp-pol-q3" rows="4"
+      placeholder="Jelaskan arah panah dipol berdasarkan distribusi elektron dan muatan parsial..."></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      4. Jelaskan hubungan antara selisih keelektronegatifan dengan besar kecilnya momen dipol.
+    </p>
+    <textarea id="exp-pol-q4" rows="4"
+      placeholder="Jelaskan berdasarkan perbedaan kondisi EN sama, sedikit berbeda, dan sangat berbeda..."></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      5. Mengapa ikatan polar belum tentu membuat molekul secara keseluruhan menjadi polar?
+    </p>
+    <textarea id="exp-pol-q5" rows="4"
+      placeholder="Hubungkan dengan bentuk molekul dan kemungkinan dipol ikatan saling meniadakan..."></textarea>
+  </div>
+
+  <!-- REVISI HIPOTESIS -->
+  <div class="section-box" style="background:var(--green);border-left:10px solid #27ae60;">
+    <h3 style="margin-top:0;color:#1e8449;">🔁 Meninjau Kembali Hipotesis Awal</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Buka kembali hipotesis awalmu pada tahap Engagement tentang sirup, air, dan minyak.
+      Setelah membaca materi dan melakukan eksplorasi, apakah hipotesismu sudah tepat?
+      Tuliskan perbaikan atau penguatan hipotesismu.
+    </p>
+
+    <textarea id="exp-pol-q6" rows="4"
+      placeholder="Tuliskan revisi hipotesis awalmu berdasarkan konsep kepolaran..."></textarea>
+  </div>
+
+  <!-- UMPAN BALIK OTOMATIS -->
+  <div class="section-box" style="background:white;border-left:10px solid var(--gold);border:2px dashed #d9ecff;">
+    <h3 style="margin-top:0;color:var(--batik-blue);">💬 Simpan Jawaban dan Lihat Umpan Balik</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Setelah selesai menjawab semua pertanyaan Explanation, klik tombol di bawah ini.
+      Jawabanmu akan disimpan dan dikunci, lalu pembahasan akan muncul sebagai umpan balik otomatis.
+    </p>
+
+    <p style="font-size:13px;line-height:1.7;color:#cc4d4d;font-weight:bold;">
+      ⚠️ Setelah menekan tombol ini, jawaban tidak dapat diubah kembali.
+    </p>
+
+    <center>
+      <button class="btn-next" id="btn-save-explanation-pol" onclick="saveExplanationPolarityAndShowFeedback()">
+        💾 Simpan Jawaban & Lihat Umpan Balik
+      </button>
+    </center>
+
+    <div id="feedback-explanation-pol" class="feedback-auto-box">
+      <h3>✅ Umpan Balik Explanation</h3>
+
+      <div class="feedback-item">
+        <b>1. Jika keelektronegatifan atom A dan B sama.</b><br>
+        Pasangan elektron ikatan ditarik sama kuat oleh kedua atom. Akibatnya, tidak muncul
+        muatan parsial δ⁺ dan δ⁻ yang jelas, tidak ada arah dipol tertentu, momen dipol nol
+        atau sangat kecil, dan ikatan bersifat nonpolar.
+      </div>
+
+      <div class="feedback-item">
+        <b>2. Atom lebih elektronegatif menjadi δ⁻.</b><br>
+        Atom yang lebih elektronegatif menarik pasangan elektron ikatan lebih kuat.
+        Karena kerapatan elektron lebih besar berada di dekat atom tersebut, atom itu
+        memiliki muatan negatif parsial atau δ⁻.
+      </div>
+
+      <div class="feedback-item">
+        <b>3. Arah panah dipol.</b><br>
+        Panah dipol mengarah ke atom yang lebih elektronegatif karena atom tersebut
+        menarik elektron lebih kuat dan menjadi pusat muatan negatif parsial.
+      </div>
+
+      <div class="feedback-item">
+        <b>4. Selisih keelektronegatifan dan momen dipol.</b><br>
+        Semakin besar selisih keelektronegatifan antara dua atom, semakin tidak merata
+        distribusi elektronnya. Akibatnya muatan parsial semakin jelas dan momen dipol
+        semakin besar.
+      </div>
+
+      <div class="feedback-item">
+        <b>5. Ikatan polar belum tentu menghasilkan molekul polar.</b><br>
+        Kepolaran molekul dipengaruhi oleh kepolaran ikatan dan bentuk molekul. Jika
+        bentuk molekul simetris, dipol-dipol ikatan dapat saling meniadakan sehingga
+        molekul menjadi nonpolar, seperti CO₂.
+      </div>
+
+      <div class="feedback-item">
+        <b>6. Revisi hipotesis awal.</b><br>
+        Hipotesis yang baik seharusnya menyebutkan bahwa air dan sirup dapat bercampur
+        karena memiliki kecenderungan kepolaran yang sesuai, sedangkan minyak tidak
+        bercampur dengan air karena minyak bersifat nonpolar sementara air bersifat polar.
+      </div>
+    </div>
+  </div>
+
+  <!-- KUNCI / ARAHAN GURU KHUSUS OWNER -->
+  <div class="teacher-only answer-key-box">
+    <h3>🔐 Panduan Guru — Poin Penting Explanation</h3>
+
+    <ol style="font-size:13px;line-height:1.8;">
+      <li>
+        Siswa memahami bahwa EN sama menghasilkan pembagian elektron yang relatif merata,
+        tidak ada muatan parsial jelas, dan ikatan cenderung nonpolar.
+      </li>
+      <li>
+        Siswa menjelaskan bahwa atom lebih elektronegatif menarik pasangan elektron lebih kuat
+        sehingga menjadi δ⁻, sedangkan atom lainnya menjadi δ⁺.
+      </li>
+      <li>
+        Siswa menjelaskan bahwa arah dipol menuju atom yang lebih elektronegatif.
+      </li>
+      <li>
+        Siswa menghubungkan semakin besar selisih EN dengan semakin besar momen dipol.
+      </li>
+      <li>
+        Siswa membedakan kepolaran ikatan dan kepolaran molekul dengan memperhatikan bentuk molekul.
+      </li>
+      <li>
+        Siswa mampu mengaitkan kembali fenomena sirup-air dan minyak-air dengan konsep “polar dengan polar” dan “nonpolar dengan nonpolar”.
+      </li>
+    </ol>
+  </div>
+
+  <center>
+    <button class="btn-back" onclick="nextPhase(2)">⬅️ Kembali ke Exploration</button>
+    <button class="btn-next" onclick="nextPhase(4)">Lanjut ke Elaboration ➡️</button>
+  </center>
+</div>
+
+<!-- ================= PHASE 4 ================= -->
+<div class="phase-card" id="p4">
+  <span class="badge-5e">4. Elaboration</span>
+
+  <!-- PENGANTAR ELABORATION -->
+  <div class="section-box" style="border-left:10px solid var(--batik-blue);">
+    <h2 style="margin-top:0;color:var(--batik-blue);">🌍 Elaboration</h2>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Pada tahap Engagement, kamu sudah mengamati fenomena sirup yang dapat bercampur dengan air,
+      sedangkan minyak tidak bercampur dengan air. Pada tahap ini, kamu akan menjelaskan fenomena
+      tersebut secara lebih mendalam menggunakan konsep kepolaran ikatan, kepolaran molekul,
+      dan prinsip <b>like dissolves like</b>.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Prinsip <b>like dissolves like</b> berarti zat dengan kepolaran yang mirip cenderung dapat
+      bercampur atau saling melarutkan. Zat polar cenderung larut dalam zat polar, sedangkan zat
+      nonpolar cenderung larut dalam zat nonpolar.
+    </p>
+  </div>
+
+  <!-- KASUS 1 -->
+  <div class="section-box">
+    <h3 style="margin-top:0;color:var(--batik-blue);">💧 Kasus 1: Mengapa Air Bersifat Polar?</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Air atau H₂O tersusun dari dua atom H dan satu atom O. Atom O lebih elektronegatif daripada
+      atom H, sehingga pasangan elektron pada ikatan O–H lebih tertarik ke arah atom O.
+      Akibatnya, atom O memiliki muatan parsial negatif atau δ⁻, sedangkan atom H memiliki
+      muatan parsial positif atau δ⁺.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Selain itu, bentuk molekul H₂O adalah <b>bengkok</b>. Karena bentuknya tidak simetris,
+      dipol ikatan O–H tidak saling meniadakan. Akibatnya, molekul H₂O memiliki resultan dipol
+      dan bersifat <b>polar</b>.
+    </p>
+
+    <div style="background:white;border:2px dashed #d9ecff;border-radius:18px;padding:14px;margin:12px 0;color:var(--batik-blue);font-size:14px;line-height:1.8;font-weight:700;">
+      O lebih elektronegatif daripada H<br>
+      O → δ⁻<br>
+      H → δ⁺<br>
+      H₂O berbentuk bengkok → dipol tidak saling meniadakan → H₂O polar
+    </div>
+
+    <center style="margin-top:12px;">
+      <img src="polar.png" alt="Molekul H2O polar"
+           style="width:90%;max-width:520px;border-radius:15px;display:block;">
+      <p style="font-size:12px;opacity:.8;margin:8px 0 0;">H₂O bersifat polar karena bentuknya bengkok dan memiliki resultan dipol</p>
+    </center>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      Pertanyaan 1: Jelaskan mengapa molekul H₂O bersifat polar berdasarkan keelektronegatifan, muatan parsial, dan bentuk molekulnya.
+    </p>
+    <textarea id="elab-pol-q1" rows="4"></textarea>
+  </div>
+
+  <!-- KASUS 2 -->
+  <div class="section-box" style="border-left:10px solid #27ae60;">
+    <h3 style="margin-top:0;color:#1e8449;">🥤 Kasus 2: Mengapa Sirup Dapat Bercampur dengan Air?</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Sirup mengandung banyak gula dan zat terlarut lain yang dapat berinteraksi dengan air.
+      Gula, misalnya sukrosa, memiliki banyak gugus <b>–OH</b>. Gugus –OH bersifat polar karena
+      atom O lebih elektronegatif daripada atom H, sehingga ikatan O–H memiliki muatan parsial.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Karena air bersifat polar dan gula juga memiliki bagian-bagian polar, molekul air dapat
+      berinteraksi dengan molekul gula. Itulah sebabnya sirup dapat bercampur merata dengan air,
+      terutama setelah diaduk.
+    </p>
+
+    <div style="background:white;border:2px dashed #d9ecff;border-radius:18px;padding:14px;margin:12px 0;color:var(--batik-blue);font-size:14px;line-height:1.8;font-weight:700;">
+      Air → polar<br>
+      Gula dalam sirup → memiliki banyak gugus –OH yang polar<br>
+      Polar + polar → cenderung bercampur
+    </div>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      Pertanyaan 2: Jelaskan mengapa sirup dapat bercampur dengan air berdasarkan prinsip zat polar cenderung bercampur dengan zat polar.
+    </p>
+    <textarea id="elab-pol-q2" rows="4"></textarea>
+  </div>
+
+  <!-- KASUS 3 -->
+  <div class="section-box" style="border-left:10px solid #e91e63;">
+    <h3 style="margin-top:0;color:#e91e63;">🛢️ Kasus 3: Mengapa Minyak Tidak Bercampur dengan Air?</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Minyak tersusun terutama dari molekul hidrokarbon, yaitu molekul yang banyak mengandung
+      ikatan C–H dan C–C. Perbedaan keelektronegatifan antara C dan H relatif kecil, sedangkan
+      ikatan C–C terjadi antara atom yang sama. Akibatnya, molekul minyak secara umum bersifat
+      <b>nonpolar</b>.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Karena air bersifat polar, sedangkan minyak bersifat nonpolar, keduanya tidak mudah
+      bercampur. Ketika dicampurkan, molekul air lebih suka berinteraksi dengan sesama molekul air,
+      sedangkan molekul minyak lebih suka berkumpul dengan sesama molekul minyak.
+    </p>
+
+    <div style="background:white;border:2px dashed #d9ecff;border-radius:18px;padding:14px;margin:12px 0;color:var(--batik-blue);font-size:14px;line-height:1.8;font-weight:700;">
+      Air → polar<br>
+      Minyak → nonpolar<br>
+      Polar + nonpolar → cenderung tidak bercampur
+    </div>
+
+    <center style="margin-top:12px;">
+      <img src="pemantik_polar2.png" alt="Minyak tidak bercampur dengan air"
+           style="width:90%;max-width:520px;border-radius:15px;display:block;">
+      <p style="font-size:12px;opacity:.8;margin:8px 0 0;">Minyak tidak bercampur dengan air karena kepolarannya berbeda</p>
+    </center>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      Pertanyaan 3: Jelaskan mengapa minyak tidak bercampur dengan air berdasarkan perbedaan kepolaran molekul.
+    </p>
+    <textarea id="elab-pol-q3" rows="4"></textarea>
+  </div>
+
+  <!-- KASUS 4 -->
+  <div class="section-box" style="border-left:10px solid #ff9800;">
+    <h3 style="margin-top:0;color:#ff9800;">🧪 Kasus 4: Apakah Semua Ikatan Polar Membuat Molekul Menjadi Polar?</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Tidak semua molekul yang memiliki ikatan polar pasti bersifat polar secara keseluruhan.
+      Kepolaran molekul juga dipengaruhi oleh bentuk molekul. Contohnya adalah CO₂.
+      Ikatan C–O dalam CO₂ bersifat polar karena O lebih elektronegatif daripada C.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Namun, molekul CO₂ berbentuk linier dan simetris. Dua dipol ikatan C–O memiliki arah
+      berlawanan dan saling meniadakan. Akibatnya, CO₂ secara keseluruhan bersifat nonpolar.
+    </p>
+
+    <div style="background:white;border:2px dashed #d9ecff;border-radius:18px;padding:14px;margin:12px 0;color:var(--batik-blue);font-size:14px;line-height:1.8;font-weight:700;">
+      C=O → ikatan polar<br>
+      CO₂ → bentuk linier simetris<br>
+      Dipol saling meniadakan → CO₂ nonpolar
+    </div>
+
+    <center style="margin-top:12px;">
+      <img src="co2_nonpolar.png" alt="CO2 nonpolar"
+           style="width:90%;max-width:520px;border-radius:15px;display:block;">
+      <p style="font-size:12px;opacity:.8;margin:8px 0 0;">CO₂ memiliki ikatan polar, tetapi molekulnya nonpolar karena simetris</p>
+    </center>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      Pertanyaan 4: Mengapa CO₂ bersifat nonpolar meskipun memiliki ikatan C–O yang polar?
+    </p>
+    <textarea id="elab-pol-q4" rows="4"></textarea>
+  </div>
+
+  <!-- TABEL ELABORASI -->
+  <div class="section-box">
+    <h3 style="margin-top:0;color:var(--batik-blue);">📋 Tabel Elaborasi</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Lengkapi tabel berikut berdasarkan bacaan kasus, materi, dan pemahamanmu tentang
+      kepolaran ikatan serta kepolaran molekul.
+    </p>
+
+    <div style="overflow:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;min-width:980px;background:white;border-radius:15px;overflow:hidden;">
+        <tr style="background:#3a7caf;color:#fff;">
+          <th style="padding:10px;border:1px solid #e3f2fd;">No</th>
+          <th style="padding:10px;border:1px solid #e3f2fd;">Zat / Molekul</th>
+          <th style="padding:10px;border:1px solid #e3f2fd;">Ikatan yang Dianalisis</th>
+          <th style="padding:10px;border:1px solid #e3f2fd;">Dipol Ikatan Ada/Tidak</th>
+          <th style="padding:10px;border:1px solid #e3f2fd;">Bentuk / Susunan Molekul</th>
+          <th style="padding:10px;border:1px solid #e3f2fd;">Kepolaran Molekul</th>
+          <th style="padding:10px;border:1px solid #e3f2fd;">Alasan</th>
+        </tr>
+
+        <tr>
+          <td style="padding:8px;border:1px solid #e3f2fd;text-align:center;"><b>1</b></td>
+          <td style="padding:8px;border:1px solid #e3f2fd;"><b>H₂O</b></td>
+          <td style="padding:8px;border:1px solid #e3f2fd;">O–H</td>
+          <td style="padding:8px;border:1px solid #e3f2fd;"><input id="elab-tab-1" type="text"></td>
+          <td style="padding:8px;border:1px solid #e3f2fd;"><input id="elab-tab-2" type="text"></td>
+          <td style="padding:8px;border:1px solid #e3f2fd;"><input id="elab-tab-3" type="text"></td>
+          <td style="padding:8px;border:1px solid #e3f2fd;"><input id="elab-tab-4" type="text"></td>
+        </tr>
+
+        <tr>
+          <td style="padding:8px;border:1px solid #e3f2fd;text-align:center;"><b>2</b></td>
+          <td style="padding:8px;border:1px solid #e3f2fd;"><b>CO₂</b></td>
+          <td style="padding:8px;border:1px solid #e3f2fd;">C–O</td>
+          <td style="padding:8px;border:1px solid #e3f2fd;"><input id="elab-tab-5" type="text"></td>
+          <td style="padding:8px;border:1px solid #e3f2fd;"><input id="elab-tab-6" type="text"></td>
+          <td style="padding:8px;border:1px solid #e3f2fd;"><input id="elab-tab-7" type="text"></td>
+          <td style="padding:8px;border:1px solid #e3f2fd;"><input id="elab-tab-8" type="text"></td>
+        </tr>
+
+        <tr>
+          <td style="padding:8px;border:1px solid #e3f2fd;text-align:center;"><b>3</b></td>
+          <td style="padding:8px;border:1px solid #e3f2fd;"><b>Sirup / gula dalam air</b></td>
+          <td style="padding:8px;border:1px solid #e3f2fd;">O–H pada gula</td>
+          <td style="padding:8px;border:1px solid #e3f2fd;"><input id="elab-tab-9" type="text"></td>
+          <td style="padding:8px;border:1px solid #e3f2fd;"><input id="elab-tab-10" type="text"></td>
+          <td style="padding:8px;border:1px solid #e3f2fd;"><input id="elab-tab-11" type="text"></td>
+          <td style="padding:8px;border:1px solid #e3f2fd;"><input id="elab-tab-12" type="text"></td>
+        </tr>
+
+        <tr>
+          <td style="padding:8px;border:1px solid #e3f2fd;text-align:center;"><b>4</b></td>
+          <td style="padding:8px;border:1px solid #e3f2fd;"><b>Minyak</b></td>
+          <td style="padding:8px;border:1px solid #e3f2fd;">C–H dan C–C</td>
+          <td style="padding:8px;border:1px solid #e3f2fd;"><input id="elab-tab-13" type="text"></td>
+          <td style="padding:8px;border:1px solid #e3f2fd;"><input id="elab-tab-14" type="text"></td>
+          <td style="padding:8px;border:1px solid #e3f2fd;"><input id="elab-tab-15" type="text"></td>
+          <td style="padding:8px;border:1px solid #e3f2fd;"><input id="elab-tab-16" type="text"></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- SINTESIS ELABORASI -->
+  <div class="section-box" style="background:var(--green);border-left:10px solid #27ae60;">
+    <h3 style="margin-top:0;color:#1e8449;">✍️ Sintesis Elaborasi</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Berdasarkan bacaan kasus dan tabel elaborasi, tuliskan kesimpulanmu.
+    </p>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      Bagaimana konsep keelektronegatifan, dipol ikatan, bentuk molekul, dan kepolaran molekul dapat menjelaskan fenomena sirup bercampur dengan air, sedangkan minyak tidak?
+    </p>
+
+    <textarea id="elab-pol-q5" rows="5"></textarea>
+  </div>
+
+  <!-- UMPAN BALIK OTOMATIS ELABORATION -->
+  <div class="section-box" style="background:white;border-left:10px solid var(--gold);border:2px dashed #d9ecff;">
+    <h3 style="margin-top:0;color:var(--batik-blue);">💬 Simpan Jawaban dan Lihat Umpan Balik</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Setelah menjawab pertanyaan dan mengisi tabel elaborasi, klik tombol berikut.
+      Jawabanmu akan dikunci, lalu pembahasan otomatis akan muncul.
+    </p>
+
+    <p style="font-size:13px;line-height:1.7;color:#cc4d4d;font-weight:bold;">
+      ⚠️ Setelah menekan tombol ini, jawaban tidak dapat diubah kembali.
+    </p>
+
+    <center>
+      <button class="btn-next" id="btn-save-elaboration-pol" onclick="saveElaborationPolarityAndShowFeedback()">
+        💾 Simpan Jawaban & Lihat Umpan Balik
+      </button>
+    </center>
+
+    <div id="feedback-elaboration-pol" class="feedback-auto-box">
+      <h3>✅ Umpan Balik Elaboration</h3>
+
+      <div class="feedback-item">
+        <b>1. H₂O bersifat polar.</b><br>
+        O lebih elektronegatif daripada H sehingga ikatan O–H bersifat polar. Karena bentuk H₂O bengkok,
+        dipol ikatannya tidak saling meniadakan sehingga molekul H₂O bersifat polar.
+      </div>
+
+      <div class="feedback-item">
+        <b>2. Sirup dapat bercampur dengan air.</b><br>
+        Sirup mengandung gula yang memiliki banyak gugus polar seperti –OH. Karena air bersifat polar,
+        zat dalam sirup dapat berinteraksi dengan air sehingga campuran menjadi merata.
+      </div>
+
+      <div class="feedback-item">
+        <b>3. Minyak tidak bercampur dengan air.</b><br>
+        Minyak tersusun dari molekul nonpolar. Air bersifat polar, sehingga air dan minyak memiliki
+        kepolaran berbeda dan tidak mudah bercampur.
+      </div>
+
+      <div class="feedback-item">
+        <b>4. CO₂ nonpolar meskipun memiliki ikatan polar.</b><br>
+        Ikatan C–O bersifat polar, tetapi bentuk CO₂ linier dan simetris. Dipol-dipol ikatan saling
+        meniadakan sehingga molekul CO₂ secara keseluruhan nonpolar.
+      </div>
+
+      <div class="feedback-item">
+        <b>5. Kesimpulan konsep.</b><br>
+        Kepolaran molekul dipengaruhi oleh perbedaan keelektronegatifan, muatan parsial, dipol ikatan,
+        dan bentuk molekul. Fenomena sirup-air dan minyak-air dapat dijelaskan dengan prinsip
+        zat polar cenderung bercampur dengan zat polar, sedangkan zat nonpolar tidak mudah bercampur
+        dengan zat polar.
+      </div>
+    </div>
+  </div>
+
+  <!-- KUNCI JAWABAN GURU KHUSUS OWNER -->
+  <div class="teacher-only answer-key-box">
+    <h3>🔐 Kunci Jawaban Guru — Elaboration</h3>
+
+    <p style="font-size:13px;line-height:1.8;">
+      Jawaban siswa dianggap baik jika mampu menghubungkan:
+    </p>
+
+    <ul style="font-size:13px;line-height:1.8;">
+      <li>H₂O polar karena ikatan O–H polar dan bentuk molekul bengkok.</li>
+      <li>CO₂ nonpolar karena bentuknya linier simetris sehingga dipol saling meniadakan.</li>
+      <li>Sirup/gula dapat bercampur dengan air karena memiliki bagian polar seperti gugus –OH.</li>
+      <li>Minyak tidak bercampur dengan air karena minyak bersifat nonpolar sedangkan air polar.</li>
+      <li>Prinsip umum: polar larut/bercampur dengan polar, nonpolar dengan nonpolar.</li>
+    </ul>
+  </div>
+
+  <center>
+    <button class="btn-back" onclick="nextPhase(3)">⬅️ Kembali ke Explanation</button>
+    <button class="btn-next" onclick="nextPhase(5)">Lanjut ke Evaluation ➡️</button>
+  </center>
+</div>
+
+<!-- ================= PHASE 5 ================= -->
+<div class="phase-card" id="p5">
+  <span class="badge-5e">5. Evaluation</span>
+
+  <!-- PENGANTAR EVALUATION -->
+  <div class="section-box" style="border-left:10px solid var(--batik-blue);">
+    <h2 style="margin-top:0;color:var(--batik-blue);">⭐ Evaluation</h2>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Tahap ini berisi latihan soal umum tentang materi kepolaran ikatan dan kepolaran molekul.
+      Soal-soal berikut tidak lagi berfokus pada kegiatan sebelumnya, tetapi digunakan untuk
+      mengukur pemahaman konsep setelah kamu mempelajari materi.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Pilih satu jawaban yang paling tepat. Setelah selesai, klik tombol
+      <b>Simpan Evaluasi & Lihat Pembahasan</b>. Jawaban akan dikunci dan pembahasan otomatis akan muncul.
+    </p>
+
+    <p style="font-size:13px;line-height:1.7;color:#cc4d4d;font-weight:bold;">
+      ⚠️ Setelah evaluasi disimpan, jawaban tidak dapat diubah kembali.
+    </p>
+  </div>
+
+  <!-- SOAL EVALUASI -->
+  <div class="section-box" id="quiz-kepolaran-container"></div>
+
+  <center>
+    <button class="btn-next" id="btn-save-evaluation-pol" onclick="saveEvaluationPolarityAndShowFeedback()">
+      💾 Simpan Evaluasi & Lihat Pembahasan
+    </button>
+  </center>
+
+  <!-- HASIL SKOR -->
+  <div id="skor-evaluation-pol-box" class="section-box section-green hidden" style="text-align:center;">
+    <h3 style="margin-top:0;">🏆 Hasil Evaluasi</h3>
+    <p id="skor-evaluation-pol-text" style="font-size:22px;font-weight:bold;margin:8px 0;"></p>
+    <p id="skor-evaluation-pol-message" style="font-size:14px;line-height:1.7;margin:0;"></p>
+  </div>
+
+  <!-- PEMBAHASAN OTOMATIS -->
+  <div id="feedback-evaluation-pol" class="feedback-auto-box">
+    <h3>✅ Pembahasan Evaluasi Kepolaran</h3>
+    <div id="evaluation-pol-feedback-content"></div>
+  </div>
+
+  <!-- REFLEKSI PEMBELAJARAN -->
+  <div class="section-box" style="margin-top:18px;border-left:10px solid #9c27b0;background:#f4ecff;">
+    <h2 style="margin-top:0;color:#9c27b0;">🪞 Refleksi Pembelajaran</h2>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Bagian ini bukan bagian dari skor evaluasi. Refleksi digunakan untuk mengetahui
+      pemahaman dan kesulitanmu setelah mempelajari materi kepolaran.
+    </p>
+
+    <table style="width:100%;border-collapse:collapse;font-size:13px;background:white;border-radius:15px;overflow:hidden;">
+      <tr style="background:#9c27b0;color:#fff;">
+        <th style="padding:10px;border:1px solid #ead7ff;">Pernyataan</th>
+        <th style="padding:10px;border:1px solid #ead7ff;">Ya</th>
+        <th style="padding:10px;border:1px solid #ead7ff;">Tidak</th>
+      </tr>
+
+      <tr>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:left;">
+          Saya memahami hubungan keelektronegatifan dengan kepolaran ikatan.
+        </td>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:center;">
+          <input type="radio" name="ref-pol-1" value="Ya">
+        </td>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:center;">
+          <input type="radio" name="ref-pol-1" value="Tidak">
+        </td>
+      </tr>
+
+      <tr>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:left;">
+          Saya dapat menjelaskan makna muatan parsial δ⁺ dan δ⁻.
+        </td>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:center;">
+          <input type="radio" name="ref-pol-2" value="Ya">
+        </td>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:center;">
+          <input type="radio" name="ref-pol-2" value="Tidak">
+        </td>
+      </tr>
+
+      <tr>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:left;">
+          Saya dapat membedakan kepolaran ikatan dan kepolaran molekul.
+        </td>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:center;">
+          <input type="radio" name="ref-pol-3" value="Ya">
+        </td>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:center;">
+          <input type="radio" name="ref-pol-3" value="Tidak">
+        </td>
+      </tr>
+
+      <tr>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:left;">
+          Saya dapat menjelaskan mengapa bentuk molekul memengaruhi kepolaran molekul.
+        </td>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:center;">
+          <input type="radio" name="ref-pol-4" value="Ya">
+        </td>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:center;">
+          <input type="radio" name="ref-pol-4" value="Tidak">
+        </td>
+      </tr>
+    </table>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      Bagian mana yang paling mudah kamu pahami?
+    </p>
+    <textarea id="ref-pol-teks-1" rows="3"></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      Bagian mana yang masih membingungkan atau perlu kamu pelajari kembali?
+    </p>
+    <textarea id="ref-pol-teks-2" rows="3"></textarea>
+  </div>
+
+  <!-- KIRIM AKHIR -->
+  <div class="section-box" style="background:var(--green);border-left:10px solid #27ae60;">
+    <h3 style="margin-top:0;color:#1e8449;">📤 Kirim Jawaban Akhir</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Setelah menyelesaikan evaluasi dan refleksi, klik tombol berikut untuk mengirim seluruh
+      jawaban LKPD ke spreadsheet Guru Rusyda.
+    </p>
+
+    <center>
+      <button class="btn-green" id="btn-final-submit-pol" onclick="submitEvaluation()">
+        ✨ SELESAI & KIRIM ✨
+      </button>
+    </center>
+  </div>
+
+  <center>
+    <button class="btn-back" onclick="nextPhase(4)">⬅️ Kembali ke Elaboration</button>
+  </center>
+</div>
+
+  <script>
+    const ID_KEY = "kepolaran_identity";
+let currentPhase = 0;
+
+// GANTI email ini dengan email akun guru/pemilik web
+const OWNER_EMAILS = [
+  "rusydarama@gmail.com"
+];
+
+    function initLKPD(){
+      // auto tanggal hari ini
+      const tgl=document.getElementById("tgl");
+      if(tgl && !tgl.value){
+        const now=new Date();
+        const yyyy=now.getFullYear();
+        const mm=String(now.getMonth()+1).padStart(2,'0');
+        const dd=String(now.getDate()).padStart(2,'0');
+        tgl.value=`${yyyy}-${mm}-${dd}`;
+      }
+
+      loadIdentity();
+updateProgress();
+showTeacherOnlyIfOwner();
+
+renderPolarityQuiz();
+setTimeout(restoreEvaluationPolarityLock, 0);
+
+restoreExplanationPolarityLock();
+restoreElaborationPolarityLock();
+    }
+
+function getCurrentUserEmail(){
+  try{
+    const rawUser = localStorage.getItem("kimia_user");
+    if(rawUser){
+      const u = JSON.parse(rawUser);
+      return String(u.email || u.gmail || u.username || u.userEmail || "").toLowerCase().trim();
+    }
+  }catch(e){}
+
+  return String(
+    localStorage.getItem("email") ||
+    localStorage.getItem("userEmail") ||
+    ""
+  ).toLowerCase().trim();
+}
+
+function isOwner(){
+  const email = getCurrentUserEmail();
+  return OWNER_EMAILS.map(e => e.toLowerCase().trim()).includes(email);
+}
+
+function showTeacherOnlyIfOwner(){
+  const show = isOwner();
+
+  document.querySelectorAll(".teacher-only").forEach(function(el){
+    el.style.display = show ? "block" : "none";
+  });
+
+  console.log("Email login:", getCurrentUserEmail());
+  console.log("Mode guru aktif:", show);
+}
+
+    function goMenu(){
+      // kalau file menu kamu namanya menu.html, ganti ke "menu.html"
+      window.location.href = "menu.html";
+    }
+   function goMateri(){
+  openMateriKepolaran();
+}
+
+function openMateriKepolaran(){
+  document.querySelectorAll(".phase-card").forEach(x => x.classList.remove("active"));
+  document.getElementById("pMateriKepolaran").classList.add("active");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function backToExplorationKepolaran(){
+  document.querySelectorAll(".phase-card").forEach(x => x.classList.remove("active"));
+  document.getElementById("p2").classList.add("active");
+  currentPhase = 2;
+  updateProgress();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+    function logout(){
+      // kalau login kamu pakai localStorage kimia_user, silakan sesuaikan
+      localStorage.removeItem("kimia_user");
+      window.location.href = "index.html";
+    }
+
+    function nextPhase(p){
+      document.querySelectorAll(".phase-card").forEach(x=>x.classList.remove("active"));
+      document.getElementById("p"+p).classList.add("active");
+      currentPhase=p;
+      updateProgress();
+      window.scrollTo({top:0,behavior:"smooth"});
+    }
+    function updateProgress(){
+      document.getElementById("fill").style.width = (currentPhase/5*100) + "%";
+    }
+
+    function saveIdentity(){
+      const n=val("nama");
+      const k=val("kelas");
+      const t=document.getElementById("tgl").value;
+      if(!n || !k || !t){
+        alert("Lengkapi Nama, Kelas, dan Tanggal ya 😊");
+        return;
+      }
+      localStorage.setItem(ID_KEY, JSON.stringify({nama:n, kelas:k, tgl:t}));
+      document.getElementById("user-pill").innerText = `${n} • ${k}`;
+      alert("Identitas tersimpan ✅");
+    }
+    function loadIdentity(){
+      const raw=localStorage.getItem(ID_KEY);
+      if(!raw) return;
+      try{
+        const id=JSON.parse(raw);
+        if(id?.nama) document.getElementById("nama").value=id.nama;
+        if(id?.kelas) document.getElementById("kelas").value=id.kelas;
+        if(id?.tgl) document.getElementById("tgl").value=id.tgl;
+        if(id?.nama && id?.kelas){
+          document.getElementById("user-pill").innerText = `${id.nama} • ${id.kelas}`;
+        }
+      }catch(e){
+        localStorage.removeItem(ID_KEY);
+      }
+    }
+    function identityComplete(){
+      const n=val("nama"), k=val("kelas"), t=document.getElementById("tgl").value;
+      return !!(n && k && t);
+    }
+    function requireIdentityThenGo(phase){
+      if(!identityComplete()){
+        alert("Isi identitas (Nama, Kelas, Tanggal) dulu ya 😊");
+        nextPhase(0);
+        return;
+      }
+      nextPhase(phase);
+    }
+
+    function checkPollKepolaran(){
+      const pick=document.querySelector('input[name="poll-kepolaran"]:checked')?.value;
+      const fb=document.getElementById("poll-feedback-kepolaran");
+      fb.style.display="block";
+
+      if(!pick){
+        fb.innerHTML="Pilih salah satu dulu ya 😊";
+        return;
+      }
+      if(pick==="B"){
+        fb.innerHTML="✅ Benar! Fenomena ini terkait <b>kepolaran</b>: zat polar cenderung bercampur dengan polar, nonpolar dengan nonpolar.";
+      }else{
+        fb.innerHTML="❌ Hampir! Kuncinya ada pada <b>kepolaran</b> (polar vs nonpolar), bukan sekadar berat/kental.";
+      }
+    }
+
+    function val(id){
+      const el=document.getElementById(id);
+      return el ? el.value.trim() : "";
+    }
+
+    /* Mengunci semua input/textarea/select di dalam satu box */
+    function lockInputs(boxId){
+      var box = document.getElementById(boxId);
+      if(!box) return;
+      box.querySelectorAll("input, textarea, select").forEach(function(el){ el.disabled = true; });
+      var btn = box.querySelector("button");
+      if(btn){ btn.innerText = "✅ Tersimpan"; btn.disabled = true; }
+    }
+
+/* ========= MISI & HELPERS (lanjutan) ========= */
+
+/* ========= MISI CHECK ========= */
+function cekM1(){
+  const pick=document.querySelector('input[name="m1"]:checked')?.value;
+  const fb=document.getElementById("fb-m1");
+  fb.style.display="block";
+  if(!pick){ fb.innerHTML="Pilih jawaban dulu ya 😊"; return; }
+  if(pick==="B"){
+    fb.innerHTML="✅ Benar! HCl polar karena keelektronegatifan berbeda → muncul δ+ dan δ−.";
+  }else{
+    fb.innerHTML="❌ Belum tepat. H₂ dan N₂ umumnya nonpolar karena atom sejenis.";
+  }
+}
+
+function cekM2(){
+  const pick=document.querySelector('input[name="m2"]:checked')?.value;
+  const fb=document.getElementById("fb-m2");
+  fb.style.display="block";
+  if(!pick){ fb.innerHTML="Pilih jawaban dulu ya 😊"; return; }
+  if(pick==="B"){
+    fb.innerHTML="✅ Benar! CO₂ nonpolar karena bentuknya linier simetris → dipol saling meniadakan.";
+  }else{
+    fb.innerHTML="❌ Belum tepat. H₂O dan NH₃ cenderung polar karena bentuknya tidak simetris.";
+  }
+}
+
+function cekM3(){
+  const text=(document.getElementById("m3text").value||"").trim();
+  const fb=document.getElementById("fb-m3");
+  fb.style.display="block";
+  if(text.length < 15){
+    fb.innerHTML="ℹ️ Tulis minimal 1–2 kalimat ya 😊";
+    return;
+  }
+  fb.innerHTML="✅ Mantap! Contohmu sudah mengarah ke prinsip like dissolves like.";
+}
+
+function finishExploration(){
+  const fb=document.getElementById("fb-finish");
+  fb.style.display="block";
+  fb.innerHTML="✅ Exploration selesai! Kamu bisa lanjut ke Explanation.";
+}
+function saveExplorationPolarity(){
+  const data = {
+    row1:{
+      muatan: val("obs1_muatan"),
+      dipol: val("obs1_dipol"),
+      momen: val("obs1_momen"),
+      polar: val("obs1_polar")
+    },
+    row2:{
+      muatan: val("obs2_muatan"),
+      dipol: val("obs2_dipol"),
+      momen: val("obs2_momen"),
+      polar: val("obs2_polar")
+    },
+    row3:{
+      muatan: val("obs3_muatan"),
+      dipol: val("obs3_dipol"),
+      momen: val("obs3_momen"),
+      polar: val("obs3_polar")
+    },
+    pertanyaan:{
+      q1: val("eks-pol-q1"),
+      q2: val("eks-pol-q2"),
+      q3: val("eks-pol-q3"),
+      q4: val("eks-pol-q4")
+    },
+    savedAt: new Date().toLocaleString()
+  };
+
+  localStorage.setItem("kepolaran_exploration", JSON.stringify(data));
+
+  const msg = document.getElementById("save-explore-msg");
+  if(msg){
+    msg.style.display = "block";
+    msg.innerHTML = "✅ Tabel dan jawaban eksplorasi tersimpan.";
+  }
+}
+
+function saveElaborationAnswers(){
+  const data = {
+    q1:(document.getElementById("elab-q1").value||"").trim(),
+    q2:(document.getElementById("elab-q2").value||"").trim(),
+    q3:(document.getElementById("elab-q3").value||"").trim(),
+    savedAt: new Date().toLocaleString()
+  };
+  localStorage.setItem("kepolaran_elaboration_answers", JSON.stringify(data));
+  const msg=document.getElementById("save-elab-qa-msg");
+  msg.style.display="block";
+  msg.innerHTML="✅ Jawaban analisis Elaboration tersimpan (localStorage key: <b>kepolaran_elaboration_answers</b>).";
+}
+
+function checkElaboration(){
+  const fb = document.getElementById("fb-elab");
+  fb.style.display = "block";
+  fb.innerHTML = "✅ Feedback muncul!";
+
+  lockElaboration(); // kalau mau langsung mengunci
+
+  // kunci jawaban umum (cek cepat)
+  const key = {
+    el1:{dipol:"Tidak", polar:"Nonpolar"},
+    el2:{dipol:"Tidak", polar:"Nonpolar"},
+    el3:{dipol:"Ada",  polar:"Polar"},
+    el4:{dipol:"Ada",  polar:"Polar"},
+    el5:{dipol:"Ada",  polar:"Nonpolar"},
+    el6:{dipol:"Ada",  polar:"Polar"},
+  };
+
+  const wrong = [];
+  function checkRow(rowId, dipolId, polarId, label){
+    const d = val(dipolId);
+    const p = val(polarId);
+    if(!d || !p){
+      wrong.push(`${label} (belum lengkap)`);
+      return;
+    }
+    if(d !== key[rowId].dipol || p !== key[rowId].polar){
+      wrong.push(`${label}`);
+    }
+  }
+
+  checkRow("el1","el1_dipol","el1_kepolaran","H₂");
+  checkRow("el2","el2_dipol","el2_kepolaran","Cl₂");
+  checkRow("el3","el3_dipol","el3_kepolaran","SO₂");
+  checkRow("el4","el4_dipol","el4_kepolaran","H₂O");
+  checkRow("el5","el5_dipol","el5_kepolaran","CO₂");
+  checkRow("el6","el6_dipol","el6_kepolaran","NH₃");
+
+  if(wrong.length === 0){
+    fb.innerHTML = "✅ Mantap! Hasil analisismu sudah sesuai: H₂ & Cl₂ nonpolar, SO₂/H₂O/NH₃ polar, dan CO₂ nonpolar karena simetris.";
+  }else{
+    fb.innerHTML = "ℹ️ Ada yang perlu dicek lagi pada: <b>"+wrong.join(", ")+"</b>.<br>Hint: ikatan sejenis (H–H, Cl–Cl) → nonpolar; CO₂ punya ikatan polar tapi bentuk linier simetris → nonpolar.";
+  }
+  lockElaboration();
+}
+function lockElaboration(){
+  // kunci semua input & select di p4
+  document.querySelectorAll("#p4 input, #p4 select, #p4 textarea")
+    .forEach(el => {
+      el.disabled = true;
+    });
+}
+
+function lockInputsInBox(boxId){
+  const box = document.getElementById(boxId);
+  if(!box) return;
+
+  const fields = box.querySelectorAll("input, textarea, select");
+  fields.forEach(function(field){
+    field.disabled = true;
+    field.classList.add("locked-answer");
+  });
+}
+
+function saveExplanationPolarityAndShowFeedback(){
+  const requiredIds = [
+    "exp-pol-q1",
+    "exp-pol-q2",
+    "exp-pol-q3",
+    "exp-pol-q4",
+    "exp-pol-q5",
+    "exp-pol-q6"
+  ];
+
+  for(const id of requiredIds){
+    const el = document.getElementById(id);
+    if(!el || !el.value.trim()){
+      alert("Lengkapi semua jawaban Explanation dulu ya 😊");
+      return;
+    }
+  }
+
+  const savedExplanation = {
+    q1: val("exp-pol-q1"),
+    q2: val("exp-pol-q2"),
+    q3: val("exp-pol-q3"),
+    q4: val("exp-pol-q4"),
+    q5: val("exp-pol-q5"),
+    q6: val("exp-pol-q6"),
+    savedAt: new Date().toLocaleString()
+  };
+
+  localStorage.setItem("kepolaran_explanation_saved", JSON.stringify(savedExplanation));
+
+  lockInputsInBox("p3");
+
+  const feedbackBox = document.getElementById("feedback-explanation-pol");
+  if(feedbackBox){
+    feedbackBox.style.display = "block";
+    feedbackBox.scrollIntoView({behavior:"smooth"});
+  }
+
+  const btn = document.getElementById("btn-save-explanation-pol");
+  if(btn){
+    btn.innerText = "✅ Jawaban Tersimpan";
+    btn.disabled = true;
+  }
+
+  alert("Jawaban Explanation sudah disimpan dan dikunci ✅");
+}
+
+function restoreExplanationPolarityLock(){
+  const raw = localStorage.getItem("kepolaran_explanation_saved");
+  if(!raw) return;
+
+  try{
+    const data = JSON.parse(raw);
+
+    if(document.getElementById("exp-pol-q1")) document.getElementById("exp-pol-q1").value = data.q1 || "";
+    if(document.getElementById("exp-pol-q2")) document.getElementById("exp-pol-q2").value = data.q2 || "";
+    if(document.getElementById("exp-pol-q3")) document.getElementById("exp-pol-q3").value = data.q3 || "";
+    if(document.getElementById("exp-pol-q4")) document.getElementById("exp-pol-q4").value = data.q4 || "";
+    if(document.getElementById("exp-pol-q5")) document.getElementById("exp-pol-q5").value = data.q5 || "";
+    if(document.getElementById("exp-pol-q6")) document.getElementById("exp-pol-q6").value = data.q6 || "";
+
+    lockInputsInBox("p3");
+
+    const feedbackBox = document.getElementById("feedback-explanation-pol");
+    if(feedbackBox){
+      feedbackBox.style.display = "block";
+    }
+
+    const btn = document.getElementById("btn-save-explanation-pol");
+    if(btn){
+      btn.innerText = "✅ Jawaban Tersimpan";
+      btn.disabled = true;
+    }
+  }catch(e){
+    localStorage.removeItem("kepolaran_explanation_saved");
+  }
+}
+function saveElaborationPolarityAndShowFeedback(){
+  const requiredIds = [
+    "elab-pol-q1",
+    "elab-pol-q2",
+    "elab-pol-q3",
+    "elab-pol-q4",
+    "elab-pol-q5"
+  ];
+
+  for(const id of requiredIds){
+    const el = document.getElementById(id);
+    if(!el || !el.value.trim()){
+      alert("Lengkapi semua jawaban Elaboration dulu ya 😊");
+      return;
+    }
+  }
+
+  const tableIds = [
+    "elab-tab-1","elab-tab-2","elab-tab-3","elab-tab-4",
+    "elab-tab-5","elab-tab-6","elab-tab-7","elab-tab-8",
+    "elab-tab-9","elab-tab-10","elab-tab-11","elab-tab-12",
+    "elab-tab-13","elab-tab-14","elab-tab-15","elab-tab-16"
+  ];
+
+  for(const id of tableIds){
+    const el = document.getElementById(id);
+    if(!el || !el.value.trim()){
+      alert("Lengkapi semua tabel Elaboration dulu ya 😊");
+      return;
+    }
+  }
+
+  const savedElaboration = {
+    q1: val("elab-pol-q1"),
+    q2: val("elab-pol-q2"),
+    q3: val("elab-pol-q3"),
+    q4: val("elab-pol-q4"),
+    q5: val("elab-pol-q5"),
+
+    tab1: val("elab-tab-1"),
+    tab2: val("elab-tab-2"),
+    tab3: val("elab-tab-3"),
+    tab4: val("elab-tab-4"),
+    tab5: val("elab-tab-5"),
+    tab6: val("elab-tab-6"),
+    tab7: val("elab-tab-7"),
+    tab8: val("elab-tab-8"),
+    tab9: val("elab-tab-9"),
+    tab10: val("elab-tab-10"),
+    tab11: val("elab-tab-11"),
+    tab12: val("elab-tab-12"),
+    tab13: val("elab-tab-13"),
+    tab14: val("elab-tab-14"),
+    tab15: val("elab-tab-15"),
+    tab16: val("elab-tab-16"),
+
+    savedAt: new Date().toLocaleString()
+  };
+
+  localStorage.setItem("kepolaran_elaboration_saved", JSON.stringify(savedElaboration));
+
+  lockInputsInBox("p4");
+
+  const feedbackBox = document.getElementById("feedback-elaboration-pol");
+  if(feedbackBox){
+    feedbackBox.style.display = "block";
+    feedbackBox.scrollIntoView({behavior:"smooth"});
+  }
+
+  const btn = document.getElementById("btn-save-elaboration-pol");
+  if(btn){
+    btn.innerText = "✅ Jawaban Tersimpan";
+    btn.disabled = true;
+  }
+
+  alert("Jawaban Elaboration sudah disimpan dan dikunci ✅");
+}
+
+function restoreElaborationPolarityLock(){
+  const raw = localStorage.getItem("kepolaran_elaboration_saved");
+  if(!raw) return;
+
+  try{
+    const data = JSON.parse(raw);
+
+    if(document.getElementById("elab-pol-q1")) document.getElementById("elab-pol-q1").value = data.q1 || "";
+    if(document.getElementById("elab-pol-q2")) document.getElementById("elab-pol-q2").value = data.q2 || "";
+    if(document.getElementById("elab-pol-q3")) document.getElementById("elab-pol-q3").value = data.q3 || "";
+    if(document.getElementById("elab-pol-q4")) document.getElementById("elab-pol-q4").value = data.q4 || "";
+    if(document.getElementById("elab-pol-q5")) document.getElementById("elab-pol-q5").value = data.q5 || "";
+
+    for(let i = 1; i <= 16; i++){
+      const el = document.getElementById("elab-tab-" + i);
+      if(el) el.value = data["tab" + i] || "";
+    }
+
+    lockInputsInBox("p4");
+
+    const feedbackBox = document.getElementById("feedback-elaboration-pol");
+    if(feedbackBox){
+      feedbackBox.style.display = "block";
+    }
+
+    const btn = document.getElementById("btn-save-elaboration-pol");
+    if(btn){
+      btn.innerText = "✅ Jawaban Tersimpan";
+      btn.disabled = true;
+    }
+  }catch(e){
+    localStorage.removeItem("kepolaran_elaboration_saved");
+  }
+}
+
+function unlockInputsInBox(boxId){
+  const box = document.getElementById(boxId);
+  if(!box) return;
+
+  const fields = box.querySelectorAll("input, textarea, select");
+  fields.forEach(function(field){
+    field.disabled = false;
+    field.classList.remove("locked-answer");
+  });
+}
+
+function resetElaborationAfterSubmit(){
+  // Hapus data kunci Elaboration agar bisa diisi lagi pada percobaan berikutnya
+  localStorage.removeItem("kepolaran_elaboration_saved");
+
+  // Buka kembali input Elaboration
+  unlockInputsInBox("p4");
+
+  // Sembunyikan pembahasan otomatis Elaboration
+  const feedbackBox = document.getElementById("feedback-elaboration-pol");
+  if(feedbackBox){
+    feedbackBox.style.display = "none";
+  }
+
+  // Kembalikan tombol simpan elaboration
+  const btn = document.getElementById("btn-save-elaboration-pol");
+  if(btn){
+    btn.innerText = "💾 Simpan Jawaban & Lihat Umpan Balik";
+    btn.disabled = false;
+  }
+}
+
+function resetExplanationAfterSubmit(){
+  // Hapus data kunci Explanation agar bisa diisi lagi pada percobaan berikutnya
+  localStorage.removeItem("kepolaran_explanation_saved");
+
+  // Buka kembali input Explanation
+  unlockInputsInBox("p3");
+
+  // Sembunyikan pembahasan otomatis Explanation
+  const feedbackBox = document.getElementById("feedback-explanation-pol");
+  if(feedbackBox){
+    feedbackBox.style.display = "none";
+  }
+
+  // Kembalikan tombol simpan Explanation
+  const btn = document.getElementById("btn-save-explanation-pol");
+  if(btn){
+    btn.innerText = "💾 Simpan Jawaban & Lihat Umpan Balik";
+    btn.disabled = false;
+  }
+}
+
+function resetEvaluationAfterSubmit(){
+  // Hapus data kunci Evaluation agar bisa diisi lagi pada percobaan berikutnya
+  localStorage.removeItem("kepolaran_evaluation_saved");
+
+  // Buka kembali pilihan evaluasi
+  for(let i = 1; i <= 10; i++){
+    document.querySelectorAll(`input[name="q${i}"]`).forEach(function(input){
+      input.disabled = false;
+    });
+  }
+
+  // Sembunyikan skor
+  const skorBox = document.getElementById("skor-evaluation-pol-box");
+  if(skorBox){
+    skorBox.classList.add("hidden");
+  }
+
+  // Sembunyikan pembahasan evaluasi
+  const feedbackBox = document.getElementById("feedback-evaluation-pol");
+  if(feedbackBox){
+    feedbackBox.style.display = "none";
+  }
+
+  // Kosongkan isi pembahasan evaluasi agar tidak dobel saat dibuka lagi
+  const feedbackContent = document.getElementById("evaluation-pol-feedback-content");
+  if(feedbackContent){
+    feedbackContent.innerHTML = "";
+  }
+
+  // Kembalikan tombol simpan evaluasi
+  const btn = document.getElementById("btn-save-evaluation-pol");
+  if(btn){
+    btn.innerText = "💾 Simpan Evaluasi & Lihat Pembahasan";
+    btn.disabled = false;
+  }
+}
+
+function resetAllLocksAfterSubmit(){
+  resetExplanationAfterSubmit();
+  resetElaborationAfterSubmit();
+  resetEvaluationAfterSubmit();
+}
+
+const quizPolarityData = [
+  {
+    id: 1,
+    level: "C2 - Menjelaskan",
+    q: "Dalam ikatan kovalen, atom yang memiliki keelektronegatifan lebih tinggi akan menarik pasangan elektron lebih kuat. Akibatnya atom tersebut akan memiliki...",
+    options: {
+      A: "muatan positif penuh",
+      B: "muatan negatif parsial",
+      C: "jumlah proton lebih sedikit",
+      D: "ikatan logam",
+      E: "muatan netral sempurna"
+    }
+  },
+  {
+    id: 2,
+    level: "C2 - Menafsirkan",
+    q: "Jika dua atom memiliki keelektronegatifan yang sama atau hampir sama, maka pasangan elektron ikatan akan...",
+    options: {
+      A: "berpindah sepenuhnya ke salah satu atom",
+      B: "ditarik sama kuat sehingga ikatan cenderung nonpolar",
+      C: "membentuk ion positif dan ion negatif",
+      D: "selalu menghasilkan molekul polar",
+      E: "membentuk ikatan hidrogen"
+    }
+  },
+  {
+    id: 3,
+    level: "C2 - Menjelaskan",
+    q: "Ikatan H–Cl bersifat polar karena...",
+    options: {
+      A: "H dan Cl memiliki keelektronegatifan yang sama",
+      B: "Cl lebih elektronegatif sehingga menarik pasangan elektron lebih kuat",
+      C: "H lebih elektronegatif sehingga menarik elektron dari Cl",
+      D: "elektron berpindah sepenuhnya dari H ke Cl",
+      E: "HCl tidak memiliki pasangan elektron ikatan"
+    }
+  },
+  {
+    id: 4,
+    level: "C2 - Mengklasifikasikan",
+    q: "Pasangan ikatan berikut yang paling mungkin bersifat nonpolar adalah...",
+    options: {
+      A: "O–H",
+      B: "H–Cl",
+      C: "C–O",
+      D: "Cl–Cl",
+      E: "N–H"
+    }
+  },
+  {
+    id: 5,
+    level: "C2 - Menjelaskan",
+    q: "Panah dipol pada ikatan kovalen polar umumnya mengarah ke...",
+    options: {
+      A: "atom yang lebih elektronegatif",
+      B: "atom yang lebih elektropositif",
+      C: "atom yang massanya paling kecil",
+      D: "atom yang memiliki jumlah neutron lebih banyak",
+      E: "atom yang berada di sebelah kiri rumus kimia"
+    }
+  },
+  {
+    id: 6,
+    level: "C2 - Membandingkan",
+    q: "CO₂ memiliki ikatan C–O yang polar, tetapi molekul CO₂ bersifat nonpolar karena...",
+    options: {
+      A: "CO₂ tidak memiliki elektron valensi",
+      B: "ikatan C–O tidak memiliki dipol",
+      C: "bentuk CO₂ linier simetris sehingga dipol ikatan saling meniadakan",
+      D: "atom C lebih elektronegatif daripada O",
+      E: "CO₂ tersusun dari ion positif dan ion negatif"
+    }
+  },
+  {
+    id: 7,
+    level: "C2 - Menjelaskan",
+    q: "H₂O bersifat polar karena...",
+    options: {
+      A: "molekul H₂O berbentuk linier sehingga dipol saling meniadakan",
+      B: "ikatan O–H nonpolar dan bentuknya simetris",
+      C: "molekul H₂O berbentuk bengkok sehingga dipol ikatan tidak saling meniadakan",
+      D: "H₂O tidak memiliki perbedaan keelektronegatifan",
+      E: "elektron berpindah sepenuhnya dari H ke O"
+    }
+  },
+  {
+    id: 8,
+    level: "C2 - Menafsirkan",
+    q: "Suatu molekul memiliki beberapa ikatan polar, tetapi bentuk molekulnya simetris. Kemungkinan sifat molekul tersebut adalah...",
+    options: {
+      A: "pasti polar karena semua ikatannya polar",
+      B: "pasti ionik karena ada dipol",
+      C: "dapat bersifat nonpolar jika dipol ikatan saling meniadakan",
+      D: "tidak memiliki elektron ikatan",
+      E: "selalu larut dalam air"
+    }
+  },
+  {
+    id: 9,
+    level: "C2 - Menghubungkan",
+    q: "Minyak sulit bercampur dengan air karena...",
+    options: {
+      A: "minyak bersifat nonpolar sedangkan air bersifat polar",
+      B: "minyak memiliki massa jenis lebih kecil daripada air",
+      C: "air tidak memiliki ikatan kovalen",
+      D: "minyak selalu membentuk ion dalam air",
+      E: "air bersifat nonpolar sedangkan minyak bersifat polar"
+    }
+  },
+  {
+    id: 10,
+    level: "C2 - Menyimpulkan",
+    q: "Kesimpulan yang paling tepat tentang kepolaran molekul adalah...",
+    options: {
+      A: "molekul selalu polar jika memiliki atom berbeda",
+      B: "kepolaran molekul hanya ditentukan oleh massa molekul",
+      C: "kepolaran molekul ditentukan oleh kepolaran ikatan dan susunan/bentuk molekul",
+      D: "semua molekul yang memiliki ikatan polar pasti nonpolar",
+      E: "molekul nonpolar selalu memiliki ikatan ion"
+    }
+  }
+];
+
+const correctPolarityAnswers = {
+  q1: "B",
+  q2: "B",
+  q3: "B",
+  q4: "D",
+  q5: "A",
+  q6: "C",
+  q7: "C",
+  q8: "C",
+  q9: "A",
+  q10: "C"
+};
+
+const quizPolarityExplanation = {
+  1: "Atom yang lebih elektronegatif menarik pasangan elektron lebih kuat, sehingga kerapatan elektron lebih besar berada di dekat atom tersebut. Akibatnya atom itu memiliki muatan negatif parsial atau δ⁻.",
+  2: "Jika keelektronegatifan dua atom sama atau hampir sama, pasangan elektron ditarik sama kuat dan terbagi lebih merata. Ikatan seperti ini cenderung nonpolar.",
+  3: "Pada HCl, atom Cl lebih elektronegatif daripada H sehingga menarik pasangan elektron lebih kuat. Akibatnya Cl menjadi δ⁻ dan H menjadi δ⁺.",
+  4: "Ikatan Cl–Cl terjadi antara atom yang sama sehingga keelektronegatifannya sama. Pasangan elektron dibagi merata dan ikatannya nonpolar.",
+  5: "Panah dipol mengarah ke atom yang lebih elektronegatif karena atom tersebut menjadi pusat kerapatan elektron yang lebih besar.",
+  6: "CO₂ memiliki dua ikatan C–O polar, tetapi bentuknya linier dan simetris. Dipol ikatan berlawanan arah dan saling meniadakan sehingga molekulnya nonpolar.",
+  7: "H₂O memiliki ikatan O–H polar dan bentuk molekul bengkok. Karena bentuknya tidak simetris, dipol ikatan tidak saling meniadakan sehingga H₂O polar.",
+  8: "Molekul dengan ikatan polar dapat bersifat nonpolar jika bentuknya simetris dan dipol-dipol ikatannya saling meniadakan.",
+  9: "Air bersifat polar, sedangkan minyak umumnya tersusun dari molekul hidrokarbon nonpolar. Perbedaan kepolaran ini menyebabkan keduanya sulit bercampur.",
+  10: "Kepolaran molekul ditentukan oleh kepolaran ikatan dan susunan/bentuk molekul. Bentuk simetris dapat membuat dipol saling meniadakan."
+};
+
+function renderPolarityQuiz(){
+  const container = document.getElementById("quiz-kepolaran-container");
+  if(!container) return;
+
+  container.innerHTML = "";
+
+  quizPolarityData.forEach(item => {
+    let html = `
+      <div class="section-box" id="quiz-pol-box-${item.id}" style="background:white;border-left:10px solid var(--gold);">
+        <p style="font-size:12px;font-weight:bold;color:#6d7f91;margin:0 0 6px 0;">
+        </p>
+
+        <p style="font-size:14px;line-height:1.7;margin:0 0 10px 0;">
+          <b>${item.id}. ${item.q}</b>
+        </p>
+    `;
+
+    Object.entries(item.options).forEach(([key, val]) => {
+      html += `
+        <label class="mcq-option">
+          <input type="radio" name="q${item.id}" value="${key}">
+          <b>${key}.</b> ${val}
+        </label>
+      `;
+    });
+
+    html += `</div>`;
+    container.innerHTML += html;
+  });
+}
+
+function lockEvaluationPolarity(){
+  for(let i = 1; i <= 10; i++){
+    document.querySelectorAll(`input[name="q${i}"]`).forEach(function(input){
+      input.disabled = true;
+    });
+  }
+}
+
+function saveEvaluationPolarityAndShowFeedback(){
+  let score = 0;
+  const savedAnswers = {};
+
+  for(let i = 1; i <= 10; i++){
+    const pick = document.querySelector(`input[name="q${i}"]:checked`)?.value;
+
+    if(!pick){
+      alert("Jawab semua soal evaluasi terlebih dahulu ya 😊");
+      return;
+    }
+
+    savedAnswers["q" + i] = pick;
+
+    if(pick === correctPolarityAnswers["q" + i]){
+      score += 10;
+    }
+  }
+
+  localStorage.setItem("kepolaran_evaluation_saved", JSON.stringify({
+    answers: savedAnswers,
+    score: score,
+    savedAt: new Date().toLocaleString()
+  }));
+
+  lockEvaluationPolarity();
+
+  const skorBox = document.getElementById("skor-evaluation-pol-box");
+  const skorText = document.getElementById("skor-evaluation-pol-text");
+  const skorMsg = document.getElementById("skor-evaluation-pol-message");
+
+  if(skorBox && skorText && skorMsg){
+    skorBox.classList.remove("hidden");
+    skorText.innerText = `Skor kamu: ${score}/100`;
+
+    if(score >= 80){
+      skorMsg.innerText = "🌟 Bagus sekali! Pemahaman konsep kepolaranmu sudah kuat.";
+    }else if(score >= 60){
+      skorMsg.innerText = "👍 Cukup baik. Bacalah pembahasan untuk memperkuat bagian yang masih keliru.";
+    }else{
+      skorMsg.innerText = "💪 Tetap semangat. Gunakan pembahasan untuk memahami kembali konsep keelektronegatifan, dipol, dan kepolaran molekul.";
+    }
+  }
+
+  const feedbackContent = document.getElementById("evaluation-pol-feedback-content");
+  let html = "";
+
+  quizPolarityData.forEach(item => {
+    const userPick = savedAnswers["q" + item.id];
+    const correct = correctPolarityAnswers["q" + item.id];
+    const benar = userPick === correct;
+
+    html += `
+      <div class="feedback-item">
+        <b>Soal ${item.id}</b><br>
+        Jawaban kamu: <b>${userPick}</b><br>
+        Kunci jawaban: <b>${correct}</b><br>
+        Status: <b style="color:${benar ? '#1e8449' : '#cc4d4d'};">${benar ? 'Benar' : 'Perlu diperbaiki'}</b><br>
+        Pembahasan: ${quizPolarityExplanation[item.id]}
+      </div>
+    `;
+  });
+
+  if(feedbackContent){
+    feedbackContent.innerHTML = html;
+  }
+
+  const feedbackBox = document.getElementById("feedback-evaluation-pol");
+  if(feedbackBox){
+    feedbackBox.style.display = "block";
+    feedbackBox.scrollIntoView({behavior:"smooth"});
+  }
+
+  const btn = document.getElementById("btn-save-evaluation-pol");
+  if(btn){
+    btn.innerText = "✅ Evaluasi Tersimpan";
+    btn.disabled = true;
+  }
+}
+
+function restoreEvaluationPolarityLock(){
+  const raw = localStorage.getItem("kepolaran_evaluation_saved");
+  if(!raw) return;
+
+  try{
+    const data = JSON.parse(raw);
+    const answers = data.answers || {};
+
+    Object.entries(answers).forEach(([name, value]) => {
+      const input = document.querySelector(`input[name="${name}"][value="${value}"]`);
+      if(input) input.checked = true;
+    });
+
+    lockEvaluationPolarity();
+
+    const skorBox = document.getElementById("skor-evaluation-pol-box");
+    const skorText = document.getElementById("skor-evaluation-pol-text");
+    const skorMsg = document.getElementById("skor-evaluation-pol-message");
+
+    if(skorBox && skorText && skorMsg){
+      skorBox.classList.remove("hidden");
+      skorText.innerText = `Skor kamu: ${data.score}/100`;
+
+      if(data.score >= 80){
+        skorMsg.innerText = "🌟 Bagus sekali! Pemahaman konsep kepolaranmu sudah kuat.";
+      }else if(data.score >= 60){
+        skorMsg.innerText = "👍 Cukup baik. Bacalah pembahasan untuk memperkuat bagian yang masih keliru.";
+      }else{
+        skorMsg.innerText = "💪 Tetap semangat. Gunakan pembahasan untuk memahami kembali konsep keelektronegatifan, dipol, dan kepolaran molekul.";
+      }
+    }
+
+    const feedbackContent = document.getElementById("evaluation-pol-feedback-content");
+    if(feedbackContent){
+      let html = "";
+
+      quizPolarityData.forEach(item => {
+        const userPick = answers["q" + item.id];
+        const correct = correctPolarityAnswers["q" + item.id];
+        const benar = userPick === correct;
+
+        html += `
+          <div class="feedback-item">
+            <b>Soal ${item.id}</b><br>
+            Jawaban kamu: <b>${userPick}</b><br>
+            Kunci jawaban: <b>${correct}</b><br>
+            Status: <b style="color:${benar ? '#1e8449' : '#cc4d4d'};">${benar ? 'Benar' : 'Perlu diperbaiki'}</b><br>
+            Pembahasan: ${quizPolarityExplanation[item.id]}
+          </div>
+        `;
+      });
+
+      feedbackContent.innerHTML = html;
+    }
+
+    const feedbackBox = document.getElementById("feedback-evaluation-pol");
+    if(feedbackBox){
+      feedbackBox.style.display = "block";
+    }
+
+    const btn = document.getElementById("btn-save-evaluation-pol");
+    if(btn){
+      btn.innerText = "✅ Evaluasi Tersimpan";
+      btn.disabled = true;
+    }
+  }catch(e){
+    localStorage.removeItem("kepolaran_evaluation_saved");
+  }
+}
+
+function submitEvaluation(){
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxKpCSPf89k27shqjsCq14blROlcfsYU4wuwwU9bwzjdc6yQTqrV-IDcCvz0RpE9TU/exec';
+
+  // ================== HELPER ==================
+  const getVal = (id) => {
+    const el = document.getElementById(id);
+    return el ? el.value.trim() : "";
+  };
+
+  const getRadio = (name) => {
+    return document.querySelector(`input[name="${name}"]:checked`)?.value || "";
+  };
+
+  const getQuizAnswer = (i) => {
+    return document.querySelector(`input[name="q${i}"]:checked`)?.value || "";
+  };
+
+  // ================== IDENTITAS ==================
+  let namaSiswa = getVal("nama") || "Siswa";
+  let kelasSiswa = getVal("kelas") || "-";
+  let tanggalLKPD = document.getElementById("tgl")?.value || "";
+
+  try{
+    const raw = localStorage.getItem(ID_KEY);
+    if(raw){
+      const d = JSON.parse(raw);
+      namaSiswa = d.nama || namaSiswa;
+      kelasSiswa = d.kelas || kelasSiswa;
+      tanggalLKPD = d.tgl || tanggalLKPD;
+    }
+  }catch(e){}
+
+  if(!namaSiswa || !kelasSiswa || !tanggalLKPD){
+    alert("Lengkapi identitas Nama, Kelas, dan Tanggal terlebih dahulu ya 😊");
+    nextPhase(0);
+    return;
+  }
+
+  // ================== CEK EVALUASI 10 SOAL ==================
+  let score = 0;
+  const jawabanEvaluasi = {};
+
+  for(let i = 1; i <= 10; i++){
+    const pick = getQuizAnswer(i);
+
+    if(!pick){
+      alert("Jawab semua soal evaluasi terlebih dahulu ya 😊");
+      nextPhase(5);
+      return;
+    }
+
+    jawabanEvaluasi[`Evaluasi_Q${i}`] = pick;
+
+    if(pick === correctPolarityAnswers[`q${i}`]){
+      score += 10;
+    }
+  }
+
+  // ================== CEK REFLEKSI ==================
+  if(!getRadio("ref-pol-1") || !getRadio("ref-pol-2") || !getRadio("ref-pol-3") || !getRadio("ref-pol-4")){
+    alert("Lengkapi semua pilihan refleksi Ya/Tidak terlebih dahulu ya 😊");
+    nextPhase(5);
+    return;
+  }
+
+  if(!getVal("ref-pol-teks-1") || !getVal("ref-pol-teks-2")){
+    alert("Lengkapi refleksi teks terlebih dahulu ya 😊");
+    nextPhase(5);
+    return;
+  }
+
+  // ================== STATUS SIMPAN / LOCK ==================
+  const explanationSaved = localStorage.getItem("kepolaran_explanation_saved") ? "Sudah disimpan" : "Belum disimpan";
+  const elaborationSaved = localStorage.getItem("kepolaran_elaboration_saved") ? "Sudah disimpan" : "Belum disimpan";
+  const evaluationSaved = localStorage.getItem("kepolaran_evaluation_saved") ? "Sudah disimpan" : "Belum disimpan";
+
+  // ================== SUSUN DATA LENGKAP ==================
+  const jawabanLengkap = {
+    timestamp: new Date().toLocaleString(),
+    nama: namaSiswa,
+    kelas: kelasSiswa,
+    tanggal: tanggalLKPD,
+    materi: "Kepolaran",
+    skor: score,
+
+    // ================== ENGAGEMENT ==================
+    Engagement_Hipotesis_Awal: getVal("eng1-kepolaran"),
+    Engagement_Rumusan_Masalah: "Bagaimana perbedaan keelektronegatifan, distribusi elektron, muatan parsial, dipol ikatan, dan bentuk molekul dapat menjelaskan kepolaran molekul serta perbedaan kemampuan zat untuk bercampur dengan air?",
+
+    // ================== EXPLORATION - TABEL PHET ==================
+    Eksplorasi_Baris1_EN_Sama_Muatan_Parsial: getVal("obs1_muatan"),
+    Eksplorasi_Baris1_EN_Sama_Arah_Dipol: getVal("obs1_dipol"),
+    Eksplorasi_Baris1_EN_Sama_Momen_Dipol: getVal("obs1_momen"),
+    Eksplorasi_Baris1_EN_Sama_Kepolaran: getVal("obs1_polar"),
+
+    Eksplorasi_Baris2_B_Lebih_Besar_Muatan_Parsial: getVal("obs2_muatan"),
+    Eksplorasi_Baris2_B_Lebih_Besar_Arah_Dipol: getVal("obs2_dipol"),
+    Eksplorasi_Baris2_B_Lebih_Besar_Momen_Dipol: getVal("obs2_momen"),
+    Eksplorasi_Baris2_B_Lebih_Besar_Kepolaran: getVal("obs2_polar"),
+
+    Eksplorasi_Baris3_B_Jauh_Lebih_Besar_Muatan_Parsial: getVal("obs3_muatan"),
+    Eksplorasi_Baris3_B_Jauh_Lebih_Besar_Arah_Dipol: getVal("obs3_dipol"),
+    Eksplorasi_Baris3_B_Jauh_Lebih_Besar_Momen_Dipol: getVal("obs3_momen"),
+    Eksplorasi_Baris3_B_Jauh_Lebih_Besar_Kepolaran: getVal("obs3_polar"),
+
+    // ================== EXPLORATION - PERTANYAAN ==================
+    Eksplorasi_Q1_Muatan_Parsial_EN_Sama: getVal("eks-pol-q1"),
+    Eksplorasi_Q2_Arah_Panah_Dipol: getVal("eks-pol-q2"),
+    Eksplorasi_Q3_Selisih_EN_Momen_Dipol: getVal("eks-pol-q3"),
+    Eksplorasi_Q4_Kapan_Ikatan_Kovalen_Polar: getVal("eks-pol-q4"),
+
+    // ================== EXPLANATION ==================
+    Explanation_Q1_EN_Sama: getVal("exp-pol-q1"),
+    Explanation_Q2_Atom_Elektronegatif_Delta_Negatif: getVal("exp-pol-q2"),
+    Explanation_Q3_Arah_Dipol: getVal("exp-pol-q3"),
+    Explanation_Q4_Selisih_EN_Dan_Momen_Dipol: getVal("exp-pol-q4"),
+    Explanation_Q5_Ikatan_Polar_Belum_Tentu_Molekul_Polar: getVal("exp-pol-q5"),
+    Explanation_Revisi_Hipotesis: getVal("exp-pol-q6"),
+    Explanation_Status_Simpan: explanationSaved,
+
+    // ================== ELABORATION - PERTANYAAN KASUS ==================
+    Elaboration_Q1_H2O_Polar: getVal("elab-pol-q1"),
+    Elaboration_Q2_Sirup_Bercampur_Air: getVal("elab-pol-q2"),
+    Elaboration_Q3_Minyak_Tidak_Bercampur_Air: getVal("elab-pol-q3"),
+    Elaboration_Q4_CO2_Nonpolar: getVal("elab-pol-q4"),
+    Elaboration_Sintesis: getVal("elab-pol-q5"),
+
+    // ================== ELABORATION - TABEL ==================
+    Elaboration_H2O_Dipol_Ikatan: getVal("elab-tab-1"),
+    Elaboration_H2O_Bentuk_Molekul: getVal("elab-tab-2"),
+    Elaboration_H2O_Kepolaran_Molekul: getVal("elab-tab-3"),
+    Elaboration_H2O_Alasan: getVal("elab-tab-4"),
+
+    Elaboration_CO2_Dipol_Ikatan: getVal("elab-tab-5"),
+    Elaboration_CO2_Bentuk_Molekul: getVal("elab-tab-6"),
+    Elaboration_CO2_Kepolaran_Molekul: getVal("elab-tab-7"),
+    Elaboration_CO2_Alasan: getVal("elab-tab-8"),
+
+    Elaboration_Sirup_Dipol_Ikatan: getVal("elab-tab-9"),
+    Elaboration_Sirup_Bentuk_Atau_Susunan: getVal("elab-tab-10"),
+    Elaboration_Sirup_Kepolaran: getVal("elab-tab-11"),
+    Elaboration_Sirup_Alasan: getVal("elab-tab-12"),
+
+    Elaboration_Minyak_Dipol_Ikatan: getVal("elab-tab-13"),
+    Elaboration_Minyak_Bentuk_Atau_Susunan: getVal("elab-tab-14"),
+    Elaboration_Minyak_Kepolaran: getVal("elab-tab-15"),
+    Elaboration_Minyak_Alasan: getVal("elab-tab-16"),
+
+    Elaboration_Status_Simpan: elaborationSaved,
+
+    // ================== EVALUATION ==================
+    ...jawabanEvaluasi,
+    Skor_Evaluasi: score,
+    Evaluation_Status_Simpan: evaluationSaved,
+
+    // ================== REFLEKSI ==================
+    Refleksi_Keelektronegatifan_Dan_Kepolaran_Ikatan: getRadio("ref-pol-1"),
+    Refleksi_Muatan_Parsial: getRadio("ref-pol-2"),
+    Refleksi_Kepolaran_Ikatan_Dan_Molekul: getRadio("ref-pol-3"),
+    Refleksi_Bentuk_Molekul_Dan_Kepolaran: getRadio("ref-pol-4"),
+    Refleksi_Bagian_Mudah: getVal("ref-pol-teks-1"),
+    Refleksi_Bagian_Membingungkan: getVal("ref-pol-teks-2")
+  };
+
+  // ================== SIMPAN LOKAL CADANGAN ==================
+  const LOCAL_KEY = "db_kepolaran_final";
+  const db = JSON.parse(localStorage.getItem(LOCAL_KEY) || "[]");
+  db.push(jawabanLengkap);
+  localStorage.setItem(LOCAL_KEY, JSON.stringify(db));
+
+  // ================== PAYLOAD KE GOOGLE SHEETS ==================
+  const payload = {
+    nama: namaSiswa,
+    kelas: kelasSiswa,
+    materi: "Kepolaran",
+    skor: score,
+    jawabanLengkap: jawabanLengkap
+  };
+
+  const btnSubmit = document.getElementById("btn-final-submit-pol") || document.querySelector('button[onclick="submitEvaluation()"]');
+
+  if(btnSubmit){
+    btnSubmit.innerText = "Sedang mengirim... ⏳";
+    btnSubmit.disabled = true;
+  }
+
+  fetch(SCRIPT_URL, {
+    method : 'POST',
+    mode   : 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body   : JSON.stringify(payload)
+  })
+  .then(() => {
+    alert(`✅ LKPD selesai!\nSkor evaluasi kamu: ${score}/100\nJawaban berhasil dikirim ke Guru Rusyda! 🌈`);
+
+    // Setelah berhasil dikirim ke spreadsheet, semua bagian yang terkunci boleh dibuka lagi
+    resetAllLocksAfterSubmit();
+
+    if(btnSubmit){
+      btnSubmit.innerText = "✅ Sudah Terkirim";
+      btnSubmit.disabled = true;
+    }
+
+    // Kalau mau kembali ke menu setelah submit, aktifkan baris ini:
+    // window.location.href = "menu.html";
+  })
+  .catch(() => {
+    alert(`Evaluasi selesai!\nSkor kamu: ${score}/100\n⚠️ Gagal kirim, cek koneksi internet.`);
+
+    if(btnSubmit){
+      btnSubmit.innerText = "✨ SELESAI & KIRIM ✨";
+      btnSubmit.disabled = false;
+    }
+  });
+}
+  </script>
+</body>
+</html>

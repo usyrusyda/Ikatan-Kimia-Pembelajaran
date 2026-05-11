@@ -1,0 +1,2622 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LKPD Ikatan Logam - 5E</title>
+
+
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+
+
+  <style>
+    :root{
+      --gold:#ffc107;
+      --batik-blue:#3a7caf;
+      --cream:#fffdf2;
+      --soft-blue:#e3f2fd;
+      --green:#a8e6cf;
+      --gray:#b2bec3;
+      --white:#fff;
+      --shadow: 0 10px 30px rgba(0,0,0,.06);
+      --red:#ff6b6b;
+    }
+    body{
+      font-family:'Quicksand',sans-serif;
+      margin:0;
+      background:var(--cream);
+      color:var(--batik-blue);
+      overflow-x:hidden;
+    }
+    h1,h2,h3,h4{font-family:'Fredoka',sans-serif;margin:10px 0}
+    .hidden{display:none !important;}
+
+
+    /* NAV */
+    nav{
+      background:#fff;
+      padding:8px 5%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      border-bottom-left-radius:30px;
+      border-bottom-right-radius:30px;
+      box-shadow:0 5px 20px rgba(0,0,0,.05);
+      position:sticky;
+      top:0;
+      z-index:10;
+    }
+    .nav-left,.nav-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+    .pill{
+      display:inline-block;padding:6px 12px;border-radius:999px;
+      background:#fff;border:2px dashed #d9ecff;font-size:12px;font-weight:800;opacity:.9;
+    }
+
+
+    /* BUTTON */
+    button{
+      padding:12px 20px;
+      background:var(--batik-blue);
+      color:#fff;
+      border:none;
+      border-radius:50px;
+      font-family:'Fredoka',sans-serif;
+      font-size:15px;
+      cursor:pointer;
+      box-shadow:0 5px 0 #2a5a82;
+      transition:.2s;
+      position:relative;
+      display:inline-block;
+      margin:4px;
+    }
+    button:hover{background:#4a8cbf;top:-2px;box-shadow:0 7px 0 #2a5a82}
+    button:active{top:3px;box-shadow:0 2px 0 #2a5a82}
+    .btn-back{background:var(--gray);box-shadow:0 5px 0 #636e72}
+    .btn-next{background:var(--gold);box-shadow:0 5px 0 #c79a00;color:#444}
+    .btn-green{background:#27ae60;box-shadow:0 5px 0 #1e8449}
+    .btn-logout{background:var(--red);box-shadow:0 5px 0 #cc4d4d;padding:8px 15px;font-size:12px}
+    .mini{font-size:12px;padding:8px 12px}
+
+
+    /* LAYOUT */
+    .module-container{
+      max-width:980px;
+      margin:18px auto;
+      padding:26px;
+      background:#fff;
+      border-radius:40px;
+      border:6px solid var(--soft-blue);
+      box-shadow:var(--shadow);
+    }
+    .section-box{
+      background:var(--soft-blue);
+      padding:18px;
+      border-radius:25px;
+      margin-bottom:16px;
+      border-left:10px solid var(--gold);
+    }
+    .section-green{
+      background:var(--green);
+      border-left:10px solid #27ae60;
+    }
+
+    .capaian-box{
+      background:#fff;
+      border:2px solid #d9ecff;
+      border-left:10px solid var(--batik-blue);
+      border-radius:20px;
+      padding:18px;
+      margin-top:14px;
+      box-shadow:0 4px 10px rgba(0,0,0,.04);
+    }
+    .tujuan-box{
+      background:#fff;
+      border:2px solid #d9ecff;
+      border-left:10px solid var(--gold);
+      border-radius:20px;
+      padding:18px;
+      margin-top:14px;
+      box-shadow:0 4px 10px rgba(0,0,0,.04);
+    }
+    .capaian-box h4,.tujuan-box h4{color:var(--batik-blue);}
+    .capaian-box p,.tujuan-box li{color:#4d6f8f;}
+
+    /* LKPD */
+    .progress-bar{
+      width:100%;height:12px;background:#eee;border-radius:10px;
+      margin:0 0 16px 0;overflow:hidden;border:2px solid #fff;
+    }
+    .progress-fill{height:100%;background:var(--gold);width:0%;transition:.5s}
+    .badge-5e{
+      background:var(--batik-blue);color:#fff;padding:5px 14px;
+      border-radius:15px;font-size:13px;font-weight:bold;
+      margin-bottom:10px;display:inline-block;
+    }
+    .phase-card{display:none;animation:fadeIn .35s}
+    .phase-card.active{display:block}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+
+    input,select,textarea{
+      width:100%;
+      padding:12px;
+      margin-bottom:10px;
+      border:3px solid #f0f0f0;
+      border-radius:15px;
+      font-family:'Quicksand',sans-serif;
+      font-weight:700;
+      box-sizing:border-box;
+      background:#fff;
+    }
+    textarea{min-height:86px}
+
+
+    .hint{
+      background:#fff;
+      border:2px dashed #d9ecff;
+      border-radius:18px;
+      padding:12px;
+      display:none;
+      margin-top:8px;
+      font-size:13px;
+    }
+    /* === MCQ / pilihan ganda (WAJIB biar rapi) === */
+.mcq-option{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  background:#fff;
+  padding:10px 12px;
+  border-radius:12px;
+  margin:6px 0;
+  border:2px solid #eee;
+  cursor:pointer;
+  transition:.2s;
+  text-align:left;
+  font-size:13px;
+}
+.mcq-option:hover{background:var(--soft-blue)}
+.mcq-option input[type="radio"],
+.mcq-option input[type="checkbox"]{
+  margin-top:3px;
+  width:auto;
+  flex:0 0 auto;
+}
+
+
+/* Supaya textarea/isi tidak terlalu “mepet” */
+.section-box p{ line-height:1.7; }
+
+@media (max-width: 768px){
+  #logam-lautan div[style*="grid-template-columns"],
+  #logam-sifat div[style*="grid-template-columns"],
+  #logam-contoh div[style*="grid-template-columns"]{
+    grid-template-columns:1fr !important;
+  }
+}
+
+.feedback-auto-box{
+  display:none;
+  background:#fff;
+  border:2px dashed #d9ecff;
+  border-left:10px solid #27ae60;
+  border-radius:22px;
+  padding:18px;
+  margin-top:16px;
+  color:#2f5f56;
+  box-shadow:0 6px 16px rgba(0,0,0,.05);
+}
+
+.feedback-auto-box h3{
+  margin-top:0;
+  color:#1e8449;
+}
+
+.feedback-item{
+  background:#f8fff9;
+  border:1px solid #bdebd4;
+  border-radius:16px;
+  padding:12px 14px;
+  margin-bottom:12px;
+  font-size:14px;
+  line-height:1.7;
+}
+
+.feedback-item b{
+  color:#1e8449;
+}
+
+.locked-answer{
+  background:#f3f6f8 !important;
+  color:#555 !important;
+  border-color:#d0d7de !important;
+  cursor:not-allowed !important;
+}
+
+.teacher-only{
+  display:none;
+}
+
+.answer-key-box{
+  background:#fff;
+  border:2px dashed #d9ecff;
+  border-left:10px solid #27ae60;
+  border-radius:20px;
+  padding:16px;
+  margin-top:16px;
+  color:#2f5f56;
+}
+
+.answer-key-box h3{
+  margin-top:0;
+  color:#1e8449;
+}
+
+.answer-key-box table{
+  width:100%;
+  border-collapse:collapse;
+  background:#fff;
+  font-size:12px;
+}
+
+.answer-key-box th,
+.answer-key-box td{
+  border:1px solid #d9ecff;
+  padding:8px;
+  text-align:left;
+}
+
+.answer-key-box th{
+  background:#27ae60;
+  color:#fff;
+}
+
+  </style>
+</head>
+
+
+<body onload="initLKPD()">
+
+
+  <nav>
+    <div class="nav-left">
+  <button class="btn-back mini" onclick="goMenu()">⬅️ Menu</button>
+  <button class="btn-next mini" onclick="openMateriLogam()">📚 Materi</button>
+  <span class="pill" id="user-pill">Belum isi identitas</span>
+</div>
+
+
+    <strong>Ikatan Logam</strong>
+
+
+    <div class="nav-right">
+      <button class="btn-logout" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+
+  <div class="module-container">
+    <div class="progress-bar"><div id="fill" class="progress-fill"></div></div>
+
+
+    <!-- ================= PHASE 0 ================= -->
+<div class="phase-card active" id="p0">
+  <center><h2 style="margin-top:0;">IDENTITAS & INFORMASI LKPD</h2></center>
+
+
+  <div class="section-box section-green">
+    <p style="margin:0 0 8px 0;"><b>Isi identitas dulu ya:</b></p>
+    <input type="text" id="nama" placeholder="Nama kamu...">
+    <input type="text" id="kelas" placeholder="Kelas... (contoh: X-IPA 1)">
+    <input type="date" id="tgl">
+    <button class="btn-next" onclick="saveIdentity()">Simpan Identitas ✅</button>
+  </div>
+
+     <div class="capaian-box">
+          <h4 style="margin-top:0; margin-bottom:8px;">📘 Capaian Pembelajaran</h4>
+          <p style="margin:0; text-align:left; font-size:14px; line-height:1.7;">
+          Pada akhir Fase F, peserta didik mampu memahami sifat, struktur, dan interaksi partikel dalam membentuk berbagai senyawa serta kaitannya dengan sifat zat dalam kehidupan sehari-hari.
+        </p>
+      </div> 
+
+  <div class="tujuan-box">
+  <h4 style="margin-top:0; margin-bottom:8px;">🎯 Tujuan Pembelajaran</h4>
+  <ol style="text-align:left; font-size:14px; line-height:1.7; margin:0; padding-left:20px;">
+  <li>Siswa mampu menjelaskan pembentukan ikatan logam berdasarkan gaya tarik antara kation logam dan elektron valensi yang bergerak bebas.</li>
+  <li>Siswa mampu menghubungkan pembentukan ikatan logam dengan sifat logam.</li>
+</ol>
+
+      <center>
+      <button class="btn-next" onclick="requireIdentityThenGo(1)">Mulai Engagement ➡️</button>
+    </center>
+  </div>
+</div>
+
+<!-- ================= PHASE 1 ================= -->
+<div class="phase-card" id="p1">
+   <span class="badge-5e">1. Engagement</span>
+
+  <!-- PENGANTAR FENOMENA -->
+  <div class="section-box" style="border-left:10px solid var(--batik-blue);">
+    <h2 style="margin-top:0;color:var(--batik-blue);">🔵 Engagement </h2>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Dalam kehidupan sehari-hari, kita sering menggunakan benda-benda yang terbuat dari logam.
+      Kabel listrik menggunakan tembaga atau aluminium, alat masak banyak dibuat dari aluminium
+      atau baja, rangka bangunan dapat dibuat dari besi, dan perhiasan sering dibuat dari emas
+      atau perak.
+    </p>
+
+    <center>
+      <img src="perhiasan.png"
+           alt="Contoh benda-benda logam dalam kehidupan sehari-hari"
+           style="width:90%;max-width:620px;border-radius:15px;display:block;box-shadow:0 8px 20px rgba(0,0,0,.08);">
+      <p style="font-size:12px;opacity:.8;margin:8px 0 0;">
+        Berbagai benda logam dimanfaatkan karena memiliki sifat khas yang berguna dalam kehidupan sehari-hari.
+      </p>
+    </center>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;margin-top:14px;">
+      Logam memiliki beberapa sifat yang menarik. Banyak logam dapat menghantarkan listrik
+      dan panas dengan baik. Karena itu, logam digunakan sebagai kabel listrik dan alat masak.
+      Logam juga dapat dibentuk menjadi berbagai benda, seperti sendok, panci, cincin, kawat,
+      dan lembaran logam.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Coba bandingkan logam dengan kaca atau keramik. Kaca dan keramik dapat terlihat keras,
+      tetapi mudah retak atau pecah ketika diberi tekanan kuat. Logam berbeda. Banyak logam
+      dapat ditempa, dibengkokkan, atau dibentuk tanpa langsung patah.
+    </p>
+
+    <div style="background:#fff;padding:15px;border-radius:18px;border:2px dashed #d9ecff;margin-top:14px;">
+      <p style="font-size:14px;line-height:1.8;text-align:justify;margin:0;">
+        Sifat-sifat logam tersebut berkaitan dengan susunan partikel logam dan cara elektron
+        valensi bergerak di dalamnya. Atom-atom logam tidak berikatan seperti atom pada ikatan
+        ion atau ikatan kovalen. Pada logam, terdapat model ikatan yang disebut
+        <b>ikatan logam</b>.
+      </p>
+    </div>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;margin-top:14px;">
+      Pada tahap ini, kamu <b>belum harus menjawab dengan benar</b>. Tuliskan dugaan awalmu
+      berdasarkan pengamatan dan pengetahuan yang sudah kamu miliki. Untuk menemukan jawaban
+      yang lebih lengkap, kerjakan seluruh kegiatan LKPD ini secara berurutan, mulai dari membaca
+      materi, melakukan eksplorasi, menjelaskan hasil pengamatan, mengerjakan elaborasi,
+      hingga menyelesaikan evaluasi.
+    </p>
+  </div>
+
+  <!-- RUMUSAN MASALAH -->
+  <div class="section-box" style="background:white;border-left:10px solid var(--batik-blue);border:2px dashed #d9ecff;">
+    <h3 style="margin-top:0;color:var(--batik-blue);">❓ Rumusan Masalah</h3>
+
+    <p style="font-size:15px;line-height:1.8;text-align:justify;margin-bottom:0;">
+      <b>
+        Bagaimana ikatan logam terbentuk, dan bagaimana pembentukan ikatan logam tersebut
+        dapat menjelaskan sifat-sifat khas logam dalam kehidupan sehari-hari?
+      </b>
+    </p>
+  </div>
+
+  <!-- HIPOTESIS AWAL -->
+  <div class="section-box" style="background:var(--green);border-left:10px solid #27ae60;">
+    <h3 style="margin-top:0;color:#1e8449;">💭 Hipotesis Awal</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Berdasarkan fenomena benda-benda logam di atas, tuliskan dugaan awalmu untuk menjawab
+      rumusan masalah. Dugaan ini tidak harus langsung benar. 
+    </p>
+
+    <textarea id="eng1" rows="5"
+      placeholder="Contoh awal: Menurut saya, logam dapat menghantarkan listrik dan mudah ditempa karena ada elektron yang dapat bergerak di antara atom-atom logam..."></textarea>
+  </div>
+
+  <!-- ARAH KEGIATAN SELANJUTNYA -->
+  <div class="section-box">
+    <h3 style="margin-top:0;">🧭 Arah Kegiatan Selanjutnya</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Untuk membuktikan hipotesismu, kerjakan kegiatan berikut secara berurutan!
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;margin-bottom:0;">
+      Setelah seluruh tahap selesai, kamu akan dapat menjawab rumusan masalah dengan lebih lengkap
+      dan berdasarkan konsep ilmiah.
+    </p>
+  </div>
+
+  <center>
+    <button class="btn-back" onclick="nextPhase(0)">⬅️ Kembali</button>
+    <button class="btn-next" onclick="nextPhase(2)">Lanjut ke Exploration ➡️</button>
+  </center>
+</div>
+
+
+<!-- ================= PHASE 2 ================= -->
+<div class="phase-card" id="p2">
+  <span class="badge-5e">2. Exploration</span>
+
+  <!-- PENGANTAR EXPLORATION -->
+  <div class="section-box" style="border-left:10px solid var(--batik-blue);">
+    <h2 style="margin-top:0;color:var(--batik-blue);">🔍 Exploration</h2>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Pada tahap Engagement, kamu sudah mengamati bahwa logam banyak digunakan sebagai kabel listrik,
+      alat masak, rangka bangunan, dan perhiasan. Logam dipilih karena memiliki sifat khas, seperti
+      dapat menghantarkan listrik, menghantarkan panas, kuat, mengkilap, dan mudah ditempa.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Pada tahap Exploration ini, kamu akan menyelidiki hubungan antara <b>pembentukan ikatan logam</b>,
+<b>model lautan elektron</b>, dan <b>sifat-sifat logam</b> melalui bacaan eksplorasi. Sebelum
+membaca kasus dan mengisi tabel, bacalah materi pendukung terlebih dahulu agar kamu memahami
+konsep dasarnya.
+    </p>
+
+    <center>
+      <button class="btn-next" onclick="openMateriLogam()">📚 Baca Materi Dulu</button>
+    </center>
+  </div>
+
+  <!-- PETUNJUK KEGIATAN -->
+  <div class="section-box" style="border-left:10px solid var(--gold);">
+    <h3 style="margin-top:0;color:var(--batik-blue);">🧭 Petunjuk Kegiatan Eksplorasi</h3>
+
+<p style="font-size:13px;line-height:1.7;color:#cc4d4d;font-weight:bold;">
+  Catatan: Jawaban pada tabel dan pertanyaan eksplorasi harus didasarkan pada bacaan eksplorasi
+  dan materi pendukung, bukan sekadar hafalan definisi.
+</p>
+
+<!-- BACAAN EKSPLORASI BERBASIS FENOMENA -->
+<div class="section-box" style="background:white;border-left:10px solid var(--batik-blue);">
+  <h3 style="margin-top:0;color:var(--batik-blue);">📖 Mengapa Logam Banyak Dipilih dalam Kehidupan Sehari-hari?</h3>
+
+  <p style="font-size:14px;line-height:1.8;text-align:justify;">
+    Setelah membaca materi pendukung tentang ikatan logam dan model lautan elektron,
+    bacalah fenomena berikut dengan teliti.
+  </p>
+
+  <!-- FENOMENA 1 -->
+  <div style="background:#f8fbff;border:2px dashed #d9ecff;border-radius:18px;padding:15px;margin-top:12px;">
+    <h4 style="margin-top:0;color:var(--batik-blue);">Fenomena 1: Mengapa Kabel Listrik Terbuat dari Logam?</h4>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;margin-bottom:0;">
+      Di rumah, sekolah, dan jalan raya, kabel listrik digunakan untuk mengalirkan arus listrik.
+      Bagian dalam kabel biasanya terbuat dari logam seperti tembaga atau aluminium.
+      Logam-logam tersebut dipilih karena dapat menghantarkan listrik dengan baik.
+      Ketika kabel dihubungkan dengan sumber listrik, muatan listrik dapat mengalir melalui
+      logam. Hal ini terjadi karena di dalam logam terdapat elektron valensi yang dapat
+      bergerak bebas di antara kation-kation logam.
+    </p>
+  </div>
+
+  <!-- FENOMENA 2 -->
+  <div style="background:#f8fbff;border:2px dashed #d9ecff;border-radius:18px;padding:15px;margin-top:12px;">
+    <h4 style="margin-top:0;color:var(--batik-blue);">Fenomena 2: Mengapa Panci Cepat Panas?</h4>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;margin-bottom:0;">
+      Saat panci logam diletakkan di atas kompor, bagian bawah panci yang terkena api akan
+      menjadi panas lebih dahulu. Tidak lama kemudian, bagian lain dari panci juga ikut panas.
+      Fenomena ini menunjukkan bahwa logam dapat menghantarkan panas dengan baik.
+      Perpindahan panas pada logam dibantu oleh susunan partikel yang rapat dan elektron bebas
+      yang dapat bergerak di dalam struktur logam.
+    </p>
+  </div>
+
+  <!-- FENOMENA 3 -->
+  <div style="background:#f8fbff;border:2px dashed #d9ecff;border-radius:18px;padding:15px;margin-top:12px;">
+    <h4 style="margin-top:0;color:var(--batik-blue);">Fenomena 3: Mengapa Logam Bisa Dibentuk Menjadi Perhiasan atau Lembaran?</h4>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;margin-bottom:0;">
+      Emas, perak, dan aluminium dapat dibentuk menjadi berbagai benda, seperti cincin,
+      gelang, kalung, aluminium foil, atau lembaran logam. Ketika logam diberi tekanan,
+      lapisan kation logam dapat bergeser. Akan tetapi, logam tidak langsung patah karena
+      kation-kation logam tetap dikelilingi dan diikat oleh lautan elektron. Inilah sebabnya
+      banyak logam dapat ditempa, dibengkokkan, atau ditarik menjadi kawat.
+    </p>
+  </div>
+
+  <!-- FENOMENA 4 -->
+  <div style="background:#f8fbff;border:2px dashed #d9ecff;border-radius:18px;padding:15px;margin-top:12px;">
+    <h4 style="margin-top:0;color:var(--batik-blue);">Fenomena 4: Mengapa Permukaan Logam Tampak Mengkilap?</h4>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;margin-bottom:0;">
+      Permukaan logam yang dipoles, seperti emas, perak, aluminium, atau besi, dapat tampak
+      mengkilap. Kilap logam terjadi karena elektron bebas pada permukaan logam dapat
+      berinteraksi dengan cahaya yang datang. Cahaya tersebut kemudian dipantulkan kembali,
+      sehingga permukaan logam terlihat berkilau.
+    </p>
+  </div>
+
+  <!-- PENGARAH ANALISIS -->
+  <div style="background:var(--green);border-left:10px solid #27ae60;border-radius:18px;padding:14px;margin-top:14px;">
+    <p style="font-size:14px;line-height:1.8;margin:0;text-align:justify;">
+      <b>Petunjuk analisis:</b> Dari keempat fenomena di atas, perhatikan bahwa sifat logam
+      tidak hanya disebabkan oleh “logam itu kuat” atau “logam itu keras”. Sifat logam
+      berkaitan dengan struktur ikatan logam, yaitu adanya kation logam yang tersusun rapat
+      dan elektron valensi yang bergerak bebas membentuk lautan elektron.
+    </p>
+  </div>
+</div>
+
+ <!-- TABEL EKSPLORASI RINGKAS -->
+<div class="section-box">
+  <h3 style="margin-top:0;color:var(--batik-blue);">📋 Tabel Eksplorasi</h3>
+
+  <p style="font-size:14px;line-height:1.8;text-align:justify;">
+    Lengkapi tabel berikut berdasarkan bacaan fenomena. Tuliskan informasi penting dari bacaan,
+    lalu hubungkan dengan konsep ikatan logam.
+  </p>
+
+  <div style="overflow-x:auto;">
+    <table style="width:100%;border-collapse:collapse;background:#fff;border-radius:15px;overflow:hidden;font-size:13px;min-width:900px;">
+      <tr style="background:var(--batik-blue);color:#fff;">
+        <th style="padding:8px;border:1px solid var(--soft-blue);">Fenomena</th>
+        <th style="padding:8px;border:1px solid var(--soft-blue);">Sifat Logam yang Tampak</th>
+        <th style="padding:8px;border:1px solid var(--soft-blue);">Hubungan dengan Ikatan Logam</th>
+      </tr>
+
+      <tr>
+        <td style="padding:8px;border:1px solid var(--soft-blue);"><b>Kabel listrik dari logam</b></td>
+        <td style="padding:8px;border:1px solid var(--soft-blue);">
+          <textarea id="eks-logam-tabel-1" rows="3"></textarea>
+        </td>
+        <td style="padding:8px;border:1px solid var(--soft-blue);">
+          <textarea id="eks-logam-tabel-2" rows="3"></textarea>
+        </td>
+      </tr>
+
+      <tr>
+        <td style="padding:8px;border:1px solid var(--soft-blue);"><b>Panci logam cepat panas</b></td>
+        <td style="padding:8px;border:1px solid var(--soft-blue);">
+          <textarea id="eks-logam-tabel-3" rows="3"></textarea>
+        </td>
+        <td style="padding:8px;border:1px solid var(--soft-blue);">
+          <textarea id="eks-logam-tabel-4" rows="3"></textarea>
+        </td>
+      </tr>
+
+      <tr>
+        <td style="padding:8px;border:1px solid var(--soft-blue);"><b>Logam dapat dibentuk</b></td>
+        <td style="padding:8px;border:1px solid var(--soft-blue);">
+          <textarea id="eks-logam-tabel-5" rows="3"></textarea>
+        </td>
+        <td style="padding:8px;border:1px solid var(--soft-blue);">
+          <textarea id="eks-logam-tabel-6" rows="3"></textarea>
+        </td>
+      </tr>
+
+      <tr>
+        <td style="padding:8px;border:1px solid var(--soft-blue);"><b>Permukaan logam mengkilap</b></td>
+        <td style="padding:8px;border:1px solid var(--soft-blue);">
+          <textarea id="eks-logam-tabel-7" rows="3"></textarea>
+        </td>
+        <td style="padding:8px;border:1px solid var(--soft-blue);">
+          <textarea id="eks-logam-tabel-8" rows="3"></textarea>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+  <!-- KUNCI JAWABAN GURU -->
+<div class="teacher-only answer-key-box">
+  <h3>🔐 Kunci Jawaban Guru — Tabel Eksplorasi</h3>
+
+  <p style="font-size:13px;line-height:1.8;margin-top:0;">
+    Catatan: Jawaban siswa tidak harus sama persis dengan kunci berikut. Jawaban dianggap benar
+    jika siswa mampu menghubungkan fenomena dengan konsep <b>kation logam</b>,
+    <b>elektron valensi bebas</b>, <b>lautan elektron</b>, dan <b>sifat logam</b>.
+  </p>
+
+  <table>
+    <tr>
+      <th>Fenomena</th>
+      <th>Sifat Logam yang Tampak</th>
+      <th>Hubungan dengan Ikatan Logam</th>
+    </tr>
+
+    <tr>
+      <td>Kabel listrik dari logam</td>
+      <td>
+        Logam dapat menghantarkan listrik sehingga digunakan sebagai bahan kabel,
+        misalnya tembaga atau aluminium.
+      </td>
+      <td>
+        Pada ikatan logam terdapat elektron valensi bebas yang dapat bergerak di antara
+        kation-kation logam. Elektron bebas ini dapat membawa muatan listrik sehingga
+        logam menjadi konduktor listrik.
+      </td>
+    </tr>
+
+    <tr>
+      <td>Panci atau alat masak logam</td>
+      <td>
+        Logam dapat menghantarkan panas sehingga panas dari api dapat menyebar ke bagian
+        lain panci atau alat masak.
+      </td>
+      <td>
+        Energi panas dapat berpindah melalui elektron bebas dan susunan partikel logam
+        yang rapat. Karena itu, logam dapat menghantarkan panas dengan baik.
+      </td>
+    </tr>
+
+    <tr>
+      <td>Logam ditempa atau dibentuk</td>
+      <td>
+        Logam dapat ditempa, dibengkokkan, atau ditarik menjadi kawat tanpa langsung patah.
+      </td>
+      <td>
+        Kation-kation logam tersusun rapat dan dapat bergeser saat diberi tekanan.
+        Walaupun bergeser, kation logam tetap diikat oleh lautan elektron sehingga logam
+        dapat berubah bentuk tanpa mudah patah.
+      </td>
+    </tr>
+
+    <tr>
+      <td>Permukaan logam mengkilap</td>
+      <td>
+        Logam yang dipoles tampak mengkilap karena permukaannya dapat memantulkan cahaya.
+      </td>
+      <td>
+        Elektron bebas pada permukaan logam dapat berinteraksi dengan cahaya yang datang
+        dan memantulkannya kembali, sehingga permukaan logam terlihat berkilau.
+      </td>
+    </tr>
+  </table>
+</div>
+
+<!-- PERTANYAAN EKSPLORASI -->
+<div class="section-box" style="background:var(--green);border-left:10px solid #27ae60;">
+  <h3 style="margin-top:0;color:#1e8449;">🧠 Pertanyaan Eksplorasi</h3>
+
+  <p style="font-size:14px;line-height:1.8;text-align:justify;">
+    Jawablah pertanyaan berikut setelah membaca materi pendukung, membaca bacaan fenomena,
+    dan mengisi tabel eksplorasi. Jawabanmu harus menghubungkan informasi dari bacaan
+    dengan konsep pembentukan ikatan logam dan sifat-sifat logam.
+  </p>
+
+  <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+    1. Berdasarkan materi pendukung, bagaimana ikatan logam terbentuk?
+  </p>
+  <textarea id="eks-logam-q1" rows="4"></textarea>
+
+  <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+    2. Apa peran kation logam dan elektron valensi bebas dalam pembentukan ikatan logam?
+  </p>
+  <textarea id="eks-logam-q2" rows="4"></textarea>
+
+  <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+    3. Berdasarkan bacaan fenomena kabel listrik, mengapa logam dapat menghantarkan listrik?
+  </p>
+  <textarea id="eks-logam-q3" rows="4"></textarea>
+
+  <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+    4. Berdasarkan bacaan fenomena panci logam dan logam yang ditempa, bagaimana ikatan logam dapat menjelaskan sifat logam yang menghantarkan panas dan dapat dibentuk?
+  </p>
+  <textarea id="eks-logam-q4" rows="4"></textarea>
+
+  <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+    5. Berdasarkan seluruh bacaan fenomena, simpulkan hubungan antara pembentukan ikatan logam dengan sifat-sifat khas logam.
+  </p>
+  <textarea id="eks-logam-q5" rows="4"></textarea>
+
+  <!-- KUNCI JAWABAN GURU - PERTANYAAN EKSPLORASI -->
+<div class="teacher-only answer-key-box">
+  <h3>🔐 Kunci Jawaban Guru — Pertanyaan Eksplorasi</h3>
+
+  <p style="font-size:13px;line-height:1.8;margin-top:0;">
+    Catatan: Jawaban siswa tidak harus sama persis dengan kunci berikut. Jawaban dianggap baik
+    jika siswa mampu menjelaskan konsep dengan bahasanya sendiri dan tetap menghubungkan
+    <b>kation logam</b>, <b>elektron valensi bebas</b>, <b>lautan elektron</b>, dan <b>sifat logam</b>.
+  </p>
+
+  <ol style="font-size:13px;line-height:1.8;padding-left:22px;">
+    <li>
+      <b>Bagaimana ikatan logam terbentuk?</b><br>
+      Ikatan logam terbentuk karena adanya gaya tarik elektrostatik antara kation-kation logam
+      yang bermuatan positif dan elektron valensi yang bergerak bebas. Elektron valensi bebas
+      tersebut berada di antara kation-kation logam dan membentuk lautan elektron.
+    </li>
+
+    <li style="margin-top:10px;">
+      <b>Apa peran kation logam dan elektron valensi bebas dalam pembentukan ikatan logam?</b><br>
+      Kation logam berperan sebagai ion positif yang tersusun rapat dalam struktur logam.
+      Elektron valensi bebas berperan sebagai elektron yang bergerak di antara kation-kation logam.
+      Gaya tarik antara kation logam dan elektron bebas inilah yang mempertahankan susunan logam.
+    </li>
+
+    <li style="margin-top:10px;">
+      <b>Mengapa logam dapat menghantarkan listrik?</b><br>
+      Logam dapat menghantarkan listrik karena memiliki elektron valensi bebas yang dapat bergerak.
+      Ketika logam dihubungkan dengan sumber listrik, elektron-elektron bebas bergerak membawa
+      muatan listrik melalui logam.
+    </li>
+
+    <li style="margin-top:10px;">
+      <b>Bagaimana ikatan logam menjelaskan sifat menghantarkan panas dan dapat dibentuk?</b><br>
+      Logam dapat menghantarkan panas karena energi panas dapat diteruskan melalui elektron bebas
+      dan susunan partikel logam yang rapat. Logam dapat dibentuk karena lapisan kation logam
+      dapat bergeser ketika diberi tekanan, tetapi tetap diikat oleh lautan elektron sehingga
+      tidak langsung patah.
+    </li>
+
+    <li style="margin-top:10px;">
+      <b>Bagaimana hubungan pembentukan ikatan logam dengan sifat-sifat khas logam?</b><br>
+      Pembentukan ikatan logam melibatkan kation logam dan elektron valensi bebas. Elektron bebas
+      menjelaskan sifat logam sebagai penghantar listrik, penghantar panas, dan mengkilap.
+      Sementara itu, lautan elektron tetap mengikat kation logam meskipun lapisannya bergeser,
+      sehingga logam dapat ditempa atau dibentuk tanpa mudah patah.
+    </li>
+  </ol>
+</div>
+</div>
+
+  <center>
+    <button class="btn-back" onclick="nextPhase(1)">⬅️ Kembali ke Engagement</button>
+    <button class="btn-next" onclick="nextPhase(3)">Lanjut ke Explanation ➡️</button>
+  </center>
+</div>
+</div>
+
+<!-- ================= MATERI LOGAM TERPISAH ================= -->
+<div class="phase-card" id="pMateriLogam">
+  <span class="badge-5e">Materi Pendukung</span>
+
+  <div class="section-box" style="border-left:10px solid var(--batik-blue);">
+    <h2 style="margin-top:0;color:var(--batik-blue);">📚 Materi</h2>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Bacalah materi berikut sebelum mengisi tabel eksplorasi. Materi ini membantumu memahami
+      bagaimana ikatan logam terbentuk dan mengapa logam memiliki sifat khas seperti menghantarkan
+      listrik, menghantarkan panas, mengkilap, kuat, dan mudah ditempa.
+    </p>
+
+    <center>
+      <button class="btn-back" onclick="backToExplorationLogam()">⬅️ Kembali ke Exploration</button>
+    </center>
+  </div>
+
+  <!-- MATERI 1 -->
+  <div class="section-box">
+    <h3 style="margin-top:0;color:var(--batik-blue);">1. Pengertian Ikatan Logam</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Ikatan logam adalah ikatan yang terbentuk karena adanya gaya tarik-menarik antara
+      <b>kation-kation logam</b> dan <b>elektron valensi yang bergerak bebas</b>.
+      Atom logam umumnya mudah melepaskan elektron valensinya, sehingga terbentuk ion positif
+      atau kation logam.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Elektron valensi yang dilepaskan tidak hilang, tetapi bergerak bebas di antara kation-kation
+      logam. Elektron bebas inilah yang membentuk <b>lautan elektron</b>.
+    </p>
+
+    <div style="background:#fff;padding:15px;border-radius:18px;border:2px dashed #d9ecff;">
+      <p style="font-size:14px;line-height:1.8;margin:0;">
+        <b>Inti konsep:</b><br>
+        Kation logam bermuatan positif.<br>
+        Elektron valensi bergerak bebas.<br>
+        Gaya tarik antara kation logam dan elektron bebas membentuk ikatan logam.
+      </p>
+    </div>
+  </div>
+
+  <!-- MATERI 2 -->
+  <div class="section-box">
+    <h3 style="margin-top:0;color:var(--batik-blue);">2. Model Lautan Elektron</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Dalam model lautan elektron, kation-kation logam tersusun rapat dan teratur.
+      Di antara kation-kation tersebut terdapat elektron valensi yang dapat bergerak bebas.
+      Elektron-elektron ini seperti “lautan” yang mengelilingi kation logam.
+    </p>
+
+    <center style="margin:12px 0;">
+      <img src="logam.png"
+           alt="Model ikatan logam: kation logam dan lautan elektron"
+           style="width:90%;max-width:620px;border-radius:15px;display:block;">
+      <p style="font-size:12px;opacity:.8;margin:8px 0 0;">
+        Model ikatan logam: kation logam dikelilingi oleh elektron valensi yang bergerak bebas.
+      </p>
+    </center>
+
+    <div style="background:var(--green);border-left:10px solid #27ae60;border-radius:18px;padding:14px;margin-top:14px;">
+      <p style="font-size:14px;line-height:1.8;margin:0;">
+        <b>Kesimpulan:</b> Lautan elektron bertindak seperti perekat yang menjaga kation-kation logam
+        tetap terikat, tetapi masih memungkinkan lapisan kation bergeser ketika logam ditempa.
+      </p>
+    </div>
+  </div>
+
+  <!-- MATERI 3 -->
+  <div class="section-box">
+    <h3 style="margin-top:0;color:var(--batik-blue);">3. Mengapa Logam Menghantarkan Listrik dan Panas?</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Logam dapat menghantarkan listrik karena memiliki elektron valensi yang bergerak bebas.
+      Ketika logam dihubungkan dengan sumber listrik, elektron-elektron bebas dapat bergerak
+      membawa muatan listrik melalui logam.
+    </p>
+
+    <div style="background:#fff;padding:15px;border-radius:18px;border:2px dashed #d9ecff;">
+      <p style="font-size:14px;line-height:1.8;margin:0;">
+        Elektron bebas bergerak → muatan listrik dapat mengalir → logam menjadi konduktor listrik.
+      </p>
+    </div>
+  </div>
+
+  <!-- MATERI 4 -->
+  <div class="section-box">
+
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Selain menghantarkan listrik, logam juga dapat menghantarkan panas. Energi panas dapat
+      berpindah melalui getaran partikel logam dan melalui pergerakan elektron bebas.
+      Karena itu, banyak alat masak dibuat dari logam.
+    </p>
+
+    <div style="background:#fff;padding:15px;border-radius:18px;border:2px dashed #d9ecff;">
+      <p style="font-size:14px;line-height:1.8;margin:0;">
+        Elektron bebas dan susunan partikel rapat membantu perpindahan energi panas.
+      </p>
+    </div>
+  </div>
+
+  <!-- MATERI 5 -->
+  <div class="section-box">
+    <h3 style="margin-top:0;color:var(--batik-blue);">4. Mengapa Logam Dapat Ditempa?</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+     Bersifat keras namun tidak mudah patah
+Lautan elektron pada logam bergerak bebas, tetapi terikat sangat kuat dengan ion-ion positif dari atom logamnya. Hal ini menyebabkan logam tidak akan patah, retak, atau hancur saat dipukul atau ditempa (diberikan tekanan), ion positif dan elektronnya hanya bergeser ketika diberi tekanan. Ikatan yang kuat ini juga menyebabkan jarak antaratomnya menjadi sangat dekat sehingga logam umumnya ditemukan dalam wujud padat. Hal ini menyebabkan logam mudah dibentuk dengan ditempa dan digunakan untuk perhiasan atau pajangan dengan bentuk yang indah, contohnya teralis besi yang dapat dibentuk menjadi beragam desain dan logam seperti emas atau perak yang dapat dibuat menjadi perhiasan atau pajangan dengan bentuk yang indah.
+    </p>
+
+    <center style="margin:14px 0;">
+  <img src="ditempa.png"
+       alt="Ilustrasi susunan kation logam sebelum dan setelah ditempa"
+       style="width:95%;max-width:720px;border-radius:18px;display:block;box-shadow:0 8px 20px rgba(0,0,0,.08);">
+
+  <p style="font-size:12px;opacity:.8;margin:8px 0 0;">
+    Ilustrasi pergeseran lapisan kation logam sebelum dan setelah ditempa.
+  </p>
+</center>
+
+    <div style="background:#fff;padding:15px;border-radius:18px;border:2px dashed #d9ecff;">
+      <p style="font-size:14px;line-height:1.8;margin:0;">
+        Lapisan kation bergeser + lautan elektron tetap mengikat → logam dapat ditempa.
+      </p>
+    </div>
+  </div>
+
+  <!-- MATERI 6 -->
+  <div class="section-box">
+    <h3 style="margin-top:0;color:var(--batik-blue);">6. Mengapa Logam Mengkilap?</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Logam tampak mengkilap karena elektron bebas pada permukaan logam dapat berinteraksi dengan
+      cahaya. Elektron bebas tersebut membantu memantulkan cahaya sehingga permukaan logam terlihat
+      berkilau.
+    </p>
+
+    <div style="background:var(--green);border-left:10px solid #27ae60;border-radius:18px;padding:14px;margin-top:14px;">
+      <p style="font-size:14px;line-height:1.8;margin:0;">
+        <b>Intinya:</b> Banyak sifat logam dapat dijelaskan dengan model lautan elektron.
+        Elektron bebas menjelaskan daya hantar listrik, daya hantar panas, dan kilap logam.
+        Sementara itu, susunan kation logam yang dapat bergeser tetapi tetap terikat oleh lautan
+        elektron menjelaskan mengapa logam dapat ditempa.
+      </p>
+    </div>
+  </div>
+
+  <center>
+    <button class="btn-next" onclick="backToExplorationLogam()">Saya Sudah Membaca, Kembali ke Exploration ➡️</button>
+  </center>
+</div>
+
+<!-- ================= PHASE 3 ================= -->
+<div class="phase-card" id="p3">
+  <span class="badge-5e">3. Explanation</span>
+
+  <!-- PENGANTAR EXPLANATION -->
+  <div class="section-box" style="border-left:10px solid var(--batik-blue);">
+    <h2 style="margin-top:0;color:var(--batik-blue);">🟡 Explanation</h2>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Pada tahap Exploration, kamu sudah membaca materi pendukung, membaca bacaan fenomena,
+  mengisi tabel eksplorasi, dan menjawab pertanyaan tentang hubungan ikatan logam
+  dengan sifat-sifat logam. Sekarang, jelaskan kembali hasil eksplorasimu dengan
+  bahasamu sendiri.
+
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Jelaskan bukan hanya jawabannya, tetapi juga <b>alasan mengapa kamu menjawab seperti itu</b>.
+     Gunakan informasi dari bacaan fenomena dan tabel eksplorasi sebagai dasar penjelasanmu.
+    </p>
+  </div>
+
+ <!-- PRESENTASI PEMAHAMAN SISWA -->
+<div class="section-box">
+  <h3 style="margin-top:0;color:var(--batik-blue);">🎤 Penjelasan Pemahaman Siswa</h3>
+
+  <p style="font-size:14px;line-height:1.8;text-align:justify;">
+    Jelaskan kembali hasil eksplorasimu seolah-olah kamu sedang mempresentasikan hasil
+    diskusi kelompok. Gunakan informasi dari bacaan fenomena dan tabel eksplorasi sebagai
+    dasar jawabanmu.
+  </p>
+
+  <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+    1. Berdasarkan materi pendukung dan tabel eksplorasi, jelaskan bagaimana ikatan logam terbentuk.
+  </p>
+  <textarea id="exp-logam-q1" rows="4"
+    placeholder="Jelaskan hubungan antara kation logam, elektron valensi bebas, lautan elektron, dan gaya tarik elektrostatik..."></textarea>
+
+  <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+    2. Dari fenomena kabel listrik, jelaskan mengapa logam dapat menghantarkan listrik.
+  </p>
+  <textarea id="exp-logam-q2" rows="4"
+    placeholder="Jelaskan peran elektron valensi bebas dalam membawa muatan listrik..."></textarea>
+
+  <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+    3. Dari fenomena panci logam cepat panas, jelaskan mengapa logam dapat menghantarkan panas.
+  </p>
+  <textarea id="exp-logam-q3" rows="4"
+    placeholder="Hubungkan jawabanmu dengan elektron bebas, susunan partikel rapat, dan perpindahan energi panas..."></textarea>
+
+  <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+    4. Dari fenomena logam yang dapat dibentuk, jelaskan mengapa logam dapat ditempa tanpa mudah patah.
+  </p>
+  <textarea id="exp-logam-q4" rows="4"
+    placeholder="Jelaskan bagaimana lapisan kation logam dapat bergeser, tetapi tetap diikat oleh lautan elektron..."></textarea>
+
+  <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+    5. Dari fenomena logam mengkilap, jelaskan hubungan elektron bebas dengan kilap logam.
+  </p>
+  <textarea id="exp-logam-q5" rows="4"
+    placeholder="Jelaskan bagaimana elektron bebas pada permukaan logam berinteraksi dengan cahaya..."></textarea>
+</div>
+
+  <!-- REVISI HIPOTESIS -->
+  <div class="section-box" style="background:var(--green);border-left:10px solid #27ae60;">
+    <h3 style="margin-top:0;color:#1e8449;">🔁 Meninjau Kembali Hipotesis Awal</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Buka kembali hipotesis awalmu pada tahap Engagement. Setelah membaca materi,
+      melakukan eksplorasi, dan mengisi tabel, apakah hipotesismu sudah tepat?
+      Tuliskan perbaikan atau penguatan hipotesismu.
+    </p>
+
+    <textarea id="exp-logam-q6" rows="4"
+      placeholder="Tuliskan revisi hipotesis awalmu setelah memahami ikatan logam dan sifat-sifat logam..."></textarea>
+  </div>
+
+  <!-- UMPAN BALIK OTOMATIS -->
+  <div class="section-box" style="background:white;border-left:10px solid var(--gold);border:2px dashed #d9ecff;">
+    <h3 style="margin-top:0;color:var(--batik-blue);">💬 Simpan Jawaban dan Lihat Umpan Balik</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Setelah selesai menjawab semua pertanyaan Explanation, klik tombol di bawah ini.
+      Jawabanmu akan disimpan dan dikunci, lalu pembahasan akan muncul sebagai umpan balik otomatis.
+    </p>
+
+    <p style="font-size:13px;line-height:1.7;color:#cc4d4d;font-weight:bold;">
+      ⚠️ Setelah menekan tombol ini, jawaban tidak dapat diubah kembali sampai jawaban akhir dikirim ke spreadsheet.
+    </p>
+
+    <center>
+      <button class="btn-next" id="btn-save-explanation-logam" onclick="saveExplanationLogamAndShowFeedback()">
+        💾 Simpan Jawaban & Lihat Umpan Balik
+      </button>
+    </center>
+
+    <div id="feedback-explanation-logam" class="feedback-auto-box">
+  <h3>✅ Umpan Balik Explanation</h3>
+
+  <div class="feedback-item">
+    <b>1. Pembentukan ikatan logam.</b><br>
+    Ikatan logam terbentuk karena adanya gaya tarik elektrostatik antara kation-kation logam
+    yang bermuatan positif dan elektron valensi yang bergerak bebas. Elektron valensi bebas
+    tersebut membentuk lautan elektron yang mengikat kation-kation logam dalam struktur logam.
+  </div>
+
+  <div class="feedback-item">
+    <b>2. Fenomena kabel listrik.</b><br>
+    Logam dapat menghantarkan listrik karena memiliki elektron valensi bebas. Ketika logam
+    dihubungkan dengan sumber listrik, elektron-elektron bebas dapat bergerak membawa muatan
+    listrik melalui logam.
+  </div>
+
+  <div class="feedback-item">
+    <b>3. Fenomena panci logam cepat panas.</b><br>
+    Logam dapat menghantarkan panas karena energi panas dapat diteruskan melalui susunan
+    partikel logam yang rapat dan melalui pergerakan elektron bebas dalam struktur logam.
+  </div>
+
+  <div class="feedback-item">
+    <b>4. Fenomena logam dapat dibentuk.</b><br>
+    Logam dapat ditempa atau dibentuk karena lapisan kation logam dapat bergeser ketika
+    diberi tekanan. Walaupun bergeser, kation-kation logam tetap diikat oleh lautan elektron
+    sehingga logam tidak mudah patah.
+  </div>
+
+  <div class="feedback-item">
+    <b>5. Fenomena logam mengkilap.</b><br>
+    Logam tampak mengkilap karena elektron bebas pada permukaan logam dapat berinteraksi
+    dengan cahaya dan memantulkannya kembali, sehingga permukaan logam terlihat berkilau.
+  </div>
+
+  <div class="feedback-item">
+    <b>6. Revisi hipotesis awal.</b><br>
+    Hipotesis yang baik seharusnya menyebutkan bahwa sifat khas logam dapat dijelaskan
+    oleh pembentukan ikatan logam. Ikatan logam terbentuk karena gaya tarik antara kation
+    logam dan elektron valensi bebas. Elektron bebas menjelaskan sifat menghantarkan listrik,
+    menghantarkan panas, dan mengkilap, sedangkan lautan elektron membantu menjelaskan mengapa
+    logam dapat ditempa tanpa mudah patah.
+  </div>
+</div>
+
+ <!-- KUNCI JAWABAN GURU - EXPLANATION -->
+<div class="teacher-only answer-key-box">
+  <h3>🔐 Kunci Jawaban Guru — Explanation</h3>
+
+  <p style="font-size:13px;line-height:1.8;margin-top:0;">
+    Catatan: Jawaban siswa tidak harus sama persis dengan kunci berikut. Jawaban dianggap baik
+    jika siswa mampu menjelaskan konsep dengan bahasanya sendiri dan tetap menghubungkan
+    <b>pembentukan ikatan logam</b>, <b>kation logam</b>, <b>elektron valensi bebas</b>,
+    <b>lautan elektron</b>, dan <b>sifat-sifat logam</b>.
+  </p>
+
+  <ol style="font-size:13px;line-height:1.8;padding-left:22px;">
+    <li>
+      <b>Berdasarkan materi pendukung dan tabel eksplorasi, jelaskan bagaimana ikatan logam terbentuk.</b><br>
+      Ikatan logam terbentuk karena adanya gaya tarik elektrostatik antara kation-kation logam
+      yang bermuatan positif dan elektron valensi yang bergerak bebas. Elektron valensi bebas
+      tersebut berada di antara kation-kation logam dan membentuk lautan elektron. Gaya tarik
+      antara kation logam dan lautan elektron inilah yang mempertahankan struktur logam.
+    </li>
+
+    <li style="margin-top:10px;">
+      <b>Dari fenomena kabel listrik, jelaskan mengapa logam dapat menghantarkan listrik.</b><br>
+      Logam dapat menghantarkan listrik karena memiliki elektron valensi bebas yang dapat bergerak
+      di dalam struktur logam. Ketika logam dihubungkan dengan sumber listrik, elektron-elektron
+      bebas bergerak membawa muatan listrik dari satu bagian logam ke bagian lainnya.
+    </li>
+
+    <li style="margin-top:10px;">
+      <b>Dari fenomena panci logam cepat panas, jelaskan mengapa logam dapat menghantarkan panas.</b><br>
+      Logam dapat menghantarkan panas karena energi panas dapat diteruskan melalui susunan partikel
+      logam yang rapat dan melalui pergerakan elektron bebas. Hal ini menyebabkan panas dapat
+      menyebar dari bagian logam yang dipanaskan ke bagian logam lainnya.
+    </li>
+
+    <li style="margin-top:10px;">
+      <b>Dari fenomena logam yang dapat dibentuk, jelaskan mengapa logam dapat ditempa tanpa mudah patah.</b><br>
+      Logam dapat ditempa karena lapisan kation logam dapat bergeser ketika diberi tekanan.
+      Walaupun kation-kation logam bergeser, lautan elektron tetap mengikat kation-kation tersebut.
+      Oleh karena itu, logam dapat berubah bentuk tanpa langsung patah seperti kaca atau keramik.
+    </li>
+
+    <li style="margin-top:10px;">
+      <b>Dari fenomena logam mengkilap, jelaskan hubungan elektron bebas dengan kilap logam.</b><br>
+      Logam tampak mengkilap karena elektron bebas pada permukaan logam dapat berinteraksi dengan
+      cahaya yang datang dan memantulkannya kembali. Pantulan cahaya inilah yang membuat permukaan
+      logam terlihat berkilau.
+    </li>
+
+    <li style="margin-top:10px;">
+      <b>Meninjau kembali hipotesis awal.</b><br>
+      Hipotesis yang baik seharusnya menyebutkan bahwa sifat khas logam berkaitan dengan pembentukan
+      ikatan logam. Ikatan logam terbentuk karena gaya tarik antara kation logam dan elektron valensi
+      bebas. Elektron bebas menjelaskan sifat menghantarkan listrik, menghantarkan panas, dan mengkilap,
+      sedangkan lautan elektron menjelaskan mengapa logam dapat ditempa atau dibentuk tanpa mudah patah.
+    </li>
+  </ol>
+</div>
+
+  <center>
+    <button class="btn-back" onclick="nextPhase(2)">⬅️ Kembali ke Exploration</button>
+    <button class="btn-next" onclick="nextPhase(4)">Lanjut ke Elaboration ➡️</button>
+  </center>
+</div>
+</div>
+
+<!-- ================= PHASE 4 ================= -->
+<div class="phase-card" id="p4">
+  <span class="badge-5e">4. Elaboration</span>
+
+  <!-- PENGANTAR ELABORATION -->
+  <div class="section-box" style="border-left:10px solid var(--batik-blue);">
+    <h2 style="margin-top:0;color:var(--batik-blue);">🌍 Elaboration</h2>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Pada tahap Engagement dan Exploration, kamu sudah mempelajari bahwa logam memiliki sifat khas,
+      seperti dapat menghantarkan listrik, menghantarkan panas, mengkilap, kuat, dan mudah ditempa.
+      Pada tahap ini, kamu akan memperdalam pemahamanmu dengan menganalisis mengapa jenis logam
+      tertentu dipilih untuk kegunaan tertentu.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Tidak semua logam digunakan untuk fungsi yang sama. Tembaga banyak dipilih untuk kabel listrik,
+      aluminium sering digunakan untuk alat masak dan aluminium foil, besi atau baja digunakan sebagai
+      bahan bangunan, sedangkan emas dan perak banyak digunakan untuk perhiasan. Pemilihan tersebut
+      berkaitan dengan sifat logam yang dapat dijelaskan melalui konsep <b>ikatan logam</b> dan
+      <b>model lautan elektron</b>.
+    </p>
+  </div>
+
+  <!-- BACAAN KASUS ELABORATION -->
+  <div class="section-box">
+    <h3 style="margin-top:0;color:var(--batik-blue);">📖 Mengapa Tidak Semua Logam Digunakan untuk Fungsi yang Sama?</h3>
+
+    <div style="background:#f8fbff;border:2px dashed #d9ecff;border-radius:18px;padding:15px;margin-top:12px;">
+      <h4 style="margin-top:0;color:var(--batik-blue);">Kasus 1: Tembaga untuk Kabel Listrik</h4>
+      <p style="font-size:14px;line-height:1.8;text-align:justify;margin-bottom:0;">
+        Tembaga banyak digunakan sebagai bahan kabel listrik karena dapat menghantarkan listrik
+        dengan sangat baik. Pada logam tembaga, terdapat elektron valensi bebas yang dapat bergerak
+        membawa muatan listrik. Selain itu, tembaga juga cukup mudah ditarik menjadi kawat sehingga
+        cocok digunakan sebagai kabel.
+      </p>
+    </div>
+
+    <div style="background:#f8fbff;border:2px dashed #d9ecff;border-radius:18px;padding:15px;margin-top:12px;">
+      <h4 style="margin-top:0;color:var(--batik-blue);">Kasus 2: Aluminium untuk Alat Masak dan Aluminium Foil</h4>
+      <p style="font-size:14px;line-height:1.8;text-align:justify;margin-bottom:0;">
+        Aluminium banyak digunakan untuk alat masak karena dapat menghantarkan panas dengan baik dan
+        massanya relatif ringan. Aluminium juga dapat dibuat menjadi lembaran sangat tipis seperti
+        aluminium foil. Hal ini berkaitan dengan susunan kation logam yang dapat bergeser ketika diberi
+        tekanan, sementara lautan elektron tetap mengikat kation-kation tersebut.
+      </p>
+    </div>
+
+    <div style="background:#f8fbff;border:2px dashed #d9ecff;border-radius:18px;padding:15px;margin-top:12px;">
+      <h4 style="margin-top:0;color:var(--batik-blue);">Kasus 3: Besi atau Baja untuk Rangka Bangunan</h4>
+      <p style="font-size:14px;line-height:1.8;text-align:justify;margin-bottom:0;">
+        Besi dan baja banyak digunakan sebagai rangka bangunan, jembatan, pagar, dan kendaraan karena
+        kuat dan tidak mudah patah. Kekuatan logam berkaitan dengan gaya tarik antara kation logam dan
+        elektron bebas dalam ikatan logam. Pada baja, sifat logam dapat menjadi lebih kuat karena baja
+        merupakan paduan logam yang komposisinya diatur agar sesuai dengan kebutuhan.
+      </p>
+    </div>
+
+    <div style="background:#f8fbff;border:2px dashed #d9ecff;border-radius:18px;padding:15px;margin-top:12px;">
+      <h4 style="margin-top:0;color:var(--batik-blue);">Kasus 4: Emas dan Perak untuk Perhiasan</h4>
+      <p style="font-size:14px;line-height:1.8;text-align:justify;margin-bottom:0;">
+        Emas dan perak banyak digunakan sebagai perhiasan karena tampak mengkilap, dapat dibentuk,
+        dan tidak mudah rusak. Kilap logam berkaitan dengan elektron bebas pada permukaan logam yang
+        dapat memantulkan cahaya. Sementara itu, sifat mudah dibentuk berkaitan dengan kation logam
+        yang dapat bergeser tetapi tetap diikat oleh lautan elektron.
+      </p>
+    </div>
+  </div>
+
+  <!-- TABEL ELABORASI -->
+  <div class="section-box">
+    <h3 style="margin-top:0;color:var(--batik-blue);">📋 Tabel Elaborasi</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Lengkapi tabel berikut berdasarkan bacaan kasus. Jelaskan sifat logam yang dimanfaatkan
+      dan hubungkan dengan konsep ikatan logam.
+    </p>
+
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;background:#fff;border-radius:15px;overflow:hidden;font-size:13px;min-width:960px;">
+        <tr style="background:var(--batik-blue);color:#fff;">
+          <th style="padding:8px;border:1px solid var(--soft-blue);">Benda / Kasus</th>
+          <th style="padding:8px;border:1px solid var(--soft-blue);">Logam yang Digunakan</th>
+          <th style="padding:8px;border:1px solid var(--soft-blue);">Sifat Logam yang Dimanfaatkan</th>
+          <th style="padding:8px;border:1px solid var(--soft-blue);">Hubungan dengan Ikatan Logam</th>
+        </tr>
+
+        <tr>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><b>Kabel listrik</b></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">
+            <textarea id="elab-logam-tab-1" rows="3"></textarea>
+          </td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">
+            <textarea id="elab-logam-tab-2" rows="3"></textarea>
+          </td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">
+            <textarea id="elab-logam-tab-3" rows="3"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><b>Alat masak / aluminium foil</b></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">
+            <textarea id="elab-logam-tab-4" rows="3"></textarea>
+          </td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">
+            <textarea id="elab-logam-tab-5" rows="3"></textarea>
+          </td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">
+            <textarea id="elab-logam-tab-6" rows="3"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><b>Rangka bangunan / jembatan</b></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">
+            <textarea id="elab-logam-tab-7" rows="3"></textarea>
+          </td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">
+            <textarea id="elab-logam-tab-8" rows="3"></textarea>
+          </td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">
+            <textarea id="elab-logam-tab-9" rows="3"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><b>Perhiasan</b></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">
+            <textarea id="elab-logam-tab-10" rows="3"></textarea>
+          </td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">
+            <textarea id="elab-logam-tab-11" rows="3"></textarea>
+          </td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">
+            <textarea id="elab-logam-tab-12" rows="3"></textarea>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- PERTANYAAN ELABORASI -->
+  <div class="section-box" style="background:var(--green);border-left:10px solid #27ae60;">
+    <h3 style="margin-top:0;color:#1e8449;">✍️ Pertanyaan Elaborasi</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Jawablah pertanyaan berikut berdasarkan bacaan kasus, tabel elaborasi, dan pemahamanmu
+      tentang ikatan logam.
+    </p>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      1. Mengapa tembaga cocok digunakan sebagai kabel listrik?
+    </p>
+    <textarea id="elab-logam-q1" rows="4"></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      2. Mengapa aluminium dapat digunakan sebagai alat masak dan aluminium foil?
+    </p>
+    <textarea id="elab-logam-q2" rows="4"></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      3. Mengapa besi atau baja banyak digunakan sebagai rangka bangunan?
+    </p>
+    <textarea id="elab-logam-q3" rows="4"></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      4. Mengapa emas dan perak cocok digunakan sebagai perhiasan?
+    </p>
+    <textarea id="elab-logam-q4" rows="4"></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      5. Simpulkan bagaimana ikatan logam membantu menjelaskan pemilihan logam untuk berbagai kebutuhan.
+    </p>
+    <textarea id="elab-logam-q5" rows="4"></textarea>
+  </div>
+
+  <!-- SIMPAN DAN UMPAN BALIK -->
+  <div class="section-box" style="background:white;border-left:10px solid var(--gold);border:2px dashed #d9ecff;">
+    <h3 style="margin-top:0;color:var(--batik-blue);">💬 Simpan Jawaban dan Lihat Umpan Balik</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Setelah menjawab pertanyaan dan mengisi tabel elaborasi, klik tombol berikut.
+      Jawabanmu akan dikunci, lalu pembahasan otomatis akan muncul.
+    </p>
+
+    <p style="font-size:13px;line-height:1.7;color:#cc4d4d;font-weight:bold;">
+      ⚠️ Setelah menekan tombol ini, jawaban tidak dapat diubah kembali sampai jawaban akhir dikirim ke spreadsheet.
+    </p>
+
+    <center>
+      <button class="btn-next" id="btn-save-elaboration-logam" onclick="saveElaborationLogamAndShowFeedback()">
+        💾 Simpan Jawaban & Lihat Umpan Balik
+      </button>
+    </center>
+
+    <div id="feedback-elaboration-logam" class="feedback-auto-box">
+      <h3>✅ Umpan Balik Elaboration</h3>
+
+      <div class="feedback-item">
+        <b>1. Tembaga untuk kabel listrik.</b><br>
+        Tembaga cocok digunakan sebagai kabel listrik karena memiliki elektron valensi bebas
+        yang dapat bergerak membawa muatan listrik. Tembaga juga dapat ditarik menjadi kawat.
+      </div>
+
+      <div class="feedback-item">
+        <b>2. Aluminium untuk alat masak dan aluminium foil.</b><br>
+        Aluminium dapat menghantarkan panas sehingga cocok untuk alat masak. Aluminium juga dapat
+        dibuat menjadi lembaran tipis karena lapisan kation logam dapat bergeser tetapi tetap
+        diikat oleh lautan elektron.
+      </div>
+
+      <div class="feedback-item">
+        <b>3. Besi atau baja untuk rangka bangunan.</b><br>
+        Besi dan baja digunakan sebagai rangka karena kuat. Kekuatan logam berkaitan dengan
+        gaya tarik antara kation logam dan lautan elektron. Baja sebagai paduan logam juga
+        dapat memiliki sifat yang lebih sesuai untuk konstruksi.
+      </div>
+
+      <div class="feedback-item">
+        <b>4. Emas dan perak untuk perhiasan.</b><br>
+        Emas dan perak cocok untuk perhiasan karena mengkilap dan dapat dibentuk. Kilap logam
+        berkaitan dengan elektron bebas yang memantulkan cahaya, sedangkan sifat mudah dibentuk
+        berkaitan dengan lautan elektron yang tetap mengikat kation logam saat bergeser.
+      </div>
+
+      <div class="feedback-item">
+        <b>5. Kesimpulan.</b><br>
+        Pemilihan logam untuk berbagai kebutuhan berkaitan dengan sifat logam. Sifat-sifat tersebut
+        dapat dijelaskan melalui ikatan logam, yaitu gaya tarik antara kation logam dan elektron
+        valensi bebas dalam model lautan elektron.
+      </div>
+    </div>
+  </div>
+
+  <!-- KUNCI JAWABAN GURU - ELABORATION -->
+  <div class="teacher-only answer-key-box">
+    <h3>🔐 Kunci Jawaban Guru — Elaboration</h3>
+
+    <p style="font-size:13px;line-height:1.8;margin-top:0;">
+      Catatan: Jawaban siswa tidak harus sama persis dengan kunci berikut. Jawaban dianggap baik
+      jika siswa mampu menghubungkan jenis logam, sifat logam, dan konsep ikatan logam.
+    </p>
+
+    <ol style="font-size:13px;line-height:1.8;padding-left:22px;">
+      <li>
+        Tembaga cocok untuk kabel listrik karena memiliki elektron valensi bebas yang dapat bergerak
+        membawa muatan listrik dan dapat ditarik menjadi kawat.
+      </li>
+      <li>
+        Aluminium cocok untuk alat masak karena menghantarkan panas dan cocok untuk aluminium foil
+        karena dapat dibentuk menjadi lembaran tipis.
+      </li>
+      <li>
+        Besi atau baja cocok untuk rangka bangunan karena kuat. Kekuatan logam berkaitan dengan
+        gaya tarik antara kation logam dan lautan elektron.
+      </li>
+      <li>
+        Emas dan perak cocok untuk perhiasan karena mengkilap dan mudah dibentuk. Kilap logam
+        berkaitan dengan elektron bebas yang memantulkan cahaya.
+      </li>
+      <li>
+        Ikatan logam menjelaskan pemilihan logam karena model lautan elektron dapat menjelaskan
+        daya hantar listrik, daya hantar panas, kilap, kekuatan, dan kemudahan logam untuk ditempa.
+      </li>
+    </ol>
+  </div>
+
+  <center>
+    <button class="btn-back" onclick="nextPhase(3)">⬅️ Kembali ke Explanation</button>
+    <button class="btn-next" onclick="nextPhase(5)">Lanjut ke Evaluation ➡️</button>
+  </center>
+</div>
+
+
+ <!-- ================= PHASE 5 ================= -->
+<div class="phase-card" id="p5">
+  <span class="badge-5e">5. Evaluation</span>
+
+  <!-- PENGANTAR EVALUATION -->
+  <div class="section-box" style="border-left:10px solid var(--batik-blue);">
+    <h2 style="margin-top:0;color:var(--batik-blue);">⭐ Evaluation</h2>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Tahap ini berisi latihan soal umum tentang materi ikatan logam. Soal-soal berikut
+      tidak lagi berfokus pada kegiatan sebelumnya, tetapi digunakan untuk mengukur pemahaman
+      konsep setelah kamu mempelajari materi.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Pilih satu jawaban yang paling tepat. Setelah selesai, klik tombol
+      <b>Simpan Evaluasi & Lihat Pembahasan</b>. Jawaban akan dikunci dan pembahasan otomatis akan muncul.
+    </p>
+
+    <p style="font-size:13px;line-height:1.7;color:#cc4d4d;font-weight:bold;">
+      ⚠️ Setelah evaluasi disimpan, jawaban tidak dapat diubah kembali sampai jawaban akhir dikirim ke spreadsheet.
+    </p>
+  </div>
+
+  <!-- SOAL EVALUASI -->
+  <div class="section-box" id="quiz-logam-container"></div>
+
+  <center>
+    <button class="btn-next" id="btn-save-evaluation-logam" onclick="saveEvaluationLogamAndShowFeedback()">
+      💾 Simpan Evaluasi & Lihat Pembahasan
+    </button>
+  </center>
+
+  <!-- HASIL SKOR -->
+  <div id="skor-evaluation-logam-box" class="section-box section-green hidden" style="text-align:center;">
+    <h3 style="margin-top:0;">🏆 Hasil Evaluasi</h3>
+    <p id="skor-evaluation-logam-text" style="font-size:22px;font-weight:bold;margin:8px 0;"></p>
+    <p id="skor-evaluation-logam-message" style="font-size:14px;line-height:1.7;margin:0;"></p>
+  </div>
+
+  <!-- PEMBAHASAN OTOMATIS -->
+  <div id="feedback-evaluation-logam" class="feedback-auto-box">
+    <h3>✅ Pembahasan Evaluasi Ikatan Logam</h3>
+    <div id="evaluation-logam-feedback-content"></div>
+  </div>
+
+  <!-- KUNCI JAWABAN GURU - EVALUATION -->
+  <div class="teacher-only answer-key-box">
+    <h3>🔐 Kunci Jawaban Guru — Evaluation Ikatan Logam</h3>
+
+    <table>
+      <tr>
+        <th>No</th>
+        <th>Kunci</th>
+        <th>Pembahasan Singkat</th>
+      </tr>
+
+      <tr>
+        <td>1</td>
+        <td>B</td>
+        <td>Ikatan logam terbentuk karena gaya tarik antara kation logam dan elektron valensi bebas.</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>C</td>
+        <td>Model lautan elektron menggambarkan elektron valensi yang bergerak bebas di antara kation logam.</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>A</td>
+        <td>Elektron bebas dapat bergerak membawa muatan listrik sehingga logam menghantarkan listrik.</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>D</td>
+        <td>Logam menghantarkan panas karena energi dapat berpindah melalui elektron bebas dan susunan partikel yang rapat.</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>B</td>
+        <td>Logam dapat ditempa karena kation logam dapat bergeser tetapi tetap diikat oleh lautan elektron.</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>C</td>
+        <td>Kilap logam berkaitan dengan elektron bebas pada permukaan logam yang memantulkan cahaya.</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>A</td>
+        <td>Sifat konduktor listrik logam berhubungan dengan elektron valensi bebas.</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>D</td>
+        <td>Lautan elektron menjaga kation tetap terikat meskipun lapisan kation bergeser.</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>B</td>
+        <td>Aluminium dapat digunakan sebagai foil karena dapat dibentuk menjadi lembaran tipis.</td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>C</td>
+        <td>Sifat khas logam dapat dijelaskan melalui kation logam dan elektron valensi bebas dalam model lautan elektron.</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- REFLEKSI PEMBELAJARAN -->
+  <div class="section-box" style="margin-top:18px;border-left:10px solid #9c27b0;background:#f4ecff;">
+    <h2 style="margin-top:0;color:#9c27b0;">🪞 Refleksi Pembelajaran</h2>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Bagian ini bukan bagian dari skor evaluasi. Refleksi digunakan untuk mengetahui
+      pemahaman dan kesulitanmu setelah mempelajari materi ikatan logam.
+    </p>
+
+    <table style="width:100%;border-collapse:collapse;font-size:13px;background:white;border-radius:15px;overflow:hidden;">
+      <tr style="background:#9c27b0;color:#fff;">
+        <th style="padding:10px;border:1px solid #ead7ff;">Pernyataan</th>
+        <th style="padding:10px;border:1px solid #ead7ff;">Ya</th>
+        <th style="padding:10px;border:1px solid #ead7ff;">Tidak</th>
+      </tr>
+
+      <tr>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:left;">
+          Saya memahami bahwa ikatan logam terbentuk karena gaya tarik antara kation logam dan elektron valensi bebas.
+        </td>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:center;">
+          <input type="radio" name="ref-logam-1" value="Ya">
+        </td>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:center;">
+          <input type="radio" name="ref-logam-1" value="Tidak">
+        </td>
+      </tr>
+
+      <tr>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:left;">
+          Saya dapat menjelaskan model lautan elektron pada ikatan logam.
+        </td>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:center;">
+          <input type="radio" name="ref-logam-2" value="Ya">
+        </td>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:center;">
+          <input type="radio" name="ref-logam-2" value="Tidak">
+        </td>
+      </tr>
+
+      <tr>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:left;">
+          Saya dapat menghubungkan elektron bebas dengan sifat logam sebagai penghantar listrik dan panas.
+        </td>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:center;">
+          <input type="radio" name="ref-logam-3" value="Ya">
+        </td>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:center;">
+          <input type="radio" name="ref-logam-3" value="Tidak">
+        </td>
+      </tr>
+
+      <tr>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:left;">
+          Saya dapat menjelaskan mengapa logam dapat ditempa dan tampak mengkilap.
+        </td>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:center;">
+          <input type="radio" name="ref-logam-4" value="Ya">
+        </td>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:center;">
+          <input type="radio" name="ref-logam-4" value="Tidak">
+        </td>
+      </tr>
+    </table>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      Bagian mana yang paling mudah kamu pahami?
+    </p>
+    <textarea id="ref-logam-teks-1" rows="3"></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      Bagian mana yang masih membingungkan atau perlu kamu pelajari kembali?
+    </p>
+    <textarea id="ref-logam-teks-2" rows="3"></textarea>
+  </div>
+
+  <!-- KIRIM AKHIR -->
+  <div class="section-box" style="background:var(--green);border-left:10px solid #27ae60;">
+    <h3 style="margin-top:0;color:#1e8449;">📤 Kirim Jawaban Akhir</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Setelah menyelesaikan evaluasi dan refleksi, klik tombol berikut untuk mengirim seluruh
+      jawaban LKPD ke spreadsheet Guru Rusyda.
+    </p>
+
+    <center>
+      <button class="btn-green" id="btn-final-submit-logam" onclick="finalSubmitLogam()">
+        ✨ SELESAI & KIRIM ✨
+      </button>
+    </center>
+  </div>
+
+  <center>
+    <button class="btn-back" onclick="nextPhase(4)">⬅️ Kembali ke Elaboration</button>
+  </center>
+</div>
+
+
+  <script>
+    const ID_KEY = "logam_identity";
+let currentPhase = 0;
+
+const OWNER_EMAILS = [
+  "rusydarama@gmail.com",
+];
+
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxKpCSPf89k27shqjsCq14blROlcfsYU4wuwwU9bwzjdc6yQTqrV-IDcCvz0RpE9TU/exec";
+    function initLKPD(){
+      const tgl = document.getElementById("tgl");
+      if(tgl && !tgl.value){
+        const now = new Date();
+        const yyyy = now.getFullYear();
+        const mm = String(now.getMonth() + 1).padStart(2, "0");
+        const dd = String(now.getDate()).padStart(2, "0");
+        tgl.value = `${yyyy}-${mm}-${dd}`;
+      }
+
+      loadIdentity();
+
+      if(!localStorage.getItem(ID_KEY)){
+        const uStr = localStorage.getItem("kimia_user");
+        if(uStr){
+          try{
+            const u = JSON.parse(uStr);
+            if(u?.nama) document.getElementById("nama").value = u.nama;
+            if(u?.kelas) document.getElementById("kelas").value = u.kelas;
+          }catch(e){}
+        }
+      }
+
+      renderQuizLogam();
+updateProgress();
+showTeacherOnlyIfOwner();
+
+setTimeout(restoreEvaluationLogamLock, 0);
+
+restoreExplanationLogamLock();
+restoreElaborationLogamLock();
+    }
+
+function getCurrentUserEmail(){
+  try{
+    const rawUser = localStorage.getItem("kimia_user");
+    if(rawUser){
+      const u = JSON.parse(rawUser);
+      return String(u.email || u.gmail || u.username || u.userEmail || "").toLowerCase().trim();
+    }
+  }catch(e){}
+
+  return String(
+    localStorage.getItem("email") ||
+    localStorage.getItem("userEmail") ||
+    ""
+  ).toLowerCase().trim();
+}
+
+function isOwner(){
+  const email = getCurrentUserEmail();
+  return OWNER_EMAILS.map(e => e.toLowerCase().trim()).includes(email);
+}
+
+function showTeacherOnlyIfOwner(){
+  const show = isOwner();
+
+  document.querySelectorAll(".teacher-only").forEach(function(el){
+    el.style.display = show ? "block" : "none";
+  });
+
+  console.log("Email login:", getCurrentUserEmail());
+  console.log("Mode guru aktif:", show);
+}
+
+    function openMateriLogam(){
+  document.querySelectorAll(".phase-card").forEach(x => x.classList.remove("active"));
+  document.getElementById("pMateriLogam").classList.add("active");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function backToExplorationLogam(){
+  document.querySelectorAll(".phase-card").forEach(x => x.classList.remove("active"));
+  document.getElementById("p2").classList.add("active");
+  currentPhase = 2;
+  updateProgress();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+    function goMenu(){
+      window.location.href = "menu.html";
+    }
+
+    function logout(){
+      localStorage.removeItem("kimia_user");
+      window.location.href = "index.html";
+    }
+
+    function nextPhase(p){
+      document.querySelectorAll(".phase-card").forEach(x => x.classList.remove("active"));
+      const target = document.getElementById("p" + p);
+      if(target) target.classList.add("active");
+      currentPhase = p;
+      updateProgress();
+      window.scrollTo({top:0, behavior:"smooth"});
+    }
+
+    function updateProgress(){
+      const fill = document.getElementById("fill");
+      if(fill) fill.style.width = (currentPhase / 5 * 100) + "%";
+    }
+
+    function val(id){
+      const el = document.getElementById(id);
+      return el ? el.value.trim() : "";
+    }
+
+    function saveIdentity(){
+      const n = val("nama");
+      const k = val("kelas");
+      const t = document.getElementById("tgl").value;
+
+      if(!n || !k || !t){
+        alert("Lengkapi Nama, Kelas, dan Tanggal ya 😊");
+        return;
+      }
+
+      localStorage.setItem(ID_KEY, JSON.stringify({nama:n, kelas:k, tgl:t}));
+      document.getElementById("user-pill").innerText = `${n} • ${k}`;
+      alert("Identitas tersimpan ✅");
+    }
+
+    function loadIdentity(){
+      const raw = localStorage.getItem(ID_KEY);
+      if(!raw) return;
+
+      try{
+        const id = JSON.parse(raw);
+        if(id?.nama) document.getElementById("nama").value = id.nama;
+        if(id?.kelas) document.getElementById("kelas").value = id.kelas;
+        if(id?.tgl) document.getElementById("tgl").value = id.tgl;
+
+        if(id?.nama && id?.kelas){
+          document.getElementById("user-pill").innerText = `${id.nama} • ${id.kelas}`;
+        }
+      }catch(e){
+        localStorage.removeItem(ID_KEY);
+      }
+    }
+
+    function identityComplete(){
+      const n = val("nama");
+      const k = val("kelas");
+      const t = document.getElementById("tgl").value;
+      return !!(n && k && t);
+    }
+
+    function requireIdentityThenGo(phase){
+      if(!identityComplete()){
+        alert("Isi identitas (Nama, Kelas, Tanggal) dulu ya 😊");
+        nextPhase(0);
+        return;
+      }
+      nextPhase(phase);
+    }
+
+    function checkPoll(){
+      const pick = document.querySelector('input[name="poll"]:checked')?.value;
+      const fb = document.getElementById("poll-feedback");
+      fb.style.display = "block";
+
+      if(!pick){
+        fb.innerHTML = "Pilih salah satu dulu ya 😊";
+        return;
+      }
+
+      if(pick === "B"){
+        fb.innerHTML = "✅ Benar! Pada ikatan logam ada <b>elektron yang dapat bergerak bebas</b> sehingga arus listrik mudah mengalir.";
+      }else{
+        fb.innerHTML = "❌ Hampir! Kunci logam menghantarkan listrik adalah adanya <b>elektron yang bisa bergerak bebas</b> di antara atom-atom logam.";
+      }
+    }
+
+   
+    const quizLogamData = [
+  {
+    id: 1,
+    level: "C2 - Menjelaskan",
+    q: "Ikatan logam terbentuk karena adanya...",
+    options: {
+      A: "pemakaian pasangan elektron bersama antara dua atom nonlogam",
+      B: "gaya tarik antara kation logam dan elektron valensi yang bergerak bebas",
+      C: "perpindahan elektron dari atom logam ke atom nonlogam",
+      D: "gaya tarik antara ion positif dan ion negatif dalam larutan",
+      E: "ikatan antara molekul polar dan molekul nonpolar"
+    }
+  },
+  {
+    id: 2,
+    level: "C2 - Menafsirkan",
+    q: "Model lautan elektron pada ikatan logam menggambarkan bahwa...",
+    options: {
+      A: "elektron valensi terikat kuat pada satu atom tertentu",
+      B: "atom logam tidak memiliki elektron valensi",
+      C: "elektron valensi dapat bergerak bebas di antara kation-kation logam",
+      D: "elektron berpindah sepenuhnya ke atom nonlogam",
+      E: "kation logam bergerak bebas meninggalkan elektron"
+    }
+  },
+  {
+    id: 3,
+    level: "C2 - Menjelaskan",
+    q: "Logam dapat menghantarkan listrik karena...",
+    options: {
+      A: "memiliki elektron valensi bebas yang dapat bergerak membawa muatan listrik",
+      B: "memiliki molekul-molekul yang mudah menguap",
+      C: "memiliki ikatan kovalen rangkap tiga",
+      D: "semua atom logam berubah menjadi gas",
+      E: "kation logam tidak memiliki gaya tarik"
+    }
+  },
+  {
+    id: 4,
+    level: "C2 - Menghubungkan",
+    q: "Sifat logam sebagai penghantar panas dapat dijelaskan oleh...",
+    options: {
+      A: "elektron yang tidak dapat bergerak sama sekali",
+      B: "susunan partikel yang sangat renggang",
+      C: "hilangnya semua gaya tarik antarpartikel",
+      D: "pergerakan elektron bebas dan susunan partikel logam yang rapat",
+      E: "perpindahan elektron penuh dari logam ke nonlogam"
+    }
+  },
+  {
+    id: 5,
+    level: "C2 - Menjelaskan",
+    q: "Logam dapat ditempa atau dibentuk tanpa mudah patah karena...",
+    options: {
+      A: "kation logam saling menolak kuat sehingga terpisah",
+      B: "lapisan kation logam dapat bergeser tetapi tetap diikat oleh lautan elektron",
+      C: "elektron valensi tidak bergerak dalam struktur logam",
+      D: "logam tersusun dari molekul-molekul kecil yang mudah pecah",
+      E: "ikatan logam hanya terjadi pada permukaan logam"
+    }
+  },
+  {
+    id: 6,
+    level: "C2 - Menafsirkan",
+    q: "Permukaan logam tampak mengkilap karena...",
+    options: {
+      A: "logam selalu berwarna putih",
+      B: "kation logam menyerap semua cahaya",
+      C: "elektron bebas pada permukaan logam dapat memantulkan cahaya",
+      D: "logam tidak memiliki elektron valensi",
+      E: "lautan elektron berubah menjadi gas"
+    }
+  },
+  {
+    id: 7,
+    level: "C2 - Mengklasifikasikan",
+    q: "Sifat logam yang paling berkaitan langsung dengan penggunaan tembaga sebagai kabel listrik adalah...",
+    options: {
+      A: "konduktivitas listrik",
+      B: "mudah berkarat",
+      C: "massa jenis tinggi",
+      D: "tidak dapat dibentuk",
+      E: "tidak menghantarkan panas"
+    }
+  },
+  {
+    id: 8,
+    level: "C2 - Membandingkan",
+    q: "Berbeda dengan kaca yang mudah pecah ketika dipukul, logam dapat berubah bentuk karena...",
+    options: {
+      A: "logam tidak memiliki susunan partikel",
+      B: "kation logam tidak saling berinteraksi",
+      C: "elektron bebas hilang saat logam ditekan",
+      D: "kation logam dapat bergeser dan tetap tertahan oleh lautan elektron",
+      E: "logam hanya tersusun dari atom netral yang tidak berikatan"
+    }
+  },
+  {
+    id: 9,
+    level: "C2 - Menghubungkan",
+    q: "Aluminium dapat dibuat menjadi aluminium foil karena aluminium...",
+    options: {
+      A: "tidak memiliki elektron bebas",
+      B: "dapat ditempa menjadi lembaran tipis",
+      C: "tidak memiliki ikatan logam",
+      D: "selalu berbentuk cair pada suhu kamar",
+      E: "tidak menghantarkan panas"
+    }
+  },
+  {
+    id: 10,
+    level: "C2 - Menyimpulkan",
+    q: "Kesimpulan yang paling tepat tentang hubungan ikatan logam dan sifat logam adalah...",
+    options: {
+      A: "sifat logam tidak berhubungan dengan susunan partikelnya",
+      B: "logam menghantarkan listrik karena elektron valensinya tidak dapat bergerak",
+      C: "model lautan elektron dapat menjelaskan sifat logam seperti konduktivitas, kilap, dan dapat ditempa",
+      D: "ikatan logam hanya menjelaskan warna logam",
+      E: "logam dapat ditempa karena kation logam terlepas seluruhnya dari struktur"
+    }
+  }
+];
+
+const correctLogamAnswers = {
+  q1: "B",
+  q2: "C",
+  q3: "A",
+  q4: "D",
+  q5: "B",
+  q6: "C",
+  q7: "A",
+  q8: "D",
+  q9: "B",
+  q10: "C"
+};
+
+const quizLogamExplanation = {
+  1: "Ikatan logam terbentuk karena gaya tarik antara kation logam yang bermuatan positif dan elektron valensi bebas yang bergerak di antara kation-kation tersebut.",
+  2: "Model lautan elektron menggambarkan elektron valensi yang tidak terikat pada satu atom tertentu, tetapi bergerak bebas di antara kation-kation logam.",
+  3: "Logam menghantarkan listrik karena elektron valensi bebas dapat bergerak membawa muatan listrik saat logam dihubungkan dengan sumber listrik.",
+  4: "Logam menghantarkan panas karena energi dapat diteruskan melalui elektron bebas dan susunan partikel logam yang rapat.",
+  5: "Logam dapat ditempa karena lapisan kation logam dapat bergeser, tetapi tetap diikat oleh lautan elektron sehingga logam tidak mudah patah.",
+  6: "Kilap logam berkaitan dengan elektron bebas pada permukaan logam yang dapat berinteraksi dengan cahaya dan memantulkannya kembali.",
+  7: "Tembaga digunakan sebagai kabel listrik karena memiliki konduktivitas listrik yang baik, yaitu kemampuan menghantarkan arus listrik.",
+  8: "Logam dapat berubah bentuk karena kation-kation logam dapat bergeser ketika diberi tekanan, sedangkan lautan elektron tetap mengikatnya.",
+  9: "Aluminium dapat dibuat menjadi aluminium foil karena memiliki sifat dapat ditempa atau dibentuk menjadi lembaran tipis.",
+  10: "Model lautan elektron membantu menjelaskan berbagai sifat khas logam, seperti konduktivitas listrik, konduktivitas panas, kilap, dan sifat dapat ditempa."
+};
+
+    function renderQuizLogam(){
+  const container = document.getElementById("quiz-logam-container");
+  if(!container) return;
+
+  container.innerHTML = "";
+
+  quizLogamData.forEach(item => {
+    let html = `
+      <div class="section-box" id="quiz-logam-box-${item.id}" style="background:white;border-left:10px solid var(--gold);">
+        <p style="font-size:12px;font-weight:bold;color:#6d7f91;margin:0 0 6px 0;">
+         
+        </p>
+
+        <p style="font-size:14px;line-height:1.7;margin:0 0 10px 0;">
+          <b>${item.id}. ${item.q}</b>
+        </p>
+    `;
+
+    Object.entries(item.options).forEach(([key, val]) => {
+      html += `
+        <label class="mcq-option">
+          <input type="radio" name="q${item.id}" value="${key}">
+          <b>${key}.</b> ${val}
+        </label>
+      `;
+    });
+
+    html += `</div>`;
+    container.innerHTML += html;
+  });
+}
+   
+
+    function lockInputsInBox(boxId){
+  const box = document.getElementById(boxId);
+  if(!box) return;
+
+  const fields = box.querySelectorAll("input, textarea, select");
+  fields.forEach(function(field){
+    field.disabled = true;
+    field.classList.add("locked-answer");
+  });
+}
+
+function unlockInputsInBox(boxId){
+  const box = document.getElementById(boxId);
+  if(!box) return;
+
+  const fields = box.querySelectorAll("input, textarea, select");
+  fields.forEach(function(field){
+    field.disabled = false;
+    field.classList.remove("locked-answer");
+  });
+}
+
+function saveExplanationLogamAndShowFeedback(){
+  const requiredIds = [
+    "exp-logam-q1",
+    "exp-logam-q2",
+    "exp-logam-q3",
+    "exp-logam-q4",
+    "exp-logam-q5",
+    "exp-logam-q6"
+  ];
+
+  for(const id of requiredIds){
+    const el = document.getElementById(id);
+    if(!el || !el.value.trim()){
+      alert("Lengkapi semua jawaban Explanation dulu ya 😊");
+      return;
+    }
+  }
+
+  const savedExplanation = {
+    q1: val("exp-logam-q1"),
+    q2: val("exp-logam-q2"),
+    q3: val("exp-logam-q3"),
+    q4: val("exp-logam-q4"),
+    q5: val("exp-logam-q5"),
+    q6: val("exp-logam-q6"),
+    savedAt: new Date().toLocaleString()
+  };
+
+  localStorage.setItem("logam_explanation_saved", JSON.stringify(savedExplanation));
+
+  lockInputsInBox("p3");
+
+  const feedbackBox = document.getElementById("feedback-explanation-logam");
+  if(feedbackBox){
+    feedbackBox.style.display = "block";
+    feedbackBox.scrollIntoView({behavior:"smooth"});
+  }
+
+  const btn = document.getElementById("btn-save-explanation-logam");
+  if(btn){
+    btn.innerText = "✅ Jawaban Tersimpan";
+    btn.disabled = true;
+  }
+
+  alert("Jawaban Explanation sudah disimpan dan dikunci ✅");
+}
+
+function restoreExplanationLogamLock(){
+  const raw = localStorage.getItem("logam_explanation_saved");
+  if(!raw) return;
+
+  try{
+    const data = JSON.parse(raw);
+
+    if(document.getElementById("exp-logam-q1")) document.getElementById("exp-logam-q1").value = data.q1 || "";
+    if(document.getElementById("exp-logam-q2")) document.getElementById("exp-logam-q2").value = data.q2 || "";
+    if(document.getElementById("exp-logam-q3")) document.getElementById("exp-logam-q3").value = data.q3 || "";
+    if(document.getElementById("exp-logam-q4")) document.getElementById("exp-logam-q4").value = data.q4 || "";
+    if(document.getElementById("exp-logam-q5")) document.getElementById("exp-logam-q5").value = data.q5 || "";
+    if(document.getElementById("exp-logam-q6")) document.getElementById("exp-logam-q6").value = data.q6 || "";
+
+    lockInputsInBox("p3");
+
+    const feedbackBox = document.getElementById("feedback-explanation-logam");
+    if(feedbackBox){
+      feedbackBox.style.display = "block";
+    }
+
+    const btn = document.getElementById("btn-save-explanation-logam");
+    if(btn){
+      btn.innerText = "✅ Jawaban Tersimpan";
+      btn.disabled = true;
+    }
+  }catch(e){
+    localStorage.removeItem("logam_explanation_saved");
+  }
+}
+
+function resetExplanationLogamAfterSubmit(){
+  localStorage.removeItem("logam_explanation_saved");
+
+  unlockInputsInBox("p3");
+
+  const feedbackBox = document.getElementById("feedback-explanation-logam");
+  if(feedbackBox){
+    feedbackBox.style.display = "none";
+  }
+
+  const btn = document.getElementById("btn-save-explanation-logam");
+  if(btn){
+    btn.innerText = "💾 Simpan Jawaban & Lihat Umpan Balik";
+    btn.disabled = false;
+  }
+}
+function saveElaborationLogamAndShowFeedback(){
+  const requiredIds = [
+    "elab-logam-q1",
+    "elab-logam-q2",
+    "elab-logam-q3",
+    "elab-logam-q4",
+    "elab-logam-q5"
+  ];
+
+  for(const id of requiredIds){
+    const el = document.getElementById(id);
+    if(!el || !el.value.trim()){
+      alert("Lengkapi semua jawaban Elaboration dulu ya 😊");
+      return;
+    }
+  }
+
+  const tableIds = [
+    "elab-logam-tab-1","elab-logam-tab-2","elab-logam-tab-3",
+    "elab-logam-tab-4","elab-logam-tab-5","elab-logam-tab-6",
+    "elab-logam-tab-7","elab-logam-tab-8","elab-logam-tab-9",
+    "elab-logam-tab-10","elab-logam-tab-11","elab-logam-tab-12"
+  ];
+
+  for(const id of tableIds){
+    const el = document.getElementById(id);
+    if(!el || !el.value.trim()){
+      alert("Lengkapi semua tabel Elaboration dulu ya 😊");
+      return;
+    }
+  }
+
+  const savedElaboration = {
+    q1: val("elab-logam-q1"),
+    q2: val("elab-logam-q2"),
+    q3: val("elab-logam-q3"),
+    q4: val("elab-logam-q4"),
+    q5: val("elab-logam-q5"),
+
+    tab1: val("elab-logam-tab-1"),
+    tab2: val("elab-logam-tab-2"),
+    tab3: val("elab-logam-tab-3"),
+    tab4: val("elab-logam-tab-4"),
+    tab5: val("elab-logam-tab-5"),
+    tab6: val("elab-logam-tab-6"),
+    tab7: val("elab-logam-tab-7"),
+    tab8: val("elab-logam-tab-8"),
+    tab9: val("elab-logam-tab-9"),
+    tab10: val("elab-logam-tab-10"),
+    tab11: val("elab-logam-tab-11"),
+    tab12: val("elab-logam-tab-12"),
+
+    savedAt: new Date().toLocaleString()
+  };
+
+  localStorage.setItem("logam_elaboration_saved", JSON.stringify(savedElaboration));
+
+  lockInputsInBox("p4");
+
+  const feedbackBox = document.getElementById("feedback-elaboration-logam");
+  if(feedbackBox){
+    feedbackBox.style.display = "block";
+    feedbackBox.scrollIntoView({behavior:"smooth"});
+  }
+
+  const btn = document.getElementById("btn-save-elaboration-logam");
+  if(btn){
+    btn.innerText = "✅ Jawaban Tersimpan";
+    btn.disabled = true;
+  }
+
+  alert("Jawaban Elaboration sudah disimpan dan dikunci ✅");
+}
+
+function restoreElaborationLogamLock(){
+  const raw = localStorage.getItem("logam_elaboration_saved");
+  if(!raw) return;
+
+  try{
+    const data = JSON.parse(raw);
+
+    if(document.getElementById("elab-logam-q1")) document.getElementById("elab-logam-q1").value = data.q1 || "";
+    if(document.getElementById("elab-logam-q2")) document.getElementById("elab-logam-q2").value = data.q2 || "";
+    if(document.getElementById("elab-logam-q3")) document.getElementById("elab-logam-q3").value = data.q3 || "";
+    if(document.getElementById("elab-logam-q4")) document.getElementById("elab-logam-q4").value = data.q4 || "";
+    if(document.getElementById("elab-logam-q5")) document.getElementById("elab-logam-q5").value = data.q5 || "";
+
+    for(let i = 1; i <= 12; i++){
+      const el = document.getElementById("elab-logam-tab-" + i);
+      if(el) el.value = data["tab" + i] || "";
+    }
+
+    lockInputsInBox("p4");
+
+    const feedbackBox = document.getElementById("feedback-elaboration-logam");
+    if(feedbackBox){
+      feedbackBox.style.display = "block";
+    }
+
+    const btn = document.getElementById("btn-save-elaboration-logam");
+    if(btn){
+      btn.innerText = "✅ Jawaban Tersimpan";
+      btn.disabled = true;
+    }
+  }catch(e){
+    localStorage.removeItem("logam_elaboration_saved");
+  }
+}
+
+function resetElaborationLogamAfterSubmit(){
+  localStorage.removeItem("logam_elaboration_saved");
+
+  unlockInputsInBox("p4");
+
+  const feedbackBox = document.getElementById("feedback-elaboration-logam");
+  if(feedbackBox){
+    feedbackBox.style.display = "none";
+  }
+
+  const btn = document.getElementById("btn-save-elaboration-logam");
+  if(btn){
+    btn.innerText = "💾 Simpan Jawaban & Lihat Umpan Balik";
+    btn.disabled = false;
+  }
+}
+
+function lockEvaluationLogam(){
+  for(let i = 1; i <= 10; i++){
+    document.querySelectorAll(`input[name="q${i}"]`).forEach(function(input){
+      input.disabled = true;
+    });
+  }
+}
+
+function unlockEvaluationLogam(){
+  for(let i = 1; i <= 10; i++){
+    document.querySelectorAll(`input[name="q${i}"]`).forEach(function(input){
+      input.disabled = false;
+    });
+  }
+}
+
+function saveEvaluationLogamAndShowFeedback(){
+  let score = 0;
+  const savedAnswers = {};
+
+  for(let i = 1; i <= 10; i++){
+    const pick = document.querySelector(`input[name="q${i}"]:checked`)?.value;
+
+    if(!pick){
+      alert("Jawab semua soal evaluasi terlebih dahulu ya 😊");
+      return;
+    }
+
+    savedAnswers["q" + i] = pick;
+
+    if(pick === correctLogamAnswers["q" + i]){
+      score += 10;
+    }
+  }
+
+  localStorage.setItem("logam_evaluation_saved", JSON.stringify({
+    answers: savedAnswers,
+    score: score,
+    savedAt: new Date().toLocaleString()
+  }));
+
+  lockEvaluationLogam();
+
+  const skorBox = document.getElementById("skor-evaluation-logam-box");
+  const skorText = document.getElementById("skor-evaluation-logam-text");
+  const skorMsg = document.getElementById("skor-evaluation-logam-message");
+
+  if(skorBox && skorText && skorMsg){
+    skorBox.classList.remove("hidden");
+    skorText.innerText = `Skor kamu: ${score}/100`;
+
+    if(score >= 80){
+      skorMsg.innerText = "🌟 Bagus sekali! Pemahaman konsep ikatan logammu sudah kuat.";
+    }else if(score >= 60){
+      skorMsg.innerText = "👍 Cukup baik. Bacalah pembahasan untuk memperkuat bagian yang masih keliru.";
+    }else{
+      skorMsg.innerText = "💪 Tetap semangat. Gunakan pembahasan untuk memahami kembali konsep kation logam, elektron bebas, lautan elektron, dan sifat logam.";
+    }
+  }
+
+  const feedbackContent = document.getElementById("evaluation-logam-feedback-content");
+  let html = "";
+
+  quizLogamData.forEach(item => {
+    const userPick = savedAnswers["q" + item.id];
+    const correct = correctLogamAnswers["q" + item.id];
+    const benar = userPick === correct;
+
+    html += `
+      <div class="feedback-item">
+        <b>Soal ${item.id}</b><br>
+        Jawaban kamu: <b>${userPick}</b><br>
+        Kunci jawaban: <b>${correct}</b><br>
+        Status: <b style="color:${benar ? '#1e8449' : '#cc4d4d'};">${benar ? 'Benar' : 'Perlu diperbaiki'}</b><br>
+        Pembahasan: ${quizLogamExplanation[item.id]}
+      </div>
+    `;
+  });
+
+  if(feedbackContent){
+    feedbackContent.innerHTML = html;
+  }
+
+  const feedbackBox = document.getElementById("feedback-evaluation-logam");
+  if(feedbackBox){
+    feedbackBox.style.display = "block";
+    feedbackBox.scrollIntoView({behavior:"smooth"});
+  }
+
+  const btn = document.getElementById("btn-save-evaluation-logam");
+  if(btn){
+    btn.innerText = "✅ Evaluasi Tersimpan";
+    btn.disabled = true;
+  }
+}
+
+function restoreEvaluationLogamLock(){
+  const raw = localStorage.getItem("logam_evaluation_saved");
+  if(!raw) return;
+
+  try{
+    const data = JSON.parse(raw);
+    const answers = data.answers || {};
+
+    Object.entries(answers).forEach(([name, value]) => {
+      const input = document.querySelector(`input[name="${name}"][value="${value}"]`);
+      if(input) input.checked = true;
+    });
+
+    lockEvaluationLogam();
+
+    const skorBox = document.getElementById("skor-evaluation-logam-box");
+    const skorText = document.getElementById("skor-evaluation-logam-text");
+    const skorMsg = document.getElementById("skor-evaluation-logam-message");
+
+    if(skorBox && skorText && skorMsg){
+      skorBox.classList.remove("hidden");
+      skorText.innerText = `Skor kamu: ${data.score}/100`;
+
+      if(data.score >= 80){
+        skorMsg.innerText = "🌟 Bagus sekali! Pemahaman konsep ikatan logammu sudah kuat.";
+      }else if(data.score >= 60){
+        skorMsg.innerText = "👍 Cukup baik. Bacalah pembahasan untuk memperkuat bagian yang masih keliru.";
+      }else{
+        skorMsg.innerText = "💪 Tetap semangat. Gunakan pembahasan untuk memahami kembali konsep kation logam, elektron bebas, lautan elektron, dan sifat logam.";
+      }
+    }
+
+    const feedbackContent = document.getElementById("evaluation-logam-feedback-content");
+    if(feedbackContent){
+      let html = "";
+
+      quizLogamData.forEach(item => {
+        const userPick = answers["q" + item.id];
+        const correct = correctLogamAnswers["q" + item.id];
+        const benar = userPick === correct;
+
+        html += `
+          <div class="feedback-item">
+            <b>Soal ${item.id}</b><br>
+            Jawaban kamu: <b>${userPick}</b><br>
+            Kunci jawaban: <b>${correct}</b><br>
+            Status: <b style="color:${benar ? '#1e8449' : '#cc4d4d'};">${benar ? 'Benar' : 'Perlu diperbaiki'}</b><br>
+            Pembahasan: ${quizLogamExplanation[item.id]}
+          </div>
+        `;
+      });
+
+      feedbackContent.innerHTML = html;
+    }
+
+    const feedbackBox = document.getElementById("feedback-evaluation-logam");
+    if(feedbackBox){
+      feedbackBox.style.display = "block";
+    }
+
+    const btn = document.getElementById("btn-save-evaluation-logam");
+    if(btn){
+      btn.innerText = "✅ Evaluasi Tersimpan";
+      btn.disabled = true;
+    }
+  }catch(e){
+    localStorage.removeItem("logam_evaluation_saved");
+  }
+}
+
+function resetEvaluationLogamAfterSubmit(){
+  localStorage.removeItem("logam_evaluation_saved");
+
+  unlockEvaluationLogam();
+
+  const skorBox = document.getElementById("skor-evaluation-logam-box");
+  if(skorBox){
+    skorBox.classList.add("hidden");
+  }
+
+  const feedbackBox = document.getElementById("feedback-evaluation-logam");
+  if(feedbackBox){
+    feedbackBox.style.display = "none";
+  }
+
+  const feedbackContent = document.getElementById("evaluation-logam-feedback-content");
+  if(feedbackContent){
+    feedbackContent.innerHTML = "";
+  }
+
+  const btn = document.getElementById("btn-save-evaluation-logam");
+  if(btn){
+    btn.innerText = "💾 Simpan Evaluasi & Lihat Pembahasan";
+    btn.disabled = false;
+  }
+}
+
+function resetAllLogamLocksAfterSubmit(){
+  resetExplanationLogamAfterSubmit();
+  resetElaborationLogamAfterSubmit();
+  resetEvaluationLogamAfterSubmit();
+}
+
+   function finalSubmitLogam(){
+  // ================== HELPER ==================
+  const getVal = (id) => {
+    const el = document.getElementById(id);
+    return el ? el.value.trim() : "";
+  };
+
+  const getRadio = (name) => {
+    return document.querySelector(`input[name="${name}"]:checked`)?.value || "";
+  };
+
+  const getQuizAnswer = (i) => {
+    return document.querySelector(`input[name="q${i}"]:checked`)?.value || "";
+  };
+
+  // ================== CEK IDENTITAS ==================
+  const namaSiswa = getVal("nama");
+  const kelasSiswa = getVal("kelas");
+  const tanggalLKPD = document.getElementById("tgl")?.value || "";
+
+  if(!namaSiswa || !kelasSiswa || !tanggalLKPD){
+    alert("Isi identitas Nama, Kelas, dan Tanggal terlebih dahulu ya 😊");
+    nextPhase(0);
+    return;
+  }
+
+  // ================== CEK EVALUASI 10 SOAL ==================
+  let score = 0;
+  const jawabanEvaluasi = {};
+
+  for(let i = 1; i <= 10; i++){
+    const pick = getQuizAnswer(i);
+
+    if(!pick){
+      alert("Jawab semua soal evaluasi terlebih dahulu ya 😊");
+      nextPhase(5);
+      return;
+    }
+
+    jawabanEvaluasi[`Evaluasi_Q${i}`] = pick;
+
+    if(pick === correctLogamAnswers[`q${i}`]){
+      score += 10;
+    }
+  }
+
+  // ================== CEK REFLEKSI ==================
+  if(
+    !getRadio("ref-logam-1") ||
+    !getRadio("ref-logam-2") ||
+    !getRadio("ref-logam-3") ||
+    !getRadio("ref-logam-4")
+  ){
+    alert("Lengkapi semua pilihan refleksi Ya/Tidak terlebih dahulu ya 😊");
+    nextPhase(5);
+    return;
+  }
+
+  if(!getVal("ref-logam-teks-1") || !getVal("ref-logam-teks-2")){
+    alert("Lengkapi refleksi teks terlebih dahulu ya 😊");
+    nextPhase(5);
+    return;
+  }
+
+  // ================== STATUS SIMPAN / LOCK ==================
+  const explanationSaved = localStorage.getItem("logam_explanation_saved") ? "Sudah disimpan" : "Belum disimpan";
+  const elaborationSaved = localStorage.getItem("logam_elaboration_saved") ? "Sudah disimpan" : "Belum disimpan";
+  const evaluationSaved = localStorage.getItem("logam_evaluation_saved") ? "Sudah disimpan" : "Belum disimpan";
+
+  // ================== SUSUN DATA LENGKAP ==================
+  const jawabanLengkap = {
+    timestamp: new Date().toLocaleString(),
+    nama: namaSiswa,
+    kelas: kelasSiswa,
+    tanggal: tanggalLKPD,
+    materi: "Ikatan Logam",
+    skor: score,
+
+    // ================== ENGAGEMENT ==================
+    Engagement_Hipotesis_Awal: getVal("eng1"),
+    Engagement_Rumusan_Masalah:
+      "Bagaimana ikatan logam terbentuk, dan bagaimana pembentukan ikatan logam tersebut dapat menjelaskan sifat-sifat khas logam dalam kehidupan sehari-hari?",
+
+    // ================== EXPLORATION - TABEL ==================
+    Eksplorasi_Kabel_Sifat_Logam: getVal("eks-logam-tabel-1"),
+    Eksplorasi_Kabel_Hubungan_Ikatan_Logam: getVal("eks-logam-tabel-2"),
+
+    Eksplorasi_Panci_Sifat_Logam: getVal("eks-logam-tabel-3"),
+    Eksplorasi_Panci_Hubungan_Ikatan_Logam: getVal("eks-logam-tabel-4"),
+
+    Eksplorasi_Logam_Dibentuk_Sifat_Logam: getVal("eks-logam-tabel-5"),
+    Eksplorasi_Logam_Dibentuk_Hubungan_Ikatan_Logam: getVal("eks-logam-tabel-6"),
+
+    Eksplorasi_Logam_Mengkilap_Sifat_Logam: getVal("eks-logam-tabel-7"),
+    Eksplorasi_Logam_Mengkilap_Hubungan_Ikatan_Logam: getVal("eks-logam-tabel-8"),
+
+    // ================== EXPLORATION - PERTANYAAN ==================
+    Eksplorasi_Q1_Pembentukan_Ikatan_Logam: getVal("eks-logam-q1"),
+    Eksplorasi_Q2_Peran_Kation_Dan_Elektron_Bebas: getVal("eks-logam-q2"),
+    Eksplorasi_Q3_Logam_Menghantarkan_Listrik: getVal("eks-logam-q3"),
+    Eksplorasi_Q4_Panas_Dan_Dapat_Dibentuk: getVal("eks-logam-q4"),
+    Eksplorasi_Q5_Hubungan_Ikatan_Logam_Dengan_Sifat_Logam: getVal("eks-logam-q5"),
+
+    // ================== EXPLANATION ==================
+    Explanation_Q1_Pembentukan_Ikatan_Logam: getVal("exp-logam-q1"),
+    Explanation_Q2_Kabel_Listrik: getVal("exp-logam-q2"),
+    Explanation_Q3_Panci_Cepat_Panas: getVal("exp-logam-q3"),
+    Explanation_Q4_Logam_Dapat_Ditempa: getVal("exp-logam-q4"),
+    Explanation_Q5_Logam_Mengkilap: getVal("exp-logam-q5"),
+    Explanation_Revisi_Hipotesis: getVal("exp-logam-q6"),
+    Explanation_Status_Simpan: explanationSaved,
+
+    // ================== ELABORATION - TABEL ==================
+    Elaboration_Kabel_Logam_Digunakan: getVal("elab-logam-tab-1"),
+    Elaboration_Kabel_Sifat_Dimanfaatkan: getVal("elab-logam-tab-2"),
+    Elaboration_Kabel_Hubungan_Ikatan_Logam: getVal("elab-logam-tab-3"),
+
+    Elaboration_Alat_Masak_Logam_Digunakan: getVal("elab-logam-tab-4"),
+    Elaboration_Alat_Masak_Sifat_Dimanfaatkan: getVal("elab-logam-tab-5"),
+    Elaboration_Alat_Masak_Hubungan_Ikatan_Logam: getVal("elab-logam-tab-6"),
+
+    Elaboration_Rangka_Logam_Digunakan: getVal("elab-logam-tab-7"),
+    Elaboration_Rangka_Sifat_Dimanfaatkan: getVal("elab-logam-tab-8"),
+    Elaboration_Rangka_Hubungan_Ikatan_Logam: getVal("elab-logam-tab-9"),
+
+    Elaboration_Perhiasan_Logam_Digunakan: getVal("elab-logam-tab-10"),
+    Elaboration_Perhiasan_Sifat_Dimanfaatkan: getVal("elab-logam-tab-11"),
+    Elaboration_Perhiasan_Hubungan_Ikatan_Logam: getVal("elab-logam-tab-12"),
+
+    // ================== ELABORATION - PERTANYAAN ==================
+    Elaboration_Q1_Tembaga_Kabel_Listrik: getVal("elab-logam-q1"),
+    Elaboration_Q2_Aluminium_Alat_Masak_Foil: getVal("elab-logam-q2"),
+    Elaboration_Q3_Besi_Baja_Rangka_Bangunan: getVal("elab-logam-q3"),
+    Elaboration_Q4_Emas_Perak_Perhiasan: getVal("elab-logam-q4"),
+    Elaboration_Q5_Kesimpulan_Pemilihan_Logam: getVal("elab-logam-q5"),
+    Elaboration_Status_Simpan: elaborationSaved,
+
+    // ================== EVALUATION ==================
+    ...jawabanEvaluasi,
+    Skor_Evaluasi: score,
+    Evaluation_Status_Simpan: evaluationSaved,
+
+    // ================== REFLEKSI ==================
+    Refleksi_Pembentukan_Ikatan_Logam: getRadio("ref-logam-1"),
+    Refleksi_Model_Lautan_Elektron: getRadio("ref-logam-2"),
+    Refleksi_Elektron_Bebas_Listrik_Panas: getRadio("ref-logam-3"),
+    Refleksi_Ditempa_Dan_Mengkilap: getRadio("ref-logam-4"),
+    Refleksi_Bagian_Mudah: getVal("ref-logam-teks-1"),
+    Refleksi_Bagian_Membingungkan: getVal("ref-logam-teks-2")
+  };
+
+  // ================== SIMPAN LOKAL CADANGAN ==================
+  const LOCAL_KEY = "db_logam_final";
+  const db = JSON.parse(localStorage.getItem(LOCAL_KEY) || "[]");
+  db.push(jawabanLengkap);
+  localStorage.setItem(LOCAL_KEY, JSON.stringify(db));
+
+  // ================== KIRIM KE GOOGLE SHEETS ==================
+  const btnSubmit = document.getElementById("btn-final-submit-logam") || document.querySelector('button[onclick="finalSubmitLogam()"]');
+
+  if(btnSubmit){
+    btnSubmit.innerText = "Sedang mengirim... ⏳";
+    btnSubmit.disabled = true;
+  }
+
+  const payload = {
+    nama: namaSiswa,
+    kelas: kelasSiswa,
+    materi: "Ikatan Logam",
+    skor: score,
+    jawabanLengkap: jawabanLengkap
+  };
+
+  fetch(SCRIPT_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  })
+  .then(() => {
+    alert(`✅ LKPD selesai!\nSkor evaluasi kamu: ${score}/100\nJawaban berhasil dikirim ke Guru Rusyda! 🌈`);
+
+    resetAllLogamLocksAfterSubmit();
+
+    if(btnSubmit){
+      btnSubmit.innerText = "✅ Sudah Terkirim";
+      btnSubmit.disabled = true;
+    }
+  })
+  .catch(() => {
+    alert(`Evaluasi selesai!\nSkor kamu: ${score}/100\n⚠️ Gagal kirim, cek koneksi internet.`);
+
+    if(btnSubmit){
+      btnSubmit.innerText = "✨ SELESAI & KIRIM ✨";
+      btnSubmit.disabled = false;
+    }
+  });
+}
+  </script>
+
+
+</body>
+</html>
+
+
+

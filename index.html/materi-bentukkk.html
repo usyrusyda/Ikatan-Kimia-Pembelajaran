@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LKPD Bentuk Molekul - 5E</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --gold:#ffc107;
+      --batik-blue:#3a7caf;
+      --cream:#fffdf2;
+      --soft-blue:#e3f2fd;
+      --green:#a8e6cf;
+      --gray:#b2bec3;
+      --white:#fff;
+      --shadow: 0 10px 30px rgba(0,0,0,.06);
+      --red:#ff6b6b;
+    }
+    body{
+      font-family:'Quicksand',sans-serif;
+      margin:0;
+      background:var(--cream);
+      color:var(--batik-blue);
+      overflow-x:hidden;
+    }
+    h1,h2,h3,h4{font-family:'Fredoka',sans-serif;margin:10px 0}
+    .hidden{display:none !important;}
+
+    /* NAV */
+    nav{
+      background:#fff;
+      padding:8px 5%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      border-bottom-left-radius:30px;
+      border-bottom-right-radius:30px;
+      box-shadow:0 5px 20px rgba(0,0,0,.05);
+      position:sticky;
+      top:0;
+      z-index:10;
+    }
+    .nav-left,.nav-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+    .pill{
+      display:inline-block;padding:6px 12px;border-radius:999px;
+      background:#fff;border:2px dashed #d9ecff;font-size:12px;font-weight:800;opacity:.9;
+    }
+
+    /* BUTTON */
+    button{
+      padding:12px 20px;
+      background:var(--batik-blue);
+      color:#fff;
+      border:none;
+      border-radius:50px;
+      font-family:'Fredoka',sans-serif;
+      font-size:15px;
+      cursor:pointer;
+      box-shadow:0 5px 0 #2a5a82;
+      transition:.2s;
+      position:relative;
+      display:inline-block;
+      margin:4px;
+    }
+    button:hover{background:#4a8cbf;top:-2px;box-shadow:0 7px 0 #2a5a82}
+    button:active{top:3px;box-shadow:0 2px 0 #2a5a82}
+    .btn-back{background:var(--gray);box-shadow:0 5px 0 #636e72}
+    .btn-next{background:var(--gold);box-shadow:0 5px 0 #c79a00;color:#444}
+    .btn-green{background:#27ae60;box-shadow:0 5px 0 #1e8449}
+    .btn-logout{background:var(--red);box-shadow:0 5px 0 #cc4d4d;padding:8px 15px;font-size:12px}
+    .mini{font-size:12px;padding:8px 12px}
+
+    /* LAYOUT */
+    .module-container{
+      max-width:980px;
+      margin:18px auto;
+      padding:26px;
+      background:#fff;
+      border-radius:40px;
+      border:6px solid var(--soft-blue);
+      box-shadow:var(--shadow);
+    }
+    .section-box{
+      background:var(--soft-blue);
+      padding:18px;
+      border-radius:25px;
+      margin-bottom:16px;
+      border-left:10px solid var(--gold);
+    }
+    .section-green{
+      background:var(--green);
+      border-left:10px solid #27ae60;
+    }
+    .capaian-box{
+      background:#fff;
+      border:2px solid #d9ecff;
+      border-left:10px solid var(--batik-blue);
+      border-radius:20px;
+      padding:18px;
+      margin-top:14px;
+      box-shadow:0 4px 10px rgba(0,0,0,.04);
+    }
+    .tujuan-box{
+      background:#fff;
+      border:2px solid #d9ecff;
+      border-left:10px solid var(--gold);
+      border-radius:20px;
+      padding:18px;
+      margin-top:14px;
+      box-shadow:0 4px 10px rgba(0,0,0,.04);
+    }
+    .capaian-box h4,.tujuan-box h4{color:var(--batik-blue);}
+    .capaian-box p,.tujuan-box li{color:#4d6f8f;}
+
+    /* LKPD */
+    .progress-bar{
+      width:100%;height:12px;background:#eee;border-radius:10px;
+      margin:0 0 16px 0;overflow:hidden;border:2px solid #fff;
+    }
+    .progress-fill{height:100%;background:var(--gold);width:0%;transition:.5s}
+    .badge-5e{
+      background:var(--batik-blue);color:#fff;padding:5px 14px;
+      border-radius:15px;font-size:13px;font-weight:bold;
+      margin-bottom:10px;display:inline-block;
+    }
+    .phase-card{display:none;animation:fadeIn .35s}
+    .phase-card.active{display:block}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+    input,select,textarea{
+      width:100%;
+      padding:12px;
+      margin-bottom:10px;
+      border:3px solid #f0f0f0;
+      border-radius:15px;
+      font-family:'Quicksand',sans-serif;
+      font-weight:700;
+      box-sizing:border-box;
+      background:#fff;
+    }
+    textarea{min-height:86px}
+
+    .mcq-option{
+      display:block;background:#fff;padding:10px;border-radius:12px;
+      margin:6px 0;border:2px solid #eee;cursor:pointer;
+      transition:.2s;text-align:left;font-size:13px;
+    }
+    .mcq-option:hover{background:var(--soft-blue)}
+    input[type="radio"]{width:auto;margin-right:8px}
+
+    .hint{
+      background:#fff;
+      border:2px dashed #d9ecff;
+      border-radius:18px;
+      padding:12px;
+      display:none;
+      margin-top:8px;
+      font-size:13px;
+    }
+
+    .correct-box{border:3px solid #27ae60 !important; background:#f0fff4 !important;}
+    .wrong-box{border:3px solid #ff6b6b !important; background:#fff5f5 !important;}
+  </style>
+</head>
+
+<body onload="initLKPD()">
+
+  <nav>
+    <div class="nav-left">
+      <button class="btn-back mini" onclick="goMenu()">⬅️ Menu</button>
+      <span class="pill" id="user-pill">Belum isi identitas</span>
+    </div>
+
+    <strong>Bentuk Molekul</strong>
+
+    <div class="nav-right">
+      <button class="btn-logout" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <div class="module-container">
+    <div class="progress-bar"><div id="fill" class="progress-fill"></div></div>
+
+    <!-- ================= PHASE 0 ================= -->
+    <div class="phase-card active" id="p0">
+      <center>
+        <h2 style="margin-top:0;">IDENTITAS & INFORMASI LKPD</h2>
+      </center>
+
+      <div class="section-box section-green">
+        <p style="margin:0 0 8px 0;"><b>Isi identitas dulu ya:</b></p>
+        <input type="text" id="nama" placeholder="Nama kamu...">
+        <input type="text" id="kelas" placeholder="Kelas... (contoh: X-IPA 1)">
+        <input type="date" id="tgl">
+        <button class="btn-next" onclick="saveIdentity()">Simpan Identitas ✅</button>
+      </div>
+
+      <div class="section-box">
+        <h3 style="margin-top:0;">📌 Materi: Bentuk Molekul</h3>
+
+        <div class="section-box capaian-box">
+          <h4 style="margin-top:0; margin-bottom:8px;">📘 Capaian Pembelajaran</h4>
+          <p style="margin:0; text-align:left; font-size:14px; line-height:1.7;">
+            Pada akhir Fase F, peserta didik mampu memahami sifat, struktur, dan interaksi partikel dalam membentuk berbagai senyawa serta kaitannya dengan sifat zat dalam kehidupan sehari-hari.
+          </p>
+        </div>
+
+        <div class="section-box tujuan-box">
+          <h4 style="margin-top:0; margin-bottom:8px;">🎯 Tujuan Pembelajaran (Acuan)</h4>
+          <ol style="text-align:left; font-size:14px; line-height:1.7; margin:0; padding-left:20px;">
+            <li>Menjelaskan pengertian dan pentingnya bentuk molekul.</li>
+            <li>Menentukan bentuk molekul kovalen menggunakan teori VSEPR.</li>
+            <li>Menjelaskan pengaruh pasangan elektron bebas terhadap bentuk molekul.</li>
+            <li>Mengaitkan bentuk molekul dengan kepolaran dan sifat senyawa.</li>
+          </ol>
+        </div>
+
+        <center>
+          <button class="btn-next" onclick="requireIdentityThenGo(1)">Mulai Engagement ➡️</button>
+        </center>
+      </div>
+    </div>
+
+    <!-- ================= PHASE 1 ================= -->
+    <div class="phase-card" id="p1">
+      <span class="badge-5e">1. Engagement</span>
+
+      <div class="section-box">
+        <h3 style="margin-top:0;">🔵 ENGAGEMENT</h3>
+        <p style="font-size:14px;font-weight:bold;margin:0;">(Fenomena)</p>
+
+        <h4 style="margin-top:12px;">Kegiatan</h4>
+        <p style="font-size:14px;line-height:1.7;text-align:justify;">
+          Peserta didik mengamati dua molekul berikut:
+        </p>
+        <ul style="font-size:14px;line-height:1.7;">
+          <li>CO₂</li>
+          <li>H₂O</li>
+        </ul>
+
+        <center style="margin:10px 0;">
+          <img src="co2.jpeg" alt="Molekul CO2"
+               style="width:80%;max-width:360px;border-radius:15px;display:block;margin-bottom:10px;">
+        </center>
+
+        <h4 style="margin-top:14px;">Pertanyaan Pemantik</h4>
+        <p style="font-size:14px;line-height:1.7;">
+          <b>Mengapa CO₂ bersifat nonpolar sedangkan H₂O bersifat polar?</b><br>
+          Padahal keduanya sama-sama memiliki ikatan kovalen polar.
+        </p>
+
+        <textarea id="eng1" placeholder="Tulis pendapat awalmu..."></textarea>
+      </div>
+
+      <div class="section-box section-green">
+        <h4 style="margin-top:0;">Output</h4>
+        <ul style="font-size:14px;line-height:1.7;margin:0;">
+          <li>Peserta didik menyadari bahwa jenis ikatan saja tidak cukup untuk menjelaskan sifat molekul.</li>
+          <li>Muncul kebutuhan konsep bentuk molekul.</li>
+        </ul>
+        <p style="font-size:14px;margin-top:8px;">
+          ➡️ Menyiapkan siswa untuk memahami peran susunan ruang atom.
+        </p>
+      </div>
+
+      <center>
+        <button class="btn-back" onclick="nextPhase(0)">⬅️</button>
+        <button class="btn-next" onclick="nextPhase(2)">➡️</button>
+      </center>
+    </div>
+
+    <!-- ================= PHASE 2 ================= -->
+    <div class="phase-card" id="p2">
+      <span class="badge-5e">2. Exploration</span>
+
+      <div class="section-box">
+        <h3 style="margin-top:0;">EXPLORATION</h3>
+
+        <h4 style="margin-bottom:6px;">Kegiatan Analisis Bentuk Molekul Berdasarkan Susunan Pasangan Elektron</h4>
+        <p style="font-size:14px;line-height:1.7;text-align:justify;margin-top:0;">
+          Kegiatan ini bertujuan untuk membangun pemahaman awal dan menyiapkan strategi berpikir dalam menentukan bentuk molekul.
+        </p>
+
+        <h4 style="margin-bottom:6px;">🔗 Sumber Pendukung</h4>
+        <ul style="font-size:14px;line-height:1.7;margin-top:0;">
+          <li>Struktur Lewis (disediakan guru)</li>
+          <li>Model molekul / simulasi PhET Molecule Shapes</li>
+        </ul>
+
+        <h4 style="margin-bottom:6px;">Petunjuk Kegiatan</h4>
+        <ol style="font-size:14px;line-height:1.7;margin-top:0;">
+          <li>Perhatikan struktur Lewis molekul yang disediakan:
+            <ul style="margin-top:6px;">
+              <li>SO₂</li>
+              <li>BF₃</li>
+              <li>CH₄</li>
+              <li>NH₃</li>
+              <li>H₂O</li>
+            </ul>
+          </li>
+          <li>Tentukan atom pusat.</li>
+          <li>Hitung jumlah:
+            <ul style="margin-top:6px;">
+              <li>pasangan elektron ikatan (PEI),</li>
+              <li>pasangan elektron bebas (PEB).</li>
+            </ul>
+          </li>
+          <li>Tentukan jumlah pasangan elektron total di sekitar atom pusat.</li>
+          <li>Prediksikan bentuk molekul berdasarkan susunan pasangan elektron.</li>
+          <li>Catat hasil pengamatan pada tabel.</li>
+        </ol>
+      </div>
+
+      <!-- PhET Embed -->
+      <div class="section-box" style="background:white; border-left:10px solid var(--batik-blue);">
+        <h3 style="margin-top:0;">🧪 Simulasi PhET Molecule Shapes</h3>
+        <p style="font-size:13px; opacity:.9; margin-top:-6px;">
+          Model molekul / simulasi PhET Molecule Shapes
+        </p>
+        <div style="width:100%;height:560px;border-radius:20px;overflow:hidden;border:3px solid #d9ecff;background:#fff;">
+          <iframe
+            src="https://phet.colorado.edu/sims/html/molecule-shapes/latest/molecule-shapes_all.html"
+            width="100%"
+            height="100%"
+            style="border:none;"
+            loading="lazy"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+
+      <!-- Tabel Pengamatan -->
+      <div class="section-box">
+        <h4 style="margin-top:0;">Tabel Pengamatan: Bentuk Molekul Berdasarkan Teori VSEPR</h4>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;background:#fff;border-radius:15px;overflow:hidden;font-size:13px;">
+            <tr style="background:var(--batik-blue);color:#fff;">
+              <th style="padding:8px;border:1px solid var(--soft-blue);">No</th>
+              <th style="padding:8px;border:1px solid var(--soft-blue);text-align:left;">Molekul</th>
+              <th style="padding:8px;border:1px solid var(--soft-blue);">PEI</th>
+              <th style="padding:8px;border:1px solid var(--soft-blue);">PEB</th>
+              <th style="padding:8px;border:1px solid var(--soft-blue);">Jumlah Pasangan Elektron</th>
+              <th style="padding:8px;border:1px solid var(--soft-blue);text-align:left;">Bentuk Molekul</th>
+            </tr>
+            <tr>
+              <td style="padding:8px;border:1px solid var(--soft-blue);text-align:center;">1</td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);">SO₂</td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="t2_pei_1" placeholder=""></td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="t2_peb_1" placeholder=""></td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="t2_jml_1" placeholder=""></td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="t2_bentuk_1" placeholder=""></td>
+            </tr>
+            <tr>
+              <td style="padding:8px;border:1px solid var(--soft-blue);text-align:center;">2</td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);">BF₃</td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="t2_pei_2" placeholder=""></td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="t2_peb_2" placeholder=""></td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="t2_jml_2" placeholder=""></td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="t2_bentuk_2" placeholder=""></td>
+            </tr>
+            <tr>
+              <td style="padding:8px;border:1px solid var(--soft-blue);text-align:center;">3</td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);">CH₄</td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="t2_pei_3" placeholder=""></td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="t2_peb_3" placeholder=""></td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="t2_jml_3" placeholder=""></td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="t2_bentuk_3" placeholder=""></td>
+            </tr>
+            <tr>
+              <td style="padding:8px;border:1px solid var(--soft-blue);text-align:center;">4</td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);">NH₃</td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="t2_pei_4" placeholder=""></td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="t2_peb_4" placeholder=""></td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="t2_jml_4" placeholder=""></td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="t2_bentuk_4" placeholder=""></td>
+            </tr>
+            <tr>
+              <td style="padding:8px;border:1px solid var(--soft-blue);text-align:center;">5</td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);">H₂O</td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="t2_pei_5" placeholder=""></td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="t2_peb_5" placeholder=""></td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="t2_jml_5" placeholder=""></td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="t2_bentuk_5" placeholder=""></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="section-box section-green">
+        <h4 style="margin-top:0;">💡 Catatan</h4>
+        <ul style="font-size:14px;line-height:1.7;margin:0;">
+          <li>Perhatikan bahwa pasangan elektron bebas tidak tampak, tetapi memengaruhi bentuk molekul.</li>
+          <li>Bandingkan molekul dengan jumlah pasangan elektron sama tetapi bentuk berbeda.</li>
+        </ul>
+      </div>
+
+      <center>
+        <button class="btn-back" onclick="nextPhase(1)">⬅️</button>
+        <button class="btn-next" onclick="nextPhase(3)">➡️</button>
+      </center>
+    </div>
+
+    <!-- ================= PHASE 3 ================= -->
+    <div class="phase-card" id="p3">
+      <span class="badge-5e">3. Explanation</span>
+
+      <div class="section-box">
+        <h3 style="margin-top:0;">🟡 EXPLANATION</h3>
+
+        <p style="font-size:14px;line-height:1.7;margin:0 0 6px 0;">
+          Apakah molekul dengan jumlah pasangan elektron sama selalu memiliki bentuk yang sama?
+        </p>
+        <textarea id="exp_q1" placeholder="Tulis jawabanmu..."></textarea>
+
+        <p style="font-size:14px;line-height:1.7;margin:10px 0 6px 0;">
+          Apa pengaruh pasangan elektron bebas terhadap sudut ikatan?
+        </p>
+        <textarea id="exp_q2" placeholder="Tulis jawabanmu..."></textarea>
+      </div>
+
+      <center>
+        <button class="btn-back" onclick="nextPhase(2)">⬅️</button>
+        <button class="btn-next" onclick="nextPhase(4)">➡️</button>
+      </center>
+    </div>
+
+    <!-- ================= PHASE 4 ================= -->
+    <div class="phase-card" id="p4">
+      <span class="badge-5e">4. Elaboration</span>
+
+      <div class="section-box">
+        <h3 style="margin-top:0;">🌍 ELABORATION — Bentuk Molekul dalam Kehidupan Nyata</h3>
+        <p style="font-size:14px;line-height:1.7;text-align:justify;">
+          Bentuk molekul bukan hanya konsep teori — ia menentukan bagaimana suatu zat bekerja di alam dan dalam teknologi sehari-hari.
+          Pelajari tiga studi kasus berikut, lalu jawab pertanyaan yang tersedia.
+        </p>
+      </div>
+
+      <!-- STUDI KASUS 1 -->
+      <div class="section-box" style="border-left:10px solid #e91e63;">
+        <h4 style="margin-top:0; color:#e91e63;">🧬 Studi Kasus 1 — Air (H₂O) sebagai Pelarut Universal</h4>
+        <p style="font-size:14px;line-height:1.7;text-align:justify;">
+          Air memiliki bentuk molekul <b>bengkok (bent)</b> dengan sudut ikatan ±104,5°. Karena bentuk ini, molekul air bersifat <b>polar</b> — memiliki ujung positif (H) dan ujung negatif (O). Kepolaran inilah yang memungkinkan air melarutkan gula, garam, dan berbagai senyawa ionik. Bayangkan jika bentuk air seperti CO₂ (linear) — air tidak akan bersifat polar dan tidak bisa melarutkan zat-zat tersebut!
+        </p>
+        <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">❓ Pertanyaan:</p>
+        <p style="font-size:14px;margin:0 0 6px 0;">
+          Jika bentuk H₂O berubah menjadi linear, apa yang akan terjadi pada kemampuannya sebagai pelarut? Jelaskan alasanmu!
+        </p>
+        <textarea id="elab_q1" placeholder="Tulis jawabanmu di sini..."></textarea>
+      </div>
+
+      <!-- STUDI KASUS 2 -->
+      <div class="section-box" style="border-left:10px solid #ff9800;">
+        <h4 style="margin-top:0; color:#ff9800;">🌱 Studi Kasus 2 — CO₂ dan Efek Rumah Kaca</h4>
+        <p style="font-size:14px;line-height:1.7;text-align:justify;">
+          Karbon dioksida (CO₂) memiliki bentuk <b>linear</b>. Meskipun ikatan C=O bersifat polar, susunannya yang simetris menyebabkan CO₂ menjadi molekul <b>nonpolar</b>. Namun CO₂ tetap mampu menyerap radiasi inframerah dari Bumi dan menyebabkan efek rumah kaca — bukan karena kepolarannya, melainkan karena getaran molekulnya (vibrasi asimetris) yang mengubah momen dipol sementara.
+        </p>
+        <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">❓ Pertanyaan:</p>
+        <p style="font-size:14px;margin:0 0 6px 0;">
+          Mengapa CO₂ nonpolar meskipun memiliki ikatan C=O yang polar? Kaitkan dengan bentuk molekulnya!
+        </p>
+        <textarea id="elab_q2" placeholder="Tulis jawabanmu di sini..."></textarea>
+      </div>
+
+      <!-- STUDI KASUS 3 -->
+      <div class="section-box" style="border-left:10px solid #9c27b0;">
+        <h4 style="margin-top:0; color:#9c27b0;">💊 Studi Kasus 3 — Obat-obatan dan Kunci-Kunci Molekuler</h4>
+        <p style="font-size:14px;line-height:1.7;text-align:justify;">
+          Bentuk molekul obat sangat penting dalam dunia farmasi. Konsep <b>"kunci dan gembok"</b> menggambarkan bagaimana molekul obat harus memiliki bentuk 3D yang tepat agar dapat "masuk" ke reseptor protein dalam tubuh. Contohnya, obat pereda nyeri ibuprofen memiliki bentuk tertentu yang cocok dengan reseptor enzim COX. Jika bentuk molekulnya berubah (misalnya akibat isomer), obat tersebut bisa kehilangan efektivitasnya atau bahkan menjadi berbahaya.
+        </p>
+        <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">❓ Pertanyaan:</p>
+        <p style="font-size:14px;margin:0 0 6px 0;">
+          Menurutmu, mengapa dalam industri farmasi, bentuk tiga dimensi molekul obat sangat diperhatikan? Hubungkan dengan konsep bentuk molekul yang sudah kamu pelajari!
+        </p>
+        <textarea id="elab_q3" placeholder="Tulis jawabanmu di sini..."></textarea>
+      </div>
+
+      <!-- SINTESIS -->
+      <div class="section-box section-green">
+        <h4 style="margin-top:0;">✍️ Sintesis Akhir Elaborasi</h4>
+        <p style="font-size:14px;margin:0 0 6px 0;">
+          Berdasarkan ketiga studi kasus di atas, tuliskan kesimpulanmu: <b>mengapa bentuk molekul sangat penting dalam menentukan sifat dan fungsi suatu zat?</b>
+        </p>
+        <textarea id="elab_sintesis" placeholder="Tulis kesimpulanmu..."></textarea>
+      </div>
+
+      <center>
+        <button class="btn-back" onclick="nextPhase(3)">⬅️</button>
+        <button class="btn-next" onclick="nextPhase(5)">➡️</button>
+      </center>
+    </div>
+
+    <!-- ================= PHASE 5 ================= -->
+    <div class="phase-card" id="p5">
+      <span class="badge-5e">5. Evaluation</span>
+
+      <div class="section-box">
+        <h3 style="margin-top:0;">⭐ EVALUATION</h3>
+        <p style="font-size:14px;line-height:1.7;margin:0;">
+          Uji pemahamanmu! Pilih jawaban yang paling tepat, lalu cek skormu di akhir.
+        </p>
+      </div>
+
+      <!-- MCQ 1 -->
+      <div class="section-box" id="mcq-box-1">
+        <p style="font-size:14px;font-weight:bold;margin:0 0 8px 0;">
+          1. Molekul NH₃ memiliki bentuk...
+        </p>
+        <label class="mcq-option"><input type="radio" name="mcq1" value="a"> a) Trigonal planar</label>
+        <label class="mcq-option"><input type="radio" name="mcq1" value="b"> b) Tetrahedral</label>
+        <label class="mcq-option"><input type="radio" name="mcq1" value="c"> c) Trigonal piramida</label>
+        <label class="mcq-option"><input type="radio" name="mcq1" value="d"> d) Bengkok</label>
+        <div class="hint" id="hint1"></div>
+      </div>
+
+      <!-- MCQ 2 -->
+      <div class="section-box" id="mcq-box-2">
+        <p style="font-size:14px;font-weight:bold;margin:0 0 8px 0;">
+          2. Pasangan elektron bebas (PEB) pada atom pusat menyebabkan...
+        </p>
+        <label class="mcq-option"><input type="radio" name="mcq2" value="a"> a) Sudut ikatan bertambah besar</label>
+        <label class="mcq-option"><input type="radio" name="mcq2" value="b"> b) Sudut ikatan menjadi lebih kecil</label>
+        <label class="mcq-option"><input type="radio" name="mcq2" value="c"> c) Bentuk molekul tidak berubah</label>
+        <label class="mcq-option"><input type="radio" name="mcq2" value="d"> d) Molekul selalu menjadi polar</label>
+        <div class="hint" id="hint2"></div>
+      </div>
+
+      <!-- MCQ 3 -->
+      <div class="section-box" id="mcq-box-3">
+        <p style="font-size:14px;font-weight:bold;margin:0 0 8px 0;">
+          3. Molekul BF₃ bersifat nonpolar meskipun ikatan B–F polar, karena...
+        </p>
+        <label class="mcq-option"><input type="radio" name="mcq3" value="a"> a) Tidak ada pasangan elektron bebas dan bentuknya simetris (trigonal planar)</label>
+        <label class="mcq-option"><input type="radio" name="mcq3" value="b"> b) Memiliki 1 pasangan elektron bebas</label>
+        <label class="mcq-option"><input type="radio" name="mcq3" value="c"> c) Sudut ikatannya lebih dari 120°</label>
+        <label class="mcq-option"><input type="radio" name="mcq3" value="d"> d) Atom F lebih elektronegatif dari B</label>
+        <div class="hint" id="hint3"></div>
+      </div>
+
+      <!-- MCQ 4 -->
+      <div class="section-box" id="mcq-box-4">
+        <p style="font-size:14px;font-weight:bold;margin:0 0 8px 0;">
+          4. Manakah pasangan molekul berikut yang keduanya bersifat polar?
+        </p>
+        <label class="mcq-option"><input type="radio" name="mcq4" value="a"> a) CO₂ dan BF₃</label>
+        <label class="mcq-option"><input type="radio" name="mcq4" value="b"> b) H₂O dan NH₃</label>
+        <label class="mcq-option"><input type="radio" name="mcq4" value="c"> c) CH₄ dan CO₂</label>
+        <label class="mcq-option"><input type="radio" name="mcq4" value="d"> d) BF₃ dan CH₄</label>
+        <div class="hint" id="hint4"></div>
+      </div>
+
+      <!-- MCQ 5 -->
+      <div class="section-box" id="mcq-box-5">
+        <p style="font-size:14px;font-weight:bold;margin:0 0 8px 0;">
+          5. Teori yang digunakan untuk memprediksi bentuk molekul berdasarkan tolakan pasangan elektron adalah...
+        </p>
+        <label class="mcq-option"><input type="radio" name="mcq5" value="a"> a) Teori Lewis</label>
+        <label class="mcq-option"><input type="radio" name="mcq5" value="b"> b) Teori VSEPR</label>
+        <label class="mcq-option"><input type="radio" name="mcq5" value="c"> c) Teori hibridisasi orbital</label>
+        <label class="mcq-option"><input type="radio" name="mcq5" value="d"> d) Teori oktet</label>
+        <div class="hint" id="hint5"></div>
+      </div>
+
+      <center>
+        <button class="btn-green" onclick="checkMCQ()">🔍 Cek Jawaban</button>
+      </center>
+
+      <!-- SKOR -->
+      <div id="skor-box" style="display:none; margin-top:16px;">
+        <div class="section-box section-green" style="text-align:center;">
+          <h3 style="margin-top:0;">🏆 Hasil Evaluasimu</h3>
+          <p style="font-size:22px;font-weight:bold;" id="skor-text"></p>
+          <p style="font-size:14px;" id="skor-pesan"></p>
+        </div>
+      </div>
+
+      <!-- REFLEKSI DIRI -->
+      <div class="section-box" style="margin-top:16px; border-left:10px solid #9c27b0;">
+        <h4 style="margin-top:0; color:#9c27b0;">🪞 Refleksi Diri</h4>
+
+        <p style="font-size:14px;margin:0 0 6px 0;">1. Apa bagian dari materi bentuk molekul yang paling mudah kamu pahami?</p>
+        <textarea id="ref1" placeholder="Tuliskan di sini..."></textarea>
+
+        <p style="font-size:14px;margin:0 0 6px 0;">2. Apa bagian yang masih terasa sulit atau membingungkan bagimu?</p>
+        <textarea id="ref2" placeholder="Tuliskan di sini..."></textarea>
+
+        <p style="font-size:14px;margin:0 0 6px 0;">3. Bagaimana perasaanmu setelah menyelesaikan seluruh kegiatan LKPD ini? 😊</p>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px;">
+          <label class="mcq-option" style="width:auto; padding:10px 16px;">
+            <input type="radio" name="perasaan" value="sangat_paham"> 😄 Sangat Paham
+          </label>
+          <label class="mcq-option" style="width:auto; padding:10px 16px;">
+            <input type="radio" name="perasaan" value="cukup_paham"> 🙂 Cukup Paham
+          </label>
+          <label class="mcq-option" style="width:auto; padding:10px 16px;">
+            <input type="radio" name="perasaan" value="masih_bingung"> 😕 Masih Bingung
+          </label>
+          <label class="mcq-option" style="width:auto; padding:10px 16px;">
+            <input type="radio" name="perasaan" value="perlu_bantuan"> 🆘 Perlu Bantuan
+          </label>
+        </div>
+
+        <p style="font-size:14px;margin:0 0 6px 0;">4. Apa yang ingin kamu pelajari lebih lanjut tentang materi ini?</p>
+        <textarea id="ref4" placeholder="Tuliskan di sini..."></textarea>
+
+        <center style="margin-top:8px;">
+          <button class="btn-green" onclick="selesai()">✅ Selesai & Kirim Refleksi</button>
+        </center>
+      </div>
+
+      <!-- PESAN SELESAI -->
+      <div id="selesai-box" style="display:none; margin-top:16px;">
+        <div class="section-box" style="background:var(--gold);border-left:10px solid #c79a00;text-align:center;">
+          <h3 style="margin-top:0;">🎉 Selamat! Kamu telah menyelesaikan LKPD Bentuk Molekul!</h3>
+          <p style="font-size:14px;">Terima kasih sudah belajar dengan sungguh-sungguh. Terus semangat ya! 💪</p>
+          <button class="btn-next" onclick="goMenu()">🏠 Kembali ke Menu</button>
+        </div>
+      </div>
+
+      <center style="margin-top:8px;">
+        <button class="btn-back" onclick="nextPhase(4)">⬅️</button>
+      </center>
+    </div>
+
+  </div>
+
+  <script>
+    const ID_KEY="bentuk_molekul_identity";
+    let currentPhase=0;
+
+    function initLKPD(){
+      const tgl=document.getElementById("tgl");
+      if(tgl && !tgl.value){
+        const now=new Date();
+        const yyyy=now.getFullYear();
+        const mm=String(now.getMonth()+1).padStart(2,'0');
+        const dd=String(now.getDate()).padStart(2,'0');
+        tgl.value=`${yyyy}-${mm}-${dd}`;
+      }
+      loadIdentity();
+      updateProgress();
+    }
+
+    function goMenu(){ window.location.href="menu.html"; }
+    function logout(){
+      localStorage.removeItem("kimia_user");
+      window.location.href="index.html";
+    }
+
+    function nextPhase(p){
+      document.querySelectorAll(".phase-card").forEach(x=>x.classList.remove("active"));
+      const target=document.getElementById("p"+p);
+      if(target) target.classList.add("active");
+      currentPhase=p;
+      updateProgress();
+      window.scrollTo({top:0,behavior:"smooth"});
+    }
+
+    function updateProgress(){
+      document.getElementById("fill").style.width = (currentPhase/5*100) + "%";
+    }
+
+    function val(id){
+      const el=document.getElementById(id);
+      return el ? el.value.trim() : "";
+    }
+
+    function saveIdentity(){
+      const n=val("nama");
+      const k=val("kelas");
+      const t=document.getElementById("tgl").value;
+      if(!n || !k || !t){ alert("Lengkapi Nama, Kelas, dan Tanggal ya 😊"); return; }
+      localStorage.setItem(ID_KEY, JSON.stringify({nama:n, kelas:k, tgl:t}));
+      document.getElementById("user-pill").innerText = `${n} • ${k}`;
+      alert("Identitas tersimpan ✅");
+    }
+
+    function loadIdentity(){
+      const raw=localStorage.getItem(ID_KEY);
+      if(!raw) return;
+      try{
+        const id=JSON.parse(raw);
+        if(id?.nama) document.getElementById("nama").value=id.nama;
+        if(id?.kelas) document.getElementById("kelas").value=id.kelas;
+        if(id?.tgl) document.getElementById("tgl").value=id.tgl;
+        if(id?.nama && id?.kelas){
+          document.getElementById("user-pill").innerText = `${id.nama} • ${id.kelas}`;
+        }
+      }catch(e){ localStorage.removeItem(ID_KEY); }
+    }
+
+    function identityComplete(){
+      const n=val("nama"), k=val("kelas"), t=document.getElementById("tgl").value;
+      return !!(n && k && t);
+    }
+
+    function requireIdentityThenGo(phase){
+      if(!identityComplete()){ alert("Isi identitas (Nama, Kelas, Tanggal) dulu ya 😊"); nextPhase(0); return; }
+      nextPhase(phase);
+    }
+
+    // MCQ Evaluation
+    const answers = { mcq1:'c', mcq2:'b', mcq3:'a', mcq4:'b', mcq5:'b' };
+    const hints = {
+      mcq1: { c: '✅ Benar! NH₃ memiliki 3 PEI dan 1 PEB, sehingga berbentuk trigonal piramida.', wrong: '❌ Kurang tepat. NH₃ punya 3 ikatan dan 1 PEB — ingat, PEB mendorong ikatan ke bawah.' },
+      mcq2: { b: '✅ Benar! PEB memiliki gaya tolak lebih kuat sehingga mempersempit sudut ikatan.', wrong: '❌ Kurang tepat. PEB justru menekan pasangan ikatan sehingga sudut ikatan mengecil.' },
+      mcq3: { a: '✅ Benar! BF₃ trigonal planar dan simetris — semua momen dipol saling meniadakan.', wrong: '❌ Kurang tepat. BF₃ tidak punya PEB dan simetris, sehingga momen dipol bernilai nol.' },
+      mcq4: { b: '✅ Benar! H₂O (bengkok) dan NH₃ (trigonal piramida) keduanya asimetris dan polar.', wrong: '❌ Kurang tepat. CO₂, BF₃, dan CH₄ simetris sehingga nonpolar.' },
+      mcq5: { b: '✅ Benar! VSEPR = Valence Shell Electron Pair Repulsion — teori tolakan pasangan elektron valensi.', wrong: '❌ Kurang tepat. Teori VSEPR-lah yang digunakan untuk memprediksi bentuk berdasarkan tolakan pasangan elektron.' }
+    };
+
+    function checkMCQ(){
+      let score = 0;
+      for(let i=1; i<=5; i++){
+        const name = 'mcq'+i;
+        const sel = document.querySelector(`input[name="${name}"]:checked`);
+        const box = document.getElementById('mcq-box-'+i);
+        const hint = document.getElementById('hint'+i);
+        if(sel){
+          const chosen = sel.value;
+          const correct = answers[name];
+          if(chosen === correct){
+            score++;
+            box.classList.add('correct-box');
+            box.classList.remove('wrong-box');
+            hint.innerHTML = hints[name][correct];
+          } else {
+            box.classList.add('wrong-box');
+            box.classList.remove('correct-box');
+            hint.innerHTML = hints[name]['wrong'];
+          }
+          hint.style.display='block';
+        } else {
+          hint.innerHTML = '⚠️ Kamu belum menjawab soal ini.';
+          hint.style.display='block';
+        }
+      }
+      const skorBox = document.getElementById('skor-box');
+      const skorText = document.getElementById('skor-text');
+      const skorPesan = document.getElementById('skor-pesan');
+      skorBox.style.display='block';
+      skorText.innerText = `Skor kamu: ${score} / 5 (${score*20}%)`;
+      if(score===5) skorPesan.innerText='🌟 Luar biasa! Kamu menguasai materi ini dengan sangat baik!';
+      else if(score>=3) skorPesan.innerText='👍 Bagus! Masih ada sedikit yang perlu diperkuat. Cek pembahasan di atas ya.';
+      else skorPesan.innerText='💪 Jangan menyerah! Yuk ulangi lagi materi VSEPR dan bentuk molekulnya.';
+      skorBox.scrollIntoView({behavior:'smooth'});
+    }
+
+    function selesai() {
+      const ref1=val("ref1"), ref2=val("ref2"), ref4=val("ref4");
+      const perasaan=document.querySelector('input[name="perasaan"]:checked');
+      if(!ref1 || !ref2 || !ref4 || !perasaan) {
+        alert("Lengkapi semua pertanyaan refleksi dulu ya 😊");
+        return;
+      }
+      
+      const btnSubmit = document.querySelector('button[onclick="selesai()"]');
+      if (btnSubmit) btnSubmit.innerText = "Sedang mengirim... ⏳";
+
+      let nSiswa = "Siswa"; let kSiswa = "-";
+      try { const r = localStorage.getItem("ID_KEY"); if(r){ const d = JSON.parse(r); nSiswa=d.nama; kSiswa=d.kelas; } } catch(e){}
+
+      const payload = {
+          nama: nSiswa, kelas: kSiswa, materi: "Bentuk Molekul",
+          skor: typeof score !== 'undefined' ? score : 0,
+          jawabanLengkap: { ref1: ref1, ref2: ref2, ref4: ref4, perasaan: perasaan.value }
+      };
+
+      fetch('https://script.google.com/macros/s/AKfycbxz_vIPULyd4rD05wsw-bUGYk1Q8qp-S4t3XEhiAas33HLaX-MnndLRNBgctlYgFVOG/exec', {
+          method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
+      })
+      .then(() => { 
+          alert("Selesai! ✅\nJawaban berhasil dikirim ke Guru Rusyda! 🌈"); 
+          if(btnSubmit) btnSubmit.innerText = "Terkirim ✅";
+      })
+      .catch(err => { 
+          alert("Gagal kirim, cek koneksi internetmu ya!"); 
+          if(btnSubmit) btnSubmit.innerText = "Coba Lagi";
+      });
+    }
+      document.getElementById("selesai-box").style.display="block";
+      document.getElementById("selesai-box").scrollIntoView({behavior:"smooth"});
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,1933 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LKPD Ikatan Kovalen - 5E</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --gold:#ffc107;
+      --batik-blue:#3a7caf;
+      --cream:#fffdf2;
+      --soft-blue:#e3f2fd;
+      --green:#a8e6cf;
+      --gray:#b2bec3;
+      --white:#fff;
+      --shadow: 0 10px 30px rgba(0,0,0,.06);
+      --red:#ff6b6b;
+    }
+    body{
+      font-family:'Quicksand',sans-serif;
+      margin:0;
+      background:var(--cream);
+      color:var(--batik-blue);
+      overflow-x:hidden;
+    }
+    h1,h2,h3,h4{font-family:'Fredoka',sans-serif;margin:10px 0}
+    .hidden{display:none !important;}
+
+    /* NAV */
+    nav{
+      background:#fff;
+      padding:8px 5%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      border-bottom-left-radius:30px;
+      border-bottom-right-radius:30px;
+      box-shadow:0 5px 20px rgba(0,0,0,.05);
+      position:sticky;
+      top:0;
+      z-index:10;
+    }
+    .nav-left,.nav-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+    .pill{
+      display:inline-block;padding:6px 12px;border-radius:999px;
+      background:#fff;border:2px dashed #d9ecff;font-size:12px;font-weight:800;opacity:.9;
+    }
+
+    /* BUTTON */
+    button{
+      padding:12px 20px;
+      background:var(--batik-blue);
+      color:#fff;
+      border:none;
+      border-radius:50px;
+      font-family:'Fredoka',sans-serif;
+      font-size:15px;
+      cursor:pointer;
+      box-shadow:0 5px 0 #2a5a82;
+      transition:.2s;
+      position:relative;
+      display:inline-block;
+      margin:4px;
+    }
+    button:hover{background:#4a8cbf;top:-2px;box-shadow:0 7px 0 #2a5a82}
+    button:active{top:3px;box-shadow:0 2px 0 #2a5a82}
+    .btn-back{background:var(--gray);box-shadow:0 5px 0 #636e72}
+    .btn-next{background:var(--gold);box-shadow:0 5px 0 #c79a00;color:#444}
+    .btn-green{background:#27ae60;box-shadow:0 5px 0 #1e8449}
+    .btn-logout{background:var(--red);box-shadow:0 5px 0 #cc4d4d;padding:8px 15px;font-size:12px}
+    .mini{font-size:12px;padding:8px 12px}
+
+    /* LAYOUT */
+    .module-container{
+      max-width:980px;
+      margin:18px auto;
+      padding:26px;
+      background:#fff;
+      border-radius:40px;
+      border:6px solid var(--soft-blue);
+      box-shadow:var(--shadow);
+    }
+    .section-box{
+      background:var(--soft-blue);
+      padding:18px;
+      border-radius:25px;
+      margin-bottom:16px;
+      border-left:10px solid var(--gold);
+    }
+    .section-green{
+      background:var(--green);
+      border-left:10px solid #27ae60;
+    }
+
+    /* LKPD */
+    .progress-bar{
+      width:100%;height:12px;background:#eee;border-radius:10px;
+      margin:0 0 16px 0;overflow:hidden;border:2px solid #fff;
+    }
+    .progress-fill{height:100%;background:var(--gold);width:0%;transition:.5s}
+    .badge-5e{
+      background:var(--batik-blue);color:#fff;padding:5px 14px;
+      border-radius:15px;font-size:13px;font-weight:bold;
+      margin-bottom:10px;display:inline-block;
+    }
+    .phase-card{display:none;animation:fadeIn .35s}
+    .phase-card.active{display:block}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+    input,select,textarea{
+      width:100%;
+      padding:12px;
+      margin-bottom:10px;
+      border:3px solid #f0f0f0;
+      border-radius:15px;
+      font-family:'Quicksand',sans-serif;
+      font-weight:700;
+      box-sizing:border-box;
+      background:#fff;
+    }
+    textarea{min-height:86px}
+
+    .mcq-option{
+      display:block;background:#fff;padding:10px;border-radius:12px;
+      margin:6px 0;border:2px solid #eee;cursor:pointer;
+      transition:.2s;text-align:left;font-size:13px;
+    }
+    .mcq-option:hover{background:var(--soft-blue)}
+    input[type="radio"]{width:auto;margin-right:8px}
+
+    .hint{
+      background:#fff;
+      border:2px dashed #d9ecff;
+      border-radius:18px;
+      padding:12px;
+      display:none;
+      margin-top:8px;
+      font-size:13px;
+    }
+    .done-pill{
+      display:inline-block;padding:6px 12px;border-radius:999px;
+      background:#fff;border:2px dashed #d9ecff;font-size:12px;font-weight:800;
+      margin-left:8px;
+    }
+
+    /* ===== Materi menyatu (tab-panel) ===== */
+    .tab-panel{display:none;}
+    .tab-panel.active{display:block;}
+    .tabbar-inline{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:8px;}
+    .figure-box{
+  background:#fff;
+  padding:15px;
+  border-radius:18px;
+  border:2px dashed #d9ecff;
+  margin-top:12px;
+}
+.figure-title{
+  font-weight:900;
+  margin-bottom:8px;
+  color:var(--batik-blue);
+}
+.figure-wrap{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  justify-content:center;
+  margin:10px 0;
+}
+.figure-img{
+  width:100%;
+  max-width:260px;
+  border-radius:14px;
+  display:block;
+}
+.figure-img.small{ max-width:220px; }
+.figure-caption{
+  font-size:13px;
+  opacity:.85;
+  text-align:center;
+  margin-top:6px;
+}
+
+  </style>
+</head>
+
+<body onload="initLKPD()">
+
+  <nav>
+    <div class="nav-left">
+      <button class="btn-back mini" onclick="goMenu()">⬅️ Menu</button>
+      <button class="btn-back mini" onclick="goMateri()">⬅️ Materi</button>
+      <span class="pill" id="user-pill">Belum isi identitas</span>
+    </div>
+
+    <strong>Ikatan Kovalen</strong>
+
+    <div class="nav-right">
+      <button class="btn-logout" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <div class="module-container">
+    <div class="progress-bar"><div id="fill" class="progress-fill"></div></div>
+
+    <!-- ================= PHASE 0 ================= -->
+    <div class="phase-card active" id="p0">
+      <center><h2 style="margin-top:0;">IDENTITAS & INFORMASI LKPD</h2></center>
+
+      <div class="section-box section-green">
+        <p style="margin:0 0 8px 0;"><b>Isi identitas dulu ya:</b></p>
+        <input type="text" id="nama" placeholder="Nama kamu...">
+        <input type="text" id="kelas" placeholder="Kelas... (contoh: X-IPA 1)">
+        <input type="date" id="tgl">
+        <button class="btn-next" onclick="saveIdentity()">Simpan Identitas ✅</button>
+      </div>
+
+        <div class="section-box">
+        <h3>Capaian Pembelajaran</h3>
+        <ul style="text-align:left; font-size:14px; line-height:1.6;">
+          Pada akhir Fase F, peserta didik mampu memahami sifat, struktur, dan interaksi partikel dalam membentuk berbagai senyawa serta kaitannya dengan sifat zat dalam kehidupan sehari-hari.
+        </ul>
+      </div>
+
+      <div class="section-box">
+        <h3>Tujuan Pembelajaran</h3>
+        <ol style="text-align:left;font-size:14px;line-height:1.7;">
+          <li>Peserta didik dapat menjelaskan pembentukan ikatan kovalen sebagai penggunaan pasangan elektron bersama untuk mencapai kestabilan atom.</b>.</li>
+          <li>Peserta didik dapat membedakan ikatan kovalen tunggal, rangkap dua, dan rangkap tiga berdasarkan jumlah pasangan elektron yang digunakan bersama.</li>
+          <li>Peserta didik dapat menganalisis hubungan pembentukan ikatan kovalen dengan sifat atau peran molekul sederhana dalam kehidupan sehari-hari.</b>.</li>
+        </ol>
+      </div>
+
+      <center><button class="btn-next" onclick="requireIdentityThenGo(1)">Mulai Engagement ➡️</button></center>
+    </div>
+
+    <!-- ================= PHASE 1 ================= -->
+    <div class="phase-card" id="p1">
+      <span class="badge-5e">1. Engagement</span>
+
+      <div class="section-box">
+        <p style="font-size:14px;text-align:justify;margin-top:14px;">
+          Pernahkah kalian memperhatikan bagaimana dalam kehidupan sehari-hari, kita sering harus <b>berbagi</b>
+          agar semuanya berjalan dengan baik?
+        </p>
+
+        <!-- GAMBAR 1 -->
+        <center>
+          <img src="pemantik1.png" alt="Kerja kelompok" style="width:90%;max-width:620px;border-radius:15px;display:block;">
+        </center>
+
+        <p style="font-size:14px;text-align:justify;">
+          Misalnya, saat kalian mengerjakan tugas kelompok, tidak mungkin hanya satu orang yang bekerja sendiri.
+          Setiap anggota perlu berbagi peran dan saling membantu agar tujuan bersama dapat tercapai.
+        </p>
+
+        <!-- GAMBAR 2 -->
+        <center style="margin-top:10px;">
+          <img src="pemantik2.png" alt="Saling membantu" style="width:90%;max-width:620px;border-radius:15px;display:block;">
+        </center>
+
+        <p style="font-size:14px;text-align:justify;margin-top:14px;">
+          Begitu juga ketika ada teman yang membutuhkan, kita cenderung memberikan bantuan atau berbagi sesuatu
+          supaya keadaan menjadi lebih seimbang.
+        </p>
+
+        <p style="font-size:14px;text-align:justify;">
+          Ternyata, hal yang mirip juga terjadi pada dunia kimia! Tidak semua atom berada dalam keadaan stabil.
+          Beberapa atom memiliki jumlah elektron valensi yang belum lengkap sehingga mereka “menginginkan” keadaan yang
+          lebih stabil, seperti gas mulia.
+        </p>
+
+        <p style="font-size:14px;text-align:justify;">
+          Namun, berbeda dengan <b>ikatan ion</b> yang terjadi karena perpindahan elektron, ada atom-atom tertentu yang
+          tidak mudah melepaskan atau menerima elektron sepenuhnya. Sebagai gantinya, atom-atom tersebut memilih cara lain:
+          mereka <b>berbagi pasangan elektron</b>.
+        </p>
+
+        <p style="font-size:14px;text-align:justify;">
+          Dengan berbagi elektron, kedua atom dapat sama-sama merasa “cukup” dan mencapai kestabilan.
+          Hubungan inilah yang disebut sebagai <b>ikatan kovalen</b>.
+        </p>
+
+        <!-- GAMBAR H2O -->
+        <center style="margin-top:8px;">
+          <img src="h2o_lewis.png" alt="H2O - pemakaian bersama pasangan elektron"
+               style="width:80%;max-width:420px;border-radius:15px;display:block;">
+          <p style="font-size:12px;opacity:.8;margin:8px 0 0;">
+            Pemakaian bersama pasangan elektron (contoh H₂O)
+          </p>
+        </center>
+
+        <div style="background:#fff;padding:15px;border-radius:18px;border:2px dashed #d9ecff;margin-top:14px;">
+          <p style="font-size:14px;text-align:justify;margin:0;">
+            Atom hidrogen (H) tidak bisa stabil sendirian karena hanya memiliki 1 elektron, sedangkan ia membutuhkan 2 elektron
+            agar seperti helium (aturan duplet). Atom oksigen (O) memiliki 6 elektron valensi dan membutuhkan 2 elektron lagi agar
+            mencapai 8 elektron (aturan oktet). Maka, dua atom H akan <b>berbagi pasangan elektron</b> dengan atom O sehingga terbentuk
+            molekul <b>H₂O</b>. Dengan begitu, H mencapai duplet dan O mencapai oktet—keduanya menjadi lebih stabil.
+          </p>
+        </div>
+
+        <p style="margin-top:14px;">
+          1) Mengapa pada ikatan ion atom bisa transfer elektron sedangkan pada ikatan kovalen cenderung berbagi pasangan elektron?
+        </p>
+        <textarea id="eng1" placeholder="Tulis jawabanmu..."></textarea>
+
+        <div style="margin-top:10px;">
+          <h4 style="margin:0 0 6px 0;">🔥 Polling Cepat</h4>
+          <p style="font-size:14px;margin:0 0 8px 0;">Menurutmu ikatan kovalen terjadi karena…</p>
+
+          <label class="mcq-option"><input type="radio" name="poll" value="A"> Elektron berpindah sepenuhnya</label>
+          <label class="mcq-option"><input type="radio" name="poll" value="B"> Elektron digunakan bersama</label>
+          <label class="mcq-option"><input type="radio" name="poll" value="C"> Atom membentuk ion</label>
+          <label class="mcq-option"><input type="radio" name="poll" value="D"> Atom tidak butuh elektron</label>
+
+          <button class="btn-next" onclick="checkPoll()">Cek Polling ✅</button>
+          <div id="poll-feedback" class="hint"></div>
+        </div>
+      </div>
+
+      <center>
+        <button class="btn-back" onclick="nextPhase(0)">⬅️</button>
+        <button class="btn-next" onclick="nextPhase(2)">➡️</button>
+      </center>
+    </div>
+
+    <!-- ================= PHASE 2 ================= -->
+    <div class="phase-card" id="p2">
+      <span class="badge-5e">2. Exploration</span>
+
+      <!-- ===== HEADER TAB MATERI ===== -->
+      <div class="section-box" style="border-left:10px solid var(--batik-blue);">
+        <h2 style="margin-top:0;">📚 Materi Singkat (Untuk Exploration)</h2>
+        <p style="margin-top:-8px; font-size:14px;">
+          Klik tab materi berikut untuk melihat ringkasan sebelum menyelesaikan misi.
+        </p>
+
+        <div class="tabbar-inline">
+          <button class="btn-next mini" onclick="showMateriTab('pengertian')">📌 Pengertian</button>
+          <button class="btn-next mini" onclick="showMateriTab('jenis')">🧩 Jenis</button>
+          <button class="btn-next mini" onclick="showMateriTab('koordinasi')">🧷 Koordinasi</button>
+          <button class="btn-next mini" onclick="showMateriTab('kepolaran')">🧷 Kepolaran</button>
+          <button class="btn-next mini" onclick="showMateriTab('sifat')">⚙️ Sifat</button>
+        </div>
+      </div>
+
+      <!-- ===== TAB: PENGERTIAN ===== -->
+      <div id="tab-pengertian" class="section-box tab-panel">
+        <h3>📌 Pengertian Ikatan Kovalen</h3>
+
+        <div style="background:#fff;padding:15px;border-radius:18px;border:2px dashed #d9ecff;">
+          <h4 style="margin-top:0;color:var(--batik-blue);">✨ Apa itu ikatan kovalen?</h4>
+          <p style="font-size:14px;line-height:1.7;text-align:justify;margin:0;">
+            Ikatan kovalen terbentuk akibat kecenderungan atom-atom untuk menggunakan elektron secara bersama (sharing elektron)
+            agar memiliki konfigurasi elektron seperti gas mulia terdekat. Berbeda dengan ikatan ion yang melibatkan perpindahan elektron,
+            pada ikatan kovalen elektron tidak sepenuhnya dipindahkan, melainkan dibagi antara atom-atom yang berikatan sehingga menghasilkan
+            molekul netral. Dalam ikatan kovalen, setiap elektron dalam pasangan yang digunakan bersama ditarik oleh inti dari kedua atom.
+          </p>
+        </div>
+
+        <div style="background:#fff;padding:15px;border-radius:18px;border:2px dashed #d9ecff;margin-top:12px;">
+          <h4 style="margin-top:0;color:var(--batik-blue);">🤝 Mengapa atom berbagi elektron?</h4>
+          <ul style="margin:0;padding-left:18px;font-size:14px;line-height:1.7;">
+            <li>Ikatan kovalen umumnya terbentuk antaratom <b>nonlogam</b>.</li>
+            <li>Nonlogam punya <b>energi ionisasi tinggi</b> (sulit melepas elektron).</li>
+            <li>Nonlogam punya <b>afinitas elektron tinggi</b>, tapi tidak “nyaman” menerima elektron penuh seperti ion.</li>
+            <li>Jadi, solusi yang paling cocok: <b>berbagi elektron</b> agar sama-sama stabil.</li>
+          </ul>
+        </div>
+
+        <div style="background:#fff;padding:15px;border-radius:18px;border:2px dashed #d9ecff;margin-top:12px;">
+          <h4 style="margin-top:0;color:var(--batik-blue);">🧠 Hubungan dengan Oktet & Duplet</h4>
+          <ul style="margin:0;padding-left:18px;font-size:14px;line-height:1.7;">
+            <li>Atom cenderung stabil jika elektron valensi menjadi <b>8</b> (oktet).</li>
+            <li>Khusus H, stabil jika total elektron menjadi <b>2</b> (duplet) seperti He.</li>
+            <li>Dengan berbagi elektron, atom bisa melengkapi oktet/duplet.</li>
+          </ul>
+        </div>
+
+        <div style="background:#fff;padding:15px;border-radius:18px;border:2px dashed #d9ecff;margin-top:12px;">
+          <h4 style="margin-top:0;color:var(--batik-blue);">🟦 Struktur Lewis</h4>
+          <ul style="margin:0;padding-left:18px;font-size:14px;line-height:1.7;">
+            <li><b>Titik (:)</b> menunjukkan pasangan elektron.</li>
+            <li><b>Garis (—)</b> menunjukkan pasangan elektron yang dibagi (ikatan).</li>
+            <li>Pasangan yang tidak dibagi disebut <b>pasangan elektron bebas</b>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ===== TAB: JENIS ===== -->
+      <div id="tab-jenis" class="section-box tab-panel">
+        <h3>🧩 Jenis Ikatan Kovalen</h3>
+
+        <div style="background:#fff;padding:15px;border-radius:18px;border:2px dashed #d9ecff;">
+          <h4 style="margin-top:0;color:var(--batik-blue);">1) Ikatan Kovalen Tunggal</h4>
+          <p style="font-size:14px;line-height:1.7;text-align:justify;margin:0;">
+            Ikatan kovalen tunggal melibatkan <b>1 pasangan elektron</b> (2 elektron) yang digunakan bersama oleh dua atom.
+            Contoh: <b>H₂</b> (H berbagi 1 pasangan untuk mencapai <b>duplet</b>).
+          </p>
+          <center style="margin-top:10px;">
+            <img src="1a.png" alt="Ikatan tunggal H2" style="width:90%;max-width:620px;border-radius:15px;display:block;">
+          </center>
+
+          <p style="font-size:14px;line-height:1.7;text-align:justify;margin:12px 0 0 0;">
+            Elektron yang tidak berikatan disebut <b>pasangan elektron bebas</b>. Contoh: pada <b>F₂</b> setiap F memiliki
+            <b>3 pasangan elektron bebas</b>.
+          </p>
+          <center style="margin-top:10px;">
+            <img src="1b.png" alt="Lone pairs pada F2" style="width:90%;max-width:620px;border-radius:15px;display:block;">
+          </center>
+        </div>
+
+        <div style="background:#fff;padding:15px;border-radius:18px;border:2px dashed #d9ecff;margin-top:12px;">
+          <h4 style="margin-top:0;color:var(--batik-blue);">2) Ikatan Kovalen Rangkap Dua</h4>
+          <p style="font-size:14px;line-height:1.7;text-align:justify;margin:0;">
+            Ikatan rangkap dua melibatkan <b>2 pasangan elektron</b> (4 elektron) yang dibagi bersama.
+            Contoh: <b>O₂</b> (masing-masing O kekurangan 2 elektron untuk oktet).
+          </p>
+          <center style="margin-top:10px;">
+            <img src="2a.png" alt="Ikatan rangkap dua O2" style="width:90%;max-width:620px;border-radius:15px;display:block;">
+          </center>
+
+          <p style="font-size:14px;line-height:1.7;text-align:justify;margin:12px 0 0 0;">
+            Contoh lain: <b>CO₂</b> dengan struktur <b>O=C=O</b> (dua ikatan rangkap dua).
+          </p>
+          <center style="margin-top:10px;">
+            <img src="2b.png" alt="CO2 O=C=O" style="width:90%;max-width:620px;border-radius:15px;display:block;">
+          </center>
+        </div>
+
+        <div style="background:#fff;padding:15px;border-radius:18px;border:2px dashed #d9ecff;margin-top:12px;">
+          <h4 style="margin-top:0;color:var(--batik-blue);">3) Ikatan Kovalen Rangkap Tiga</h4>
+          <p style="font-size:14px;line-height:1.7;text-align:justify;margin:0;">
+            Ikatan rangkap tiga melibatkan <b>3 pasangan elektron</b> (6 elektron) yang dibagi bersama.
+            Contoh: <b>N₂</b> (masing-masing N kekurangan 3 elektron untuk oktet) sehingga terbentuk ikatan <b>N≡N</b>.
+          </p>
+          <center style="margin-top:10px;">
+            <img src="3a.png" alt="Ikatan rangkap tiga N2" style="width:90%;max-width:620px;border-radius:15px;display:block;">
+          </center>
+
+          <div style="margin-top:12px;background:#f9fbff;border-radius:14px;padding:12px;border:2px dashed #d9ecff;">
+            <p style="font-size:14px;line-height:1.7;margin:0;text-align:justify;">
+              <b>Hubungan panjang & kekuatan ikatan:</b><br>
+              Panjang ikatan: <b>tunggal &gt; rangkap dua &gt; rangkap tiga</b> (semakin rangkap, semakin pendek).<br>
+              Kekuatan ikatan: <b>rangkap tiga &gt; rangkap dua &gt; tunggal</b> (semakin pendek, umumnya semakin kuat & stabil).
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== TAB: KOORDINASI ===== -->
+      <div id="tab-koordinasi" class="section-box tab-panel">
+  <h3>🧷 Ikatan Kovalen Koordinasi</h3>
+
+  <!-- Kartu pengantar -->
+  <div style="background:#fff;padding:15px;border-radius:18px;border:2px dashed #d9ecff;">
+    <h4 style="margin-top:0;color:var(--batik-blue);">✨ Apa itu Ikatan Kovalen Koordinasi?</h4>
+    <p style="font-size:14px;line-height:1.7;text-align:justify;margin:0;">
+      Ikatan kovalen koordinasi adalah ikatan kovalen di mana <b>sepasang elektron ikatan berasal dari satu atom saja</b>
+      (atom donor), kemudian digunakan bersama untuk berikatan dengan atom lain (atom akseptor) yang
+      <b>memiliki orbital kosong</b> atau kekurangan elektron.
+    </p>
+  </div>
+
+  <!-- Contoh H3O -->
+  <div style="background:#fff;padding:15px;border-radius:18px;border:2px dashed #d9ecff;margin-top:12px;">
+    <h4 style="margin-top:0;color:var(--batik-blue);">🧪 Contoh: Ikatan O–H pada H3O⁺</h4>
+
+    <p style="font-size:14px;line-height:1.7;text-align:justify;margin:0;">
+      Ion H₃O⁺ terbentuk dari H₂O yang mengikat H⁺; pada molekul H₂O, atom O memiliki pasangan elektron bebas, sedangkan ion H⁺ tidak memiliki elektron, sehingga salah satu pasangan elektron bebas dari O digunakan untuk membentuk ikatan dengan H⁺.
+
+    </p>
+
+    <div style="margin-top:10px;background:#f9fbff;border-radius:14px;padding:12px;border:2px dashed #d9ecff;">
+      <p style="font-size:14px;line-height:1.7;text-align:justify;margin:0;">
+        <b>Mengapa disebut koordinasi?</b><br>
+        Ion <b>H⁺</b> <u>tidak membawa elektron</u>, sehingga ikatan terbentuk karena pasangan elektron
+        <b>berasal seluruhnya dari atom O</b> (donor). Karena itu, ikatan antara O dan H⁺ pada H₃O⁺
+        merupakan <b>ikatan kovalen koordinasi</b>.
+      </p>
+    </div>
+        <center style="margin-top:10px;">
+            <img src="koordinasi_h3o.png" alt="Ikatan kovalen koordinasi H3O+" style="width:90%;max-width:620px;border-radius:15px;display:block;">
+          </center>
+  </div>
+
+  <!-- Contoh lain -->
+  <div style="background:#fff;padding:15px;border-radius:18px;border:2px dashed #d9ecff;margin-top:12px;">
+    <h4 style="margin-top:0;color:var(--batik-blue);">📌 Contoh Lain Ikatan Kovalen Koordinasi</h4>
+
+    <p style="font-size:14px;line-height:1.7;text-align:justify;margin:0;">
+      Ikatan kovalen koordinasi juga dapat terjadi pada molekul:
+    </p>
+ <center style="margin-top:10px;">
+            <img src="koordinasi_hno3.png" alt="Ikatan kovalen koordinasi HNO3" style="width:90%;max-width:620px;border-radius:15px;display:block;">
+          </center>
+        <p style="font-size:14px;line-height:1.7;text-align:justify;margin-top:10px;margin-bottom:0;"></p>
+          Pada pembentukan molekul <b>HNO₃</b>, atom nitrogen (N) berikatan dengan tiga atom oksigen (O).
+      Salah satu atom oksigen pada gugus nitrat memiliki <b>sepasang elektron bebas</b> yang dapat digunakan
+      untuk mengikat ion <b>H⁺</b>.
+      </p>
+      <p style="font-size:14px;line-height:1.7;text-align:justify;margin-top:10px;margin-bottom:0;">
+      Setelah ikatan terbentuk, pasangan elektron tersebut menjadi <b>milik bersama</b> antara atom O dan atom H,
+      sehingga secara struktur ikatan <b>O–H</b> tidak dapat dibedakan dengan ikatan kovalen biasa dalam molekul HNO₃.
+    </p>
+    <ul style="margin:10px 0 0 0;padding-left:18px;font-size:14px;line-height:1.7;">
+      <li><b>NH₃BF₃</b> → pasangan elektron bebas N (donor) mengisi orbital kosong B (akseptor).</li>
+      <li><b>NH₄⁺</b> → NH₃ mendonorkan pasangan elektron bebas ke H⁺.</li>
+      <li><b>SO₃</b> → pasangan elektron bebas dapat berperan mengisi orbital kosong sehingga mendukung kestabilan struktur.</li>
+    </ul>
+
+    <div style="margin-top:10px;background:#f9fbff;border-radius:14px;padding:12px;border:2px dashed #d9ecff;">
+      <p style="font-size:14px;line-height:1.7;text-align:justify;margin:0;">
+        <b>Intinya:</b> pasangan elektron bebas dari satu atom <b>mengisi orbital kosong</b> atom lain,
+        sehingga keduanya lebih stabil dan dapat memenuhi kaidah <b>oktet</b>.
+      </p>
+    </div>
+  </div>
+   </div>
+
+      <!-- ===== TAB: KEPOLaran ===== -->
+      <div id="tab-kepolaran" class="section-box tab-panel">
+  <h3>🧷 Kepolaran Ikatan Kovalen</h3>
+
+  <div style="background:#fff;padding:16px;border-radius:18px;border:2px dashed #d9ecff;">
+    <p style="font-size:14px;line-height:1.7;margin:0;text-align:justify;">
+      Berdasarkan kepolaran, ikatan kovalen dibedakan menjadi <b>ikatan kovalen polar</b> dan
+      <b>ikatan kovalen nonpolar</b>. Kepolaran terjadi karena perbedaan
+      <b>keelektronegatifan</b> antar atom yang berikatan.
+      Akibatnya, pasangan elektron ikatan <b>lebih tertarik</b> ke salah satu atom sehingga
+      muncul muatan parsial <b>δ−</b> dan <b>δ+</b>.
+    </p>
+  </div>
+
+  <!-- ===== KOVALEN POLAR ===== -->
+  <div style="margin-top:14px;background:#ffffff;padding:16px;border-radius:18px;border:2px dashed #d9ecff;">
+    <h4 style="margin:0 0 8px 0;color:#3a7caf;">1) Ikatan Kovalen Polar</h4>
+    <p style="font-size:14px;line-height:1.7;margin:0;text-align:justify;">
+      Ikatan kovalen polar terbentuk ketika atom-atom yang berikatan memiliki
+      <b>perbedaan keelektronegatifan</b>. Atom yang lebih elektronegatif akan menarik
+      pasangan elektron lebih kuat, sehingga terbentuk <b>δ−</b> pada atom tersebut dan
+      <b>δ+</b> pada atom pasangannya.
+    </p>
+
+    <!-- RUANG GAMBAR (seperti lampiran) -->
+    <div style="background:#fff;border:2px dashed #d9ecff;border-radius:20px;padding:14px;margin:14px auto;max-width:650px;text-align:center;">
+      <img src="polar_hcl.png" alt="Ikatan kovalen polar HCl" style="width:100%;max-width:420px;border-radius:15px;display:block;margin:0 auto;">
+      <div style="font-size:13px;color:#555;margin-top:8px;font-style:italic;">
+        Contoh ikatan kovalen polar: HCl (Cl δ− dan H δ+)
+      </div>
+    </div>
+
+    <div style="margin-top:10px;">
+      <p style="font-size:14px;margin:0;"><b>Contoh:</b> HCl, HF, H₂O, NH₃.</p>
+    </div>
+  </div>
+
+  <!-- ===== KOVALEN NONPOLAR ===== -->
+  <div style="margin-top:14px;background:#ffffff;padding:16px;border-radius:18px;border:2px dashed #d9ecff;">
+    <h4 style="margin:0 0 8px 0;color:#3a7caf;">2) Ikatan Kovalen Nonpolar</h4>
+    <p style="font-size:14px;line-height:1.7;margin:0;text-align:justify;">
+      Ikatan kovalen nonpolar terbentuk jika pasangan elektron dibagi <b>merata</b>,
+      biasanya terjadi pada atom-atom nonlogam sejenis (keelektronegatifannya sama atau hampir sama),
+      sehingga <b>tidak muncul</b> δ+ dan δ−.
+    </p>
+
+    <div style="margin-top:10px;">
+      <p style="font-size:14px;margin:0;"><b>Contoh:</b> H₂, N₂, O₂, Cl₂.</p>
+    </div>
+  </div>
+
+  <!-- ===== KESIMPULAN CEPAT ===== -->
+  <div style="margin-top:14px;background:#a8e6cf;padding:16px;border-radius:18px;border-left:10px solid #27ae60;">
+    <h4 style="margin:0 0 6px 0;">✅ Kesimpulan Cepat</h4>
+    <ul style="margin:0;padding-left:18px;font-size:14px;line-height:1.7;">
+      <li><b>Polar</b>: elektron tertarik tidak merata → muncul <b>δ+</b> dan <b>δ−</b>.</li>
+      <li><b>Nonpolar</b>: elektron dibagi merata → <b>tanpa</b> muatan parsial.</li>
+    </ul>
+  </div>
+</div>
+
+
+     <!-- ===== TAB: SIFAT ===== -->
+<div id="tab-sifat" class="section-box tab-panel">
+  <h2 style="margin-top:0;">⚙️ Sifat Senyawa Kovalen</h2>
+
+  <p style="font-size:14px; text-align:justify;">
+    Senyawa kovalen memiliki sifat fisis yang beragam, tergantung pada <b>jenis struktur molekul</b>
+    yang dibentuk. Berdasarkan strukturnya, senyawa kovalen dapat dibedakan menjadi
+    <b>kovalen sederhana</b> dan <b>kovalen raksasa</b>.
+  </p>
+
+  <!-- ===== KOVALEN SEDERHANA ===== -->
+  <div class="figure-box">
+    <div class="figure-title">1️⃣ Senyawa Kovalen dengan Struktur Molekul Sederhana</div>
+
+    <p style="font-size:14px; text-align:justify;">
+      Senyawa kovalen sederhana tersusun atas <b>molekul-molekul kecil</b>, seperti
+      metana (CH₄) dan air (H₂O). Antar molekulnya hanya terdapat
+      <b>gaya antarmolekul yang lemah</b>.
+      Akibatnya, molekul-molekul tersebut mudah terpisah ketika dipanaskan.
+    </p>
+
+    <div class="figure-wrap">
+      <img src="ch4.png" class="figure-img small" alt="Struktur molekul CH4">
+      <img src="h2o.png" class="figure-img small" alt="Struktur molekul H2O">
+    </div>
+
+    <div class="figure-caption">
+      CH₄ dan H₂O merupakan senyawa kovalen sederhana yang umumnya memiliki
+      titik leleh dan titik didih relatif rendah.
+    </div>
+
+    <p style="font-size:14px; text-align:justify; margin-top:10px;">
+      Contohnya, metana (CH₄) berfase gas pada suhu ruang karena gaya antarmolekulnya
+      sangat lemah, sehingga memiliki <b>titik didih rendah</b>.
+    </p>
+  </div>
+
+  <!-- ===== KOVALEN RAKSASA ===== -->
+  <div class="figure-box">
+    <div class="figure-title">2️⃣ Senyawa Kovalen dengan Struktur Kovalen Raksasa</div>
+
+    <p style="font-size:14px; text-align:justify;">
+      Berbeda dengan senyawa kovalen sederhana, pada struktur kovalen raksasa
+      atom-atomnya saling berikatan kovalen membentuk <b>jaringan tiga dimensi yang sangat kuat</b>.
+      Contohnya adalah silikon dioksida (SiO₂) dan karbon dalam bentuk intan.
+    </p>
+
+    <div class="figure-wrap">
+      <img src="sio2.png" class="figure-img small" alt="Struktur kovalen raksasa SiO2">
+      <img src="diamond.png" class="figure-img small" alt="Struktur kovalen raksasa intan">
+    </div>
+
+    <div class="figure-caption">
+      Struktur kovalen raksasa pada SiO₂ dan intan menyebabkan titik leleh dan titik didihnya sangat tinggi.
+    </div>
+
+    <p style="font-size:14px; text-align:justify; margin-top:10px;">
+      Pada intan, atom-atom karbon saling berikatan kovalen sangat kuat dalam satu jaringan raksasa.
+      Oleh karena itu, intan memiliki <b>titik didih sangat tinggi</b>.
+      Senyawa kovalen raksasa umumnya <b>tidak larut dalam air</b> dan
+      <b>tidak menghantarkan listrik</b>, kecuali grafit.
+    </p>
+  </div>
+
+  <!-- ===== RINGKASAN ===== -->
+  <div class="section-box" style="background:var(--green); border-left:10px solid #27ae60; margin-top:12px;">
+    <h3 style="margin-top:0;">📝 Ringkasan Sifat Senyawa Kovalen</h3>
+    <ul style="text-align:left; font-size:14px; line-height:1.7; margin:0;">
+      <li>Senyawa kovalen sederhana memiliki titik leleh dan titik didih relatif rendah.</li>
+      <li>Senyawa kovalen raksasa memiliki titik leleh dan titik didih sangat tinggi.</li>
+      <li>Senyawa kovalen umumnya tidak menghantarkan listrik.</li>
+      <li>Sifat senyawa kovalen dipengaruhi oleh jenis struktur molekulnya.</li>
+    </ul>
+  </div>
+</div>
+
+
+      <!-- ===== LAB VIRTUAL (JAVALAB) ===== -->
+      <div class="section-box" style="background:white; border-left:10px solid var(--batik-blue);">
+        <h3 style="margin-top:0;">🧪 Lab Virtual: Chemical Bonding</h3>
+
+        <p style="font-size:13px; opacity:.9; margin-top:-6px;">
+          Gunakan simulasi berikut untuk mengamati bagaimana atom-atom membentuk ikatan
+          dengan cara <b>berbagi elektron</b>.
+        </p>
+
+        <div style="
+          width:100%;
+          height:520px;
+          border-radius:20px;
+          overflow:hidden;
+          border:3px solid #d9ecff;
+          background:#fff;
+        ">
+          <iframe
+            src="https://javalab.org/en/chemical_bonding_en/"
+            width="100%"
+            height="100%"
+            style="border:none;"
+            loading="lazy"
+            allowfullscreen>
+          </iframe>
+        </div>
+
+        <p style="font-size:12px; opacity:.75; margin-top:8px;">
+          💡 Jika simulasi tidak muncul, buka langsung:
+          <a href="https://javalab.org/en/chemical_bonding_en/" target="_blank" rel="noopener noreferrer">
+            JavaLab Chemical Bonding
+          </a>
+        </p>
+      </div>
+
+      <!-- ===== MISI LAB CERIA ===== -->
+      <div class="section-box">
+        <h3 style="margin-top:0;">🧪 Misi Lab Ceria</h3>
+        <p style="font-size:14px;margin-top:0;">Selesaikan misi berikut. Pilih jenis ikatan & jawab singkat.</p>
+
+        <!-- M1 -->
+        <div style="background:#fff;padding:15px;border-radius:18px;border:2px dashed #d9ecff;margin-bottom:12px;">
+          <h4 style="margin:0;">Misi 1: Susun H₂</h4>
+          <p style="font-size:13px;margin:8px 0;">H punya 1 elektron valensi → butuh duplet (2).</p>
+
+          <label style="font-size:13px;font-weight:800;">Jenis Ikatan:</label>
+          <select id="m1-type">
+            <option value="">-- pilih --</option>
+            <option value="tunggal">Tunggal</option>
+            <option value="rangkap2">Rangkap dua</option>
+            <option value="rangkap3">Rangkap tiga</option>
+          </select>
+
+          <label style="font-size:13px;font-weight:800;">Berapa pasangan elektron yang dibagi?</label>
+          <input id="m1-pairs" type="text" placeholder="contoh: 1 pasang">
+
+          <button class="btn-back mini" onclick="toggleHint('hint1')">💡 Hint</button>
+          <div id="hint1" class="hint">H butuh 1 elektron lagi → cukup berbagi <b>1 pasangan</b> untuk duplet.</div>
+
+          <button class="btn-next mini" onclick="markDone('m1')">✅ Saya sudah menyusun H₂</button>
+          <span id="done-m1" class="done-pill hidden">Selesai ✅</span>
+        </div>
+
+        <!-- M2 -->
+        <div style="background:#fff;padding:15px;border-radius:18px;border:2px dashed #d9ecff;margin-bottom:12px;">
+          <h4 style="margin:0;">Misi 2: Susun O₂</h4>
+          <p style="font-size:13px;margin:8px 0;">O punya 6 elektron valensi → butuh oktet (8).</p>
+
+          <label style="font-size:13px;font-weight:800;">Jenis Ikatan:</label>
+          <select id="m2-type">
+            <option value="">-- pilih --</option>
+            <option value="tunggal">Tunggal</option>
+            <option value="rangkap2">Rangkap dua</option>
+            <option value="rangkap3">Rangkap tiga</option>
+          </select>
+
+          <label style="font-size:13px;font-weight:800;">Berapa pasangan elektron yang dibagi?</label>
+          <input id="m2-pairs" type="text" placeholder="contoh: 2 pasang">
+
+          <button class="btn-back mini" onclick="toggleHint('hint2')">💡 Hint</button>
+          <div id="hint2" class="hint">Setiap O butuh 2 e⁻ → berbagi <b>2 pasangan</b> (ikatan rangkap dua).</div>
+
+          <button class="btn-next mini" onclick="markDone('m2')">✅ Saya sudah menyusun O₂</button>
+          <span id="done-m2" class="done-pill hidden">Selesai ✅</span>
+        </div>
+
+        <!-- M3 -->
+        <div style="background:#fff;padding:15px;border-radius:18px;border:2px dashed #d9ecff;margin-bottom:12px;">
+          <h4 style="margin:0;">Misi 3: Susun N₂</h4>
+          <p style="font-size:13px;margin:8px 0;">N punya 5 elektron valensi → butuh oktet (8).</p>
+
+          <label style="font-size:13px;font-weight:800;">Jenis Ikatan:</label>
+          <select id="m3-type">
+            <option value="">-- pilih --</option>
+            <option value="tunggal">Tunggal</option>
+            <option value="rangkap2">Rangkap dua</option>
+            <option value="rangkap3">Rangkap tiga</option>
+          </select>
+
+          <label style="font-size:13px;font-weight:800;">Berapa pasangan elektron yang dibagi?</label>
+          <input id="m3-pairs" type="text" placeholder="contoh: 3 pasang">
+
+          <button class="btn-back mini" onclick="toggleHint('hint3')">💡 Hint</button>
+          <div id="hint3" class="hint">Setiap N butuh 3 e⁻ → berbagi <b>3 pasangan</b> (ikatan rangkap tiga).</div>
+
+          <button class="btn-next mini" onclick="markDone('m3')">✅ Saya sudah menyusun N₂</button>
+          <span id="done-m3" class="done-pill hidden">Selesai ✅</span>
+        </div>
+
+        <!-- M4 -->
+        <div style="background:#fff;padding:15px;border-radius:18px;border:2px dashed #d9ecff;">
+          <h4 style="margin:0;">Misi 4: Susun CO₂</h4>
+          <p style="font-size:13px;margin:8px 0;">C butuh 4 e⁻ untuk oktet; O butuh 2 e⁻.</p>
+
+          <label style="font-size:13px;font-weight:800;">Jenis Ikatan C–O:</label>
+          <select id="m4-type">
+            <option value="">-- pilih --</option>
+            <option value="tunggal">Tunggal</option>
+            <option value="rangkap2">Rangkap dua</option>
+            <option value="rangkap3">Rangkap tiga</option>
+          </select>
+
+          <label style="font-size:13px;font-weight:800;">Bentuk sederhana:</label>
+          <input id="m4-shape" type="text" placeholder="contoh: O=C=O">
+
+          <button class="btn-back mini" onclick="toggleHint('hint4')">💡 Hint</button>
+          <div id="hint4" class="hint">CO₂ umumnya digambar <b>O=C=O</b> (dua ikatan rangkap dua).</div>
+
+          <button class="btn-next mini" onclick="markDone('m4')">✅ Saya sudah menyusun CO₂</button>
+          <span id="done-m4" class="done-pill hidden">Selesai ✅</span>
+        </div>
+      </div>
+
+      <!-- Checkpoint -->
+      <div class="section-box section-green">
+        <h3 style="margin-top:0;">✅ Checkpoint 1</h3>
+        <p style="font-size:14px;margin-top:0;"><b>O₂ memiliki ikatan rangkap dua karena…</b></p>
+        <label class="mcq-option"><input type="radio" name="cp1" value="A"> O butuh 1 elektron</label>
+        <label class="mcq-option"><input type="radio" name="cp1" value="B"> O butuh 2 elektron untuk oktet</label>
+        <label class="mcq-option"><input type="radio" name="cp1" value="C"> O membentuk ion</label>
+        <label class="mcq-option"><input type="radio" name="cp1" value="D"> O sudah stabil</label>
+
+        <button class="btn-next" onclick="checkCheckpoint()">Cek Checkpoint ✅</button>
+        <div id="cp-feedback" class="hint"></div>
+      </div>
+
+      <center>
+        <button class="btn-back" onclick="nextPhase(1)">⬅️</button>
+        <button class="btn-next" onclick="nextPhase(3)">➡️</button>
+      </center>
+    </div>
+
+    <!-- ================= PHASE 3 ================= -->
+<div class="phase-card" id="p3">
+  <span class="badge-5e">3. Explanation</span>
+
+  <div class="section-box">
+    <h3 style="margin-top:0;">🧠 UNGKAP PEMAHAMANMU</h3>
+    <p style="font-size:14px;line-height:1.7;margin-top:0;text-align:justify;">
+      Ayo jelaskan hasil pengamatanmu. Pilih kata kunci, susun urutan, dan tulis kesimpulanmu.
+      Klik <b>Cek Jawaban</b> untuk melihat feedback otomatis 😊
+    </p>
+  </div>
+
+  <!-- ========== Q1 ========== -->
+  <div class="section-box" id="q1-box">
+    <h4 style="margin-top:0;">1) Mengapa H₂ hanya membentuk satu ikatan, sedangkan O₂ dan N₂ membentuk ikatan rangkap?</h4>
+
+    <div style="background:#fff;border-radius:18px;padding:12px;border:2px dashed #d9ecff;">
+      <p style="margin:0 0 8px 0;font-size:13px;"><b>Pilih kata kunci yang sesuai (boleh lebih dari satu):</b></p>
+      <label class="done-pill"><input type="checkbox" id="q1kw1"> H butuh 1 elektron (duplet)</label>
+      <label class="done-pill"><input type="checkbox" id="q1kw2"> O butuh 2 elektron (oktet)</label>
+      <label class="done-pill"><input type="checkbox" id="q1kw3"> N butuh 3 elektron (oktet)</label>
+      <label class="done-pill"><input type="checkbox" id="q1kw4"> jumlah pasangan elektron dibagi berbeda</label>
+    </div>
+
+    <textarea id="explain-q1" placeholder="Tulis jawabanmu dengan kata-katamu sendiri..."></textarea>
+
+    <button class="btn-next mini" onclick="cekQ1()">Cek Jawaban 1 ✅</button>
+    <div id="fb-q1" class="hint"></div>
+  </div>
+
+  <!-- ========== Q2 ========== -->
+  <div class="section-box" id="q2-box">
+    <h4 style="margin-top:0;">2) Perbedaan utama ikatan tunggal, rangkap dua, rangkap tiga?</h4>
+
+    <div style="background:#fff;border-radius:18px;padding:14px;border:2px dashed #d9ecff;">
+      <p style="margin:0 0 10px 0;font-size:13px;"><b>Geser untuk memilih jumlah pasangan elektron yang dibagi:</b></p>
+
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+        <span class="done-pill">Tunggal</span>
+        <input type="range" id="s1" min="1" max="3" step="1" value="1" oninput="updateSlider('s1','s1val')">
+        <span class="done-pill" id="s1val">1 pasang</span>
+      </div>
+
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px;">
+        <span class="done-pill">Rangkap dua</span>
+        <input type="range" id="s2" min="1" max="3" step="1" value="2" oninput="updateSlider('s2','s2val')">
+        <span class="done-pill" id="s2val">2 pasang</span>
+      </div>
+
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px;">
+        <span class="done-pill">Rangkap tiga</span>
+        <input type="range" id="s3" min="1" max="3" step="1" value="3" oninput="updateSlider('s3','s3val')">
+        <span class="done-pill" id="s3val">3 pasang</span>
+      </div>
+
+      <div style="margin-top:12px;font-size:13px;line-height:1.7;">
+        <b>Petunjuk:</b> Ikatan tunggal = 1 pasang, rangkap dua = 2 pasang, rangkap tiga = 3 pasang.
+      </div>
+    </div>
+
+    <textarea id="explain-q2" placeholder="Tuliskan perbedaan utama + contoh (H2, O2, N2) + kaitkan oktet/duplet..."></textarea>
+
+    <button class="btn-next mini" onclick="cekQ2()">Cek Jawaban 2 ✅</button>
+    <div id="fb-q2" class="hint"></div>
+  </div>
+
+  <!-- ========== Q3 Drag Order ========== -->
+  <div class="section-box" id="q3-box">
+    <h4 style="margin-top:0;">3) Berdasarkan tabel, molekul manakah yang ikatannya paling kuat? Jelaskan alasannya.</h4>
+
+    <div style="background:#fff;border-radius:18px;padding:14px;border:2px dashed #d9ecff;">
+      <p style="margin:0 0 10px 0;font-size:13px;">
+        <b>Susun urutan kekuatan ikatan (terkuat → terlemah)</b> dengan cara klik tombol naik/turun:
+      </p>
+
+      <div id="orderBox" style="display:flex;flex-direction:column;gap:10px;">
+        <!-- item -->
+        <div class="mcq-option" style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
+          <span><b>N₂</b> (rangkap tiga)</span>
+          <span>
+            <button class="btn-back mini" onclick="moveUp(this)">⬆️</button>
+            <button class="btn-back mini" onclick="moveDown(this)">⬇️</button>
+          </span>
+        </div>
+
+        <div class="mcq-option" style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
+          <span><b>O₂</b> (rangkap dua)</span>
+          <span>
+            <button class="btn-back mini" onclick="moveUp(this)">⬆️</button>
+            <button class="btn-back mini" onclick="moveDown(this)">⬇️</button>
+          </span>
+        </div>
+
+        <div class="mcq-option" style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
+          <span><b>H₂</b> (tunggal)</span>
+          <span>
+            <button class="btn-back mini" onclick="moveUp(this)">⬆️</button>
+            <button class="btn-back mini" onclick="moveDown(this)">⬇️</button>
+          </span>
+        </div>
+      </div>
+
+      <button class="btn-next mini" style="margin-top:10px;" onclick="cekQ3()">Cek Urutan ✅</button>
+      <div id="fb-q3" class="hint"></div>
+    </div>
+
+    <textarea id="explain-q3" placeholder="Jelaskan alasan: jumlah pasangan elektron, panjang ikatan, gaya tarik, kestabilan..."></textarea>
+  </div>
+
+  <!-- ========== Q4 Summary ========== -->
+  <div class="section-box" id="q4-box">
+    <h4 style="margin-top:0;">4) Dari hasil pengamatanmu, bagaimana ciri umum senyawa kovalen?</h4>
+
+    <div style="background:#fff;border-radius:18px;padding:14px;border:2px dashed #d9ecff;">
+      <p style="margin:0 0 8px 0;font-size:13px;"><b>Pilih ciri yang paling sesuai:</b></p>
+
+      <label class="mcq-option"><input type="checkbox" id="q4a"> Terbentuk antar unsur nonlogam</label>
+      <label class="mcq-option"><input type="checkbox" id="q4b"> Terjadi karena elektron digunakan bersama</label>
+      <label class="mcq-option"><input type="checkbox" id="q4c"> Umumnya tidak menghantarkan listrik (tidak ada ion bebas)</label>
+      <label class="mcq-option"><input type="checkbox" id="q4d"> Membentuk molekul netral</label>
+      <label class="mcq-option"><input type="checkbox" id="q4e"> Banyak yang titik leleh/didih lebih rendah dibanding senyawa ion</label>
+
+      <button class="btn-next mini" onclick="cekQ4()">Cek Pilihan ✅</button>
+      <div id="fb-q4" class="hint"></div>
+    </div>
+
+    <textarea id="explain-q4" placeholder="Tulis simpulanmu dalam 2–4 kalimat..."></textarea>
+  </div>
+
+  <!-- SIMPAN KE DATA -->
+  <div class="section-box section-green">
+    <h3 style="margin-top:0;">✅ Rekap Cepat</h3>
+    <p style="margin-top:0;font-size:14px;">
+      Klik tombol ini jika kamu sudah mengisi semuanya. (Jawaban tetap disimpan saat klik SELESAI nanti.)
+    </p>
+    <button class="btn-green" onclick="saveExplanation()">💾 Simpan Jawaban Explanation</button>
+    <div id="save-msg" class="hint"></div>
+  </div>
+
+  <center>
+    <button class="btn-back" onclick="nextPhase(2)">⬅️</button>
+    <button class="btn-next" onclick="nextPhase(4)">➡️</button>
+  </center>
+</div>
+
+<script>
+  /* ===================== Helper slider ===================== */
+  function updateSlider(sliderId, labelId){
+    const v = document.getElementById(sliderId).value;
+    document.getElementById(labelId).innerText = v + " pasang";
+  }
+
+  /* ===================== Q1 ===================== */
+  function cekQ1(){
+  const k1=document.getElementById("q1kw1").checked;
+  const k2=document.getElementById("q1kw2").checked;
+  const k3=document.getElementById("q1kw3").checked;
+  const k4=document.getElementById("q1kw4").checked;
+
+  const fb=document.getElementById("fb-q1");
+  fb.style.display="block";
+
+  const ok = (k1 && (k2 || k3 || k4)) || ((k2 || k3) && k4);
+
+  if(ok){
+    fb.innerHTML = "✅ Mantap! Intinya H duplet, O/N oktet.";
+  }else{
+    fb.innerHTML = "❌ Coba lagi ya. H duplet, O & N oktet.";
+  }
+
+  // 🔐 INI DIA TEMPATNYA
+  lockInputs("q1-box");
+}
+
+
+  /* ===================== Q2 ===================== */
+  function cekQ2(){
+  const s1=Number(document.getElementById("s1").value);
+  const s2=Number(document.getElementById("s2").value);
+  const s3=Number(document.getElementById("s3").value);
+
+  const fb=document.getElementById("fb-q2");
+  fb.style.display="block";
+
+  if(s1===1 && s2===2 && s3===3){
+    fb.innerHTML="✅ Benar!";
+  }else{
+    fb.innerHTML="❌ Belum tepat.";
+  }
+
+  // 🔐 KUNCI Q2
+  lockInputs("q2-box");
+}
+
+
+  /* ===================== Move Up/Down (Q3) ===================== */
+  function moveUp(btn){
+    const item = btn.closest(".mcq-option");
+    const box = document.getElementById("orderBox");
+    const prev = item.previousElementSibling;
+    if(prev) box.insertBefore(item, prev);
+  }
+  function moveDown(btn){
+    const item = btn.closest(".mcq-option");
+    const box = document.getElementById("orderBox");
+    const next = item.nextElementSibling;
+    if(next) box.insertBefore(next, item);
+  }
+
+  function cekQ3(){
+  const fb=document.getElementById("fb-q3");
+  fb.style.display="block";
+
+  if(ok){
+    fb.innerHTML="✅ Urutanmu tepat!";
+  }else{
+    fb.innerHTML="❌ Belum tepat.";
+  }
+
+  // 🔐 KUNCI Q3
+  lockInputs("q3-box");
+}
+
+
+  /* ===================== Q4 ===================== */
+  function cekQ4(){
+  const a=document.getElementById("q4a").checked;
+  const b=document.getElementById("q4b").checked;
+  const c=document.getElementById("q4c").checked;
+  const d=document.getElementById("q4d").checked;
+
+  const fb=document.getElementById("fb-q4");
+  fb.style.display="block";
+
+  if(a && b && c && d){
+    fb.innerHTML="✅ Bagus!";
+  }else{
+    fb.innerHTML="ℹ️ Pilih lagi...";
+  }
+
+  // 🔐 KUNCI Q4
+  lockInputs("q4-box");
+}
+
+
+  /* ===================== Save explanation ===================== */
+  function saveExplanation(){
+    const data = {
+      q1:{
+        kw:{
+          duplet:document.getElementById("q1kw1").checked,
+          o2:document.getElementById("q1kw2").checked,
+          n2:document.getElementById("q1kw3").checked,
+          bedaPasang:document.getElementById("q1kw4").checked
+        },
+        text:(document.getElementById("explain-q1").value||"").trim()
+      },
+      q2:{
+        slider:{tunggal:document.getElementById("s1").value, rangkap2:document.getElementById("s2").value, rangkap3:document.getElementById("s3").value},
+        text:(document.getElementById("explain-q2").value||"").trim()
+      },
+      q3:{
+        order:[...document.querySelectorAll("#orderBox .mcq-option span:first-child")].map(x=>x.innerText.trim()),
+        text:(document.getElementById("explain-q3").value||"").trim()
+      },
+      q4:{
+        ciri:{
+          nonlogam:document.getElementById("q4a").checked,
+          sharing:document.getElementById("q4b").checked,
+          nonkonduktor:document.getElementById("q4c").checked,
+          netral:document.getElementById("q4d").checked,
+          titik:document.getElementById("q4e").checked
+        },
+        text:(document.getElementById("explain-q4").value||"").trim()
+      },
+      savedAt:new Date().toLocaleString()
+    };
+
+    localStorage.setItem("lkpd_explanation", JSON.stringify(data));
+    const msg=document.getElementById("save-msg");
+    msg.style.display="block";
+    msg.innerHTML="✅ Jawaban Explanation tersimpan di localStorage (key: <b>lkpd_explanation</b>).";
+  }
+</script>
+
+    <!-- ================= PHASE 4 ================= -->
+    <!-- ================= PHASE 4 ================= -->
+<div class="phase-card" id="p4">
+  <span class="badge-5e">4. Elaboration</span>
+
+  <div class="section-box">
+    <h3 style="margin-top:0;">🌍 Menerapkan Konsep Ikatan Kovalen dalam Kehidupan Sehari-hari</h3>
+    <p style="font-size:14px;line-height:1.7;margin-top:0;text-align:justify;">
+      Air (H₂O) kita minum setiap hari, oksigen (O₂) kita hirup untuk bernapas, dan karbon dioksida (CO₂)
+      dihasilkan dari proses pernapasan. Ketiga zat ini tersusun dari atom-atom nonlogam dan berikatan secara kovalen.
+      <b>Pilih satu molekul</b> lalu analisis ikatan dan manfaatnya.
+    </p>
+  </div>
+
+  <!-- PILIH MOLEKUL -->
+  <div class="section-box section-green">
+    <h4 style="margin-top:0;">✅ Pilih satu molekul untuk dianalisis</h4>
+
+    <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;">
+      <button class="btn-next mini" onclick="pickMol('H2O')">H₂O</button>
+      <button class="btn-next mini" onclick="pickMol('O2')">O₂</button>
+      <button class="btn-next mini" onclick="pickMol('CO2')">CO₂</button>
+      <button class="btn-next mini" onclick="pickMol('NH3')">NH₃</button>
+    </div>
+
+    <div style="margin-top:10px;text-align:center;">
+      <span class="pill" id="picked-pill">Belum memilih molekul</span>
+      <span class="done-pill" id="mini-score" style="display:none;">Skor: 0/5</span>
+    </div>
+  </div>
+
+  <!-- PANEL ANALISIS -->
+  <div class="section-box" id="panel-elab" style="display:none;">
+    <h3 style="margin-top:0;">🧪 Studi Kasus: Analisis Molekul</h3>
+
+    <!-- KARTU INFO OTOMATIS -->
+    <div style="background:#fff;border-radius:18px;padding:14px;border:2px dashed #d9ecff;">
+      <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;">
+        <div>
+          <div style="font-weight:900;">Molekul terpilih: <span id="mol-name">-</span></div>
+          <div style="font-size:13px;opacity:.85;">Atom penyusun: <span id="mol-atoms">-</span></div>
+        </div>
+        <div class="done-pill">Target stabil: <span id="mol-target">duplet/oktet</span></div>
+      </div>
+
+      <div style="margin-top:10px;background:#f9fbff;border-radius:14px;padding:12px;border:2px dashed #d9ecff;">
+        <div style="font-size:13px;"><b>Petunjuk cepat:</b></div>
+        <ul style="margin:6px 0 0 0;padding-left:18px;font-size:13px;line-height:1.6;">
+          <li><b>Nomor atom H</b> = 1 </li>
+          <li><b>Nomor atom O</b> = 8</li>
+          <li><b>Nomor atom C</b> = 6</li>
+          <li><b>Nomor atom N</b> = 7</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- BAGIAN 1: JENIS IKATAN -->
+    <div style="margin-top:14px;background:#fff;border-radius:18px;padding:14px;border:2px dashed #d9ecff;">
+      <h4 style="margin:0 0 8px 0;color:var(--batik-blue);">A) Jenis ikatan kovalen yang terbentuk</h4>
+
+      <div id="bond-question" style="font-size:14px;line-height:1.7;margin-bottom:8px;">
+        Pilih jenis ikatan yang paling tepat untuk molekulmu.
+      </div>
+
+      <label class="mcq-option"><input type="radio" name="bondType" value="tunggal"> Ikatan kovalen tunggal</label>
+      <label class="mcq-option"><input type="radio" name="bondType" value="rangkap2"> Ikatan kovalen rangkap dua</label>
+      <label class="mcq-option"><input type="radio" name="bondType" value="rangkap3"> Ikatan kovalen rangkap tiga</label>
+
+      <button class="btn-next mini" onclick="checkBond()">Cek Jenis Ikatan ✅</button>
+      <div id="fb-bond" class="hint"></div>
+    </div>
+
+    <!-- BAGIAN 2: JUMLAH PASANGAN ELEKTRON -->
+    <div style="margin-top:14px;background:#fff;border-radius:18px;padding:14px;border:2px dashed #d9ecff;">
+      <h4 style="margin:0 0 8px 0;color:var(--batik-blue);">B) Jumlah pasangan elektron yang digunakan bersama</h4>
+
+      <p style="font-size:14px;margin:0 0 8px 0;">
+        Pilih jumlah pasangan elektron yang dibagi dalam ikatan utama (atau per ikatan untuk CO₂).
+      </p>
+
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+        <input type="range" id="pairSlider" min="1" max="3" step="1" value="1" oninput="updatePairs()">
+        <span class="done-pill" id="pairLabel">1 pasang</span>
+      </div>
+
+      <div style="margin-top:10px;">
+        <button class="btn-next mini" onclick="checkPairs()">Cek Pasangan Elektron ✅</button>
+        <div id="fb-pairs" class="hint"></div>
+      </div>
+
+      <div style="margin-top:12px;background:#f9fbff;border-radius:14px;padding:12px;border:2px dashed #d9ecff;">
+        <div style="font-size:13px;">
+          <b>Catatan:</b> CO₂ punya <b>dua ikatan C=O</b>, masing-masing rangkap dua (2 pasang per ikatan).
+        </div>
+      </div>
+    </div>
+
+    <!-- BAGIAN 3: STABILITAS -->
+    <div style="margin-top:14px;background:#fff;border-radius:18px;padding:14px;border:2px dashed #d9ecff;">
+      <h4 style="margin:0 0 8px 0;color:var(--batik-blue);">C) Mengapa molekul tersebut stabil?</h4>
+
+      <p style="font-size:13px;margin:0 0 8px 0;"><b>Pilih alasan yang paling tepat (boleh lebih dari satu):</b></p>
+
+      <label class="mcq-option"><input type="checkbox" id="st1"> Atom-atomnya mencapai duplet/oktet</label>
+      <label class="mcq-option"><input type="checkbox" id="st2"> Elektron dipakai bersama sehingga saling tarik-menarik inti atom</label>
+      <label class="mcq-option"><input type="checkbox" id="st3"> Molekul menjadi netral (tidak membentuk ion)</label>
+      <label class="mcq-option"><input type="checkbox" id="st4"> Ikatan rangkap membuat ikatan lebih kuat/pendek (jika ada)</label>
+
+      <button class="btn-next mini" onclick="checkStability()">Cek Stabilitas ✅</button>
+      <div id="fb-stab" class="hint"></div>
+
+      <textarea id="stab-text" placeholder="Tulis penjelasan stabilitas versi kamu (2–4 kalimat)..."></textarea>
+    </div>
+
+    <!-- BAGIAN 4: PERAN DALAM KEHIDUPAN -->
+    <div style="margin-top:14px;background:#fff;border-radius:18px;padding:14px;border:2px dashed #d9ecff;">
+      <h4 style="margin:0 0 8px 0;color:var(--batik-blue);">D) Perannya dalam kehidupan sehari-hari</h4>
+
+      <div id="life-suggestions" style="background:#f9fbff;border-radius:14px;padding:12px;border:2px dashed #d9ecff;">
+        <div style="font-size:13px;"><b>Ide cepat (boleh dipilih):</b></div>
+        <div id="life-chips" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;"></div>
+      </div>
+
+      <textarea id="life-text" placeholder="Jelaskan peran molekul ini dalam kehidupan sehari-hari..."></textarea>
+
+      <button class="btn-next mini" onclick="checkLife()">Cek Peran ✅</button>
+      <div id="fb-life" class="hint"></div>
+    </div>
+
+    <!-- SIMPAN -->
+    <div class="section-box section-green" style="margin-top:14px;">
+      <h3 style="margin-top:0;">💾 Simpan Jawaban Elaboration</h3>
+      <p style="font-size:14px;margin-top:0;">
+        Klik untuk menyimpan hasil analisismu. (Nanti bisa digabung ke tombol SELESAI juga.)
+      </p>
+      <button class="btn-green" onclick="saveElaboration()">Simpan Elaboration ✅</button>
+      <div id="save-elab-msg" class="hint"></div>
+    </div>
+  </div>
+
+  <center>
+    <button class="btn-back" onclick="nextPhase(3)">⬅️</button>
+    <button class="btn-next" onclick="nextPhase(5)">➡️</button>
+  </center>
+</div>
+
+<script>
+  
+  /* ===================== DATA KUNCI ===================== */
+  const ELAB_DATA = {
+    H2O:{
+      name:"H₂O (Air)",
+      atoms:"H dan O (nonlogam)",
+      target:"H duplet, O oktet",
+      bondCorrect:"tunggal",
+      pairsCorrect:1,
+      noteBond:"Dalam H₂O, ikatan O–H adalah <b>ikatan tunggal</b> (sharing 1 pasangan per ikatan).",
+      life:[
+        "Pelarut (melarutkan zat)",
+        "Kebutuhan minum & metabolisme",
+        "Mengatur suhu tubuh (keringat)",
+        "Transport nutrisi dalam darah",
+        "Fotosintesis (bahan baku)"
+      ],
+      lifeKeywords:["pelarut","minum","metabolisme","suhu","transport","fotosintesis"],
+      lifeHint:"Air penting sebagai <b>pelarut</b>, menjaga <b>keseimbangan tubuh</b>, dan mendukung proses biologis."
+    },
+    O2:{
+      name:"O₂ (Oksigen)",
+      atoms:"O dan O (nonlogam sejenis)",
+      target:"O oktet",
+      bondCorrect:"rangkap2",
+      pairsCorrect:2,
+      noteBond:"O₂ memiliki <b>ikatan rangkap dua</b> (berbagi 2 pasangan elektron) agar tiap O mencapai oktet.",
+      life:[
+        "Pernapasan (respirasi sel)",
+        "Pembakaran/oksidasi (energi)",
+        "Terapi oksigen di medis",
+        "Mendukung kehidupan hewan & manusia"
+      ],
+      lifeKeywords:["napas","respirasi","energi","oksidasi","medis","pembakaran"],
+      lifeHint:"O₂ sangat penting untuk <b>respirasi</b> menghasilkan energi (ATP) dalam sel."
+    },
+    CO2:{
+      name:"CO₂ (Karbon Dioksida)",
+      atoms:"C dan O (nonlogam)",
+      target:"C oktet, O oktet",
+      bondCorrect:"rangkap2",
+      pairsCorrect:2,
+      noteBond:"CO₂ digambar <b>O=C=O</b>. Ada <b>dua ikatan rangkap dua</b> (2 pasangan per ikatan C=O).",
+      life:[
+        "Hasil pernapasan (ekshalasi)",
+        "Fotosintesis (bahan baku tumbuhan)",
+        "Pemadam kebakaran (CO₂)",
+        "Karbonasi minuman (soda)"
+      ],
+      lifeKeywords:["fotosintesis","napas","ekshalasi","pemadam","karbonasi","tumbuhan"],
+      lifeHint:"CO₂ penting untuk <b>fotosintesis</b> dan merupakan bagian dari <b>siklus karbon</b>."
+    },
+    NH3:{
+      name:"NH₃ (Amonia)",
+      atoms:"N dan H (nonlogam)",
+      target:"N oktet, H duplet",
+      bondCorrect:"tunggal",
+      pairsCorrect:1,
+      noteBond:"NH₃ memiliki ikatan <b>tunggal</b> N–H (1 pasangan per ikatan) dan N punya pasangan elektron bebas.",
+      life:[
+        "Bahan baku pupuk (urea/amonium)",
+        "Pembersih rumah tangga (larutan amonia)",
+        "Industri kimia (bahan antara)",
+        "Sistem pendingin tertentu (refrigeran)"
+      ],
+      lifeKeywords:["pupuk","urea","pembersih","industri","pendingin","refrigeran"],
+      lifeHint:"NH₃ penting untuk <b>pupuk</b> (mendukung pertumbuhan tanaman) dan industri."
+    }
+  };
+
+  let currentMol = null;
+  let miniScore = 0;
+
+  function setMiniScore(){
+    const el=document.getElementById("mini-score");
+    el.style.display="inline-block";
+    el.innerText = `Skor: ${miniScore}/5`;
+  }
+
+  /* ===================== PICK MOLEKUL ===================== */
+  function pickMol(key){
+    currentMol = key;
+    miniScore = 0;
+    setMiniScore();
+
+    document.getElementById("panel-elab").style.display="block";
+    document.getElementById("picked-pill").innerText = "Terpilih: " + ELAB_DATA[key].name;
+
+    document.getElementById("mol-name").innerText = ELAB_DATA[key].name;
+    document.getElementById("mol-atoms").innerText = ELAB_DATA[key].atoms;
+    document.getElementById("mol-target").innerText = ELAB_DATA[key].target;
+
+    // reset input
+    document.querySelectorAll('input[name="bondType"]').forEach(r=>r.checked=false);
+    document.getElementById("pairSlider").value = 1;
+    updatePairs();
+    ["st1","st2","st3","st4"].forEach(id=>document.getElementById(id).checked=false);
+    document.getElementById("stab-text").value="";
+    document.getElementById("life-text").value="";
+
+    // feedback hide
+    hideHint("fb-bond");
+    hideHint("fb-pairs");
+    hideHint("fb-stab");
+    hideHint("fb-life");
+    hideHint("save-elab-msg");
+
+    // pertanyaan ikatan spesifik
+    const q = document.getElementById("bond-question");
+    if(key==="CO2"){
+      q.innerHTML = "Untuk CO₂, pilih jenis ikatan pada <b>ikatan C–O</b> (ingat: O=C=O).";
+    }else if(key==="H2O"){
+      q.innerHTML = "Untuk H₂O, pilih jenis ikatan pada <b>ikatan O–H</b>.";
+    }else if(key==="NH3"){
+      q.innerHTML = "Untuk NH₃, pilih jenis ikatan pada <b>ikatan N–H</b>.";
+    }else{
+      q.innerHTML = "Untuk O₂, pilih jenis ikatan pada <b>ikatan O–O</b>.";
+    }
+
+    // chips peran
+    renderLifeChips(key);
+
+    window.scrollTo({top:0,behavior:"smooth"});
+  }
+
+  function renderLifeChips(key){
+    const wrap=document.getElementById("life-chips");
+    wrap.innerHTML="";
+    ELAB_DATA[key].life.forEach(txt=>{
+      const b=document.createElement("button");
+      b.className="btn-back mini";
+      b.innerText="+"+" "+txt;
+      b.onclick=()=>addLife(txt);
+      wrap.appendChild(b);
+    });
+  }
+  function addLife(text){
+    const t=document.getElementById("life-text");
+    const cur=(t.value||"").trim();
+    t.value = cur ? (cur + "\n- " + text) : ("- " + text);
+  }
+
+  function hideHint(id){
+    const el=document.getElementById(id);
+    if(el){ el.style.display="none"; el.innerHTML=""; }
+  }
+
+  /* ===================== CHECK BOND ===================== */
+  function checkBond(){
+    const fb=document.getElementById("fb-bond");
+    fb.style.display="block";
+    if(!currentMol){ fb.innerHTML="Pilih molekul dulu ya 😊"; return; }
+
+    const pick=document.querySelector('input[name="bondType"]:checked')?.value;
+    if(!pick){ fb.innerHTML="Pilih salah satu jenis ikatan dulu ya 😊"; return; }
+
+    const correct = ELAB_DATA[currentMol].bondCorrect;
+    if(pick===correct){
+      fb.innerHTML = "✅ Benar! " + ELAB_DATA[currentMol].noteBond;
+      if(!fb.dataset.scored){
+        miniScore += 1; setMiniScore(); fb.dataset.scored="1";
+      }
+    }else{
+      fb.innerHTML = "❌ Belum tepat. <b>Hint:</b> " + ELAB_DATA[currentMol].noteBond;
+    }
+  }
+
+  /* ===================== PAIRS ===================== */
+  function updatePairs(){
+    const v=document.getElementById("pairSlider").value;
+    document.getElementById("pairLabel").innerText = v + " pasang";
+  }
+
+  function checkPairs(){
+    const fb=document.getElementById("fb-pairs");
+    fb.style.display="block";
+    if(!currentMol){ fb.innerHTML="Pilih molekul dulu ya 😊"; return; }
+
+    const v=Number(document.getElementById("pairSlider").value);
+    const correct = ELAB_DATA[currentMol].pairsCorrect;
+
+    if(v===correct){
+      fb.innerHTML="✅ Benar! Jumlah pasangan elektron yang dibagi = <b>"+correct+"</b>.";
+      if(!fb.dataset.scored){
+        miniScore += 1; setMiniScore(); fb.dataset.scored="1";
+      }
+    }else{
+      fb.innerHTML="❌ Masih belum. <b>Hint:</b> "+ELAB_DATA[currentMol].noteBond;
+    }
+  }
+
+  /* ===================== STABILITY ===================== */
+  function checkStability(){
+    const fb=document.getElementById("fb-stab");
+    fb.style.display="block";
+    if(!currentMol){ fb.innerHTML="Pilih molekul dulu ya 😊"; return; }
+
+    const st1=document.getElementById("st1").checked;
+    const st2=document.getElementById("st2").checked;
+    const st3=document.getElementById("st3").checked;
+    const st4=document.getElementById("st4").checked;
+
+    // minimal: st1 + st2 bagus
+    const ok = st1 && st2;
+
+    if(ok){
+      fb.innerHTML="✅ Mantap! Stabil karena mencapai <b>duplet/oktet</b> dan ada <b>tarik-menarik inti atom</b> lewat pasangan elektron yang dibagi.";
+      if(!fb.dataset.scored){
+        miniScore += 1; setMiniScore(); fb.dataset.scored="1";
+      }
+    }else{
+      fb.innerHTML="ℹ️ Coba centang dulu <b>mencapai duplet/oktet</b> dan <b>elektron dipakai bersama</b>. Yang lain boleh jadi tambahan.";
+    }
+  }
+
+  /* ===================== LIFE ===================== */
+  function checkLife(){
+    const fb=document.getElementById("fb-life");
+    fb.style.display="block";
+    if(!currentMol){ fb.innerHTML="Pilih molekul dulu ya 😊"; return; }
+
+    const text=(document.getElementById("life-text").value||"").toLowerCase();
+    const keys=ELAB_DATA[currentMol].lifeKeywords;
+    const hit = keys.some(k=>text.includes(k));
+
+    if(text.trim().length < 15){
+      fb.innerHTML="ℹ️ Tulis minimal 2 kalimat atau beberapa poin ya 😊";
+      return;
+    }
+
+    if(hit){
+      fb.innerHTML="✅ Bagus! Sudah sesuai. <b>Hint penguatan:</b> "+ELAB_DATA[currentMol].lifeHint;
+      if(!fb.dataset.scored){
+        miniScore += 1; setMiniScore(); fb.dataset.scored="1";
+      }
+    }else{
+      fb.innerHTML="✅ Sudah oke. Tambahkan kata kunci yang lebih spesifik ya. <b>Hint:</b> "+ELAB_DATA[currentMol].lifeHint;
+      // tetap beri skor kalau tulisannya cukup
+      if(!fb.dataset.scored){
+        miniScore += 1; setMiniScore(); fb.dataset.scored="1";
+      }
+    }
+  }
+
+  /* ===================== SAVE ===================== */
+  function saveElaboration(){
+    const fb=document.getElementById("save-elab-msg");
+    fb.style.display="block";
+
+    if(!currentMol){
+      fb.innerHTML="❌ Belum bisa menyimpan karena kamu belum memilih molekul.";
+      return;
+    }
+
+    const pickBond=document.querySelector('input[name="bondType"]:checked')?.value || "";
+    const pairs=document.getElementById("pairSlider").value;
+
+    const data={
+      chosen: currentMol,
+      molecule: ELAB_DATA[currentMol].name,
+      atoms: ELAB_DATA[currentMol].atoms,
+      target: ELAB_DATA[currentMol].target,
+
+      analysis:{
+        bondType: pickBond,
+        sharedPairs: pairs
+      },
+
+      stability:{
+        st1:document.getElementById("st1").checked,
+        st2:document.getElementById("st2").checked,
+        st3:document.getElementById("st3").checked,
+        st4:document.getElementById("st4").checked,
+        text:(document.getElementById("stab-text").value||"").trim()
+      },
+
+      lifeRole:{
+        text:(document.getElementById("life-text").value||"").trim()
+      },
+
+      miniScore: miniScore,
+      savedAt: new Date().toLocaleString()
+    };
+
+    localStorage.setItem("lkpd_elaboration", JSON.stringify(data));
+    fb.innerHTML="✅ Elaboration tersimpan di localStorage (key: <b>lkpd_elaboration</b>). Skor mini: <b>"+miniScore+"/5</b>.";
+  }
+  
+</script>
+
+
+    <!-- ================= PHASE 5 ================= -->
+    <div class="phase-card" id="p5">
+      <span class="badge-5e">5. Evaluation</span>
+
+      <div class="section-box" id="quiz"></div>
+
+      <div class="section-box hidden" id="quiz-explanation">
+        <h3 style="margin-top:0;">📘 Pembahasan Kuis</h3>
+        <div id="quiz-explanation-content"></div>
+        </div>
+
+
+      <div class="section-box">
+        <h3>Refleksi (Ya/Tidak)</h3>
+        <table style="width:100%;border-collapse:collapse;background:#fff;border-radius:15px;overflow:hidden;font-size:13px;">
+          <tr style="background:var(--batik-blue);color:#fff;">
+            <th style="padding:8px;border:1px solid var(--soft-blue);text-align:left;">Pernyataan</th>
+            <th style="padding:8px;border:1px solid var(--soft-blue);">Ya</th>
+            <th style="padding:8px;border:1px solid var(--soft-blue);">Tidak</th>
+          </tr>
+          <tr>
+            <td style="padding:8px;border:1px solid var(--soft-blue);text-align:left;">Saya paham kovalen = elektron digunakan bersama</td>
+            <td style="padding:8px;border:1px solid var(--soft-blue);text-align:center;"><input type="radio" name="ref1" value="Ya"></td>
+            <td style="padding:8px;border:1px solid var(--soft-blue);text-align:center;"><input type="radio" name="ref1" value="Tidak"></td>
+          </tr>
+          <tr>
+            <td style="padding:8px;border:1px solid var(--soft-blue);text-align:left;">Saya bisa membedakan tunggal / rangkap dua / rangkap tiga</td>
+            <td style="padding:8px;border:1px solid var(--soft-blue);text-align:center;"><input type="radio" name="ref2" value="Ya"></td>
+            <td style="padding:8px;border:1px solid var(--soft-blue);text-align:center;"><input type="radio" name="ref2" value="Tidak"></td>
+          </tr>
+        </table>
+      </div>
+
+      <center>
+        <button class="btn-green" style="width:100%;color:#fff;" onclick="finalSubmit()">✨ SELESAI & SIMPAN ✨</button>
+      </center>
+
+      <p style="font-size:12px;opacity:.75;margin:10px 0 0;">
+        Catatan: file ini menyimpan jawaban ke <b>localStorage browser</b>.
+      </p>
+    </div>
+
+  </div>
+
+  <script>
+    /* ========= QUIZ ========= */
+    const QUIZ = [
+      {id:1, q:"Ikatan kovalen terbentuk karena…", options:{A:"perpindahan elektron penuh",B:"pemakaian elektron bersama",C:"membentuk ion saja",D:"tidak butuh elektron", E:"ikatan antara ion bermuatan"}, ans:"B"},
+      {id:2, q:"Molekul yang memiliki ikatan kovalen rangkap dua adalah …", options:{A:"H₂",B:"O₂",C:"N₂",D:"NH₃",E:"CH₄"}, ans:"B"},
+      {id:3, q:"Pernyataan yang benar mengenai molekul N₂ adalah …", options:{A:"menggunakan satu pasangan elektron",B:"membentuk ion bermuatan",C:"memiliki ikatan paling lemah",D:"menggunakan tiga pasangan elektron bersama",E:"tidak memenuhi aturan oktet"}, ans:"D"},
+      {id:4, q:"Perbedaan utama antara ikatan kovalen tunggal dan rangkap adalah …", options:{A:"jenis atom penyusunnya",B:"jumlah proton dalam atom",C:" jumlah pasangan elektron yang digunakan bersama",D:"wujud zat molekul",E:"jumlah elektron dalam atom"}, ans:"C"},
+      {id:5, q:"Berdasarkan jumlah pasangan elektron yang digunakan bersama, ikatan yang paling kuat adalah …", options:{A:" kovalen tunggal",B:" kovalen rangkap dua",C:" kovalen rangkap tiga",D:" ikatan ion",E:"ikatan hidrogen"}, ans:"C"},
+    ];
+  // ===== PEMBAHASAN KUIS =====
+  const QUIZ_EXPLANATION = {
+    1: {
+      correct: "B",
+      text: `
+<b>Jawaban benar:</b> B. pemakaian bersama pasangan elektron oleh atom-atom nonlogam<br><br>
+<b>Pembahasan:</b><br>
+Ikatan kovalen terjadi ketika dua atom nonlogam menggunakan pasangan elektron secara bersama-sama
+untuk mencapai kestabilan (aturan duplet atau oktet).
+Tidak terjadi perpindahan elektron secara penuh, sehingga tidak terbentuk ion.
+      `
+    },
+    2: {
+      correct: "C",
+      text: `
+<b>Jawaban benar:</b> C. O₂<br><br>
+<b>Pembahasan:</b><br>
+Pada molekul O₂, masing-masing atom oksigen memiliki 6 elektron valensi dan membutuhkan
+2 elektron tambahan untuk mencapai oktet.
+Oleh karena itu, kedua atom oksigen berbagi dua pasangan elektron
+sehingga terbentuk ikatan kovalen rangkap dua.
+      `
+    },
+    3: {
+      correct: "D",
+      text: `
+<b>Jawaban benar:</b> D. menggunakan tiga pasangan elektron bersama<br><br>
+<b>Pembahasan:</b><br>
+Atom nitrogen memiliki 5 elektron valensi.
+Agar mencapai oktet, masing-masing atom nitrogen membutuhkan 3 elektron tambahan.
+Karena itu, dua atom nitrogen berbagi tiga pasangan elektron
+dan membentuk ikatan kovalen rangkap tiga yang sangat kuat.
+      `
+    },
+    4: {
+      correct: "C",
+      text: `
+<b>Jawaban benar:</b> C. jumlah pasangan elektron yang digunakan bersama<br><br>
+<b>Pembahasan:</b><br>
+Perbedaan ikatan kovalen tunggal, rangkap dua, dan rangkap tiga
+terletak pada jumlah pasangan elektron yang digunakan bersama.
+Semakin banyak pasangan elektron yang dibagi,
+semakin kuat ikatan yang terbentuk.
+      `
+    },
+    5: {
+      correct: "C",
+      text: `
+<b>Jawaban benar:</b> C. kovalen rangkap tiga<br><br>
+<b>Pembahasan:</b><br>
+Ikatan kovalen rangkap tiga menggunakan tiga pasangan elektron bersama,
+sehingga gaya tarik antar atom sangat kuat.
+Contohnya adalah molekul N₂ yang memiliki ikatan sangat stabil.
+      `
+    }
+  };
+
+    const ID_KEY="kovalen_identity";
+    let currentPhase=0;
+
+    function initLKPD(){
+      // auto tanggal hari ini (opsional)
+      const tgl=document.getElementById("tgl");
+      if(tgl && !tgl.value){
+        const now=new Date();
+        const yyyy=now.getFullYear();
+        const mm=String(now.getMonth()+1).padStart(2,'0');
+        const dd=String(now.getDate()).padStart(2,'0');
+        tgl.value=`${yyyy}-${mm}-${dd}`;
+      }
+
+      loadIdentity();
+      renderQuiz();
+      updateProgress();
+// ambil dari login menu (kimia_user) kalau identitas LKPD belum ada
+if(!localStorage.getItem(ID_KEY)){
+  const uStr = localStorage.getItem("kimia_user");
+  if(uStr){
+    const u = JSON.parse(uStr);
+    if(u?.nama){
+      document.getElementById("nama").value = u.nama;
+      // kelas & tgl tetap diisi siswa kalau belum ada
+    }
+  }
+}
+
+      // default tab materi di Exploration
+      showMateriTab('pengertian');
+    }
+
+    function goMenu(){
+  window.location.href = "menu.html";   // sesuaikan nama file menu kamu
+}
+    function goMateri(){
+      nextPhase(2);
+      showMateriTab('pengertian');
+      window.scrollTo({top:0,behavior:"smooth"});
+    }
+    function logout(){
+  localStorage.removeItem("kimia_user");   // ini yang dipakai menu kamu
+  window.location.href = "index.html";     // halaman login kamu
+
+    }
+
+    /* ========= TAB MATERI ========= */
+    function showMateriTab(which){
+      const ids=["pengertian","jenis","koordinasi","kepolaran","sifat"];
+      ids.forEach(k=>{
+        const el=document.getElementById("tab-"+k);
+        if(el) el.classList.remove("active");
+      });
+      const target=document.getElementById("tab-"+which);
+      if(target) target.classList.add("active");
+    }
+
+    /* ========= PHASE CONTROL ========= */
+    function nextPhase(p){
+      document.querySelectorAll(".phase-card").forEach(x=>x.classList.remove("active"));
+      document.getElementById("p"+p).classList.add("active");
+      currentPhase=p;
+      updateProgress();
+      window.scrollTo({top:0,behavior:"smooth"});
+    }
+    function updateProgress(){
+      document.getElementById("fill").style.width = (currentPhase/5*100) + "%";
+    }
+
+    /* ========= IDENTITAS ========= */
+    function saveIdentity(){
+      const n=val("nama");
+      const k=val("kelas");
+      const t=document.getElementById("tgl").value;
+      if(!n || !k || !t){
+        alert("Lengkapi Nama, Kelas, dan Tanggal ya 😊");
+        return;
+      }
+      localStorage.setItem(ID_KEY, JSON.stringify({nama:n, kelas:k, tgl:t}));
+      document.getElementById("user-pill").innerText = `${n} • ${k}`;
+      alert("Identitas tersimpan ✅");
+    }
+    function loadIdentity(){
+      const raw=localStorage.getItem(ID_KEY);
+      if(!raw) return;
+      try{
+        const id=JSON.parse(raw);
+        if(id?.nama) document.getElementById("nama").value=id.nama;
+        if(id?.kelas) document.getElementById("kelas").value=id.kelas;
+        if(id?.tgl) document.getElementById("tgl").value=id.tgl;
+        if(id?.nama && id?.kelas){
+          document.getElementById("user-pill").innerText = `${id.nama} • ${id.kelas}`;
+        }
+      }catch(e){
+        localStorage.removeItem(ID_KEY);
+      }
+    }
+    function identityComplete(){
+      const n=val("nama"), k=val("kelas"), t=document.getElementById("tgl").value;
+      return !!(n && k && t);
+    }
+    function requireIdentityThenGo(phase){
+      if(!identityComplete()){
+        alert("Isi identitas (Nama, Kelas, Tanggal) dulu ya 😊");
+        nextPhase(0);
+        return;
+      }
+      nextPhase(phase);
+    }
+
+    /* ========= Engagement ========= */
+    function checkPoll(){
+      const pick=document.querySelector('input[name="poll"]:checked')?.value;
+      const fb=document.getElementById("poll-feedback");
+      fb.style.display="block";
+      if(!pick){ fb.innerHTML="Pilih salah satu dulu ya 😊"; return; }
+      if(pick==="B"){
+        fb.innerHTML="✅ Benar! <b>Kovalen = sharing elektron</b> (dipakai bersama).";
+      }else{
+        fb.innerHTML="❌ Hampir! Pada kovalen elektron <b>tidak pindah penuh</b>, tapi <b>dipakai bersama</b>. 😊";
+      }
+    }
+
+    /* ========= Hints & Done ========= */
+    function toggleHint(id){
+      const el=document.getElementById(id);
+      el.style.display = (el.style.display==="block") ? "none" : "block";
+    }
+    function markDone(m){
+      document.getElementById("done-"+m).classList.remove("hidden");
+    }
+    function checkCheckpoint(){
+  const pick=document.querySelector('input[name="cp1"]:checked')?.value;
+  const fb=document.getElementById("cp-feedback");
+  fb.style.display="block";
+
+  if(!pick){
+    fb.innerHTML="Pilih jawaban dulu ya 😊";
+    return;
+  }
+
+  let score = 0;
+  if(pick==="B"){
+    fb.innerHTML="✅ Betul! O butuh 2 elektron → ikatan rangkap dua.";
+    score = 10;
+  }else{
+    fb.innerHTML="❌ Belum tepat. O butuh 2 elektron untuk oktet.";
+  }
+
+  // 🔐 KUNCI SATU PHASE EXPLORATION
+  lockInputs("p2");
+
+  // 💾 SIMPAN NILAI
+  saveScore("exploration_checkpoint", score);
+}
+
+
+    /* ========= QUIZ ========= */
+    function renderQuiz(){
+      const container=document.getElementById("quiz");
+      container.innerHTML = `<h3 style="margin-top:0;">Kuis (5 Soal)</h3>`;
+      QUIZ.forEach(item=>{
+        let html = `<p style="margin:10px 0 6px 0;"><b>${item.id}. ${item.q}</b></p>`;
+        Object.entries(item.options).forEach(([k,v])=>{
+          html += `
+            <label class="mcq-option">
+              <input type="radio" name="q${item.id}" value="${k}">
+              <b>${k}.</b> ${v}
+            </label>
+          `;
+        });
+        container.innerHTML += html + `<hr style="border:none;border-top:2px dashed #eee;margin:10px 0;">`;
+      });
+    }
+
+    /* ========= FINAL SUBMIT ========= */
+    function finalSubmit(){
+      // skor: checkpoint benar 10 + quiz proporsional 90
+      let score=0;
+      const cpPick=document.querySelector('input[name="cp1"]:checked')?.value;
+      if(cpPick==="B") score+=10;
+
+      let correct=0;
+      QUIZ.forEach(item=>{
+        const pick=document.querySelector(`input[name="q${item.id}"]:checked`)?.value;
+        if(pick===item.ans) correct++;
+      });
+      score += Math.round((correct/QUIZ.length)*90);
+
+      const data={
+        timestamp:new Date().toLocaleString(),
+        nama:val("nama"),
+        kelas:val("kelas"),
+        tgl:document.getElementById("tgl").value,
+
+        poll:document.querySelector('input[name="poll"]:checked')?.value || "",
+        eng1:val("eng1"),
+
+        m1:{type:val("m1-type"),pairs:val("m1-pairs")},
+        m2:{type:val("m2-type"),pairs:val("m2-pairs")},
+        m3:{type:val("m3-type"),pairs:val("m3-pairs")},
+        m4:{type:val("m4-type"),shape:val("m4-shape")},
+        checkpoint1:cpPick || "",
+
+        exp1:val("exp1"),
+        exp2:val("exp2"),
+
+        el:{
+          cl2:{type:val("el1-type"),reason:val("el1-reason")},
+          nh3:{type:val("el2-type"),reason:val("el2-reason")},
+          kesimpulan:val("el-kesimpulan")
+        },
+
+        ref1:document.querySelector('input[name="ref1"]:checked')?.value || "",
+        ref2:document.querySelector('input[name="ref2"]:checked')?.value || "",
+
+        quiz: QUIZ.map(item=>({
+          id:item.id,
+          pick:document.querySelector(`input[name="q${item.id}"]:checked`)?.value || ""
+        })),
+
+        skor:score
+      };
+
+      if(!data.nama || !data.kelas || !data.tgl){
+        alert("Isi identitas (Nama, Kelas, Tanggal) dulu ya 😊");
+        nextPhase(0);
+        return;
+      }
+
+      const KEY="db_kovalen_local";
+      const db=JSON.parse(localStorage.getItem(KEY)) || [];
+      db.push(data);
+      localStorage.setItem(KEY, JSON.stringify(db));
+
+      alert(`Selesai! Skor kamu: ${score}/100 ✅\nJawaban tersimpan di perangkat ini.`);
+       // ================== TAMPILKAN PEMBAHASAN KUIS ==================
+const expBox = document.getElementById("quiz-explanation");
+const expContent = document.getElementById("quiz-explanation-content");
+
+let html = "";
+QUIZ.forEach(item=>{
+  const userPick = document.querySelector(`input[name="q${item.id}"]:checked`)?.value || "-";
+  const ex = QUIZ_EXPLANATION[item.id];
+
+  html += `
+    <div style="margin-bottom:14px;">
+      <b>Soal ${item.id}</b><br>
+      Jawaban kamu: <b>${userPick}</b><br>
+      ${ex.text}
+      <hr style="border:none;border-top:2px dashed #ddd;margin:10px 0;">
+    </div>
+  `;
+});
+
+expContent.innerHTML = html;
+expBox.classList.remove("hidden");
+      // nextPhase(0);
+
+
+    }
+
+    function val(id){
+      const el=document.getElementById(id);
+      return el ? el.value.trim() : "";
+    }
+      function lockInputs(containerId){
+    const box = document.getElementById(containerId);
+    if(!box) return;
+    box.querySelectorAll("input, textarea, select, button").forEach(el=>{
+      if(el.tagName !== "BUTTON"){
+        el.disabled = true;
+      }
+    });
+  }
+
+  function saveScore(key, value){
+    const scores = JSON.parse(localStorage.getItem("lkpd_scores")) || {};
+    scores[key] = value;
+    localStorage.setItem("lkpd_scores", JSON.stringify(scores));
+  }
+  </script>
+</body>
+</html>

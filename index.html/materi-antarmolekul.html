@@ -1,0 +1,2727 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LKPD Gaya Antarmolekul - 5E</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --gold:#ffc107;
+      --batik-blue:#3a7caf;
+      --cream:#fffdf2;
+      --soft-blue:#e3f2fd;
+      --green:#a8e6cf;
+      --gray:#b2bec3;
+      --white:#fff;
+      --shadow: 0 10px 30px rgba(0,0,0,.06);
+      --red:#ff6b6b;
+    }
+    body{
+      font-family:'Quicksand',sans-serif;
+      margin:0;
+      background:var(--cream);
+      color:var(--batik-blue);
+      overflow-x:hidden;
+    }
+    h1,h2,h3,h4{font-family:'Fredoka',sans-serif;margin:10px 0}
+    .hidden{display:none !important;}
+
+  nav{
+  background:#fff;
+  padding:8px 5%;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  gap:10px;
+  border-bottom-left-radius:30px;
+  border-bottom-right-radius:30px;
+  box-shadow:0 5px 20px rgba(0,0,0,.05);
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+.nav-left{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:flex-start;
+}
+
+.nav-right{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+
+nav strong{
+  text-align:center;
+  color:var(--batik-blue);
+  font-family:'Fredoka',sans-serif;
+  font-size:16px;
+  letter-spacing:.3px;
+}
+
+.pill{
+  display:inline-block;
+  padding:6px 12px;
+  border-radius:999px;
+  background:#fff;
+  border:2px dashed #d9ecff;
+  font-size:12px;
+  font-weight:800;
+  opacity:.9;
+}
+
+.mini{
+  font-size:12px;
+  padding:8px 12px;
+}
+
+.materi-img-wrap{
+  background:#fff;
+  border:2px dashed #d9ecff;
+  border-radius:22px;
+  padding:14px;
+  margin:16px 0;
+  text-align:center;
+  box-shadow:0 6px 16px rgba(0,0,0,.04);
+}
+
+.materi-img-wrap img{
+  width:100%;
+  max-width:850px;
+  border-radius:18px;
+  display:block;
+  margin:0 auto;
+}
+
+.materi-img-caption{
+  font-size:12px;
+  line-height:1.6;
+  opacity:.8;
+  margin:8px 0 0;
+}
+
+    button{
+      padding:12px 20px;
+      background:var(--batik-blue);
+      color:#fff;
+      border:none;
+      border-radius:50px;
+      font-family:'Fredoka',sans-serif;
+      font-size:15px;
+      cursor:pointer;
+      box-shadow:0 5px 0 #2a5a82;
+      transition:.2s;
+      position:relative;
+      display:inline-block;
+      margin:4px;
+    }
+    button:hover{background:#4a8cbf;top:-2px;box-shadow:0 7px 0 #2a5a82}
+    button:active{top:3px;box-shadow:0 2px 0 #2a5a82}
+    .btn-back{background:var(--gray);box-shadow:0 5px 0 #636e72}
+    .btn-next{background:var(--gold);box-shadow:0 5px 0 #c79a00;color:#444}
+    .btn-green{background:#27ae60;box-shadow:0 5px 0 #1e8449}
+    .btn-logout{background:var(--red);box-shadow:0 5px 0 #cc4d4d;padding:8px 15px;font-size:12px}
+    .mini{font-size:12px;padding:8px 12px}
+
+    .module-container{
+      max-width:980px;
+      margin:18px auto;
+      padding:26px;
+      background:#fff;
+      border-radius:40px;
+      border:6px solid var(--soft-blue);
+      box-shadow:var(--shadow);
+    }
+    .section-box{
+      background:var(--soft-blue);
+      padding:18px;
+      border-radius:25px;
+      margin-bottom:16px;
+      border-left:10px solid var(--gold);
+    }
+    .section-green{
+      background:var(--green);
+      border-left:10px solid #27ae60;
+    }
+    .capaian-box{
+      background:#fff;
+      border:2px solid #d9ecff;
+      border-left:10px solid var(--batik-blue);
+      border-radius:20px;
+      padding:18px;
+      margin-top:14px;
+      box-shadow:0 4px 10px rgba(0,0,0,.04);
+    }
+    .tujuan-box{
+      background:#fff;
+      border:2px solid #d9ecff;
+      border-left:10px solid var(--gold);
+      border-radius:20px;
+      padding:18px;
+      margin-top:14px;
+      box-shadow:0 4px 10px rgba(0,0,0,.04);
+    }
+    .capaian-box h4,.tujuan-box h4{color:var(--batik-blue);}
+    .capaian-box p,.tujuan-box li{color:#4d6f8f;}
+
+    .progress-bar{
+      width:100%;height:12px;background:#eee;border-radius:10px;
+      margin:0 0 16px 0;overflow:hidden;border:2px solid #fff;
+    }
+    .progress-fill{height:100%;background:var(--gold);width:0%;transition:.5s}
+    .badge-5e{
+      background:var(--batik-blue);color:#fff;padding:5px 14px;
+      border-radius:15px;font-size:13px;font-weight:bold;
+      margin-bottom:10px;display:inline-block;
+    }
+    .phase-card{display:none;animation:fadeIn .35s}
+    .phase-card.active{display:block}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+    input,select,textarea{
+      width:100%;
+      padding:12px;
+      margin-bottom:10px;
+      border:3px solid #f0f0f0;
+      border-radius:15px;
+      font-family:'Quicksand',sans-serif;
+      font-weight:700;
+      box-sizing:border-box;
+      background:#fff;
+    }
+    textarea{min-height:86px}
+
+    .mcq-option{
+      display:block;background:#fff;padding:10px;border-radius:12px;
+      margin:6px 0;border:2px solid #eee;cursor:pointer;
+      transition:.2s;text-align:left;font-size:13px;
+    }
+    .mcq-option:hover{background:var(--soft-blue)}
+    input[type="radio"]{width:auto;margin-right:8px}
+
+    .hint{
+      background:#fff;
+      border:2px dashed #d9ecff;
+      border-radius:18px;
+      padding:12px;
+      display:none;
+      margin-top:8px;
+      font-size:13px;
+    }
+    .correct-box{border:3px solid #27ae60 !important;background:#f0fff4 !important;}
+    .wrong-box{border:3px solid #ff6b6b !important;background:#fff5f5 !important;}
+
+    /* Gaya Kartu di Exploration */
+    .gaya-card{
+      background:#fff;
+      border-radius:20px;
+      border:3px solid var(--soft-blue);
+      padding:14px 16px;
+      margin-bottom:14px;
+      box-shadow:0 4px 12px rgba(0,0,0,.05);
+    }
+    .gaya-card h4{margin:0 0 6px 0; font-size:15px;}
+    .gaya-badge{
+      display:inline-block;
+      padding:3px 12px;
+      border-radius:999px;
+      font-size:11px;
+      font-weight:800;
+      margin-bottom:8px;
+      color:#fff;
+    }
+
+    .feedback-auto-box{
+  display:none;
+  background:#fff;
+  border:2px dashed #d9ecff;
+  border-left:10px solid #27ae60;
+  border-radius:22px;
+  padding:18px;
+  margin-top:16px;
+  color:#2f5f56;
+  box-shadow:0 6px 16px rgba(0,0,0,.05);
+}
+
+.feedback-auto-box h3{
+  margin-top:0;
+  color:#1e8449;
+}
+
+.feedback-item{
+  background:#f8fff9;
+  border:1px solid #bdebd4;
+  border-radius:16px;
+  padding:12px 14px;
+  margin-bottom:12px;
+  font-size:14px;
+  line-height:1.7;
+}
+
+.feedback-item b{
+  color:#1e8449;
+}
+
+.locked-answer{
+  background:#f3f6f8 !important;
+  color:#555 !important;
+  border-color:#d0d7de !important;
+  cursor:not-allowed !important;
+}
+
+.teacher-only{
+  display:none;
+}
+
+.answer-key-box{
+  background:#fff;
+  border:2px dashed #d9ecff;
+  border-left:10px solid #27ae60;
+  border-radius:20px;
+  padding:16px;
+  margin-top:16px;
+  color:#2f5f56;
+}
+
+.answer-key-box h3{
+  margin-top:0;
+  color:#1e8449;
+}
+  </style>
+</head>
+
+<body onload="initLKPD()">
+
+ <nav>
+  <div class="nav-left">
+    <button class="btn-back mini" onclick="goMenu()">⬅️ Menu</button>
+    <button class="btn-next mini" onclick="openMateriGaya()">📚 Materi</button>
+    <span class="pill" id="user-pill">Belum isi identitas</span>
+  </div>
+
+  <strong>Gaya Antarmolekul</strong>
+
+  <div class="nav-right">
+    <button class="btn-logout" onclick="logout()">Logout</button>
+  </div>
+</nav>
+
+  <div class="module-container">
+    <div class="progress-bar"><div id="fill" class="progress-fill"></div></div>
+
+    <!-- ================= PHASE 0 ================= -->
+    <div class="phase-card active" id="p0">
+      <center>
+        <h2 style="margin-top:0;">IDENTITAS & INFORMASI LKPD</h2>
+      </center>
+
+      <div class="section-box section-green">
+        <p style="margin:0 0 8px 0;"><b>Isi identitas dulu ya:</b></p>
+        <input type="text" id="nama" placeholder="Nama kamu...">
+        <input type="text" id="kelas" placeholder="Kelas... (contoh: XI-IPA 1)">
+        <input type="date" id="tgl">
+        <button class="btn-next" onclick="saveIdentity()">Simpan Identitas ✅</button>
+      </div>
+
+      <div class="section-box">
+        <h3 style="margin-top:0;">📌 Materi: Gaya Antarmolekul</h3>
+
+        <div class="capaian-box">
+          <h4 style="margin-top:0; margin-bottom:8px;">📘 Capaian Pembelajaran</h4>
+          <p style="margin:0; text-align:left; font-size:14px; line-height:1.7;">
+            Pada akhir Fase F, peserta didik mampu memahami sifat, struktur, dan interaksi partikel dalam membentuk berbagai senyawa serta kaitannya dengan sifat zat dalam kehidupan sehari-hari, termasuk gaya antarmolekul dan pengaruhnya terhadap sifat fisik zat.
+          </p>
+        </div>
+
+        <div class="tujuan-box">
+  <h4 style="margin-top:0; margin-bottom:8px;">🎯 Tujuan Pembelajaran</h4>
+  <ol style="text-align:left; font-size:14px; line-height:1.7; margin:0; padding-left:20px;">
+    <li>Siswa mampu menjelaskan pengertian gaya antarmolekul sebagai gaya tarik-menarik yang terjadi di antara molekul.</li>
+    <li>Siswa mampu membandingkan jenis-jenis gaya antarmolekul berdasarkan karakteristik molekul.</li>
+    <li>Siswa mampu menjelaskan hubungan jenis gaya antarmolekul dengan sifat fisik zat, seperti titik didih dan kelarutan.</li>
+  </ol>
+</div>
+
+        <center>
+          <button class="btn-next" onclick="requireIdentityThenGo(1)">Mulai Engagement ➡️</button>
+        </center>
+      </div>
+    </div>
+
+    <!-- ================= PHASE 1 — ENGAGEMENT ================= -->
+<div class="phase-card" id="p1">
+  <span class="badge-5e">1. Engagement</span>
+
+  <!-- PENGANTAR FENOMENA -->
+  <div class="section-box" style="border-left:10px solid var(--batik-blue);">
+    <h2 style="margin-top:0;color:var(--batik-blue);">🔵 Engagement</h2>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Pernahkah kamu memperhatikan bahwa parfum dapat tercium aromanya dengan cepat setelah
+      disemprotkan, sedangkan air di dalam gelas tidak langsung habis menguap pada suhu ruang?
+      Padahal, keduanya sama-sama tersusun dari partikel-partikel kecil yang tidak dapat kita
+      lihat secara langsung.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Dalam kehidupan sehari-hari, kita juga menemukan zat yang mudah berubah menjadi gas,
+      zat yang memiliki titik didih rendah, dan zat yang tetap cair pada suhu ruang. Fenomena ini
+      menunjukkan bahwa antarpartikel penyusun zat kemungkinan memiliki gaya tarik yang berbeda-beda.
+    </p>
+
+    <!-- FENOMENA UTAMA -->
+    <div style="background:#fff;padding:15px;border-radius:18px;border:2px dashed #d9ecff;margin-top:14px;">
+      <h3 style="margin-top:0;color:var(--batik-blue);">🔎 Coba Amati Fenomena Berikut</h3>
+
+      <p style="font-size:14px;line-height:1.8;text-align:justify;margin-bottom:10px;">
+        Perhatikan perbandingan beberapa zat berikut. Zat-zat ini memiliki sifat fisik yang berbeda,
+        salah satunya dapat dilihat dari titik didihnya.
+      </p>
+
+      <div style="overflow-x:auto; margin-bottom:12px;">
+        <table style="width:100%;border-collapse:collapse;font-size:13px;background:#fff;border-radius:15px;overflow:hidden;">
+          <tr style="background:var(--batik-blue);color:#fff;">
+            <th style="padding:10px;border:1px solid var(--soft-blue);">Zat</th>
+            <th style="padding:10px;border:1px solid var(--soft-blue);">Rumus</th>
+            <th style="padding:10px;border:1px solid var(--soft-blue);">Titik Didih</th>
+            <th style="padding:10px;border:1px solid var(--soft-blue);">Pengamatan Awal</th>
+          </tr>
+
+          <tr>
+            <td style="padding:9px;border:1px solid var(--soft-blue);">Metana</td>
+            <td style="padding:9px;border:1px solid var(--soft-blue);text-align:center;">CH₄</td>
+            <td style="padding:9px;border:1px solid var(--soft-blue);text-align:center;">−161°C</td>
+            <td style="padding:9px;border:1px solid var(--soft-blue);">Berwujud gas pada suhu ruang</td>
+          </tr>
+
+          <tr style="background:#f8f9fa;">
+            <td style="padding:9px;border:1px solid var(--soft-blue);">Hidrogen klorida</td>
+            <td style="padding:9px;border:1px solid var(--soft-blue);text-align:center;">HCl</td>
+            <td style="padding:9px;border:1px solid var(--soft-blue);text-align:center;">−85°C</td>
+            <td style="padding:9px;border:1px solid var(--soft-blue);">Mudah berubah menjadi gas</td>
+          </tr>
+
+          <tr>
+            <td style="padding:9px;border:1px solid var(--soft-blue);">Amonia</td>
+            <td style="padding:9px;border:1px solid var(--soft-blue);text-align:center;">NH₃</td>
+            <td style="padding:9px;border:1px solid var(--soft-blue);text-align:center;">−33°C</td>
+            <td style="padding:9px;border:1px solid var(--soft-blue);">Memiliki titik didih lebih tinggi daripada HCl</td>
+          </tr>
+
+          <tr style="background:#f8f9fa;">
+            <td style="padding:9px;border:1px solid var(--soft-blue);">Air</td>
+            <td style="padding:9px;border:1px solid var(--soft-blue);text-align:center;">H₂O</td>
+            <td style="padding:9px;border:1px solid var(--soft-blue);text-align:center;"><b style="color:#e91e63;">100°C</b></td>
+            <td style="padding:9px;border:1px solid var(--soft-blue);">Tetap cair pada suhu ruang dan sulit menguap dibanding zat lain</td>
+          </tr>
+        </table>
+      </div>
+
+      <div style="background:#fff7d6;border-left:10px solid var(--gold);border-radius:18px;padding:14px;margin-top:14px;">
+        <p style="font-size:15px;line-height:1.8;text-align:justify;margin:0;">
+          <b>Menarik, bukan?</b> Beberapa zat memiliki titik didih yang sangat rendah,
+          sedangkan air memiliki titik didih jauh lebih tinggi. Padahal semuanya tersusun dari molekul.
+        </p>
+      </div>
+
+      <p style="font-size:14px;line-height:1.8;text-align:justify;margin-top:12px;margin-bottom:0;">
+        Dari fenomena ini, muncul rasa ingin tahu: apakah perbedaan titik didih hanya dipengaruhi
+        oleh massa molekul? Atau ada gaya tarik tertentu di antara molekul yang membuat suatu zat
+        lebih sulit menguap?
+      </p>
+    </div>
+
+    <!-- PERTANYAAN MOTIVASI -->
+    <div style="background:#fff7d6;padding:15px;border-radius:18px;border-left:10px solid var(--gold);margin-top:14px;">
+      <h3 style="margin-top:0;color:#8a6d00;">💭 Pertanyaan Motivasi</h3>
+
+      <p style="font-size:15px;line-height:1.8;text-align:justify;margin-bottom:0;">
+        <b>
+          Mengapa beberapa zat mudah menguap pada suhu ruang, sedangkan air memiliki titik didih
+          jauh lebih tinggi dan lebih sulit menguap?
+        </b>
+      </p>
+    </div>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;margin-top:14px;">
+      Pada tahap ini, kamu <b>belum harus menjawab dengan benar</b>. Pertanyaan ini akan
+      kamu jawab lebih lengkap setelah mengerjakan seluruh kegiatan LKPD, mulai dari
+      Exploration, Explanation, Elaboration, hingga Evaluation.
+    </p>
+  </div>
+
+  <!-- RUMUSAN MASALAH -->
+  <div class="section-box" style="background:white;border-left:10px solid var(--batik-blue);border:2px dashed #d9ecff;">
+    <h3 style="margin-top:0;color:var(--batik-blue);">❓ Rumusan Masalah</h3>
+
+    <p style="font-size:15px;line-height:1.8;text-align:justify;margin-bottom:0;">
+      <b>
+        Bagaimana jenis gaya antarmolekul dapat dibandingkan berdasarkan karakteristik molekul,
+        dan bagaimana gaya tersebut memengaruhi sifat fisik zat?
+      </b>
+    </p>
+  </div>
+
+  <!-- HIPOTESIS AWAL -->
+  <div class="section-box" style="background:var(--green);border-left:10px solid #27ae60;">
+    <h3 style="margin-top:0;color:#1e8449;">💭 Hipotesis Awal</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Berdasarkan fenomena perbedaan titik didih zat, tuliskan dugaan awalmu untuk menjawab
+      rumusan masalah. Dugaan ini tidak harus langsung benar. Setelah menyelesaikan tahap
+      Exploration, Explanation, Elaboration, dan Evaluation, kamu dapat meninjau kembali
+      apakah hipotesismu sudah tepat atau perlu diperbaiki.
+    </p>
+
+    <textarea id="eng1" rows="5"
+      placeholder="Contoh awal: Menurut saya, zat memiliki titik didih berbeda karena gaya tarik antar molekulnya berbeda-beda..."></textarea>
+  </div>
+
+  <!-- ARAH KEGIATAN SELANJUTNYA -->
+  <div class="section-box">
+    <h3 style="margin-top:0;">Untuk Menjawab Pertanyaan Ini Kerjakan kegiatan LKPD berikut secara berurutan!</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;margin-bottom:0;">
+      Setelah semua tahap selesai, kamu akan dapat menjawab pertanyaan utama dengan lebih lengkap
+      dan berdasarkan konsep ilmiah.
+    </p>
+  </div>
+
+  <center>
+    <button class="btn-back" onclick="nextPhase(0)">⬅️ Kembali</button>
+    <button class="btn-next" onclick="nextPhase(2)">Lanjut ke Exploration ➡️</button>
+  </center>
+</div>
+
+ <!-- ================= PHASE 2 — EXPLORATION ================= -->
+<div class="phase-card" id="p2">
+  <span class="badge-5e">2. Exploration</span>
+
+  <!-- PENGANTAR EXPLORATION -->
+  <div class="section-box" style="border-left:10px solid var(--batik-blue);">
+    <h2 style="margin-top:0;color:var(--batik-blue);">🔍 Exploration</h2>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Pada tahap Engagement, kamu telah melihat bahwa beberapa zat memiliki titik didih dan
+      kemudahan menguap yang berbeda. Pada tahap Exploration ini, kamu akan menyelidiki
+      penyebab perbedaan tersebut melalui bacaan tentang karakteristik beberapa molekul.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Sebelum membaca bacaan eksplorasi, pelajari terlebih dahulu materi pendukung tentang
+      gaya London, dipol-dipol induksian, dipol-dipol, dan ikatan hidrogen.
+    </p>
+
+    <center>
+      <button class="btn-next" onclick="openMateriGaya()">📚 Baca Materi Dulu</button>
+    </center>
+  </div>
+
+  <!-- PETUNJUK KEGIATAN -->
+  <div class="section-box" style="border-left:10px solid var(--gold);">
+    <h3 style="margin-top:0;color:var(--batik-blue);">🧭 Petunjuk Kegiatan Eksplorasi</h3>
+
+    <ol style="font-size:14px;line-height:1.8;text-align:left;padding-left:22px;">
+      <li>Klik tombol <b>📚 Baca Materi Dulu</b> dan pelajari materi pendukung.</li>
+      <li>Kembali ke halaman Exploration.</li>
+      <li>Bacalah bacaan eksplorasi di bawah ini dengan cermat.</li>
+      <li>Perhatikan karakteristik molekul: nonpolar, polar, atau dapat membentuk ikatan hidrogen.</li>
+      <li>Jawab pertanyaan berdasarkan bacaan eksplorasi dan materi pendukung.</li>
+    </ol>
+
+    <p style="font-size:13px;line-height:1.7;color:#cc4d4d;font-weight:bold;margin-bottom:0;">
+      Catatan: Karena kegiatan ini berupa eksplorasi bacaan, kamu tidak perlu mengisi tabel data.
+      Fokuslah pada hubungan antara karakteristik molekul dan jenis gaya antarmolekul.
+    </p>
+  </div>
+
+  <!-- BACAAN EKSPLORASI -->
+  <div class="section-box">
+    <h3 style="margin-top:0;color:var(--batik-blue);">📖 Mengapa Gaya Antarmolekul Berbeda?</h3>
+
+    <div style="background:#f8fbff;border:2px dashed #d9ecff;border-radius:18px;padding:15px;margin-top:12px;">
+      <h4 style="margin-top:0;color:var(--batik-blue);">1. Metana (CH₄): Molekul Nonpolar yang Tetap Memiliki Gaya Tarik</h4>
+
+      <p style="font-size:14px;line-height:1.8;text-align:justify;">
+        Metana atau CH₄ merupakan molekul nonpolar. Pada molekul ini, penyebaran muatan secara
+        keseluruhan relatif merata sehingga tidak memiliki dipol permanen. Walaupun demikian,
+        elektron di dalam molekul CH₄ tetap selalu bergerak.
+      </p>
+
+      <p style="font-size:14px;line-height:1.8;text-align:justify;margin-bottom:0;">
+        Pada suatu saat, persebaran elektron dapat menjadi tidak merata untuk sementara.
+        Keadaan ini dapat menghasilkan dipol sesaat yang kemudian memengaruhi molekul CH₄
+        lain di dekatnya. Karena itu, meskipun CH₄ nonpolar, molekul-molekulnya tetap dapat
+        saling tarik-menarik melalui gaya antarmolekul tertentu.
+      </p>
+    </div>
+
+    <div style="background:#f8fbff;border:2px dashed #d9ecff;border-radius:18px;padding:15px;margin-top:12px;">
+      <h4 style="margin-top:0;color:var(--batik-blue);">2. Hidrogen Klorida (HCl): Molekul Polar dengan Dipol Permanen</h4>
+
+      <p style="font-size:14px;line-height:1.8;text-align:justify;">
+        HCl merupakan molekul polar karena atom Cl lebih elektronegatif daripada atom H.
+        Akibatnya, pasangan elektron dalam ikatan H—Cl lebih tertarik ke arah Cl.
+        Hal ini menyebabkan bagian Cl bermuatan parsial negatif, sedangkan bagian H bermuatan
+        parsial positif.
+      </p>
+
+      <p style="font-size:14px;line-height:1.8;text-align:justify;margin-bottom:0;">
+        Karena memiliki dipol permanen, molekul HCl dapat berinteraksi dengan molekul HCl lain
+        melalui tarikan antara sisi bermuatan parsial positif dan sisi bermuatan parsial negatif.
+        Molekul polar seperti HCl juga dapat memengaruhi molekul nonpolar di dekatnya sehingga
+        molekul nonpolar tersebut mengalami dipol induksian.
+      </p>
+    </div>
+
+    <div style="background:#f8fbff;border:2px dashed #d9ecff;border-radius:18px;padding:15px;margin-top:12px;">
+      <h4 style="margin-top:0;color:var(--batik-blue);">3. Air (H₂O) dan Amonia (NH₃): Molekul yang Dapat Membentuk Ikatan Hidrogen</h4>
+
+      <p style="font-size:14px;line-height:1.8;text-align:justify;">
+        Air atau H₂O memiliki atom H yang terikat langsung pada atom O. Amonia atau NH₃
+        memiliki atom H yang terikat langsung pada atom N. Atom O dan N merupakan atom yang
+        sangat elektronegatif, sehingga atom H yang terikat padanya menjadi bermuatan parsial
+        positif cukup besar.
+      </p>
+
+      <p style="font-size:14px;line-height:1.8;text-align:justify;margin-bottom:0;">
+        Molekul H₂O dan NH₃ juga memiliki pasangan elektron bebas pada atom elektronegatifnya.
+        Kondisi ini memungkinkan terjadinya tarikan antarmolekul yang lebih kuat dibandingkan
+        gaya dipol-dipol biasa. Tarikan tersebut berperan dalam menjelaskan mengapa zat seperti
+        air memiliki titik didih yang relatif tinggi.
+      </p>
+    </div>
+
+    <div style="background:#f8fbff;border:2px dashed #d9ecff;border-radius:18px;padding:15px;margin-top:12px;">
+      <h4 style="margin-top:0;color:var(--batik-blue);">4. Perbandingan Singkat</h4>
+
+      <p style="font-size:14px;line-height:1.8;text-align:justify;margin-bottom:0;">
+        Dari contoh CH₄, HCl, H₂O, dan NH₃, dapat dilihat bahwa jenis gaya antarmolekul
+        bergantung pada karakteristik molekul. Molekul nonpolar, molekul polar, campuran
+        molekul polar dengan nonpolar, dan molekul yang memiliki H terikat pada N, O, atau F
+        dapat menunjukkan jenis gaya antarmolekul yang berbeda. Perbedaan jenis gaya inilah
+        yang dapat memengaruhi sifat fisik zat, seperti titik didih, kelarutan, dan kemudahan
+        menguap.
+      </p>
+    </div>
+  </div>
+
+  <!-- PERTANYAAN EKSPLORASI -->
+  <div class="section-box" style="background:var(--green);border-left:10px solid #27ae60;">
+    <h3 style="margin-top:0;color:#1e8449;">🧠 Pertanyaan Eksplorasi</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Jawablah pertanyaan berikut berdasarkan bacaan eksplorasi dan materi pendukung.
+      Gunakan istilah <b>nonpolar</b>, <b>polar</b>, <b>dipol sesaat</b>,
+      <b>dipol induksian</b>, <b>dipol permanen</b>, dan <b>ikatan hidrogen</b> dengan tepat.
+    </p>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      1. Berdasarkan bacaan, mengapa molekul nonpolar seperti CH₄ tetap dapat memiliki gaya antarmolekul?
+    </p>
+    <textarea id="eks-gaya-q1" rows="4"
+      placeholder="Jelaskan hubungan elektron yang bergerak, dipol sesaat, dipol induksian, dan gaya London..."></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      2. Apa perbedaan karakteristik molekul CH₄ dan HCl sehingga jenis gaya antarmolekul dominannya berbeda?
+    </p>
+    <textarea id="eks-gaya-q2" rows="4"
+      placeholder="Bandingkan molekul nonpolar dan molekul polar berdasarkan bacaan..."></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      3. Mengapa molekul polar seperti HCl dapat berinteraksi dengan molekul nonpolar di dekatnya?
+    </p>
+    <textarea id="eks-gaya-q3" rows="4"
+      placeholder="Jelaskan bagaimana dipol permanen dapat menginduksi molekul nonpolar..."></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      4. Mengapa H₂O dan NH₃ dapat membentuk ikatan hidrogen?
+    </p>
+    <textarea id="eks-gaya-q4" rows="4"
+      placeholder="Jelaskan syarat ikatan hidrogen berdasarkan atom H yang terikat pada N, O, atau F..."></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      5. Simpulkan cara membandingkan jenis-jenis gaya antarmolekul berdasarkan karakteristik molekul.
+    </p>
+    <textarea id="eks-gaya-q5" rows="4"
+      placeholder="Tuliskan cara membandingkan gaya London, dipol-dipol induksian, dipol-dipol, dan ikatan hidrogen..."></textarea>
+  </div>
+
+  <!-- KUNCI JAWABAN GURU - EXPLORATION -->
+  <div class="teacher-only answer-key-box">
+    <h3>🔐 Kunci Jawaban Guru — Exploration</h3>
+
+    <p style="font-size:13px;line-height:1.8;margin-top:0;">
+      Catatan: Jawaban siswa tidak harus sama persis. Jawaban dianggap baik jika siswa mampu
+      mengaitkan karakteristik molekul dengan jenis gaya antarmolekul yang sesuai.
+    </p>
+
+    <ol style="font-size:13px;line-height:1.8;padding-left:22px;">
+      <li>
+        Molekul nonpolar seperti CH₄ tetap memiliki gaya antarmolekul karena elektron selalu
+        bergerak. Pada suatu saat, distribusi elektron dapat tidak merata dan membentuk dipol
+        sesaat. Dipol sesaat ini dapat menginduksi molekul nonpolar lain di dekatnya sehingga
+        terbentuk dipol induksian. Tarikan antara dipol sesaat dan dipol induksian disebut
+        gaya London.
+      </li>
+
+      <li style="margin-top:10px;">
+        CH₄ bersifat nonpolar sehingga gaya dominannya adalah gaya London. HCl bersifat polar
+        karena memiliki perbedaan keelektronegatifan antara H dan Cl, sehingga memiliki dipol
+        permanen dan dapat mengalami gaya dipol-dipol dengan molekul HCl lain.
+      </li>
+
+      <li style="margin-top:10px;">
+        Molekul polar seperti HCl memiliki dipol permanen. Dipol permanen ini dapat memengaruhi
+        distribusi elektron molekul nonpolar di dekatnya, sehingga molekul nonpolar tersebut
+        membentuk dipol induksian. Interaksi ini disebut gaya dipol-dipol induksian.
+      </li>
+
+      <li style="margin-top:10px;">
+        H₂O dapat membentuk ikatan hidrogen karena atom H terikat langsung pada atom O yang sangat
+        elektronegatif. NH₃ dapat membentuk ikatan hidrogen karena atom H terikat langsung pada
+        atom N yang sangat elektronegatif. Keduanya juga memiliki pasangan elektron bebas pada
+        atom elektronegatif yang dapat berperan dalam tarikan antarmolekul.
+      </li>
+
+      <li style="margin-top:10px;">
+        Cara membandingkan gaya antarmolekul adalah dengan melihat karakteristik molekulnya.
+        Molekul nonpolar didominasi gaya London. Interaksi molekul polar dan nonpolar menghasilkan
+        gaya dipol-dipol induksian. Molekul polar dengan molekul polar menghasilkan gaya dipol-dipol.
+        Molekul yang memiliki H terikat langsung pada N, O, atau F dapat membentuk ikatan hidrogen.
+      </li>
+    </ol>
+  </div>
+
+  <center>
+    <button class="btn-back" onclick="nextPhase(1)">⬅️ Kembali ke Engagement</button>
+    <button class="btn-next" onclick="nextPhase(3)">Lanjut ke Explanation ➡️</button>
+  </center>
+</div>
+
+<!-- ================= MATERI GAYA ANTARMOLEKUL TERPISAH ================= -->
+<div class="phase-card" id="pMateriGaya">
+  <span class="badge-5e">Materi Pendukung</span>
+
+  <!-- HEADER MATERI -->
+  <div class="section-box" style="border-left:10px solid var(--batik-blue);">
+    <h2 style="margin-top:0;color:var(--batik-blue);">📚 Materi</h2>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Bacalah materi ini sebelum mengerjakan tahap Exploration. Materi ini membantumu memahami
+      pengertian gaya antarmolekul, pembagian jenis gaya antarmolekul, serta cara membandingkan
+      jenis gaya antarmolekul berdasarkan karakteristik molekul.
+    </p>
+
+    <center>
+      <button class="btn-back" onclick="backToExplorationGaya()">⬅️ Kembali ke Exploration</button>
+    </center>
+  </div>
+
+  <!-- 1. PENGERTIAN -->
+  <div class="section-box">
+    <h3 style="margin-top:0;color:var(--batik-blue);">1. Pengertian Gaya Antarmolekul</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Molekul dapat saling berinteraksi melalui gaya tarik yang disebut
+      <b>gaya antarmolekul</b>. Gaya ini bekerja di antara molekul yang satu dengan molekul
+      lainnya. Gaya antarmolekul berbeda dengan ikatan kimia karena ikatan kimia bekerja
+      di dalam molekul untuk mengikat atom-atom penyusunnya.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Adanya gaya antarmolekul memungkinkan molekul dalam fase gas berubah menjadi zat cair
+      atau zat padat. Tanpa adanya gaya antarmolekul, gas akan sulit diubah menjadi cairan
+      atau padatan karena molekul-molekulnya tidak memiliki gaya tarik yang cukup untuk saling
+      mendekat.
+    </p>
+
+    <div style="background:#fff;padding:15px;border-radius:18px;border:2px dashed #d9ecff;">
+      <p style="font-size:14px;line-height:1.8;margin:0;">
+        <b>Inti penting:</b><br>
+        Semakin kuat gaya antarmolekul, semakin besar energi yang diperlukan untuk memisahkan
+        molekul-molekulnya. Karena itu, zat dengan gaya antarmolekul yang kuat cenderung memiliki
+        titik didih lebih tinggi.
+      </p>
+    </div>
+  </div>
+
+  <!-- 2. PEMBAGIAN GAYA ANTARMOLEKUL -->
+  <div class="section-box">
+    <h3 style="margin-top:0;color:var(--batik-blue);">2. Pembagian Gaya Antarmolekul</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Gaya antarmolekul dapat dikelompokkan berdasarkan jenis molekul yang saling berinteraksi.
+      Secara umum, interaksi antarmolekul dapat terjadi antara molekul nonpolar dengan nonpolar,
+      molekul polar dengan nonpolar, dan molekul polar dengan polar.
+    </p>
+
+    <div class="materi-img-wrap">
+  <img src="klasifikasi-gaya.png"
+       alt="Bagan klasifikasi gaya antarmolekul">
+  <p class="materi-img-caption">
+    Bagan pembagian gaya antarmolekul berdasarkan jenis molekul yang berinteraksi.
+  </p>
+</div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:12px;">
+      <div style="background:#fff;border:2px dashed #d9ecff;border-radius:18px;padding:14px;">
+        <h4 style="margin-top:0;color:var(--batik-blue);">Nonpolar + Nonpolar</h4>
+        <p style="font-size:14px;line-height:1.7;margin-bottom:0;">
+          Menghasilkan gaya dipol sesaat-dipol induksian atau <b>gaya London</b>.
+        </p>
+      </div>
+
+      <div style="background:#fff;border:2px dashed #d9ecff;border-radius:18px;padding:14px;">
+        <h4 style="margin-top:0;color:var(--batik-blue);">Polar + Nonpolar</h4>
+        <p style="font-size:14px;line-height:1.7;margin-bottom:0;">
+          Menghasilkan <b>gaya dipol-dipol induksian</b>.
+        </p>
+      </div>
+
+      <div style="background:#fff;border:2px dashed #d9ecff;border-radius:18px;padding:14px;">
+        <h4 style="margin-top:0;color:var(--batik-blue);">Polar + Polar</h4>
+        <p style="font-size:14px;line-height:1.7;margin-bottom:0;">
+          Menghasilkan <b>gaya dipol-dipol</b> atau <b>ikatan hidrogen</b> jika memenuhi syarat tertentu.
+        </p>
+      </div>
+    </div>
+
+    <div style="background:#fff7d6;border-left:10px solid var(--gold);border-radius:18px;padding:14px;margin-top:14px;">
+      <p style="font-size:14px;line-height:1.8;margin:0;text-align:justify;">
+        <b>Catatan:</b> Untuk menentukan jenis gaya antarmolekul, perhatikan terlebih dahulu
+        karakteristik molekulnya: apakah molekul nonpolar, polar, atau memiliki atom H yang
+        terikat langsung pada N, O, atau F.
+      </p>
+    </div>
+  </div>
+
+  <!-- 3. GAYA LONDON -->
+  <div class="section-box">
+    <h3 style="margin-top:0;color:var(--batik-blue);">3. Gaya London</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      <b>Gaya London</b> disebut juga gaya dipol sesaat-dipol induksian. Gaya ini dapat terjadi
+      pada semua molekul, tetapi menjadi gaya dominan pada molekul nonpolar.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Atom dan molekul dikelilingi oleh elektron bermuatan negatif. Sekilas, molekul seolah-olah
+      akan saling menolak karena sama-sama memiliki elektron. Namun, pada kenyataannya, dapat
+      terjadi gaya tarik elektrostatik antarmolekul.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Elektron dalam atom atau molekul selalu bergerak. Pada suatu saat, persebaran elektron dapat
+      menjadi tidak merata. Akibatnya, salah satu sisi molekul menjadi lebih negatif, sedangkan
+      sisi lainnya menjadi lebih positif. Keadaan sementara ini disebut <b>dipol sesaat</b>.
+    </p>
+
+    <div class="materi-img-wrap">
+  <img src="gaya-london-1.png"
+       alt="Ilustrasi awan elektron dan munculnya dipol sesaat">
+  <p class="materi-img-caption">
+    Ilustrasi ketidakseimbangan distribusi elektron yang dapat membentuk dipol sesaat.
+  </p>
+</div>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Jika ada molekul nonpolar lain di dekatnya, dipol sesaat tersebut dapat memengaruhi
+      distribusi elektron pada molekul tetangga. Molekul tetangga yang awalnya nonpolar kemudian
+      mengalami pemisahan muatan sementara dan membentuk <b>dipol induksian</b>.
+    </p>
+
+    <div class="materi-img-wrap">
+  <img src="gaya-london-2.png"
+       alt="Mekanisme gaya London dipol sesaat dan dipol induksian">
+  <p class="materi-img-caption">
+    Dipol sesaat pada satu molekul dapat menginduksi molekul nonpolar di dekatnya sehingga terjadi gaya London.
+  </p>
+</div>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Setelah terbentuk dipol sesaat dan dipol induksian, kedua molekul tersebut akan saling
+      tarik-menarik melalui gaya elektrostatik antara sisi negatif dan sisi positifnya.
+      Gaya tarik inilah yang disebut <b>gaya London</b>.
+    </p>
+
+    <div style="background:#fff;padding:15px;border-radius:18px;border:2px dashed #d9ecff;">
+      <p style="font-size:14px;line-height:1.8;margin:0;">
+        <b>Alur terjadinya gaya London:</b><br>
+        Molekul nonpolar → elektron bergerak tidak merata → terbentuk dipol sesaat →
+        molekul tetangga terinduksi → terbentuk dipol induksian → terjadi gaya tarik.
+      </p>
+    </div>
+
+    <div style="background:#fff7d6;border-left:10px solid var(--gold);border-radius:18px;padding:14px;margin-top:14px;">
+      <p style="font-size:14px;line-height:1.8;margin:0;">
+        <b>Contoh:</b> CH₄, I₂, Cl₂, He, Ne, dan Ar.<br>
+        <b>Faktor yang memengaruhi:</b> semakin besar ukuran molekul atau semakin banyak jumlah
+        elektron, gaya London cenderung semakin kuat.
+      </p>
+    </div>
+  </div>
+
+  <!-- 4. DIPOL-DIPOL INDUKSIAN -->
+  <div class="section-box">
+    <h3 style="margin-top:0;color:var(--batik-blue);">4. Gaya Dipol-Dipol Induksian</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      <b>Gaya dipol-dipol induksian</b> terjadi antara molekul polar dan molekul nonpolar.
+      Molekul polar memiliki dipol permanen, yaitu daerah bermuatan parsial positif dan
+      daerah bermuatan parsial negatif yang tetap.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Ketika molekul polar berada dekat dengan molekul nonpolar, molekul polar dapat mengganggu
+      persebaran elektron pada molekul nonpolar. Akibatnya, molekul nonpolar yang awalnya tidak
+      memiliki kutub mengalami pemisahan muatan sementara dan membentuk <b>dipol induksian</b>.
+    </p>
+
+    <div class="materi-img-wrap">
+  <img src="dipol-induksian.png"
+       alt="Gaya dipol-dipol induksian antara molekul polar dan nonpolar">
+  <p class="materi-img-caption">
+    Molekul polar dapat menginduksi molekul nonpolar sehingga terbentuk dipol induksian.
+  </p>
+</div>
+
+    <div style="background:#fff;padding:15px;border-radius:18px;border:2px dashed #d9ecff;">
+      <p style="font-size:14px;line-height:1.8;margin:0;">
+        <b>Alur terjadinya gaya dipol-dipol induksian:</b><br>
+        Molekul polar memiliki dipol permanen → mendekati molekul nonpolar →
+        molekul nonpolar terinduksi → terbentuk dipol induksian → terjadi gaya tarik.
+      </p>
+    </div>
+
+    <div style="background:#fff7d6;border-left:10px solid var(--gold);border-radius:18px;padding:14px;margin-top:14px;">
+      <p style="font-size:14px;line-height:1.8;margin:0;">
+        <b>Contoh:</b> interaksi antara HCl yang bersifat polar dengan Ar yang bersifat nonpolar.
+      </p>
+    </div>
+  </div>
+
+  <!-- 5. DIPOL-DIPOL -->
+  <div class="section-box">
+    <h3 style="margin-top:0;color:var(--batik-blue);">5. Gaya Dipol-Dipol</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      <b>Gaya dipol-dipol</b> terjadi antara molekul-molekul polar, baik molekul polar yang sama
+      maupun molekul polar yang berbeda. Molekul polar memiliki pusat muatan positif dan pusat
+      muatan negatif.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Ujung positif suatu molekul polar dapat tertarik oleh ujung negatif molekul polar lain.
+      Sebaliknya, ujung negatif suatu molekul polar dapat tertarik oleh ujung positif molekul
+      polar lain. Tarikan inilah yang disebut gaya dipol-dipol.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Pada fase cair, molekul-molekul polar bergerak dan tersusun secara acak, tetapi tetap
+      saling tarik-menarik berdasarkan kutubnya. Pada fase padat, susunan molekul polar biasanya
+      lebih teratur. Jika zat padat berbentuk kristal molekuler, molekul-molekulnya tersusun
+      rapi, teratur, dan berulang.
+    </p>
+
+ <div class="materi-img-wrap">
+  <img src="dipol-dipol.png"
+       alt="Susunan molekul polar pada gaya dipol-dipol">
+  <p class="materi-img-caption">
+    Pada gaya dipol-dipol, ujung positif suatu molekul polar tertarik oleh ujung negatif molekul polar lain.
+  </p>
+</div>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Kekuatan gaya dipol-dipol dipengaruhi oleh kepolaran molekul. Semakin polar suatu molekul,
+      gaya dipol-dipolnya cenderung semakin kuat. Pada molekul heterodiatomik seperti HCl, HBr,
+      dan HI, kepolaran dipengaruhi oleh perbedaan keelektronegatifan atom-atom yang berikatan.
+    </p>
+
+    <div style="background:#fff7d6;border-left:10px solid var(--gold);border-radius:18px;padding:14px;margin-top:14px;">
+      <p style="font-size:14px;line-height:1.8;margin:0;">
+        <b>Contoh:</b> HCl, HBr, HI, SO₂, dan aseton.<br>
+        <b>Contoh urutan kepolaran:</b> HCl &gt; HBr &gt; HI. Semakin besar kepolaran,
+        semakin kuat gaya dipol-dipolnya.
+      </p>
+    </div>
+  </div>
+
+  <!-- 6. IKATAN HIDROGEN -->
+  <div class="section-box">
+    <h3 style="margin-top:0;color:var(--batik-blue);">6. Ikatan Hidrogen</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      <b>Ikatan hidrogen</b> merupakan gaya antarmolekul yang paling kuat dibandingkan gaya
+      antarmolekul lainnya. Namun, ikatan hidrogen tetap jauh lebih lemah dibandingkan ikatan
+      kovalen atau ikatan ionik.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Ikatan hidrogen terjadi apabila atom H terikat langsung pada atom yang sangat elektronegatif,
+      yaitu <b>N, O, atau F</b>. Karena N, O, dan F sangat elektronegatif, atom H menjadi bermuatan
+      parsial positif cukup besar.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Atom H yang bermuatan parsial positif kemudian dapat tertarik oleh pasangan elektron bebas
+      pada atom N, O, atau F dari molekul lain. Tarikan inilah yang disebut ikatan hidrogen.
+    </p>
+
+    <div class="materi-img-wrap">
+  <img src="ikatan-hidrogen.png"
+       alt="Ilustrasi ikatan hidrogen antara H dan atom elektronegatif">
+  <p class="materi-img-caption">
+    Ikatan hidrogen terjadi ketika H yang terikat pada N, O, atau F tertarik oleh pasangan elektron bebas molekul lain.
+  </p>
+</div>
+
+    <div style="background:#fff;padding:15px;border-radius:18px;border:2px dashed #d9ecff;">
+      <p style="font-size:14px;line-height:1.8;margin:0;">
+        <b>Syarat ikatan hidrogen:</b><br>
+        1. Ada atom H yang terikat langsung pada N, O, atau F.<br>
+        2. Ada pasangan elektron bebas pada N, O, atau F dari molekul lain yang dapat menarik atom H tersebut.
+      </p>
+    </div>
+
+    <div style="background:#fff7d6;border-left:10px solid var(--gold);border-radius:18px;padding:14px;margin-top:14px;">
+      <p style="font-size:14px;line-height:1.8;margin:0;">
+        <b>Contoh:</b> H₂O, NH₃, HF, dan alkohol tertentu.
+      </p>
+    </div>
+  </div>
+
+  <!-- 7. IKATAN HIDROGEN PADA AIR -->
+  <div class="section-box">
+    <h3 style="margin-top:0;color:var(--batik-blue);">7. Contoh Penting: Ikatan Hidrogen pada Air</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Air merupakan molekul yang sangat ideal dalam membentuk ikatan hidrogen. Pada molekul H₂O,
+      atom H terikat langsung pada atom O. Atom O sangat elektronegatif dan memiliki pasangan
+      elektron bebas.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Dalam air, setiap molekul H₂O dapat berinteraksi dengan beberapa molekul air di dekatnya
+      melalui ikatan hidrogen. Interaksi ini membuat molekul-molekul air saling tarik-menarik
+      cukup kuat.
+    </p>
+
+    <div class="materi-img-wrap">
+  <img src="hidrogen-air.png"
+       alt="Jaringan ikatan hidrogen pada molekul air">
+  <p class="materi-img-caption">
+    Molekul-molekul air dapat saling berinteraksi melalui jaringan ikatan hidrogen.
+  </p>
+</div>
+
+    <div style="background:#fff7d6;border-left:10px solid var(--gold);border-radius:18px;padding:14px;margin-top:14px;">
+      <p style="font-size:14px;line-height:1.8;margin:0;">
+        <b>Hubungan dengan titik didih:</b><br>
+        Karena molekul-molekul air saling tarik-menarik kuat melalui ikatan hidrogen,
+        diperlukan energi lebih besar untuk memisahkan molekul-molekul air. Inilah salah satu
+        alasan air memiliki titik didih relatif tinggi dibandingkan banyak molekul kecil lainnya.
+      </p>
+    </div>
+  </div>
+
+<!-- 3. POLARISASI -->
+<div class="section-box">
+  <h3 style="margin-top:0;color:var(--batik-blue);">Apa Itu Polarisasi?</h3>
+
+  <p style="font-size:14px;line-height:1.8;text-align:justify;">
+    <b>Polarisasi</b> adalah keadaan ketika distribusi elektron dalam suatu atom atau molekul
+    menjadi tidak merata. Akibatnya, pada molekul tersebut dapat terbentuk dua daerah muatan,
+    yaitu satu sisi bermuatan parsial negatif dan sisi lain bermuatan parsial positif.
+  </p>
+
+  <p style="font-size:14px;line-height:1.8;text-align:justify;">
+    Sisi yang memiliki elektron lebih banyak akan bermuatan parsial negatif atau <b>δ−</b>,
+    sedangkan sisi yang kekurangan elektron akan bermuatan parsial positif atau <b>δ+</b>.
+    Pemisahan muatan inilah yang menyebabkan molekul dapat memiliki dipol.
+  </p>
+
+  <div style="background:#fff7d6;border-left:10px solid var(--gold);border-radius:18px;padding:14px;margin-top:14px;">
+    <p style="font-size:14px;line-height:1.8;margin:0;text-align:justify;">
+      <b>Contoh sederhana:</b><br>
+      Molekul nonpolar awalnya tidak memiliki kutub tetap. Namun, karena elektron selalu bergerak,
+      pada suatu saat elektron dapat lebih banyak berada di salah satu sisi molekul. Keadaan ini
+      membuat molekul seolah-olah memiliki sisi δ− dan δ+ untuk sementara.
+    </p>
+  </div>
+
+  <div style="background:#fff;padding:15px;border-radius:18px;border:2px dashed #d9ecff;margin-top:14px;">
+    <p style="font-size:14px;line-height:1.8;margin:0;">
+      <b>Hubungan dengan gaya antarmolekul:</b><br>
+      Polarisasi penting untuk memahami terbentuknya <b>dipol sesaat</b>,
+      <b>dipol induksian</b>, <b>gaya London</b>, dan <b>gaya dipol-dipol induksian</b>.
+    </p>
+  </div>
+</div>
+
+  <!-- 8. RINGKASAN -->
+  <div class="section-box">
+    <h3 style="margin-top:0;color:var(--batik-blue);">8. Ringkasan Perbandingan Jenis Gaya Antarmolekul</h3>
+
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;background:#fff;border-radius:15px;overflow:hidden;font-size:13px;min-width:900px;">
+        <tr style="background:var(--batik-blue);color:#fff;">
+          <th style="padding:8px;border:1px solid var(--soft-blue);">Jenis Gaya</th>
+          <th style="padding:8px;border:1px solid var(--soft-blue);">Interaksi Molekul</th>
+          <th style="padding:8px;border:1px solid var(--soft-blue);">Karakteristik Utama</th>
+          <th style="padding:8px;border:1px solid var(--soft-blue);">Contoh</th>
+        </tr>
+
+        <tr>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><b>Gaya London</b></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">Nonpolar dengan nonpolar</td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">Dipol sesaat menginduksi molekul tetangga</td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">CH₄, I₂, Ar</td>
+        </tr>
+
+        <tr>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><b>Dipol-dipol induksian</b></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">Polar dengan nonpolar</td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">Molekul polar menginduksi molekul nonpolar</td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">HCl + Ar</td>
+        </tr>
+
+        <tr>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><b>Dipol-dipol</b></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">Polar dengan polar</td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">Kutub positif tertarik dengan kutub negatif molekul lain</td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">HCl, HBr, SO₂</td>
+        </tr>
+
+        <tr>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><b>Ikatan hidrogen</b></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">Molekul dengan H terikat pada N, O, atau F</td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">H tertarik oleh pasangan elektron bebas N, O, atau F molekul lain</td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">H₂O, NH₃, HF</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 9. KESIMPULAN -->
+  <div class="section-box section-green">
+    <h3 style="margin-top:0;color:#1e8449;">Kesimpulan Materi</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;margin:0;">
+      Jenis gaya antarmolekul dapat dibandingkan berdasarkan karakteristik molekulnya.
+      Molekul nonpolar cenderung didominasi gaya London, interaksi molekul polar dan nonpolar
+      menghasilkan gaya dipol-dipol induksian, molekul polar dapat mengalami gaya dipol-dipol,
+      sedangkan molekul yang memiliki H terikat langsung pada N, O, atau F dapat membentuk
+      ikatan hidrogen. Perbedaan jenis gaya antarmolekul dapat memengaruhi sifat fisik zat,
+      seperti titik didih, titik leleh, kelarutan, dan perubahan wujud.
+    </p>
+  </div>
+
+  <center>
+    <button class="btn-next" onclick="backToExplorationGaya()">
+      Saya Sudah Membaca, Kembali ke Exploration ➡️
+    </button>
+  </center>
+</div>
+
+   <!-- ================= PHASE 3 — EXPLANATION ================= -->
+<div class="phase-card" id="p3">
+  <span class="badge-5e">3. Explanation</span>
+
+  <!-- PENGANTAR EXPLANATION -->
+  <div class="section-box" style="border-left:10px solid var(--batik-blue);">
+    <h2 style="margin-top:0;color:var(--batik-blue);">🟡 Explanation</h2>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Pada tahap Exploration, kamu sudah membaca bacaan tentang CH₄, HCl, H₂O, dan NH₃,
+      lalu menjawab pertanyaan berdasarkan karakteristik molekul dan jenis gaya antarmolekulnya.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Jelaskan bukan hanya jawabannya, tetapi juga
+      <b>alasan mengapa jenis gaya antarmolekul tersebut dapat terjadi</b>.
+    </p>
+  </div>
+
+  <!-- PRESENTASI PEMAHAMAN SISWA -->
+  <div class="section-box">
+    <h3 style="margin-top:0;color:var(--batik-blue);">🎤 Penjelasan Pemahaman Siswa</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Jawablah pertanyaan berikut berdasarkan hasil Exploration dan materi pendukung.
+      Gunakan istilah <b>molekul nonpolar</b>, <b>molekul polar</b>,
+      <b>dipol sesaat</b>, <b>dipol induksian</b>, <b>dipol permanen</b>,
+      dan <b>ikatan hidrogen</b> dengan tepat.
+    </p>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      1. Jelaskan bagaimana cara membandingkan jenis gaya antarmolekul berdasarkan karakteristik molekul.
+    </p>
+    <textarea id="exp-gaya-q1" rows="4"
+      placeholder="Jelaskan bahwa jenis gaya antarmolekul dapat dibandingkan dari apakah molekul nonpolar, polar, atau memiliki H yang terikat pada N/O/F..."></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      2. Mengapa CH₄ yang bersifat nonpolar tetap dapat memiliki gaya tarik antarmolekul?
+    </p>
+    <textarea id="exp-gaya-q2" rows="4"
+      placeholder="Jelaskan hubungan gerak elektron, dipol sesaat, dipol induksian, dan gaya London..."></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      3. Jelaskan perbedaan gaya dipol-dipol induksian dan gaya dipol-dipol.
+    </p>
+    <textarea id="exp-gaya-q3" rows="4"
+      placeholder="Bandingkan interaksi polar-nonpolar dan polar-polar..."></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      4. Mengapa H₂O dan NH₃ dapat membentuk ikatan hidrogen?
+    </p>
+    <textarea id="exp-gaya-q4" rows="4"
+      placeholder="Jelaskan syarat H terikat pada N/O/F dan adanya pasangan elektron bebas pada molekul lain..."></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      5. Mengapa jenis gaya antarmolekul dapat memengaruhi titik didih suatu zat?
+    </p>
+    <textarea id="exp-gaya-q5" rows="4"
+      placeholder="Jelaskan hubungan kekuatan gaya antarmolekul dengan energi yang dibutuhkan untuk memisahkan molekul..."></textarea>
+  </div>
+
+  <!-- MENINJAU HIPOTESIS -->
+  <div class="section-box" style="background:var(--green);border-left:10px solid #27ae60;">
+    <h3 style="margin-top:0;color:#1e8449;">🔁 Meninjau Kembali Hipotesis Awal</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Buka kembali hipotesis awalmu pada tahap Engagement. Setelah membaca materi dan menjawab
+      pertanyaan Exploration, apakah hipotesismu sudah tepat? Tuliskan perbaikan atau penguatan
+      hipotesismu.
+    </p>
+
+    <textarea id="exp-gaya-q6" rows="4"
+      placeholder="Tuliskan revisi hipotesismu setelah memahami jenis-jenis gaya antarmolekul dan hubungannya dengan sifat fisik zat..."></textarea>
+  </div>
+
+  <!-- SIMPAN DAN UMPAN BALIK -->
+  <div class="section-box" style="background:white;border-left:10px solid var(--gold);border:2px dashed #d9ecff;">
+    <h3 style="margin-top:0;color:var(--batik-blue);">💬 Simpan Jawaban dan Lihat Umpan Balik</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Setelah selesai menjawab semua pertanyaan Explanation, klik tombol berikut.
+      Jawabanmu akan disimpan dan dikunci, lalu pembahasan akan muncul sebagai umpan balik otomatis.
+    </p>
+
+    <p style="font-size:13px;line-height:1.7;color:#cc4d4d;font-weight:bold;">
+      ⚠️ Setelah menekan tombol ini, jawaban tidak dapat diubah kembali sampai jawaban akhir dikirim ke spreadsheet.
+    </p>
+
+    <center>
+      <button class="btn-next" id="btn-save-explanation-gaya" onclick="saveExplanationGayaAndShowFeedback()">
+        💾 Simpan Jawaban & Lihat Umpan Balik
+      </button>
+    </center>
+
+    <div id="feedback-explanation-gaya" class="feedback-auto-box">
+      <h3>✅ Umpan Balik Explanation</h3>
+
+      <div class="feedback-item">
+        <b>1. Cara membandingkan jenis gaya antarmolekul.</b><br>
+        Jenis gaya antarmolekul dapat dibandingkan berdasarkan karakteristik molekulnya.
+        Molekul nonpolar didominasi gaya London. Interaksi molekul polar dan nonpolar
+        menghasilkan gaya dipol-dipol induksian. Molekul polar dengan molekul polar dapat
+        mengalami gaya dipol-dipol. Molekul yang memiliki H terikat langsung pada N, O, atau F
+        dapat membentuk ikatan hidrogen.
+      </div>
+
+      <div class="feedback-item">
+        <b>2. CH₄ tetap memiliki gaya antarmolekul.</b><br>
+        CH₄ bersifat nonpolar, tetapi elektron dalam molekul selalu bergerak. Pada suatu saat,
+        distribusi elektron dapat tidak merata dan membentuk dipol sesaat. Dipol sesaat ini
+        dapat menginduksi molekul CH₄ lain di dekatnya sehingga terbentuk dipol induksian.
+        Tarikan antara keduanya disebut gaya London.
+      </div>
+
+      <div class="feedback-item">
+        <b>3. Perbedaan dipol-dipol induksian dan dipol-dipol.</b><br>
+        Gaya dipol-dipol induksian terjadi antara molekul polar dan molekul nonpolar.
+        Molekul polar menginduksi molekul nonpolar sehingga terbentuk dipol induksian.
+        Sementara itu, gaya dipol-dipol terjadi antara molekul-molekul polar yang memiliki
+        dipol permanen.
+      </div>
+
+      <div class="feedback-item">
+        <b>4. H₂O dan NH₃ dapat membentuk ikatan hidrogen.</b><br>
+        H₂O memiliki atom H yang terikat langsung pada O, sedangkan NH₃ memiliki atom H yang
+        terikat langsung pada N. O dan N merupakan atom yang sangat elektronegatif dan memiliki
+        pasangan elektron bebas, sehingga dapat membentuk ikatan hidrogen antarmolekul.
+      </div>
+
+      <div class="feedback-item">
+        <b>5. Gaya antarmolekul memengaruhi titik didih.</b><br>
+        Semakin kuat gaya antarmolekul, semakin besar energi yang dibutuhkan untuk memisahkan
+        molekul-molekulnya. Karena itu, zat dengan gaya antarmolekul kuat cenderung memiliki
+        titik didih lebih tinggi dibanding zat dengan gaya antarmolekul lemah.
+      </div>
+
+      <div class="feedback-item">
+        <b>6. Revisi hipotesis.</b><br>
+        Hipotesis yang baik seharusnya menyebutkan bahwa perbedaan sifat fisik zat, seperti
+        titik didih dan kemudahan menguap, berkaitan dengan jenis dan kekuatan gaya antarmolekul.
+        Jenis gaya antarmolekul ditentukan oleh karakteristik molekul.
+      </div>
+    </div>
+  </div>
+
+  <!-- KUNCI JAWABAN GURU - EXPLANATION -->
+  <div class="teacher-only answer-key-box">
+    <h3>🔐 Kunci Jawaban Guru — Explanation</h3>
+
+    <p style="font-size:13px;line-height:1.8;margin-top:0;">
+      Catatan: Jawaban siswa tidak harus sama persis dengan kunci berikut. Jawaban dianggap baik
+      jika siswa mampu menjelaskan hubungan antara <b>karakteristik molekul</b>,
+      <b>jenis gaya antarmolekul</b>, dan <b>sifat fisik zat</b>.
+    </p>
+
+    <ol style="font-size:13px;line-height:1.8;padding-left:22px;">
+      <li>
+        <b>Cara membandingkan jenis gaya antarmolekul:</b><br>
+        Lihat karakteristik molekulnya. Jika molekul nonpolar, gaya dominannya gaya London.
+        Jika molekul polar berinteraksi dengan molekul nonpolar, terjadi gaya dipol-dipol induksian.
+        Jika molekul polar berinteraksi dengan molekul polar, terjadi gaya dipol-dipol.
+        Jika molekul memiliki H yang terikat langsung pada N, O, atau F, maka dapat terjadi ikatan hidrogen.
+      </li>
+
+      <li style="margin-top:10px;">
+        <b>CH₄ tetap memiliki gaya antarmolekul:</b><br>
+        CH₄ nonpolar, tetapi elektron selalu bergerak. Gerak elektron dapat menyebabkan
+        distribusi elektron tidak merata sesaat sehingga terbentuk dipol sesaat. Dipol sesaat
+        ini dapat menginduksi molekul tetangga dan menimbulkan gaya London.
+      </li>
+
+      <li style="margin-top:10px;">
+        <b>Perbedaan dipol-dipol induksian dan dipol-dipol:</b><br>
+        Dipol-dipol induksian terjadi antara molekul polar dan nonpolar. Molekul polar
+        menginduksi molekul nonpolar sehingga terbentuk dipol induksian. Dipol-dipol terjadi
+        antara molekul polar dengan molekul polar karena keduanya memiliki dipol permanen.
+      </li>
+
+      <li style="margin-top:10px;">
+        <b>Ikatan hidrogen pada H₂O dan NH₃:</b><br>
+        H₂O memiliki H yang terikat pada O, sedangkan NH₃ memiliki H yang terikat pada N.
+        O dan N sangat elektronegatif sehingga H bermuatan parsial positif cukup besar.
+        H tersebut dapat tertarik oleh pasangan elektron bebas pada atom elektronegatif molekul lain.
+      </li>
+
+      <li style="margin-top:10px;">
+        <b>Hubungan gaya antarmolekul dengan titik didih:</b><br>
+        Semakin kuat gaya antarmolekul, semakin besar energi yang dibutuhkan untuk memisahkan
+        molekul. Akibatnya titik didih zat cenderung lebih tinggi.
+      </li>
+
+      <li style="margin-top:10px;">
+        <b>Revisi hipotesis:</b><br>
+        Perbedaan titik didih dan kemudahan menguap suatu zat dipengaruhi oleh jenis dan kekuatan
+        gaya antarmolekul. Molekul dengan gaya antarmolekul kuat lebih sulit dipisahkan sehingga
+        titik didihnya lebih tinggi.
+      </li>
+    </ol>
+  </div>
+
+  <center>
+    <button class="btn-back" onclick="nextPhase(2)">⬅️ Kembali ke Exploration</button>
+    <button class="btn-next" onclick="nextPhase(4)">Lanjut ke Elaboration ➡️</button>
+  </center>
+</div>
+
+    <!-- ================= PHASE 4 — ELABORATION ================= -->
+<div class="phase-card" id="p4">
+  <span class="badge-5e">4. Elaboration</span>
+
+  <!-- PENGANTAR ELABORATION -->
+  <div class="section-box" style="border-left:10px solid var(--batik-blue);">
+    <h2 style="margin-top:0;color:var(--batik-blue);">🌍 Elaboration</h2>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Pada tahap Engagement, kamu telah mengamati bahwa beberapa zat mudah menguap,
+      sedangkan zat lain lebih sulit menguap. Pada tahap Exploration dan Explanation,
+      kamu sudah mempelajari bahwa perbedaan tersebut berkaitan dengan jenis dan kekuatan
+      gaya antarmolekul.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Sekarang, kamu akan menerapkan konsep tersebut pada fenomena baru yang lebih dekat
+      dengan kehidupan sehari-hari, yaitu mengapa beberapa cairan seperti alkohol, aseton,
+      air, dan heksana memiliki sifat menguap yang berbeda.
+    </p>
+  </div>
+
+  <!-- BACAAN ELABORASI -->
+  <div class="section-box">
+    <h3 style="margin-top:0;color:var(--batik-blue);">📖 Mengapa Beberapa Cairan Lebih Cepat Menguap?</h3>
+
+    <div style="background:#f8fbff;border:2px dashed #d9ecff;border-radius:18px;padding:15px;margin-top:12px;">
+      <h4 style="margin-top:0;color:var(--batik-blue);">Fenomena di Sekitar Kita</h4>
+
+      <p style="font-size:14px;line-height:1.8;text-align:justify;">
+        Saat menggunakan cairan pembersih tertentu, seperti alkohol atau aseton, kita sering
+        merasakan bahwa cairan tersebut cepat kering setelah dioleskan pada permukaan kulit
+        atau benda. Sebaliknya, air biasanya membutuhkan waktu lebih lama untuk menguap pada
+        kondisi yang sama.
+      </p>
+
+      <p style="font-size:14px;line-height:1.8;text-align:justify;">
+        Perbedaan ini tidak hanya dipengaruhi oleh banyak sedikitnya cairan, tetapi juga oleh
+        gaya tarik antarmolekul yang terjadi di antara molekul-molekul penyusun zat tersebut.
+        Semakin kuat gaya tarik antarmolekul, semakin besar energi yang diperlukan agar molekul
+        dapat terlepas ke fase gas.
+      </p>
+    </div>
+
+    <div style="background:#f8fbff;border:2px dashed #d9ecff;border-radius:18px;padding:15px;margin-top:12px;">
+      <h4 style="margin-top:0;color:var(--batik-blue);">Karakteristik Beberapa Zat</h4>
+
+      <p style="font-size:14px;line-height:1.8;text-align:justify;">
+        <b>Air (H₂O)</b> memiliki atom H yang terikat langsung pada atom O. Atom O merupakan
+        atom yang sangat elektronegatif dan memiliki pasangan elektron bebas. Hal ini membuat
+        molekul air dapat berinteraksi kuat dengan molekul air lain.
+      </p>
+
+      <p style="font-size:14px;line-height:1.8;text-align:justify;">
+        <b>Etanol (C₂H₅OH)</b>, yang terdapat dalam alkohol pembersih, juga memiliki gugus
+        O—H. Namun, etanol memiliki bagian hidrokarbon yang lebih besar dibandingkan air.
+        Hal ini membuat interaksi antarmolekulnya tidak sama persis dengan air.
+      </p>
+
+      <p style="font-size:14px;line-height:1.8;text-align:justify;">
+        <b>Aseton (CH₃COCH₃)</b> memiliki ikatan C=O yang menyebabkan molekulnya bersifat
+        polar. Akan tetapi, aseton tidak memiliki atom H yang terikat langsung pada N, O,
+        atau F.
+      </p>
+
+      <p style="font-size:14px;line-height:1.8;text-align:justify;margin-bottom:0;">
+        <b>Heksana (C₆H₁₄)</b> merupakan molekul nonpolar. Molekul ini tidak memiliki dipol
+        permanen dan tidak dapat membentuk ikatan hidrogen, tetapi tetap dapat mengalami
+        gaya tarik antarmolekul akibat pergerakan elektron.
+      </p>
+    </div>
+
+    <div style="background:#fff7d6;border-left:10px solid var(--gold);border-radius:18px;padding:14px;margin-top:14px;">
+      <p style="font-size:15px;line-height:1.8;text-align:justify;margin:0;">
+        <b>Masalah yang harus kamu pecahkan:</b><br>
+        Bagaimana karakteristik molekul air, etanol, aseton, dan heksana memengaruhi jenis
+        gaya antarmolekul yang bekerja, serta bagaimana gaya tersebut berkaitan dengan
+        kemudahan zat untuk menguap?
+      </p>
+    </div>
+  </div>
+
+  <!-- PERTANYAAN ELABORASI -->
+  <div class="section-box" style="background:var(--green);border-left:10px solid #27ae60;">
+    <h3 style="margin-top:0;color:#1e8449;">✍️ Pertanyaan Elaborasi</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Jawablah pertanyaan berikut berdasarkan bacaan elaborasi dan konsep gaya antarmolekul
+      yang telah kamu pelajari.
+    </p>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      1. Berdasarkan karakteristik molekulnya, gaya antarmolekul apa yang dominan pada heksana?
+      Jelaskan alasanmu.
+    </p>
+    <textarea id="elab-gaya-q1" rows="4"
+      placeholder="Jelaskan berdasarkan sifat nonpolar heksana dan gaya antarmolekul yang mungkin terjadi..."></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      2. Aseton bersifat polar, tetapi tidak memiliki H yang terikat langsung pada N, O, atau F.
+      Gaya antarmolekul apa yang dominan pada aseton? Jelaskan.
+    </p>
+    <textarea id="elab-gaya-q2" rows="4"
+      placeholder="Jelaskan hubungan molekul polar, dipol permanen, dan gaya dipol-dipol..."></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      3. Mengapa air dapat memiliki gaya antarmolekul yang kuat dibandingkan banyak molekul kecil lainnya?
+    </p>
+    <textarea id="elab-gaya-q3" rows="4"
+      placeholder="Jelaskan syarat ikatan hidrogen pada air..."></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      4. Etanol dan air sama-sama memiliki gugus O—H. Mengapa keduanya dapat membentuk ikatan hidrogen?
+    </p>
+    <textarea id="elab-gaya-q4" rows="4"
+      placeholder="Jelaskan hubungan H yang terikat pada O dengan kemampuan membentuk ikatan hidrogen..."></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      5. Berdasarkan bacaan, jelaskan mengapa jenis gaya antarmolekul dapat memengaruhi kemudahan suatu zat untuk menguap.
+    </p>
+    <textarea id="elab-gaya-q5" rows="4"
+      placeholder="Hubungkan kekuatan gaya antarmolekul dengan energi yang diperlukan untuk memisahkan molekul..."></textarea>
+  </div>
+
+  <!-- SIMPAN DAN UMPAN BALIK -->
+  <div class="section-box" style="background:white;border-left:10px solid var(--gold);border:2px dashed #d9ecff;">
+    <h3 style="margin-top:0;color:var(--batik-blue);">💬 Simpan Jawaban dan Lihat Umpan Balik</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Setelah selesai menjawab semua pertanyaan Elaboration, klik tombol berikut.
+      Jawabanmu akan dikunci, lalu pembahasan otomatis akan muncul.
+    </p>
+
+    <p style="font-size:13px;line-height:1.7;color:#cc4d4d;font-weight:bold;">
+      ⚠️ Setelah menekan tombol ini, jawaban tidak dapat diubah kembali sampai jawaban akhir dikirim ke spreadsheet.
+    </p>
+
+    <center>
+      <button class="btn-next" id="btn-save-elaboration-gaya" onclick="saveElaborationGayaAndShowFeedback()">
+        💾 Simpan Jawaban & Lihat Umpan Balik
+      </button>
+    </center>
+
+    <div id="feedback-elaboration-gaya" class="feedback-auto-box">
+      <h3>✅ Umpan Balik Elaboration</h3>
+
+      <div class="feedback-item">
+        <b>1. Heksana.</b><br>
+        Heksana merupakan molekul nonpolar. Karena tidak memiliki dipol permanen dan tidak dapat
+        membentuk ikatan hidrogen, gaya antarmolekul dominan pada heksana adalah gaya London.
+      </div>
+
+      <div class="feedback-item">
+        <b>2. Aseton.</b><br>
+        Aseton memiliki gugus C=O sehingga bersifat polar. Karena molekulnya polar, gaya
+        antarmolekul dominan pada aseton adalah gaya dipol-dipol. Aseton tidak membentuk
+        ikatan hidrogen antarsesama molekul karena tidak memiliki H yang terikat langsung
+        pada N, O, atau F.
+      </div>
+
+      <div class="feedback-item">
+        <b>3. Air.</b><br>
+        Air memiliki H yang terikat langsung pada O. O sangat elektronegatif dan memiliki
+        pasangan elektron bebas, sehingga molekul air dapat membentuk ikatan hidrogen
+        antarmolekul. Ikatan hidrogen termasuk gaya antarmolekul yang kuat.
+      </div>
+
+      <div class="feedback-item">
+        <b>4. Etanol dan air.</b><br>
+        Etanol dan air sama-sama memiliki gugus O—H. Atom H yang terikat pada O dapat tertarik
+        oleh pasangan elektron bebas pada atom O molekul lain, sehingga keduanya dapat membentuk
+        ikatan hidrogen.
+      </div>
+
+      <div class="feedback-item">
+        <b>5. Hubungan gaya antarmolekul dengan penguapan.</b><br>
+        Zat lebih mudah menguap jika gaya antarmolekulnya relatif lemah, karena molekul lebih
+        mudah terlepas ke fase gas. Sebaliknya, jika gaya antarmolekul kuat, diperlukan energi
+        lebih besar untuk memisahkan molekul sehingga zat cenderung lebih sulit menguap.
+      </div>
+    </div>
+  </div>
+
+  <!-- KUNCI JAWABAN GURU - ELABORATION -->
+  <div class="teacher-only answer-key-box">
+    <h3>🔐 Kunci Jawaban Guru — Elaboration</h3>
+
+    <p style="font-size:13px;line-height:1.8;margin-top:0;">
+      Catatan: Jawaban siswa tidak harus sama persis. Jawaban dianggap baik jika siswa mampu
+      menerapkan konsep gaya antarmolekul pada fenomena penguapan zat dalam kehidupan sehari-hari.
+    </p>
+
+    <ol style="font-size:13px;line-height:1.8;padding-left:22px;">
+      <li>
+        <b>Heksana:</b><br>
+        Heksana bersifat nonpolar sehingga gaya antarmolekul dominannya adalah gaya London.
+        Gaya London terjadi akibat dipol sesaat dan dipol induksian.
+      </li>
+
+      <li style="margin-top:10px;">
+        <b>Aseton:</b><br>
+        Aseton bersifat polar karena memiliki gugus C=O. Gaya dominannya adalah gaya dipol-dipol.
+        Aseton tidak memiliki H yang terikat langsung pada N, O, atau F sehingga tidak membentuk
+        ikatan hidrogen antarsesama molekul aseton.
+      </li>
+
+      <li style="margin-top:10px;">
+        <b>Air:</b><br>
+        Air memiliki H yang terikat pada O. O sangat elektronegatif dan memiliki pasangan elektron
+        bebas. Oleh karena itu, air dapat membentuk ikatan hidrogen antarmolekul.
+      </li>
+
+      <li style="margin-top:10px;">
+        <b>Etanol dan air:</b><br>
+        Keduanya memiliki gugus O—H, sehingga H yang terikat pada O dapat tertarik oleh pasangan
+        elektron bebas pada atom O molekul lain. Karena itu, keduanya dapat membentuk ikatan hidrogen.
+      </li>
+
+      <li style="margin-top:10px;">
+        <b>Hubungan gaya antarmolekul dengan penguapan:</b><br>
+        Semakin kuat gaya antarmolekul, semakin besar energi yang diperlukan untuk memisahkan
+        molekul. Akibatnya zat lebih sulit menguap. Sebaliknya, gaya antarmolekul yang lebih
+        lemah membuat zat lebih mudah menguap.
+      </li>
+    </ol>
+  </div>
+
+  <center>
+    <button class="btn-back" onclick="nextPhase(3)">⬅️ Kembali ke Explanation</button>
+    <button class="btn-next" onclick="nextPhase(5)">Lanjut ke Evaluation ➡️</button>
+  </center>
+</div>
+
+
+<!-- ================= PHASE 5 — EVALUATION ================= -->
+<div class="phase-card" id="p5">
+  <span class="badge-5e">5. Evaluation</span>
+
+  <!-- PENGANTAR EVALUATION -->
+  <div class="section-box" style="border-left:10px solid var(--batik-blue);">
+    <h2 style="margin-top:0;color:var(--batik-blue);">⭐ Evaluation</h2>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Tahap Evaluation berisi soal-soal umum tentang materi gaya antarmolekul.
+      Soal ini tidak lagi berfokus pada kasus sebelumnya, tetapi digunakan untuk
+      mengukur pemahamanmu terhadap konsep gaya London, dipol-dipol induksian,
+      dipol-dipol, ikatan hidrogen, serta hubungan gaya antarmolekul dengan sifat fisik zat.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Pilih satu jawaban yang paling tepat. Setelah selesai, klik tombol
+      <b>Simpan Evaluasi & Lihat Pembahasan</b>. Jawaban akan dikunci dan pembahasan otomatis akan muncul.
+    </p>
+
+    <p style="font-size:13px;line-height:1.7;color:#cc4d4d;font-weight:bold;">
+      ⚠️ Setelah evaluasi disimpan, jawaban tidak dapat diubah kembali sampai jawaban akhir dikirim ke spreadsheet.
+    </p>
+  </div>
+
+  <!-- SOAL EVALUASI -->
+  <div class="section-box" id="quiz-gaya-container"></div>
+
+  <center>
+    <button class="btn-next" id="btn-save-evaluation-gaya" onclick="saveEvaluationGayaAndShowFeedback()">
+      💾 Simpan Evaluasi & Lihat Pembahasan
+    </button>
+  </center>
+
+  <!-- HASIL SKOR -->
+  <div id="skor-evaluation-gaya-box" class="section-box section-green hidden" style="text-align:center;">
+    <h3 style="margin-top:0;">🏆 Hasil Evaluasi</h3>
+    <p id="skor-evaluation-gaya-text" style="font-size:22px;font-weight:bold;margin:8px 0;"></p>
+    <p id="skor-evaluation-gaya-message" style="font-size:14px;line-height:1.7;margin:0;"></p>
+  </div>
+
+  <!-- PEMBAHASAN OTOMATIS -->
+  <div id="feedback-evaluation-gaya" class="feedback-auto-box">
+    <h3>✅ Pembahasan Evaluasi Gaya Antarmolekul</h3>
+    <div id="evaluation-gaya-feedback-content"></div>
+  </div>
+
+  <!-- KUNCI JAWABAN GURU - EVALUATION -->
+  <div class="teacher-only answer-key-box">
+    <h3>🔐 Kunci Jawaban Guru — Evaluation Gaya Antarmolekul</h3>
+
+    <table>
+      <tr>
+        <th>No</th>
+        <th>Kunci</th>
+        <th>Pembahasan Singkat</th>
+      </tr>
+
+      <tr>
+        <td>1</td>
+        <td>B</td>
+        <td>Gaya antarmolekul adalah gaya tarik yang terjadi di antara molekul-molekul.</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>C</td>
+        <td>Gaya London dominan pada molekul nonpolar akibat dipol sesaat dan dipol induksian.</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>A</td>
+        <td>CH₄ bersifat nonpolar sehingga gaya dominannya adalah gaya London.</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>D</td>
+        <td>Dipol-dipol terjadi antara molekul-molekul polar.</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>B</td>
+        <td>Dipol-dipol induksian terjadi antara molekul polar dan molekul nonpolar.</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>E</td>
+        <td>Ikatan hidrogen terjadi jika H terikat langsung pada N, O, atau F.</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>C</td>
+        <td>H₂O dapat membentuk ikatan hidrogen karena H terikat pada O.</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>A</td>
+        <td>Semakin kuat gaya antarmolekul, titik didih cenderung semakin tinggi.</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>D</td>
+        <td>Aseton polar, sehingga gaya dominannya adalah dipol-dipol.</td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>B</td>
+        <td>Urutan umum kekuatan: London &lt; dipol-dipol induksian &lt; dipol-dipol &lt; ikatan hidrogen.</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- REFLEKSI PEMBELAJARAN -->
+  <div class="section-box" style="margin-top:18px;border-left:10px solid #9c27b0;background:#f4ecff;">
+    <h2 style="margin-top:0;color:#9c27b0;">🪞 Refleksi Pembelajaran</h2>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Bagian refleksi ini bukan bagian dari skor evaluasi. Refleksi digunakan untuk mengetahui
+      pemahaman dan kesulitanmu setelah mempelajari materi gaya antarmolekul.
+    </p>
+
+    <table style="width:100%;border-collapse:collapse;font-size:13px;background:white;border-radius:15px;overflow:hidden;">
+      <tr style="background:#9c27b0;color:#fff;">
+        <th style="padding:10px;border:1px solid #ead7ff;">Pernyataan</th>
+        <th style="padding:10px;border:1px solid #ead7ff;">Ya</th>
+        <th style="padding:10px;border:1px solid #ead7ff;">Tidak</th>
+      </tr>
+
+      <tr>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:left;">
+          Saya memahami pengertian gaya antarmolekul.
+        </td>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:center;">
+          <input type="radio" name="ref-gaya-1" value="Ya">
+        </td>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:center;">
+          <input type="radio" name="ref-gaya-1" value="Tidak">
+        </td>
+      </tr>
+
+      <tr>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:left;">
+          Saya dapat membedakan gaya London, dipol-dipol induksian, dipol-dipol, dan ikatan hidrogen.
+        </td>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:center;">
+          <input type="radio" name="ref-gaya-2" value="Ya">
+        </td>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:center;">
+          <input type="radio" name="ref-gaya-2" value="Tidak">
+        </td>
+      </tr>
+
+      <tr>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:left;">
+          Saya dapat menentukan jenis gaya antarmolekul berdasarkan karakteristik molekul.
+        </td>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:center;">
+          <input type="radio" name="ref-gaya-3" value="Ya">
+        </td>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:center;">
+          <input type="radio" name="ref-gaya-3" value="Tidak">
+        </td>
+      </tr>
+
+      <tr>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:left;">
+          Saya memahami hubungan gaya antarmolekul dengan titik didih atau kemudahan menguap.
+        </td>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:center;">
+          <input type="radio" name="ref-gaya-4" value="Ya">
+        </td>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:center;">
+          <input type="radio" name="ref-gaya-4" value="Tidak">
+        </td>
+      </tr>
+    </table>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      Bagian mana yang paling mudah kamu pahami?
+    </p>
+    <textarea id="ref-gaya-teks-1" rows="3"></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      Bagian mana yang masih membingungkan atau perlu kamu pelajari kembali?
+    </p>
+    <textarea id="ref-gaya-teks-2" rows="3"></textarea>
+  </div>
+
+  <!-- KIRIM AKHIR -->
+  <div class="section-box" style="background:var(--green);border-left:10px solid #27ae60;">
+    <h3 style="margin-top:0;color:#1e8449;">📤 Kirim Jawaban Akhir</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Setelah menyelesaikan evaluasi dan refleksi, klik tombol berikut untuk mengirim seluruh
+      jawaban LKPD ke spreadsheet Guru Rusyda.
+    </p>
+
+    <center>
+      <button class="btn-green" id="btn-final-submit-gaya" onclick="finalSubmitGaya()">
+        ✨ SELESAI & KIRIM ✨
+      </button>
+    </center>
+  </div>
+
+  <center>
+    <button class="btn-back" onclick="nextPhase(4)">⬅️ Kembali ke Elaboration</button>
+  </center>
+</div>
+  </div><!-- /module-container -->
+
+  <script>
+    const ID_KEY = "gaya_antarmolekul_identity";
+let currentPhase = 0;
+let skorEvaluasi = 0;
+
+const OWNER_EMAILS = [
+  "rusydarama@gmail.com"
+];
+
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxKpCSPf89k27shqjsCq14blROlcfsYU4wuwwU9bwzjdc6yQTqrV-IDcCvz0RpE9TU/exec";
+
+    function initLKPD(){
+  const tgl = document.getElementById("tgl");
+  if(tgl && !tgl.value){
+    const now = new Date();
+    tgl.value = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+  }
+
+loadIdentity();
+updateProgress();
+
+if(typeof showTeacherOnlyIfOwner === "function"){
+  showTeacherOnlyIfOwner();
+}
+
+restoreExplanationGayaLock();
+restoreElaborationGayaLock();
+
+renderQuizGaya();
+setTimeout(restoreEvaluationGayaLock, 0);
+
+  if(!localStorage.getItem(ID_KEY)){
+    const uStr = localStorage.getItem("kimia_user");
+    if(uStr){
+      try{
+        const u = JSON.parse(uStr);
+        if(u?.nama){
+          document.getElementById("nama").value = u.nama;
+        }
+      }catch(e){}
+    }
+  }
+}
+
+    function goMenu(){ window.location.href = "menu.html"; }
+    function logout(){
+      localStorage.removeItem("kimia_user");
+      window.location.href = "index.html";
+    }
+
+    function nextPhase(p){
+      document.querySelectorAll(".phase-card").forEach(x => x.classList.remove("active"));
+      const target = document.getElementById("p" + p);
+      if(target) target.classList.add("active");
+      currentPhase = p;
+      updateProgress();
+      window.scrollTo({top: 0, behavior: "smooth"});
+    }
+
+    function updateProgress(){
+      document.getElementById("fill").style.width = (currentPhase / 5 * 100) + "%";
+    }
+
+    function val(id){
+      const el = document.getElementById(id);
+      return el ? el.value.trim() : "";
+    }
+
+    function saveIdentity(){
+      const n = val("nama"), k = val("kelas"), t = document.getElementById("tgl").value;
+      if(!n || !k || !t){ alert("Lengkapi Nama, Kelas, dan Tanggal ya 😊"); return; }
+      localStorage.setItem(ID_KEY, JSON.stringify({nama:n, kelas:k, tgl:t}));
+      document.getElementById("user-pill").innerText = `${n} • ${k}`;
+      alert("Identitas tersimpan ✅");
+    }
+
+    function loadIdentity(){
+      const raw = localStorage.getItem(ID_KEY);
+      if(!raw) return;
+      try{
+        const id = JSON.parse(raw);
+        if(id?.nama) document.getElementById("nama").value = id.nama;
+        if(id?.kelas) document.getElementById("kelas").value = id.kelas;
+        if(id?.tgl) document.getElementById("tgl").value = id.tgl;
+        if(id?.nama && id?.kelas)
+          document.getElementById("user-pill").innerText = `${id.nama} • ${id.kelas}`;
+      }catch(e){ localStorage.removeItem(ID_KEY); }
+    }
+
+    function identityComplete(){
+      return !!(val("nama") && val("kelas") && document.getElementById("tgl").value);
+    }
+
+    function requireIdentityThenGo(phase){
+      if(!identityComplete()){ alert("Isi identitas (Nama, Kelas, Tanggal) dulu ya 😊"); nextPhase(0); return; }
+      nextPhase(phase);
+    }
+
+    function getCurrentUserEmail(){
+  try{
+    const rawUser = localStorage.getItem("kimia_user");
+    if(rawUser){
+      const u = JSON.parse(rawUser);
+      return String(u.email || u.gmail || u.username || u.userEmail || "").toLowerCase().trim();
+    }
+  }catch(e){}
+
+  return String(
+    localStorage.getItem("email") ||
+    localStorage.getItem("userEmail") ||
+    ""
+  ).toLowerCase().trim();
+}
+
+function getCurrentUserEmail(){
+  try{
+    const rawUser = localStorage.getItem("kimia_user");
+    if(rawUser){
+      const u = JSON.parse(rawUser);
+      return String(u.email || u.gmail || u.username || u.userEmail || "").toLowerCase().trim();
+    }
+  }catch(e){}
+
+  return String(
+    localStorage.getItem("email") ||
+    localStorage.getItem("userEmail") ||
+    ""
+  ).toLowerCase().trim();
+}
+
+function isOwner(){
+  const email = getCurrentUserEmail();
+  return OWNER_EMAILS.map(e => e.toLowerCase().trim()).includes(email);
+}
+
+function showTeacherOnlyIfOwner(){
+  const show = isOwner();
+
+  document.querySelectorAll(".teacher-only").forEach(function(el){
+    el.style.display = show ? "block" : "none";
+  });
+
+  console.log("Email login:", getCurrentUserEmail());
+  console.log("Mode guru aktif:", show);
+}
+
+    function openMateriGaya(){
+  document.querySelectorAll(".phase-card").forEach(x => x.classList.remove("active"));
+  document.getElementById("pMateriGaya").classList.add("active");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function backToExplorationGaya(){
+  document.querySelectorAll(".phase-card").forEach(x => x.classList.remove("active"));
+  document.getElementById("p2").classList.add("active");
+  currentPhase = 2;
+  updateProgress();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+  
+
+function lockInputsInBox(boxId){
+  const box = document.getElementById(boxId);
+  if(!box) return;
+
+  const fields = box.querySelectorAll("input, textarea, select");
+  fields.forEach(function(field){
+    field.disabled = true;
+    field.classList.add("locked-answer");
+  });
+}
+
+function unlockInputsInBox(boxId){
+  const box = document.getElementById(boxId);
+  if(!box) return;
+
+  const fields = box.querySelectorAll("input, textarea, select");
+  fields.forEach(function(field){
+    field.disabled = false;
+    field.classList.remove("locked-answer");
+  });
+}
+
+function saveExplanationGayaAndShowFeedback(){
+  const requiredIds = [
+    "exp-gaya-q1",
+    "exp-gaya-q2",
+    "exp-gaya-q3",
+    "exp-gaya-q4",
+    "exp-gaya-q5",
+    "exp-gaya-q6"
+  ];
+
+  for(const id of requiredIds){
+    const el = document.getElementById(id);
+    if(!el || !el.value.trim()){
+      alert("Lengkapi semua jawaban Explanation dulu ya 😊");
+      return;
+    }
+  }
+
+  const savedExplanation = {
+    q1: val("exp-gaya-q1"),
+    q2: val("exp-gaya-q2"),
+    q3: val("exp-gaya-q3"),
+    q4: val("exp-gaya-q4"),
+    q5: val("exp-gaya-q5"),
+    q6: val("exp-gaya-q6"),
+    savedAt: new Date().toLocaleString()
+  };
+
+  localStorage.setItem("gaya_explanation_saved", JSON.stringify(savedExplanation));
+
+  lockInputsInBox("p3");
+
+  const feedbackBox = document.getElementById("feedback-explanation-gaya");
+  if(feedbackBox){
+    feedbackBox.style.display = "block";
+    feedbackBox.scrollIntoView({behavior:"smooth"});
+  }
+
+  const btn = document.getElementById("btn-save-explanation-gaya");
+  if(btn){
+    btn.innerText = "✅ Jawaban Tersimpan";
+    btn.disabled = true;
+  }
+
+  alert("Jawaban Explanation sudah disimpan dan dikunci ✅");
+}
+
+function restoreExplanationGayaLock(){
+  const raw = localStorage.getItem("gaya_explanation_saved");
+  if(!raw) return;
+
+  try{
+    const data = JSON.parse(raw);
+
+    if(document.getElementById("exp-gaya-q1")) document.getElementById("exp-gaya-q1").value = data.q1 || "";
+    if(document.getElementById("exp-gaya-q2")) document.getElementById("exp-gaya-q2").value = data.q2 || "";
+    if(document.getElementById("exp-gaya-q3")) document.getElementById("exp-gaya-q3").value = data.q3 || "";
+    if(document.getElementById("exp-gaya-q4")) document.getElementById("exp-gaya-q4").value = data.q4 || "";
+    if(document.getElementById("exp-gaya-q5")) document.getElementById("exp-gaya-q5").value = data.q5 || "";
+    if(document.getElementById("exp-gaya-q6")) document.getElementById("exp-gaya-q6").value = data.q6 || "";
+
+    lockInputsInBox("p3");
+
+    const feedbackBox = document.getElementById("feedback-explanation-gaya");
+    if(feedbackBox){
+      feedbackBox.style.display = "block";
+    }
+
+    const btn = document.getElementById("btn-save-explanation-gaya");
+    if(btn){
+      btn.innerText = "✅ Jawaban Tersimpan";
+      btn.disabled = true;
+    }
+  }catch(e){
+    localStorage.removeItem("gaya_explanation_saved");
+  }
+}
+
+function resetExplanationGayaAfterSubmit(){
+  localStorage.removeItem("gaya_explanation_saved");
+
+  unlockInputsInBox("p3");
+
+  const feedbackBox = document.getElementById("feedback-explanation-gaya");
+  if(feedbackBox){
+    feedbackBox.style.display = "none";
+  }
+
+  const btn = document.getElementById("btn-save-explanation-gaya");
+  if(btn){
+    btn.innerText = "💾 Simpan Jawaban & Lihat Umpan Balik";
+    btn.disabled = false;
+  }
+}
+
+function saveElaborationGayaAndShowFeedback(){
+  const requiredIds = [
+    "elab-gaya-q1",
+    "elab-gaya-q2",
+    "elab-gaya-q3",
+    "elab-gaya-q4",
+    "elab-gaya-q5"
+  ];
+
+  for(const id of requiredIds){
+    const el = document.getElementById(id);
+    if(!el || !el.value.trim()){
+      alert("Lengkapi semua jawaban Elaboration dulu ya 😊");
+      return;
+    }
+  }
+
+  const savedElaboration = {
+    q1: val("elab-gaya-q1"),
+    q2: val("elab-gaya-q2"),
+    q3: val("elab-gaya-q3"),
+    q4: val("elab-gaya-q4"),
+    q5: val("elab-gaya-q5"),
+    savedAt: new Date().toLocaleString()
+  };
+
+  localStorage.setItem("gaya_elaboration_saved", JSON.stringify(savedElaboration));
+
+  lockInputsInBox("p4");
+
+  const feedbackBox = document.getElementById("feedback-elaboration-gaya");
+  if(feedbackBox){
+    feedbackBox.style.display = "block";
+    feedbackBox.scrollIntoView({behavior:"smooth"});
+  }
+
+  const btn = document.getElementById("btn-save-elaboration-gaya");
+  if(btn){
+    btn.innerText = "✅ Jawaban Tersimpan";
+    btn.disabled = true;
+  }
+
+  alert("Jawaban Elaboration sudah disimpan dan dikunci ✅");
+}
+
+function restoreElaborationGayaLock(){
+  const raw = localStorage.getItem("gaya_elaboration_saved");
+  if(!raw) return;
+
+  try{
+    const data = JSON.parse(raw);
+
+    if(document.getElementById("elab-gaya-q1")) document.getElementById("elab-gaya-q1").value = data.q1 || "";
+    if(document.getElementById("elab-gaya-q2")) document.getElementById("elab-gaya-q2").value = data.q2 || "";
+    if(document.getElementById("elab-gaya-q3")) document.getElementById("elab-gaya-q3").value = data.q3 || "";
+    if(document.getElementById("elab-gaya-q4")) document.getElementById("elab-gaya-q4").value = data.q4 || "";
+    if(document.getElementById("elab-gaya-q5")) document.getElementById("elab-gaya-q5").value = data.q5 || "";
+
+    lockInputsInBox("p4");
+
+    const feedbackBox = document.getElementById("feedback-elaboration-gaya");
+    if(feedbackBox){
+      feedbackBox.style.display = "block";
+    }
+
+    const btn = document.getElementById("btn-save-elaboration-gaya");
+    if(btn){
+      btn.innerText = "✅ Jawaban Tersimpan";
+      btn.disabled = true;
+    }
+  }catch(e){
+    localStorage.removeItem("gaya_elaboration_saved");
+  }
+}
+
+function resetElaborationGayaAfterSubmit(){
+  localStorage.removeItem("gaya_elaboration_saved");
+
+  unlockInputsInBox("p4");
+
+  const feedbackBox = document.getElementById("feedback-elaboration-gaya");
+  if(feedbackBox){
+    feedbackBox.style.display = "none";
+  }
+
+  const btn = document.getElementById("btn-save-elaboration-gaya");
+  if(btn){
+    btn.innerText = "💾 Simpan Jawaban & Lihat Umpan Balik";
+    btn.disabled = false;
+  }
+}
+
+const quizGayaData = [
+  {
+    id: 1,
+    level: "C2 - Menjelaskan",
+    q: "Gaya antarmolekul adalah...",
+    options: {
+      A: "ikatan yang menghubungkan proton dan neutron dalam inti atom",
+      B: "gaya tarik-menarik yang terjadi di antara molekul-molekul",
+      C: "ikatan yang terbentuk karena serah terima elektron antaratom",
+      D: "gaya yang hanya terjadi di dalam satu molekul",
+      E: "gaya yang menyebabkan atom memiliki nomor massa"
+    }
+  },
+  {
+    id: 2,
+    level: "C2 - Menjelaskan",
+    q: "Gaya London dapat terjadi karena...",
+    options: {
+      A: "molekul selalu memiliki ikatan hidrogen",
+      B: "semua molekul selalu bermuatan ion",
+      C: "pergerakan elektron dapat menimbulkan dipol sesaat dan dipol induksian",
+      D: "atom H selalu terikat pada atom logam",
+      E: "molekul nonpolar tidak memiliki elektron"
+    }
+  },
+  {
+    id: 3,
+    level: "C2 - Mengklasifikasikan",
+    q: "Molekul CH₄ bersifat nonpolar. Jenis gaya antarmolekul dominan pada CH₄ adalah...",
+    options: {
+      A: "gaya London",
+      B: "ikatan hidrogen",
+      C: "gaya dipol-dipol",
+      D: "ikatan ion",
+      E: "ikatan kovalen koordinasi"
+    }
+  },
+  {
+    id: 4,
+    level: "C2 - Membedakan",
+    q: "Gaya dipol-dipol terjadi antara...",
+    options: {
+      A: "molekul nonpolar dengan molekul nonpolar",
+      B: "molekul polar dengan molekul nonpolar",
+      C: "ion positif dengan ion negatif",
+      D: "molekul polar dengan molekul polar",
+      E: "atom logam dengan elektron bebas"
+    }
+  },
+  {
+    id: 5,
+    level: "C2 - Membedakan",
+    q: "Gaya dipol-dipol induksian terjadi ketika...",
+    options: {
+      A: "molekul nonpolar menghilangkan seluruh elektronnya",
+      B: "molekul polar menginduksi molekul nonpolar di dekatnya",
+      C: "dua molekul nonpolar membentuk ikatan kovalen",
+      D: "atom H terikat langsung pada atom logam",
+      E: "molekul polar berubah menjadi ion positif"
+    }
+  },
+  {
+    id: 6,
+    level: "C2 - Mengidentifikasi",
+    q: "Syarat utama suatu molekul dapat membentuk ikatan hidrogen adalah...",
+    options: {
+      A: "memiliki atom karbon dan hidrogen saja",
+      B: "memiliki massa molekul sangat kecil",
+      C: "memiliki ikatan ion dalam molekulnya",
+      D: "bersifat nonpolar dan simetris",
+      E: "memiliki atom H yang terikat langsung pada N, O, atau F"
+    }
+  },
+  {
+    id: 7,
+    level: "C2 - Menghubungkan",
+    q: "H₂O dapat membentuk ikatan hidrogen karena...",
+    options: {
+      A: "H₂O bersifat nonpolar dan simetris",
+      B: "H₂O tidak memiliki pasangan elektron bebas",
+      C: "atom H pada H₂O terikat langsung pada atom O yang sangat elektronegatif",
+      D: "H₂O hanya memiliki gaya London",
+      E: "H₂O tidak memiliki atom elektronegatif"
+    }
+  },
+  {
+    id: 8,
+    level: "C2 - Menjelaskan",
+    q: "Hubungan antara gaya antarmolekul dan titik didih yang paling tepat adalah...",
+    options: {
+      A: "semakin kuat gaya antarmolekul, titik didih cenderung semakin tinggi",
+      B: "semakin kuat gaya antarmolekul, titik didih pasti selalu nol",
+      C: "gaya antarmolekul tidak berhubungan dengan titik didih",
+      D: "zat dengan gaya antarmolekul kuat selalu berwujud gas",
+      E: "semakin lemah gaya antarmolekul, titik didih selalu semakin tinggi"
+    }
+  },
+  {
+    id: 9,
+    level: "C2 - Mengklasifikasikan",
+    q: "Aseton memiliki gugus C=O sehingga bersifat polar, tetapi tidak memiliki H yang terikat langsung pada N, O, atau F. Gaya dominan pada aseton adalah...",
+    options: {
+      A: "ikatan hidrogen antarsesama molekul aseton",
+      B: "gaya London saja tanpa gaya lain",
+      C: "ikatan ion",
+      D: "gaya dipol-dipol",
+      E: "ikatan logam"
+    }
+  },
+  {
+    id: 10,
+    level: "C2 - Membandingkan",
+    q: "Urutan kekuatan relatif gaya antarmolekul dari yang lebih lemah ke lebih kuat adalah...",
+    options: {
+      A: "ikatan hidrogen < dipol-dipol < London < dipol-dipol induksian",
+      B: "London < dipol-dipol induksian < dipol-dipol < ikatan hidrogen",
+      C: "dipol-dipol < London < ikatan hidrogen < dipol-dipol induksian",
+      D: "ikatan hidrogen < London < dipol-dipol < dipol-dipol induksian",
+      E: "dipol-dipol induksian < ikatan hidrogen < London < dipol-dipol"
+    }
+  }
+];
+
+const correctGayaAnswers = {
+  q1: "B",
+  q2: "C",
+  q3: "A",
+  q4: "D",
+  q5: "B",
+  q6: "E",
+  q7: "C",
+  q8: "A",
+  q9: "D",
+  q10: "B"
+};
+
+const quizGayaExplanation = {
+  1: "Gaya antarmolekul adalah gaya tarik-menarik yang bekerja di antara molekul-molekul.",
+  2: "Gaya London muncul karena pergerakan elektron dapat menyebabkan dipol sesaat yang kemudian menginduksi molekul di dekatnya.",
+  3: "CH₄ bersifat nonpolar sehingga gaya dominan yang terjadi adalah gaya London.",
+  4: "Gaya dipol-dipol terjadi antara molekul polar dengan molekul polar karena keduanya memiliki dipol permanen.",
+  5: "Gaya dipol-dipol induksian terjadi ketika molekul polar menginduksi molekul nonpolar sehingga terbentuk dipol induksian.",
+  6: "Ikatan hidrogen terjadi jika atom H terikat langsung pada atom yang sangat elektronegatif, yaitu N, O, atau F.",
+  7: "H₂O dapat membentuk ikatan hidrogen karena atom H terikat langsung pada atom O yang sangat elektronegatif.",
+  8: "Semakin kuat gaya antarmolekul, semakin besar energi yang diperlukan untuk memisahkan molekul, sehingga titik didih cenderung lebih tinggi.",
+  9: "Aseton bersifat polar karena memiliki gugus C=O, sehingga gaya dominannya adalah gaya dipol-dipol. Aseton tidak memiliki H yang terikat langsung pada N, O, atau F.",
+  10: "Secara umum, gaya London paling lemah, kemudian dipol-dipol induksian, dipol-dipol, dan ikatan hidrogen sebagai gaya antarmolekul yang relatif kuat."
+};
+
+function renderQuizGaya(){
+  const container = document.getElementById("quiz-gaya-container");
+  if(!container) return;
+
+  container.innerHTML = "";
+
+  quizGayaData.forEach(item => {
+    let html = `
+      <div class="section-box" id="quiz-gaya-box-${item.id}" style="background:white;border-left:10px solid var(--gold);">
+        <p style="font-size:12px;font-weight:bold;color:#6d7f91;margin:0 0 6px 0;">
+         
+        </p>
+
+        <p style="font-size:14px;line-height:1.7;margin:0 0 10px 0;">
+          <b>${item.id}. ${item.q}</b>
+        </p>
+    `;
+
+    Object.entries(item.options).forEach(([key, val]) => {
+      html += `
+        <label class="mcq-option">
+          <input type="radio" name="qgaya${item.id}" value="${key}">
+          <b>${key}.</b> ${val}
+        </label>
+      `;
+    });
+
+    html += `</div>`;
+    container.innerHTML += html;
+  });
+}
+
+function lockEvaluationGaya(){
+  for(let i = 1; i <= 10; i++){
+    document.querySelectorAll(`input[name="qgaya${i}"]`).forEach(function(input){
+      input.disabled = true;
+    });
+  }
+}
+
+function unlockEvaluationGaya(){
+  for(let i = 1; i <= 10; i++){
+    document.querySelectorAll(`input[name="qgaya${i}"]`).forEach(function(input){
+      input.disabled = false;
+    });
+  }
+}
+
+function saveEvaluationGayaAndShowFeedback(){
+  let score = 0;
+  const savedAnswers = {};
+
+  for(let i = 1; i <= 10; i++){
+    const pick = document.querySelector(`input[name="qgaya${i}"]:checked`)?.value;
+
+    if(!pick){
+      alert("Jawab semua soal evaluasi terlebih dahulu ya 😊");
+      return;
+    }
+
+    savedAnswers["q" + i] = pick;
+
+    if(pick === correctGayaAnswers["q" + i]){
+      score += 10;
+    }
+  }
+
+  skorEvaluasi = score;
+
+  localStorage.setItem("gaya_evaluation_saved", JSON.stringify({
+    answers: savedAnswers,
+    score: score,
+    savedAt: new Date().toLocaleString()
+  }));
+
+  lockEvaluationGaya();
+
+  const skorBox = document.getElementById("skor-evaluation-gaya-box");
+  const skorText = document.getElementById("skor-evaluation-gaya-text");
+  const skorMsg = document.getElementById("skor-evaluation-gaya-message");
+
+  if(skorBox && skorText && skorMsg){
+    skorBox.classList.remove("hidden");
+    skorText.innerText = `Skor kamu: ${score}/100`;
+
+    if(score >= 80){
+      skorMsg.innerText = "🌟 Bagus sekali! Pemahaman konsep gaya antarmolekulmu sudah kuat.";
+    }else if(score >= 60){
+      skorMsg.innerText = "👍 Cukup baik. Bacalah pembahasan untuk memperkuat bagian yang masih keliru.";
+    }else{
+      skorMsg.innerText = "💪 Tetap semangat. Gunakan pembahasan untuk memahami kembali jenis-jenis gaya antarmolekul.";
+    }
+  }
+
+  const feedbackContent = document.getElementById("evaluation-gaya-feedback-content");
+  let html = "";
+
+  quizGayaData.forEach(item => {
+    const userPick = savedAnswers["q" + item.id];
+    const correct = correctGayaAnswers["q" + item.id];
+    const benar = userPick === correct;
+
+    html += `
+      <div class="feedback-item">
+        <b>Soal ${item.id}</b><br>
+        Jawaban kamu: <b>${userPick}</b><br>
+        Kunci jawaban: <b>${correct}</b><br>
+        Status: <b style="color:${benar ? '#1e8449' : '#cc4d4d'};">${benar ? 'Benar' : 'Perlu diperbaiki'}</b><br>
+        Pembahasan: ${quizGayaExplanation[item.id]}
+      </div>
+    `;
+  });
+
+  if(feedbackContent){
+    feedbackContent.innerHTML = html;
+  }
+
+  const feedbackBox = document.getElementById("feedback-evaluation-gaya");
+  if(feedbackBox){
+    feedbackBox.style.display = "block";
+    feedbackBox.scrollIntoView({behavior:"smooth"});
+  }
+
+  const btn = document.getElementById("btn-save-evaluation-gaya");
+  if(btn){
+    btn.innerText = "✅ Evaluasi Tersimpan";
+    btn.disabled = true;
+  }
+}
+
+function restoreEvaluationGayaLock(){
+  const raw = localStorage.getItem("gaya_evaluation_saved");
+  if(!raw) return;
+
+  try{
+    const data = JSON.parse(raw);
+    const answers = data.answers || {};
+    skorEvaluasi = data.score || 0;
+
+    Object.entries(answers).forEach(([name, value]) => {
+      const nomor = name.replace("q", "");
+      const input = document.querySelector(`input[name="qgaya${nomor}"][value="${value}"]`);
+      if(input) input.checked = true;
+    });
+
+    lockEvaluationGaya();
+
+    const skorBox = document.getElementById("skor-evaluation-gaya-box");
+    const skorText = document.getElementById("skor-evaluation-gaya-text");
+    const skorMsg = document.getElementById("skor-evaluation-gaya-message");
+
+    if(skorBox && skorText && skorMsg){
+      skorBox.classList.remove("hidden");
+      skorText.innerText = `Skor kamu: ${data.score}/100`;
+
+      if(data.score >= 80){
+        skorMsg.innerText = "🌟 Bagus sekali! Pemahaman konsep gaya antarmolekulmu sudah kuat.";
+      }else if(data.score >= 60){
+        skorMsg.innerText = "👍 Cukup baik. Bacalah pembahasan untuk memperkuat bagian yang masih keliru.";
+      }else{
+        skorMsg.innerText = "💪 Tetap semangat. Gunakan pembahasan untuk memahami kembali jenis-jenis gaya antarmolekul.";
+      }
+    }
+
+    const feedbackContent = document.getElementById("evaluation-gaya-feedback-content");
+    if(feedbackContent){
+      let html = "";
+
+      quizGayaData.forEach(item => {
+        const userPick = answers["q" + item.id];
+        const correct = correctGayaAnswers["q" + item.id];
+        const benar = userPick === correct;
+
+        html += `
+          <div class="feedback-item">
+            <b>Soal ${item.id}</b><br>
+            Jawaban kamu: <b>${userPick}</b><br>
+            Kunci jawaban: <b>${correct}</b><br>
+            Status: <b style="color:${benar ? '#1e8449' : '#cc4d4d'};">${benar ? 'Benar' : 'Perlu diperbaiki'}</b><br>
+            Pembahasan: ${quizGayaExplanation[item.id]}
+          </div>
+        `;
+      });
+
+      feedbackContent.innerHTML = html;
+    }
+
+    const feedbackBox = document.getElementById("feedback-evaluation-gaya");
+    if(feedbackBox){
+      feedbackBox.style.display = "block";
+    }
+
+    const btn = document.getElementById("btn-save-evaluation-gaya");
+    if(btn){
+      btn.innerText = "✅ Evaluasi Tersimpan";
+      btn.disabled = true;
+    }
+  }catch(e){
+    localStorage.removeItem("gaya_evaluation_saved");
+  }
+}
+
+function resetEvaluationGayaAfterSubmit(){
+  localStorage.removeItem("gaya_evaluation_saved");
+
+  unlockEvaluationGaya();
+
+  const skorBox = document.getElementById("skor-evaluation-gaya-box");
+  if(skorBox){
+    skorBox.classList.add("hidden");
+  }
+
+  const feedbackBox = document.getElementById("feedback-evaluation-gaya");
+  if(feedbackBox){
+    feedbackBox.style.display = "none";
+  }
+
+  const feedbackContent = document.getElementById("evaluation-gaya-feedback-content");
+  if(feedbackContent){
+    feedbackContent.innerHTML = "";
+  }
+
+  const btn = document.getElementById("btn-save-evaluation-gaya");
+  if(btn){
+    btn.innerText = "💾 Simpan Evaluasi & Lihat Pembahasan";
+    btn.disabled = false;
+  }
+}
+
+ function resetAllGayaLocksAfterSubmit(){
+  if(typeof resetExplanationGayaAfterSubmit === "function"){
+    resetExplanationGayaAfterSubmit();
+  }
+
+  if(typeof resetElaborationGayaAfterSubmit === "function"){
+    resetElaborationGayaAfterSubmit();
+  }
+
+  if(typeof resetEvaluationGayaAfterSubmit === "function"){
+    resetEvaluationGayaAfterSubmit();
+  }
+}
+
+function finalSubmitGaya(){
+  const getVal = (id) => {
+    const el = document.getElementById(id);
+    return el ? el.value.trim() : "";
+  };
+
+  const getRadio = (name) => {
+    return document.querySelector(`input[name="${name}"]:checked`)?.value || "";
+  };
+
+  const getQuizAnswer = (i) => {
+    return document.querySelector(`input[name="qgaya${i}"]:checked`)?.value || "";
+  };
+
+  // ================== IDENTITAS ==================
+  const namaSiswa = getVal("nama");
+  const kelasSiswa = getVal("kelas");
+  const tanggalLKPD = document.getElementById("tgl")?.value || "";
+
+  if(!namaSiswa || !kelasSiswa || !tanggalLKPD){
+    alert("Isi identitas Nama, Kelas, dan Tanggal terlebih dahulu ya 😊");
+    nextPhase(0);
+    return;
+  }
+
+  // ================== CEK EVALUASI ==================
+  let score = 0;
+  const jawabanEvaluasi = {};
+
+  for(let i = 1; i <= 10; i++){
+    const pick = getQuizAnswer(i);
+
+    if(!pick){
+      alert("Jawab semua soal evaluasi terlebih dahulu ya 😊");
+      nextPhase(5);
+      return;
+    }
+
+    jawabanEvaluasi[`Evaluasi_Q${i}`] = pick;
+
+    if(pick === correctGayaAnswers[`q${i}`]){
+      score += 10;
+    }
+  }
+
+  // ================== CEK REFLEKSI ==================
+  if(
+    !getRadio("ref-gaya-1") ||
+    !getRadio("ref-gaya-2") ||
+    !getRadio("ref-gaya-3") ||
+    !getRadio("ref-gaya-4")
+  ){
+    alert("Lengkapi semua pilihan refleksi Ya/Tidak terlebih dahulu ya 😊");
+    nextPhase(5);
+    return;
+  }
+
+  if(!getVal("ref-gaya-teks-1") || !getVal("ref-gaya-teks-2")){
+    alert("Lengkapi refleksi teks terlebih dahulu ya 😊");
+    nextPhase(5);
+    return;
+  }
+
+  // ================== STATUS SIMPAN ==================
+  const explanationSaved = localStorage.getItem("gaya_explanation_saved") ? "Sudah disimpan" : "Belum disimpan";
+  const elaborationSaved = localStorage.getItem("gaya_elaboration_saved") ? "Sudah disimpan" : "Belum disimpan";
+  const evaluationSaved = localStorage.getItem("gaya_evaluation_saved") ? "Sudah disimpan" : "Belum disimpan";
+
+  // ================== DATA LENGKAP ==================
+  const jawabanLengkap = {
+    timestamp: new Date().toLocaleString(),
+    nama: namaSiswa,
+    kelas: kelasSiswa,
+    tanggal: tanggalLKPD,
+    materi: "Gaya Antarmolekul",
+    skor: score,
+
+    // ================== ENGAGEMENT ==================
+    Engagement_Hipotesis_Awal: getVal("eng1"),
+    Engagement_Rumusan_Masalah:
+      "Bagaimana jenis gaya antarmolekul dapat dibandingkan berdasarkan karakteristik molekul, dan bagaimana gaya tersebut memengaruhi sifat fisik zat?",
+
+    // ================== EXPLORATION ==================
+    Exploration_Q1_CH4_Gaya_Antarmolekul: getVal("eks-gaya-q1"),
+    Exploration_Q2_CH4_HCl: getVal("eks-gaya-q2"),
+    Exploration_Q3_HCl_Dengan_Nonpolar: getVal("eks-gaya-q3"),
+    Exploration_Q4_H2O_NH3_Ikatan_Hidrogen: getVal("eks-gaya-q4"),
+    Exploration_Q5_Membandingkan_Jenis_Gaya: getVal("eks-gaya-q5"),
+
+    // ================== EXPLANATION ==================
+    Explanation_Q1_Cara_Membandingkan_Gaya: getVal("exp-gaya-q1"),
+    Explanation_Q2_CH4_Nonpolar: getVal("exp-gaya-q2"),
+    Explanation_Q3_Dipol_Induksian_vs_Dipol: getVal("exp-gaya-q3"),
+    Explanation_Q4_H2O_NH3: getVal("exp-gaya-q4"),
+    Explanation_Q5_Gaya_dan_Titik_Didih: getVal("exp-gaya-q5"),
+    Explanation_Q6_Revisi_Hipotesis: getVal("exp-gaya-q6"),
+    Explanation_Status_Simpan: explanationSaved,
+
+    // ================== ELABORATION ==================
+    Elaboration_Q1_Heksana: getVal("elab-gaya-q1"),
+    Elaboration_Q2_Aseton: getVal("elab-gaya-q2"),
+    Elaboration_Q3_Air: getVal("elab-gaya-q3"),
+    Elaboration_Q4_Etanol_dan_Air: getVal("elab-gaya-q4"),
+    Elaboration_Q5_Gaya_dan_Penguapan: getVal("elab-gaya-q5"),
+    Elaboration_Status_Simpan: elaborationSaved,
+
+    // ================== EVALUATION ==================
+    ...jawabanEvaluasi,
+    Skor_Evaluasi: score,
+    Evaluation_Status_Simpan: evaluationSaved,
+
+    // ================== REFLEKSI ==================
+    Refleksi_Pengertian_Gaya_Antarmolekul: getRadio("ref-gaya-1"),
+    Refleksi_Membedakan_Jenis_Gaya: getRadio("ref-gaya-2"),
+    Refleksi_Menentukan_Gaya_Berdasarkan_Molekul: getRadio("ref-gaya-3"),
+    Refleksi_Hubungan_Gaya_Dengan_Titik_Didih: getRadio("ref-gaya-4"),
+    Refleksi_Bagian_Mudah: getVal("ref-gaya-teks-1"),
+    Refleksi_Bagian_Membingungkan: getVal("ref-gaya-teks-2")
+  };
+
+  // ================== SIMPAN LOKAL CADANGAN ==================
+  const LOCAL_KEY = "db_gaya_antarmolekul_final";
+  const db = JSON.parse(localStorage.getItem(LOCAL_KEY) || "[]");
+  db.push(jawabanLengkap);
+  localStorage.setItem(LOCAL_KEY, JSON.stringify(db));
+
+  // ================== KIRIM KE GOOGLE SHEETS ==================
+  const btnSubmit =
+    document.getElementById("btn-final-submit-gaya") ||
+    document.querySelector('button[onclick="finalSubmitGaya()"]');
+
+  if(btnSubmit){
+    btnSubmit.innerText = "Sedang mengirim... ⏳";
+    btnSubmit.disabled = true;
+  }
+
+  const payload = {
+    timestamp: new Date().toLocaleString(),
+    nama: namaSiswa,
+    kelas: kelasSiswa,
+    materi: "Gaya Antarmolekul",
+    skor: score,
+    jawabanLengkap: jawabanLengkap
+  };
+
+  console.log("PAYLOAD GAYA ANTARMOLEKUL YANG DIKIRIM:", payload);
+
+  fetch(SCRIPT_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(payload)
+  })
+  .then(() => {
+    alert(`✅ LKPD selesai!\nSkor evaluasi kamu: ${score}/100\nJawaban berhasil dikirim ke spreadsheet Guru Rusyda! 🌈`);
+
+    resetAllGayaLocksAfterSubmit();
+
+    if(btnSubmit){
+      btnSubmit.innerText = "✅ Sudah Terkirim";
+      btnSubmit.disabled = true;
+    }
+  })
+  .catch((err) => {
+    console.error("Gagal kirim ke spreadsheet:", err);
+
+    alert(`Evaluasi selesai!\nSkor kamu: ${score}/100\n⚠️ Gagal kirim, cek koneksi internet atau URL Apps Script.`);
+
+    if(btnSubmit){
+      btnSubmit.innerText = "✨ SELESAI & KIRIM ✨";
+      btnSubmit.disabled = false;
+    }
+  });
+}
+  </script>
+
+</body>
+</html>

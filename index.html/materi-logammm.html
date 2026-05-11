@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LKPD Gaya Antarmolekul - 5E</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --gold:#ffc107;
+      --batik-blue:#3a7caf;
+      --cream:#fffdf2;
+      --soft-blue:#e3f2fd;
+      --green:#a8e6cf;
+      --gray:#b2bec3;
+      --white:#fff;
+      --shadow: 0 10px 30px rgba(0,0,0,.06);
+      --red:#ff6b6b;
+    }
+    body{
+      font-family:'Quicksand',sans-serif;
+      margin:0;
+      background:var(--cream);
+      color:var(--batik-blue);
+      overflow-x:hidden;
+    }
+    h1,h2,h3,h4{font-family:'Fredoka',sans-serif;margin:10px 0}
+    .hidden{display:none !important;}
+
+    nav{
+      background:#fff;
+      padding:8px 5%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      border-bottom-left-radius:30px;
+      border-bottom-right-radius:30px;
+      box-shadow:0 5px 20px rgba(0,0,0,.05);
+      position:sticky;
+      top:0;
+      z-index:10;
+    }
+    .nav-left,.nav-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+    .pill{
+      display:inline-block;padding:6px 12px;border-radius:999px;
+      background:#fff;border:2px dashed #d9ecff;font-size:12px;font-weight:800;opacity:.9;
+    }
+
+    button{
+      padding:12px 20px;
+      background:var(--batik-blue);
+      color:#fff;
+      border:none;
+      border-radius:50px;
+      font-family:'Fredoka',sans-serif;
+      font-size:15px;
+      cursor:pointer;
+      box-shadow:0 5px 0 #2a5a82;
+      transition:.2s;
+      position:relative;
+      display:inline-block;
+      margin:4px;
+    }
+    button:hover{background:#4a8cbf;top:-2px;box-shadow:0 7px 0 #2a5a82}
+    button:active{top:3px;box-shadow:0 2px 0 #2a5a82}
+    .btn-back{background:var(--gray);box-shadow:0 5px 0 #636e72}
+    .btn-next{background:var(--gold);box-shadow:0 5px 0 #c79a00;color:#444}
+    .btn-green{background:#27ae60;box-shadow:0 5px 0 #1e8449}
+    .btn-logout{background:var(--red);box-shadow:0 5px 0 #cc4d4d;padding:8px 15px;font-size:12px}
+    .mini{font-size:12px;padding:8px 12px}
+
+    .module-container{
+      max-width:980px;
+      margin:18px auto;
+      padding:26px;
+      background:#fff;
+      border-radius:40px;
+      border:6px solid var(--soft-blue);
+      box-shadow:var(--shadow);
+    }
+    .section-box{
+      background:var(--soft-blue);
+      padding:18px;
+      border-radius:25px;
+      margin-bottom:16px;
+      border-left:10px solid var(--gold);
+    }
+    .section-green{
+      background:var(--green);
+      border-left:10px solid #27ae60;
+    }
+    .capaian-box{
+      background:#fff;
+      border:2px solid #d9ecff;
+      border-left:10px solid var(--batik-blue);
+      border-radius:20px;
+      padding:18px;
+      margin-top:14px;
+      box-shadow:0 4px 10px rgba(0,0,0,.04);
+    }
+    .tujuan-box{
+      background:#fff;
+      border:2px solid #d9ecff;
+      border-left:10px solid var(--gold);
+      border-radius:20px;
+      padding:18px;
+      margin-top:14px;
+      box-shadow:0 4px 10px rgba(0,0,0,.04);
+    }
+    .capaian-box h4,.tujuan-box h4{color:var(--batik-blue);}
+    .capaian-box p,.tujuan-box li{color:#4d6f8f;}
+
+    .progress-bar{
+      width:100%;height:12px;background:#eee;border-radius:10px;
+      margin:0 0 16px 0;overflow:hidden;border:2px solid #fff;
+    }
+    .progress-fill{height:100%;background:var(--gold);width:0%;transition:.5s}
+    .badge-5e{
+      background:var(--batik-blue);color:#fff;padding:5px 14px;
+      border-radius:15px;font-size:13px;font-weight:bold;
+      margin-bottom:10px;display:inline-block;
+    }
+    .phase-card{display:none;animation:fadeIn .35s}
+    .phase-card.active{display:block}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+    input,select,textarea{
+      width:100%;
+      padding:12px;
+      margin-bottom:10px;
+      border:3px solid #f0f0f0;
+      border-radius:15px;
+      font-family:'Quicksand',sans-serif;
+      font-weight:700;
+      box-sizing:border-box;
+      background:#fff;
+    }
+    textarea{min-height:86px}
+
+    .mcq-option{
+      display:block;background:#fff;padding:10px;border-radius:12px;
+      margin:6px 0;border:2px solid #eee;cursor:pointer;
+      transition:.2s;text-align:left;font-size:13px;
+    }
+    .mcq-option:hover{background:var(--soft-blue)}
+    input[type="radio"]{width:auto;margin-right:8px}
+
+    .hint{
+      background:#fff;
+      border:2px dashed #d9ecff;
+      border-radius:18px;
+      padding:12px;
+      display:none;
+      margin-top:8px;
+      font-size:13px;
+    }
+    .correct-box{border:3px solid #27ae60 !important;background:#f0fff4 !important;}
+    .wrong-box{border:3px solid #ff6b6b !important;background:#fff5f5 !important;}
+
+    /* Gaya Kartu di Exploration */
+    .gaya-card{
+      background:#fff;
+      border-radius:20px;
+      border:3px solid var(--soft-blue);
+      padding:14px 16px;
+      margin-bottom:14px;
+      box-shadow:0 4px 12px rgba(0,0,0,.05);
+    }
+    .gaya-card h4{margin:0 0 6px 0; font-size:15px;}
+    .gaya-badge{
+      display:inline-block;
+      padding:3px 12px;
+      border-radius:999px;
+      font-size:11px;
+      font-weight:800;
+      margin-bottom:8px;
+      color:#fff;
+    }
+  </style>
+</head>
+
+<body onload="initLKPD()">
+
+  <nav>
+    <div class="nav-left">
+      <button class="btn-back mini" onclick="goMenu()">⬅️ Menu</button>
+      <span class="pill" id="user-pill">Belum isi identitas</span>
+    </div>
+    <strong>Gaya Antarmolekul</strong>
+    <div class="nav-right">
+      <button class="btn-logout" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <div class="module-container">
+    <div class="progress-bar"><div id="fill" class="progress-fill"></div></div>
+
+    <!-- ================= PHASE 0 ================= -->
+    <div class="phase-card active" id="p0">
+      <center>
+        <h2 style="margin-top:0;">IDENTITAS & INFORMASI LKPD</h2>
+      </center>
+
+      <div class="section-box section-green">
+        <p style="margin:0 0 8px 0;"><b>Isi identitas dulu ya:</b></p>
+        <input type="text" id="nama" placeholder="Nama kamu...">
+        <input type="text" id="kelas" placeholder="Kelas... (contoh: XI-IPA 1)">
+        <input type="date" id="tgl">
+        <button class="btn-next" onclick="saveIdentity()">Simpan Identitas ✅</button>
+      </div>
+
+      <div class="section-box">
+        <h3 style="margin-top:0;">📌 Materi: Gaya Antarmolekul</h3>
+
+        <div class="capaian-box">
+          <h4 style="margin-top:0; margin-bottom:8px;">📘 Capaian Pembelajaran</h4>
+          <p style="margin:0; text-align:left; font-size:14px; line-height:1.7;">
+            Pada akhir Fase F, peserta didik mampu memahami sifat, struktur, dan interaksi partikel dalam membentuk berbagai senyawa serta kaitannya dengan sifat zat dalam kehidupan sehari-hari, termasuk gaya antarmolekul dan pengaruhnya terhadap sifat fisik zat.
+          </p>
+        </div>
+
+        <div class="tujuan-box">
+          <h4 style="margin-top:0; margin-bottom:8px;">🎯 Tujuan Pembelajaran</h4>
+          <ol style="text-align:left; font-size:14px; line-height:1.7; margin:0; padding-left:20px;">
+            <li>Menjelaskan pengertian gaya antarmolekul dan jenis-jenisnya.</li>
+            <li>Menjelaskan mekanisme terjadinya gaya London (dipol sesaat–dipol induksian).</li>
+            <li>Membedakan gaya dipol-dipol induksian, gaya dipol-dipol, dan ikatan hidrogen.</li>
+            <li>Mengaitkan jenis gaya antarmolekul dengan sifat fisik zat (titik didih, kelarutan).</li>
+          </ol>
+        </div>
+
+        <center>
+          <button class="btn-next" onclick="requireIdentityThenGo(1)">Mulai Engagement ➡️</button>
+        </center>
+      </div>
+    </div>
+
+    <!-- ================= PHASE 1 — ENGAGEMENT ================= -->
+    <div class="phase-card" id="p1">
+      <span class="badge-5e">1. Engagement</span>
+
+      <div class="section-box">
+        <h3 style="margin-top:0;">🔵 ENGAGEMENT</h3>
+        <p style="font-size:14px;font-weight:bold;margin:0;">(Fenomena Pemantik)</p>
+
+        <h4 style="margin-top:14px;">🌡️ Fenomena: Perbandingan Titik Didih</h4>
+        <p style="font-size:14px;line-height:1.7;text-align:justify;">
+          Perhatikan data titik didih beberapa senyawa berikut:
+        </p>
+
+        <div style="overflow-x:auto; margin-bottom:12px;">
+          <table style="width:100%;border-collapse:collapse;font-size:13px;background:#fff;border-radius:15px;overflow:hidden;">
+            <tr style="background:var(--batik-blue);color:#fff;">
+              <th style="padding:10px;border:1px solid var(--soft-blue);">Senyawa</th>
+              <th style="padding:10px;border:1px solid var(--soft-blue);">Rumus</th>
+              <th style="padding:10px;border:1px solid var(--soft-blue);">Mr</th>
+              <th style="padding:10px;border:1px solid var(--soft-blue);">Titik Didih (°C)</th>
+              <th style="padding:10px;border:1px solid var(--soft-blue);">Jenis Molekul</th>
+            </tr>
+            <tr>
+              <td style="padding:9px;border:1px solid var(--soft-blue);">Metana</td>
+              <td style="padding:9px;border:1px solid var(--soft-blue);text-align:center;">CH₄</td>
+              <td style="padding:9px;border:1px solid var(--soft-blue);text-align:center;">16</td>
+              <td style="padding:9px;border:1px solid var(--soft-blue);text-align:center;">−161</td>
+              <td style="padding:9px;border:1px solid var(--soft-blue);">Nonpolar</td>
+            </tr>
+            <tr style="background:#f8f9fa;">
+              <td style="padding:9px;border:1px solid var(--soft-blue);">Hidrogen klorida</td>
+              <td style="padding:9px;border:1px solid var(--soft-blue);text-align:center;">HCl</td>
+              <td style="padding:9px;border:1px solid var(--soft-blue);text-align:center;">36,5</td>
+              <td style="padding:9px;border:1px solid var(--soft-blue);text-align:center;">−85</td>
+              <td style="padding:9px;border:1px solid var(--soft-blue);">Polar</td>
+            </tr>
+            <tr>
+              <td style="padding:9px;border:1px solid var(--soft-blue);">Air</td>
+              <td style="padding:9px;border:1px solid var(--soft-blue);text-align:center;">H₂O</td>
+              <td style="padding:9px;border:1px solid var(--soft-blue);text-align:center;">18</td>
+              <td style="padding:9px;border:1px solid var(--soft-blue);text-align:center;"><b style="color:#e91e63;">+100</b></td>
+              <td style="padding:9px;border:1px solid var(--soft-blue);">Polar (ikatan H)</td>
+            </tr>
+            <tr style="background:#f8f9fa;">
+              <td style="padding:9px;border:1px solid var(--soft-blue);">Amonia</td>
+              <td style="padding:9px;border:1px solid var(--soft-blue);text-align:center;">NH₃</td>
+              <td style="padding:9px;border:1px solid var(--soft-blue);text-align:center;">17</td>
+              <td style="padding:9px;border:1px solid var(--soft-blue);text-align:center;">−33</td>
+              <td style="padding:9px;border:1px solid var(--soft-blue);">Polar (ikatan H)</td>
+            </tr>
+          </table>
+        </div>
+
+        <h4 style="margin-top:14px;">Pertanyaan Pemantik</h4>
+        <p style="font-size:14px;line-height:1.7;">
+          <b>Mengapa air (H₂O) memiliki titik didih jauh lebih tinggi (+100°C) dibandingkan NH₃ (−33°C), padahal massa molekul relatif H₂O (Mr=18) lebih kecil dari NH₃ (Mr=17)?</b>
+        </p>
+        <textarea id="eng1" placeholder="Tulis dugaan awalmu..."></textarea>
+
+        <p style="font-size:14px;line-height:1.7;">
+          Menurutmu, gaya apa yang bekerja di antara molekul-molekul dalam zat cair? Apa yang membuat satu zat lebih sulit menguap dibandingkan yang lain?
+        </p>
+        <textarea id="eng2" placeholder="Tulis pendapatmu..."></textarea>
+      </div>
+
+      <div class="section-box section-green">
+        <h4 style="margin-top:0;">Output Engagement</h4>
+        <ul style="font-size:14px;line-height:1.7;margin:0;">
+          <li>Siswa menyadari ada gaya yang bekerja di antara molekul selain ikatan kimia.</li>
+          <li>Muncul pertanyaan: gaya apa yang membedakan perilaku zat-zat tersebut?</li>
+        </ul>
+        <p style="font-size:14px;margin-top:8px;">➡️ Menyiapkan siswa untuk mengeksplorasi jenis-jenis gaya antarmolekul.</p>
+      </div>
+
+      <center>
+        <button class="btn-back" onclick="nextPhase(0)">⬅️</button>
+        <button class="btn-next" onclick="nextPhase(2)">➡️</button>
+      </center>
+    </div>
+
+    <!-- ================= PHASE 2 — EXPLORATION ================= -->
+    <div class="phase-card" id="p2">
+      <span class="badge-5e">2. Exploration</span>
+
+      <div class="section-box">
+        <h3 style="margin-top:0;">🔍 EXPLORATION</h3>
+        <h4 style="margin-bottom:6px;">Kegiatan: Mengenali Jenis-Jenis Gaya Antarmolekul</h4>
+        <p style="font-size:14px;line-height:1.7;text-align:justify;margin-top:0;">
+          Bacalah uraian singkat setiap jenis gaya antarmolekul di bawah ini. Kemudian jawab pertanyaan analisis yang tersedia.
+        </p>
+      </div>
+
+     <div class="section-box material-wrap">
+  <div class="material-hero">
+    <div class="material-badge">🧪 MATERI BENTUK MOLEKUL</div>
+    <h3>Bentuk Molekul, VSEPR, dan Hibridisasi</h3>
+    <p>
+      Bentuk molekul tidak ditentukan secara acak. Susunan atom dalam molekul
+      dipengaruhi oleh tolakan pasangan elektron di sekitar atom pusat. Untuk
+      memahaminya, kita menggunakan teori <b>VSEPR</b> dan konsep
+      <b>hibridisasi</b> secara terpadu.
+    </p>
+  </div>
+
+<!DOCTYPE html>
+<html lang="id" id="top">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bentuk Molekul, VSEPR, dan Hibridisasi</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --gold:#ffc107;
+      --batik-blue:#3a7caf;
+      --cream:#fffdf2;
+      --soft-blue:#e3f2fd;
+      --green:#a8e6cf;
+      --gray:#b2bec3;
+      --shadow:0 10px 30px rgba(0,0,0,.06);
+      --text:#4d6f8f;
+      --border:#d9ecff;
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Quicksand',sans-serif;
+      background:var(--cream);
+      color:var(--batik-blue);
+      overflow-x:hidden;
+      line-height:1.7;
+    }
+
+    h1,h2,h3,h4,h5{
+      font-family:'Fredoka',sans-serif;
+      color:var(--batik-blue);
+    }
+
+    .container{
+      max-width:1100px;
+      margin:0 auto;
+      padding:24px 16px 60px;
+    }
+
+    /* TOPBAR */
+    .topbar{
+      background:#fff;
+      padding:12px 18px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      border-bottom-left-radius:28px;
+      border-bottom-right-radius:28px;
+      box-shadow:0 5px 20px rgba(0,0,0,.05);
+      position:sticky;
+      top:0;
+      z-index:10;
+      margin-bottom:18px;
+    }
+
+    .back-btn{
+      display:inline-block;
+      text-decoration:none;
+      padding:10px 16px;
+      border-radius:999px;
+      background:var(--soft-blue);
+      border:2px dashed var(--border);
+      color:var(--batik-blue);
+      font-weight:800;
+      font-size:13px;
+    }
+
+    .badge{
+      display:inline-block;
+      padding:7px 14px;
+      border-radius:999px;
+      background:#fff;
+      color:var(--batik-blue);
+      border:2px dashed var(--border);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.04em;
+    }
+
+    /* HERO */
+    .material-wrap{
+      background:
+        radial-gradient(circle at 50% 10%, rgba(255,193,7,.18), transparent 22%),
+        radial-gradient(circle at 85% 18%, rgba(58,124,175,.10), transparent 14%),
+        linear-gradient(180deg, #fffdf2 0%, #f7fbff 55%, #fffdf2 100%);
+      border-radius:30px;
+      padding:26px;
+      color:var(--batik-blue);
+      position:relative;
+      overflow:hidden;
+      border:3px solid var(--soft-blue);
+      box-shadow:var(--shadow);
+    }
+
+    .material-wrap::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background-image:
+        radial-gradient(circle, rgba(255,193,7,.20) 0 1px, transparent 1.5px),
+        radial-gradient(circle, rgba(58,124,175,.16) 0 1px, transparent 1.5px),
+        radial-gradient(circle, rgba(168,230,207,.22) 0 1px, transparent 1.5px);
+      background-size:180px 180px, 260px 260px, 320px 320px;
+      background-position:0 0, 60px 100px, 120px 40px;
+      opacity:.45;
+    }
+
+    .material-wrap > *{
+      position:relative;
+      z-index:1;
+    }
+
+    .hero{
+      text-align:center;
+      margin-bottom:22px;
+    }
+
+    .hero h1{
+      font-size:38px;
+      margin:0 0 12px 0;
+      line-height:1.15;
+    }
+
+    .hero p{
+      max-width:820px;
+      margin:0 auto;
+      font-size:14px;
+      color:var(--text);
+    }
+
+    /* NAV */
+    .quick-nav{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:center;
+      margin:18px 0 26px;
+    }
+
+    .quick-nav a{
+      text-decoration:none;
+      color:var(--batik-blue);
+      border:2px solid var(--border);
+      background:#fff;
+      padding:8px 14px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:700;
+      transition:.2s;
+    }
+
+    .quick-nav a:hover{
+      background:var(--soft-blue);
+    }
+
+    /* SECTION */
+    .section{
+      margin-top:28px;
+      scroll-margin-top:90px;
+    }
+
+    .section-title{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:14px;
+    }
+
+    .section-title .line{
+      width:5px;
+      height:34px;
+      border-radius:999px;
+      background:linear-gradient(180deg, var(--gold), var(--batik-blue));
+    }
+
+    .section-title h2{
+      font-size:24px;
+      margin:0;
+    }
+
+    .card{
+      background:#fff;
+      border:2px solid #e6f2fb;
+      border-radius:22px;
+      padding:20px 18px;
+      box-shadow:0 8px 20px rgba(0,0,0,.04);
+      margin-bottom:16px;
+    }
+
+    .card h3{
+      font-size:20px;
+      margin:0 0 12px 0;
+    }
+
+    .card p{
+      color:var(--text);
+      font-size:14px;
+      line-height:1.8;
+      margin-bottom:10px;
+      text-align:justify;
+    }
+
+    .card ul,
+    .card ol{
+      padding-left:20px;
+      color:var(--text);
+    }
+
+    .card li{
+      margin-bottom:8px;
+      line-height:1.8;
+      font-size:14px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(260px, 1fr));
+      gap:16px;
+    }
+
+    .mini-card{
+      background:#fff;
+      border:2px solid #e6f2fb;
+      border-radius:20px;
+      padding:18px;
+      box-shadow:0 8px 20px rgba(0,0,0,.04);
+    }
+
+    .mini-card h4{
+      font-size:18px;
+      margin:0 0 10px 0;
+    }
+
+    .mini-card p,
+    .mini-card li{
+      color:var(--text);
+      line-height:1.8;
+      font-size:14px;
+    }
+
+    .mini-card ul{
+      padding-left:18px;
+    }
+
+    .tag{
+      display:inline-block;
+      font-size:12px;
+      font-weight:700;
+      padding:6px 11px;
+      border-radius:999px;
+      margin-bottom:10px;
+      background:var(--soft-blue);
+      color:var(--batik-blue);
+      border:1px solid #cde7fb;
+    }
+
+    .formula{
+      font-weight:700;
+      color:var(--batik-blue);
+      font-size:14px;
+      line-height:1.9;
+      background:var(--soft-blue);
+      border:1px solid #cde7fb;
+      padding:14px 16px;
+      border-radius:14px;
+      margin-top:10px;
+    }
+
+    .note{
+      padding:14px 16px;
+      border-radius:16px;
+      background:var(--green);
+      border:2px solid #8bd7bb;
+      color:#2f5f56;
+      line-height:1.8;
+      margin-top:10px;
+      font-size:14px;
+    }
+
+    .img-box{
+      margin-top:12px;
+      border:2px dashed #cde7fb;
+      border-radius:16px;
+      padding:16px;
+      text-align:center;
+      color:#6e8aa4;
+      background:var(--soft-blue);
+      line-height:1.7;
+      font-size:13px;
+    }
+
+    .footer-nav{
+      margin-top:26px;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+
+    .btn-primary,
+    .btn-secondary{
+      text-decoration:none;
+      padding:12px 18px;
+      border-radius:999px;
+      font-weight:800;
+      font-size:13px;
+    }
+
+    .btn-primary{
+      background:var(--batik-blue);
+      color:#fff;
+      box-shadow:0 5px 0 #2a5a82;
+    }
+
+    .btn-secondary{
+      background:#fff;
+      color:var(--batik-blue);
+      border:2px dashed var(--border);
+    }
+
+    @media (max-width: 768px){
+      .grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero h1{
+        font-size:28px;
+      }
+
+      .section-title h2{
+        font-size:20px;
+      }
+
+      .container{
+        padding:16px 12px 40px;
+      }
+
+      .material-wrap{
+        padding:18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <div class="topbar">
+      <a href="index.html#materi" class="back-btn">⬅️ Kembali ke Modul Materi</a>
+      <div class="badge">📘 Materi Bentuk Molekul</div>
+    </div>
+
+    <div class="material-wrap">
+      <section class="hero">
+     <h1>Bentuk Molekul, VSEPR, dan Hibridisasi</h1>
+      <p>
+       Bentuk molekul tidak terbentuk secara acak. Susunan atom dalam molekul
+       dipengaruhi oleh tolakan pasangan elektron di sekitar atom pusat.
+       Untuk memahaminya, kita menggunakan teori VSEPR dan konsep hibridisasi
+       secara terpadu.
+      </p>
+      </section>
+
+      <nav class="quick-nav">
+        <a href="#pengantar">Pengantar</a>
+        <a href="#vsepr">VSEPR</a>
+        <a href="#langkah">Langkah Analisis</a>
+        <a href="#hibridisasi">Hibridisasi</a>
+        <a href="#contoh">Contoh Molekul</a>
+        <a href="#ringkasan">Ringkasan</a>
+      </nav>
+
+      <section class="section" id="pengantar">
+       <div class="section-title">
+       <div class="line"></div>
+       <h2>Pengantar Bentuk Molekul</h2>
+        </div>
+
+        <div class="card">
+       <h3>Mengapa molekul memiliki bentuk tertentu?</h3>
+       <p>
+         Atom-atom dalam molekul tersusun dalam ruang tiga dimensi. Susunan ini
+        tidak acak, tetapi dipengaruhi oleh elektron-elektron di sekitar atom pusat.
+        Karena elektron bermuatan negatif, maka pasangan elektron akan saling
+        tolak-menolak dan berusaha menempati posisi sejauh mungkin agar molekul
+         menjadi lebih stabil.
+          </p>
+          <p>
+            Oleh karena itu, bentuk molekul sangat dipengaruhi oleh jumlah pasangan
+            elektron ikatan dan pasangan elektron bebas di sekitar atom pusat.
+          </p>
+          <div class="note">
+            <b>Ide penting:</b> bentuk molekul ditentukan oleh susunan pasangan elektron,
+            sedangkan hibridisasi menjelaskan orbital campuran yang digunakan atom pusat
+            untuk membentuk ikatan.
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="vsepr">
+        <div class="section-title">
+          <div class="line"></div>
+          <h2>Teori VSEPR</h2>
+        </div>
+
+        <div class="card">
+          <h3>Apa itu VSEPR?</h3>
+          <p>
+            VSEPR adalah singkatan dari <i>Valence Shell Electron Pair Repulsion</i>,
+            yaitu teori yang menyatakan bahwa pasangan elektron pada kulit valensi atom
+            pusat akan saling tolak-menolak dan mengatur diri sedemikian rupa sehingga
+            jaraknya sejauh mungkin.
+          </p>
+          <p>Dalam teori ini, yang diperhatikan adalah:</p>
+          <ul>
+            <li><b>Pasangan Elektron Ikatan (PEI)</b>, yaitu pasangan elektron yang digunakan untuk berikatan.</li>
+            <li><b>Pasangan Elektron Bebas (PEB)</b>, yaitu pasangan elektron yang tidak digunakan untuk berikatan.</li>
+          </ul>
+
+          <div class="formula">
+            Ikatan tunggal = 1 domain elektron<br>
+            Ikatan rangkap dua = 1 domain elektron<br>
+            Ikatan rangkap tiga = 1 domain elektron<br>
+            1 pasangan elektron bebas = 1 domain elektron
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="mini-card">
+            <h4>Geometri Domain Elektron</h4>
+            <ul>
+              <li>2 domain → linear</li>
+              <li>3 domain → trigonal planar</li>
+              <li>4 domain → tetrahedral</li>
+              <li>5 domain → trigonal bipiramida</li>
+              <li>6 domain → oktahedral</li>
+            </ul>
+          </div>
+
+          <div class="mini-card">
+            <h4>Peran Pasangan Elektron Bebas</h4>
+            <p>
+              Pasangan elektron bebas menolak lebih kuat daripada pasangan elektron ikatan.
+              Akibatnya, bentuk molekul dapat berubah meskipun jumlah domain elektronnya sama.
+            </p>
+            <p>
+              Contohnya, NH<sub>3</sub> dan H<sub>2</sub>O sama-sama memiliki 4 domain,
+              tetapi bentuk molekulnya berbeda karena jumlah pasangan elektron bebasnya berbeda.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="langkah">
+        <div class="section-title">
+          <div class="line"></div>
+          <h2>Langkah Menentukan Bentuk Molekul</h2>
+        </div>
+
+        <div class="card">
+          <h3>Urutan analisis yang paling mudah</h3>
+          <ol>
+            <li>Tentukan atom pusat dan gambar struktur Lewis.</li>
+            <li>Hitung jumlah domain elektron pada atom pusat.</li>
+            <li>Tentukan geometri domain dengan teori VSEPR.</li>
+            <li>Perhatikan ada atau tidaknya pasangan elektron bebas.</li>
+            <li>Tentukan bentuk molekul akhir.</li>
+            <li>Cocokkan jumlah domain dengan jenis hibridisasi.</li>
+          </ol>
+
+          <div class="note">
+            <b>Catatan:</b> VSEPR digunakan untuk mengetahui <b>bentuk molekul</b>,
+            sedangkan hibridisasi digunakan untuk mengetahui <b>orbital campuran</b>
+            pada atom pusat.
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="hibridisasi">
+        <div class="section-title">
+          <div class="line"></div>
+          <h2>Hibridisasi</h2>
+        </div>
+
+        <div class="card">
+          <h3>Pengertian Hibridisasi</h3>
+          <p>
+            Hibridisasi adalah proses pencampuran orbital-orbital atom, misalnya orbital
+            s dan p, sehingga terbentuk orbital baru yang setara dan sesuai untuk
+            pembentukan ikatan.
+          </p>
+          <p>
+            Hibridisasi tidak ditentukan langsung dari nama bentuk molekul, tetapi dari
+            <b>jumlah domain elektron</b> pada atom pusat.
+          </p>
+        </div>
+
+        <div class="grid">
+          <div class="mini-card">
+            <div class="tag">Hubungan Domain dan Hibridisasi</div>
+            <ul>
+              <li>2 domain → <b>sp</b></li>
+              <li>3 domain → <b>sp²</b></li>
+              <li>4 domain → <b>sp³</b></li>
+              <li>5 domain → <b>sp³d</b></li>
+              <li>6 domain → <b>sp³d²</b></li>
+            </ul>
+          </div>
+
+          <div class="mini-card">
+            <div class="tag">Hubungan dengan VSEPR</div>
+            <p>
+              VSEPR dan hibridisasi bertemu pada satu hal yang sama, yaitu
+              <b>jumlah domain elektron</b>. Jadi, setelah menentukan domain
+              elektron dengan VSEPR, hibridisasinya bisa langsung ditentukan.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="contoh">
+        <div class="section-title">
+          <div class="line"></div>
+          <h2>Contoh Analisis Molekul</h2>
+        </div>
+
+        <div class="grid">
+          <div class="mini-card">
+            <h4>CO₂</h4>
+            <p>Atom pusat C memiliki 2 domain elektron dan tidak memiliki pasangan elektron bebas.</p>
+            <div class="formula">
+              Domain = 2<br>
+              Geometri = linear<br>
+              Bentuk molekul = linear<br>
+              Hibridisasi = sp
+            </div>
+          </div>
+
+          <div class="mini-card">
+            <h4>BF₃</h4>
+            <p>Atom pusat B memiliki 3 pasangan elektron ikatan dan tidak memiliki pasangan elektron bebas.</p>
+            <div class="formula">
+              Domain = 3<br>
+              Geometri = trigonal planar<br>
+              Bentuk molekul = trigonal planar<br>
+              Hibridisasi = sp²
+            </div>
+          </div>
+
+          <div class="mini-card">
+            <h4>CH₄</h4>
+            <p>Atom pusat C memiliki 4 pasangan elektron ikatan tanpa pasangan elektron bebas.</p>
+            <div class="formula">
+              Domain = 4<br>
+              Geometri = tetrahedral<br>
+              Bentuk molekul = tetrahedral<br>
+              Hibridisasi = sp³
+            </div>
+          </div>
+
+          <div class="mini-card">
+            <h4>NH₃</h4>
+            <p>Atom pusat N memiliki 3 pasangan elektron ikatan dan 1 pasangan elektron bebas.</p>
+            <div class="formula">
+              Domain = 4<br>
+              Geometri domain = tetrahedral<br>
+              Bentuk molekul = trigonal piramida<br>
+              Hibridisasi = sp³
+            </div>
+          </div>
+
+          <div class="mini-card">
+            <h4>H₂O</h4>
+            <p>Atom pusat O memiliki 2 pasangan elektron ikatan dan 2 pasangan elektron bebas.</p>
+            <div class="formula">
+              Domain = 4<br>
+              Geometri domain = tetrahedral<br>
+              Bentuk molekul = bengkok<br>
+              Hibridisasi = sp³
+            </div>
+          </div>
+
+          <div class="mini-card">
+            <h4>Inti Perbedaan</h4>
+            <p>
+              NH₃ dan H₂O sama-sama memiliki 4 domain elektron sehingga sama-sama
+              bergeometri domain tetrahedral dan berhibridisasi sp³. Namun bentuk
+              molekulnya berbeda karena jumlah pasangan elektron bebasnya berbeda.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="ringkasan">
+        <div class="section-title">
+          <div class="line"></div>
+          <h2>Ringkasan Materi</h2>
+        </div>
+
+        <div class="card">
+          <h3>Kesimpulan</h3>
+          <p>
+            Bentuk molekul ditentukan oleh susunan pasangan elektron di sekitar atom
+            pusat. Teori VSEPR membantu memprediksi bentuk tersebut berdasarkan jumlah
+            domain elektron dan keberadaan pasangan elektron bebas. Sementara itu,
+            hibridisasi menjelaskan orbital campuran yang digunakan atom pusat dalam
+            membentuk ikatan.
+          </p>
+          <p>
+            Dengan demikian, VSEPR dan hibridisasi bukan dua konsep yang terpisah,
+            tetapi dua cara yang saling melengkapi untuk menjelaskan struktur molekul.
+          </p>
+
+          <div class="note">
+            <b>Kalimat kunci:</b><br>
+            VSEPR menjelaskan <b>bentuk molekul</b>.<br>
+            Hibridisasi menjelaskan <b>orbital campuran atom pusat</b>.<br>
+            Keduanya dihubungkan oleh <b>jumlah domain elektron</b>.
+          </div>
+        </div>
+      </section>
+
+      <div class="footer-nav">
+        <a href="index.html#materi" class="btn-primary">Kembali ke Modul</a>
+        <a href="#top" class="btn-secondary">Ke Atas</a>
+      </div>
+    </div>
+  
+      <!-- TABEL PERBANDINGAN -->
+      <div class="section-box">
+        <h4 style="margin-top:0;">📋 Tabel Perbandingan Gaya Antarmolekul</h4>
+        <p style="font-size:13px;margin:0 0 10px 0;">Lengkapi tabel berikut berdasarkan informasi yang telah kamu baca!</p>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:12px;background:#fff;border-radius:15px;overflow:hidden;">
+            <tr style="background:var(--batik-blue);color:#fff;">
+              <th style="padding:8px;border:1px solid var(--soft-blue);">Jenis Gaya</th>
+              <th style="padding:8px;border:1px solid var(--soft-blue);">Terjadi antara...</th>
+              <th style="padding:8px;border:1px solid var(--soft-blue);">Contoh Molekul</th>
+              <th style="padding:8px;border:1px solid var(--soft-blue);">Kekuatan Relatif</th>
+            </tr>
+            <tr>
+              <td style="padding:8px;border:1px solid var(--soft-blue);">Gaya London</td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="tb_1_1" placeholder="..."></td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="tb_1_2" placeholder="..."></td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="tb_1_3" placeholder="..."></td>
+            </tr>
+            <tr>
+              <td style="padding:8px;border:1px solid var(--soft-blue);">Dipol-Dipol Induksian</td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="tb_2_1" placeholder="..."></td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="tb_2_2" placeholder="..."></td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="tb_2_3" placeholder="..."></td>
+            </tr>
+            <tr>
+              <td style="padding:8px;border:1px solid var(--soft-blue);">Gaya Dipol-Dipol</td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="tb_3_1" placeholder="..."></td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="tb_3_2" placeholder="..."></td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="tb_3_3" placeholder="..."></td>
+            </tr>
+            <tr>
+              <td style="padding:8px;border:1px solid var(--soft-blue);">Ikatan Hidrogen</td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="tb_4_1" placeholder="..."></td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="tb_4_2" placeholder="..."></td>
+              <td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="tb_4_3" placeholder="..."></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- IDENTIFIKASI GAYA -->
+      <div class="section-box">
+        <h4 style="margin-top:0;">🔎 Identifikasi Gaya yang Bekerja</h4>
+        <p style="font-size:13px;margin:0 0 10px 0;">Tentukan jenis gaya antarmolekul yang <b>dominan</b> pada setiap pasangan/zat berikut:</p>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:13px;background:#fff;border-radius:15px;overflow:hidden;">
+            <tr style="background:var(--batik-blue);color:#fff;">
+              <th style="padding:8px;border:1px solid var(--soft-blue);">No</th>
+              <th style="padding:8px;border:1px solid var(--soft-blue);text-align:left;">Zat / Pasangan</th>
+              <th style="padding:8px;border:1px solid var(--soft-blue);text-align:left;">Jenis Gaya Dominan</th>
+            </tr>
+            <tr><td style="padding:8px;border:1px solid var(--soft-blue);text-align:center;">1</td><td style="padding:8px;border:1px solid var(--soft-blue);">I₂ (padat)</td><td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="id_1" placeholder="..."></td></tr>
+            <tr><td style="padding:8px;border:1px solid var(--soft-blue);text-align:center;">2</td><td style="padding:8px;border:1px solid var(--soft-blue);">HCl (gas)</td><td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="id_2" placeholder="..."></td></tr>
+            <tr><td style="padding:8px;border:1px solid var(--soft-blue);text-align:center;">3</td><td style="padding:8px;border:1px solid var(--soft-blue);">H₂O (cair)</td><td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="id_3" placeholder="..."></td></tr>
+            <tr><td style="padding:8px;border:1px solid var(--soft-blue);text-align:center;">4</td><td style="padding:8px;border:1px solid var(--soft-blue);">Campuran HCl + Ar</td><td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="id_4" placeholder="..."></td></tr>
+            <tr><td style="padding:8px;border:1px solid var(--soft-blue);text-align:center;">5</td><td style="padding:8px;border:1px solid var(--soft-blue);">NH₃ (cair)</td><td style="padding:8px;border:1px solid var(--soft-blue);"><input type="text" id="id_5" placeholder="..."></td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="section-box section-green">
+        <h4 style="margin-top:0;">💡 Catatan Penting</h4>
+        <ul style="font-size:14px;line-height:1.7;margin:0;">
+          <li>Semua molekul memiliki gaya London, tetapi pada molekul polar ada gaya tambahan.</li>
+          <li>Ikatan hidrogen hanya terjadi jika ada atom H yang terikat langsung ke N, O, atau F.</li>
+          <li>Urutan kekuatan: Ikatan Hidrogen > Dipol-Dipol > Dipol-Dipol Induksian > Gaya London.</li>
+        </ul>
+      </div>
+
+      <center>
+        <button class="btn-back" onclick="nextPhase(1)">⬅️</button>
+        <button class="btn-next" onclick="nextPhase(3)">➡️</button>
+      </center>
+    </div>
+
+    <!-- ================= PHASE 3 — EXPLANATION ================= -->
+    <div class="phase-card" id="p3">
+      <span class="badge-5e">3. Explanation</span>
+
+      <div class="section-box">
+        <h3 style="margin-top:0;">🟡 EXPLANATION</h3>
+        <p style="font-size:14px;line-height:1.7;margin:0 0 12px 0;">
+          Berdasarkan kegiatan eksplorasi yang telah kamu lakukan, jawab pertanyaan-pertanyaan berikut dengan bahasamu sendiri!
+        </p>
+
+        <p style="font-size:14px;font-weight:bold;margin:0 0 4px 0;">1. Jelaskan bagaimana mekanisme terbentuknya gaya London pada molekul nonpolar!</p>
+        <textarea id="exp_q1" placeholder="Jelaskan langkah demi langkah..."></textarea>
+
+        <p style="font-size:14px;font-weight:bold;margin:10px 0 4px 0;">2. Apa perbedaan antara gaya dipol-dipol induksian dan gaya dipol-dipol? Jelaskan dengan contoh!</p>
+        <textarea id="exp_q2" placeholder="Tulis perbedaan dan contohnya..."></textarea>
+
+        <p style="font-size:14px;font-weight:bold;margin:10px 0 4px 0;">3. Syarat apa yang harus dipenuhi agar ikatan hidrogen dapat terbentuk? Mengapa ikatan hidrogen lebih kuat dari gaya dipol-dipol biasa?</p>
+        <textarea id="exp_q3" placeholder="Tulis syarat dan alasannya..."></textarea>
+
+        <p style="font-size:14px;font-weight:bold;margin:10px 0 4px 0;">4. Sekarang jelaskan kembali fenomena dari Engagement: mengapa titik didih H₂O (100°C) jauh lebih tinggi dari NH₃ (−33°C) meskipun Mr-nya hampir sama?</p>
+        <textarea id="exp_q4" placeholder="Hubungkan dengan konsep gaya antarmolekul..."></textarea>
+      </div>
+
+      <div class="section-box section-green">
+        <h4 style="margin-top:0;">🧩 Rangkuman Mini</h4>
+        <p style="font-size:14px;margin:0 0 6px 0;">Tuliskan rangkuman singkatmu tentang gaya antarmolekul dalam 3–5 kalimat:</p>
+        <textarea id="exp_rangkuman" placeholder="Rangkuman gaya antarmolekul menurut pemahamanmu..."></textarea>
+      </div>
+
+      <center>
+        <button class="btn-back" onclick="nextPhase(2)">⬅️</button>
+        <button class="btn-next" onclick="nextPhase(4)">➡️</button>
+      </center>
+    </div>
+
+    <!-- ================= PHASE 4 — ELABORATION ================= -->
+    <div class="phase-card" id="p4">
+      <span class="badge-5e">4. Elaboration</span>
+
+      <div class="section-box">
+        <h3 style="margin-top:0;">🌍 ELABORATION — Gaya Antarmolekul dalam Kehidupan Nyata</h3>
+        <p style="font-size:14px;line-height:1.7;text-align:justify;">
+          Gaya antarmolekul bekerja diam-diam di balik berbagai fenomena alam dan teknologi. Pelajari tiga studi kasus berikut dan jawab pertanyaannya!
+        </p>
+      </div>
+
+      <!-- STUDI KASUS 1 -->
+      <div class="section-box" style="border-left:10px solid #3a7caf;">
+        <h4 style="margin-top:0; color:#3a7caf;">🦎 Studi Kasus 1 — Cicak Bisa Merayap di Dinding</h4>
+        <p style="font-size:14px;line-height:1.7;text-align:justify;">
+          Kaki cicak dipenuhi jutaan rambut-rambut halus (<i>setae</i>) berukuran nano. Rambut-rambut ini memungkinkan kaki cicak bersentuhan dengan permukaan dinding dalam area yang sangat luas. Akibatnya, terjadi <b>gaya London</b> (dipol sesaat – dipol induksian) antara molekul-molekul rambut kaki cicak dan molekul dinding dalam jumlah sangat besar. Meski setiap gaya London sangat lemah, akumulasinya cukup kuat untuk menopang berat tubuh cicak!
+        </p>
+        <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">❓ Pertanyaan:</p>
+        <p style="font-size:14px;margin:0 0 6px 0;">Mengapa cicak tidak bisa menempel di dinding yang basah atau berminyak? Hubungkan dengan konsep gaya London!</p>
+        <textarea id="elab_q1" placeholder="Tulis jawabanmu..."></textarea>
+      </div>
+
+      <!-- STUDI KASUS 2 -->
+      <div class="section-box" style="border-left:10px solid #e91e63;">
+        <h4 style="margin-top:0; color:#e91e63;">💧 Studi Kasus 2 — Es Mengapung di Air</h4>
+        <p style="font-size:14px;line-height:1.7;text-align:justify;">
+          Berbeda dari kebanyakan zat, es (air padat) lebih ringan dari air cair sehingga mengapung. Ini terjadi karena saat air membeku, molekul H₂O membentuk <b>jaringan ikatan hidrogen yang sangat teratur dan terbuka</b> (seperti sarang lebah), sehingga jarak antar molekul justru lebih jauh dari pada air cair. Akibatnya, volume es lebih besar dan densitasnya lebih kecil dari air cair.
+        </p>
+        <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">❓ Pertanyaan:</p>
+        <p style="font-size:14px;margin:0 0 6px 0;">Jelaskan mengapa fenomena es mengapung ini sangat penting bagi kehidupan ekosistem danau di musim dingin. Kaitkan dengan ikatan hidrogen!</p>
+        <textarea id="elab_q2" placeholder="Tulis jawabanmu..."></textarea>
+      </div>
+
+      <!-- STUDI KASUS 3 -->
+      <div class="section-box" style="border-left:10px solid #ff9800;">
+        <h4 style="margin-top:0; color:#ff9800;">🧬 Studi Kasus 3 — Struktur DNA dan Ikatan Hidrogen</h4>
+        <p style="font-size:14px;line-height:1.7;text-align:justify;">
+          DNA membawa informasi genetik kehidupan. Dua rantai DNA yang membentuk heliks ganda diikat bersama bukan oleh ikatan kovalen, melainkan oleh <b>ikatan hidrogen</b> antar basa nitrogen (A–T dan G–C). Ikatan hidrogen cukup kuat untuk menjaga struktur DNA tetap stabil, namun juga cukup lemah untuk dapat "dibuka" oleh enzim saat proses replikasi DNA terjadi.
+        </p>
+        <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">❓ Pertanyaan:</p>
+        <p style="font-size:14px;margin:0 0 6px 0;">Mengapa sifat ikatan hidrogen yang "kuat namun bisa diputus" justru sangat menguntungkan bagi fungsi DNA? Apa yang akan terjadi jika DNA diikat oleh ikatan kovalen?</p>
+        <textarea id="elab_q3" placeholder="Tulis jawabanmu..."></textarea>
+      </div>
+
+      <!-- SINTESIS -->
+      <div class="section-box section-green">
+        <h4 style="margin-top:0;">✍️ Sintesis Akhir Elaborasi</h4>
+        <p style="font-size:14px;margin:0 0 6px 0;">
+          Dari ketiga studi kasus di atas, tuliskan kesimpulanmu: <b>bagaimana gaya antarmolekul menentukan sifat fisik dan fungsi biologis suatu zat?</b>
+        </p>
+        <textarea id="elab_sintesis" placeholder="Tulis kesimpulanmu..."></textarea>
+      </div>
+
+      <center>
+        <button class="btn-back" onclick="nextPhase(3)">⬅️</button>
+        <button class="btn-next" onclick="nextPhase(5)">➡️</button>
+      </center>
+    </div>
+
+    <!-- ================= PHASE 5 — EVALUATION ================= -->
+    <div class="phase-card" id="p5">
+      <span class="badge-5e">5. Evaluation</span>
+
+      <div class="section-box">
+        <h3 style="margin-top:0;">⭐ EVALUATION</h3>
+        <p style="font-size:14px;line-height:1.7;margin:0;">
+          Uji pemahamanmu! Pilih jawaban yang paling tepat, lalu cek skormu di akhir.
+        </p>
+      </div>
+
+      <!-- MCQ 1 -->
+      <div class="section-box" id="mcq-box-1">
+        <p style="font-size:14px;font-weight:bold;margin:0 0 8px 0;">
+          1. Gaya antarmolekul yang terjadi pada semua jenis molekul, baik polar maupun nonpolar, adalah...
+        </p>
+        <label class="mcq-option"><input type="radio" name="mcq1" value="a"> a) Ikatan hidrogen</label>
+        <label class="mcq-option"><input type="radio" name="mcq1" value="b"> b) Gaya dipol-dipol</label>
+        <label class="mcq-option"><input type="radio" name="mcq1" value="c"> c) Gaya London</label>
+        <label class="mcq-option"><input type="radio" name="mcq1" value="d"> d) Gaya dipol-dipol induksian</label>
+        <div class="hint" id="hint1"></div>
+      </div>
+
+      <!-- MCQ 2 -->
+      <div class="section-box" id="mcq-box-2">
+        <p style="font-size:14px;font-weight:bold;margin:0 0 8px 0;">
+          2. Ikatan hidrogen dapat terbentuk jika atom H berikatan langsung dengan atom...
+        </p>
+        <label class="mcq-option"><input type="radio" name="mcq2" value="a"> a) C, N, atau O</label>
+        <label class="mcq-option"><input type="radio" name="mcq2" value="b"> b) N, O, atau F</label>
+        <label class="mcq-option"><input type="radio" name="mcq2" value="c"> c) O, F, atau Cl</label>
+        <label class="mcq-option"><input type="radio" name="mcq2" value="d"> d) F, Cl, atau Br</label>
+        <div class="hint" id="hint2"></div>
+      </div>
+
+      <!-- MCQ 3 -->
+      <div class="section-box" id="mcq-box-3">
+        <p style="font-size:14px;font-weight:bold;margin:0 0 8px 0;">
+          3. Titik didih H₂O lebih tinggi dari H₂S meskipun Mr H₂S lebih besar. Hal ini disebabkan oleh...
+        </p>
+        <label class="mcq-option"><input type="radio" name="mcq3" value="a"> a) Gaya London H₂O lebih kuat</label>
+        <label class="mcq-option"><input type="radio" name="mcq3" value="b"> b) Ikatan kovalen H₂O lebih kuat</label>
+        <label class="mcq-option"><input type="radio" name="mcq3" value="c"> c) H₂O membentuk ikatan hidrogen antarmolekul yang kuat</label>
+        <label class="mcq-option"><input type="radio" name="mcq3" value="d"> d) Gaya dipol-dipol H₂S lebih lemah dari gaya London H₂O</label>
+        <div class="hint" id="hint3"></div>
+      </div>
+
+      <!-- MCQ 4 -->
+      <div class="section-box" id="mcq-box-4">
+        <p style="font-size:14px;font-weight:bold;margin:0 0 8px 0;">
+          4. Di antara senyawa berikut, manakah yang TIDAK dapat membentuk ikatan hidrogen antarmolekul?
+        </p>
+        <label class="mcq-option"><input type="radio" name="mcq4" value="a"> a) HF</label>
+        <label class="mcq-option"><input type="radio" name="mcq4" value="b"> b) CH₄</label>
+        <label class="mcq-option"><input type="radio" name="mcq4" value="c"> c) NH₃</label>
+        <label class="mcq-option"><input type="radio" name="mcq4" value="d"> d) H₂O</label>
+        <div class="hint" id="hint4"></div>
+      </div>
+
+      <!-- MCQ 5 -->
+      <div class="section-box" id="mcq-box-5">
+        <p style="font-size:14px;font-weight:bold;margin:0 0 8px 0;">
+          5. Urutan kekuatan gaya antarmolekul dari yang paling lemah ke paling kuat adalah...
+        </p>
+        <label class="mcq-option"><input type="radio" name="mcq5" value="a"> a) Gaya London < Dipol-Dipol Induksian < Dipol-Dipol < Ikatan Hidrogen</label>
+        <label class="mcq-option"><input type="radio" name="mcq5" value="b"> b) Ikatan Hidrogen < Dipol-Dipol < Gaya London < Dipol-Dipol Induksian</label>
+        <label class="mcq-option"><input type="radio" name="mcq5" value="c"> c) Dipol-Dipol < Gaya London < Ikatan Hidrogen < Dipol-Dipol Induksian</label>
+        <label class="mcq-option"><input type="radio" name="mcq5" value="d"> d) Gaya London < Ikatan Hidrogen < Dipol-Dipol Induksian < Dipol-Dipol</label>
+        <div class="hint" id="hint5"></div>
+      </div>
+
+      <center>
+        <button class="btn-green" onclick="checkMCQ()">🔍 Cek Jawaban</button>
+      </center>
+
+      <!-- SKOR -->
+      <div id="skor-box" style="display:none; margin-top:16px;">
+        <div class="section-box section-green" style="text-align:center;">
+          <h3 style="margin-top:0;">🏆 Hasil Evaluasimu</h3>
+          <p style="font-size:22px;font-weight:bold;" id="skor-text"></p>
+          <p style="font-size:14px;" id="skor-pesan"></p>
+        </div>
+      </div>
+
+      <!-- REFLEKSI DIRI -->
+      <div class="section-box" style="margin-top:16px; border-left:10px solid #9c27b0;">
+        <h4 style="margin-top:0; color:#9c27b0;">🪞 Refleksi Diri</h4>
+
+        <p style="font-size:14px;margin:0 0 6px 0;">1. Apa bagian dari materi Gaya Antarmolekul yang paling mudah kamu pahami?</p>
+        <textarea id="ref1" placeholder="Tuliskan di sini..."></textarea>
+
+        <p style="font-size:14px;margin:0 0 6px 0;">2. Apa bagian yang masih terasa sulit atau membingungkan?</p>
+        <textarea id="ref2" placeholder="Tuliskan di sini..."></textarea>
+
+        <p style="font-size:14px;margin:0 0 6px 0;">3. Bagaimana perasaanmu setelah menyelesaikan LKPD ini? 😊</p>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px;">
+          <label class="mcq-option" style="width:auto; padding:10px 16px;">
+            <input type="radio" name="perasaan" value="sangat_paham"> 😄 Sangat Paham
+          </label>
+          <label class="mcq-option" style="width:auto; padding:10px 16px;">
+            <input type="radio" name="perasaan" value="cukup_paham"> 🙂 Cukup Paham
+          </label>
+          <label class="mcq-option" style="width:auto; padding:10px 16px;">
+            <input type="radio" name="perasaan" value="masih_bingung"> 😕 Masih Bingung
+          </label>
+          <label class="mcq-option" style="width:auto; padding:10px 16px;">
+            <input type="radio" name="perasaan" value="perlu_bantuan"> 🆘 Perlu Bantuan
+          </label>
+        </div>
+
+        <p style="font-size:14px;margin:0 0 6px 0;">4. Apa hal baru yang paling menarik yang kamu pelajari hari ini?</p>
+        <textarea id="ref4" placeholder="Tuliskan di sini..."></textarea>
+
+        <center style="margin-top:8px;">
+          <button class="btn-green" onclick="selesai()">✅ Selesai & Kirim Refleksi</button>
+        </center>
+      </div>
+
+      <!-- PESAN SELESAI -->
+      <div id="selesai-box" style="display:none; margin-top:16px;">
+        <div class="section-box" style="background:var(--gold);border-left:10px solid #c79a00;text-align:center;">
+          <h3 style="margin-top:0;">🎉 Selamat! Kamu telah menyelesaikan LKPD Gaya Antarmolekul!</h3>
+          <p style="font-size:14px;">Terima kasih sudah belajar dengan sungguh-sungguh. Terus semangat ya! 💪</p>
+          <button class="btn-next" onclick="goMenu()">🏠 Kembali ke Menu</button>
+        </div>
+      </div>
+
+      <center style="margin-top:8px;">
+        <button class="btn-back" onclick="nextPhase(4)">⬅️</button>
+      </center>
+    </div>
+
+  </div><!-- /module-container -->
+
+  <script>
+    const ID_KEY = "gaya_antarmolekul_identity";
+    let currentPhase = 0;
+
+    function initLKPD(){
+      const tgl = document.getElementById("tgl");
+      if(tgl && !tgl.value){
+        const now = new Date();
+        tgl.value = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+      }
+      loadIdentity();
+      updateProgress();
+    }
+
+    function goMenu(){ window.location.href = "menu.html"; }
+    function logout(){
+      localStorage.removeItem("kimia_user");
+      window.location.href = "index.html";
+    }
+
+    function nextPhase(p){
+      document.querySelectorAll(".phase-card").forEach(x => x.classList.remove("active"));
+      const target = document.getElementById("p" + p);
+      if(target) target.classList.add("active");
+      currentPhase = p;
+      updateProgress();
+      window.scrollTo({top: 0, behavior: "smooth"});
+    }
+
+    function updateProgress(){
+      document.getElementById("fill").style.width = (currentPhase / 5 * 100) + "%";
+    }
+
+    function val(id){
+      const el = document.getElementById(id);
+      return el ? el.value.trim() : "";
+    }
+
+    function saveIdentity(){
+      const n = val("nama"), k = val("kelas"), t = document.getElementById("tgl").value;
+      if(!n || !k || !t){ alert("Lengkapi Nama, Kelas, dan Tanggal ya 😊"); return; }
+      localStorage.setItem(ID_KEY, JSON.stringify({nama:n, kelas:k, tgl:t}));
+      document.getElementById("user-pill").innerText = `${n} • ${k}`;
+      alert("Identitas tersimpan ✅");
+    }
+
+    function loadIdentity(){
+      const raw = localStorage.getItem(ID_KEY);
+      if(!raw) return;
+      try{
+        const id = JSON.parse(raw);
+        if(id?.nama) document.getElementById("nama").value = id.nama;
+        if(id?.kelas) document.getElementById("kelas").value = id.kelas;
+        if(id?.tgl) document.getElementById("tgl").value = id.tgl;
+        if(id?.nama && id?.kelas)
+          document.getElementById("user-pill").innerText = `${id.nama} • ${id.kelas}`;
+      }catch(e){ localStorage.removeItem(ID_KEY); }
+    }
+
+    function identityComplete(){
+      return !!(val("nama") && val("kelas") && document.getElementById("tgl").value);
+    }
+
+    function requireIdentityThenGo(phase){
+      if(!identityComplete()){ alert("Isi identitas (Nama, Kelas, Tanggal) dulu ya 😊"); nextPhase(0); return; }
+      nextPhase(phase);
+    }
+
+    // ===== MCQ =====
+    const answers = { mcq1:'c', mcq2:'b', mcq3:'c', mcq4:'b', mcq5:'a' };
+    const hints = {
+      mcq1:{
+        c:'✅ Benar! Gaya London (dipol sesaat–dipol induksian) terjadi pada SEMUA molekul, baik polar maupun nonpolar.',
+        wrong:'❌ Kurang tepat. Gaya London adalah satu-satunya gaya yang ada di semua molekul. Gaya lain hanya ada pada kondisi tertentu.'
+      },
+      mcq2:{
+        b:'✅ Benar! Ikatan hidrogen hanya terjadi jika H terikat langsung dengan atom sangat elektronegatif: N, O, atau F.',
+        wrong:'❌ Kurang tepat. Syarat utama ikatan hidrogen: atom H harus terikat dengan N, O, atau F — ketiganya memiliki keelektronegatifan sangat tinggi.'
+      },
+      mcq3:{
+        c:'✅ Benar! H₂O membentuk ikatan hidrogen yang sangat kuat antarmolekul karena ada atom O yang sangat elektronegatif. H₂S tidak bisa membentuk ikatan hidrogen.',
+        wrong:'❌ Kurang tepat. Kunci perbedaan titik didih H₂O vs H₂S adalah adanya ikatan hidrogen kuat pada H₂O yang tidak dimiliki H₂S.'
+      },
+      mcq4:{
+        b:'✅ Benar! CH₄ tidak memiliki atom N, O, atau F yang terikat ke H, sehingga tidak bisa membentuk ikatan hidrogen. Gaya dominannya adalah gaya London.',
+        wrong:'❌ Kurang tepat. HF, NH₃, dan H₂O semuanya memiliki H yang terikat ke F, N, atau O sehingga dapat membentuk ikatan hidrogen. Yang tidak bisa adalah CH₄.'
+      },
+      mcq5:{
+        a:'✅ Benar! Urutan dari lemah ke kuat: Gaya London < Dipol-Dipol Induksian < Dipol-Dipol < Ikatan Hidrogen.',
+        wrong:'❌ Kurang tepat. Urutan yang benar dari paling lemah ke paling kuat: Gaya London < Dipol-Dipol Induksian < Dipol-Dipol < Ikatan Hidrogen.'
+      }
+    };
+
+    function checkMCQ(){
+      let score = 0;
+      for(let i=1; i<=5; i++){
+        const name = 'mcq'+i;
+        const sel = document.querySelector(`input[name="${name}"]:checked`);
+        const box = document.getElementById('mcq-box-'+i);
+        const hint = document.getElementById('hint'+i);
+        if(sel){
+          const chosen = sel.value;
+          if(chosen === answers[name]){
+            score++;
+            box.classList.add('correct-box'); box.classList.remove('wrong-box');
+            hint.innerHTML = hints[name][chosen];
+          } else {
+            box.classList.add('wrong-box'); box.classList.remove('correct-box');
+            hint.innerHTML = hints[name]['wrong'];
+          }
+          hint.style.display = 'block';
+        } else {
+          hint.innerHTML = '⚠️ Kamu belum menjawab soal ini.';
+          hint.style.display = 'block';
+        }
+      }
+      const sb = document.getElementById('skor-box');
+      sb.style.display = 'block';
+      document.getElementById('skor-text').innerText = `Skor kamu: ${score} / 5 (${score*20}%)`;
+      if(score===5) document.getElementById('skor-pesan').innerText = '🌟 Luar biasa! Kamu menguasai materi ini dengan sangat baik!';
+      else if(score>=3) document.getElementById('skor-pesan').innerText = '👍 Bagus! Masih ada yang perlu diperkuat — cek pembahasan di atas ya.';
+      else document.getElementById('skor-pesan').innerText = '💪 Jangan menyerah! Yuk ulangi lagi konsep gaya antarmolekul.';
+      sb.scrollIntoView({behavior:'smooth'});
+    }
+
+    function selesai() {
+      const r1=val("ref1"), r2=val("ref2"), r4=val("ref4");
+      const p=document.querySelector('input[name="perasaan"]:checked');
+      if(!r1||!r2||!r4||!p) { 
+          alert("Lengkapi semua pertanyaan refleksi dulu ya 😊"); 
+          return; 
+      }
+      
+      const btnSubmit = document.querySelector('button[onclick="selesai()"]');
+      if (btnSubmit) btnSubmit.innerText = "Sedang mengirim... ⏳";
+
+      let nSiswa = "Siswa"; let kSiswa = "-";
+      try { const r = localStorage.getItem("ID_KEY"); if(r){ const d = JSON.parse(r); nSiswa=d.nama; kSiswa=d.kelas; } } catch(e){}
+
+      const payload = {
+          nama: nSiswa, kelas: kSiswa, materi: "Ikatan Logam",
+          skor: typeof score !== 'undefined' ? score : 0,
+          jawabanLengkap: { ref1: r1, ref2: r2, ref4: r4, perasaan: p.value }
+      };
+
+      fetch('https://script.google.com/macros/s/AKfycbxz_vIPULyd4rD05wsw-bUGYk1Q8qp-S4t3XEhiAas33HLaX-MnndLRNBgctlYgFVOG/exec', {
+          method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
+      })
+      .then(() => { 
+          alert("Selesai! ✅\nJawaban berhasil dikirim ke Guru Rusyda! 🌈"); 
+          if(btnSubmit) btnSubmit.innerText = "Terkirim ✅";
+      })
+      .catch(err => { 
+          alert("Gagal kirim, cek koneksi internetmu ya!"); 
+          if(btnSubmit) btnSubmit.innerText = "Coba Lagi";
+      });
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,2791 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LKPD Ikatan Kovalen - 5E</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --gold:#ffc107;
+      --batik-blue:#3a7caf;
+      --cream:#fffdf2;
+      --soft-blue:#e3f2fd;
+      --green:#a8e6cf;
+      --gray:#b2bec3;
+      --white:#fff;
+      --shadow: 0 10px 30px rgba(0,0,0,.06);
+      --red:#ff6b6b;
+    }
+    body{
+      font-family:'Quicksand',sans-serif;
+      margin:0;
+      background:var(--cream);
+      color:var(--batik-blue);
+      overflow-x:hidden;
+    }
+    h1,h2,h3,h4{font-family:'Fredoka',sans-serif;margin:10px 0}
+    .hidden{display:none !important;}
+
+    /* NAV */
+    nav{
+      background:#fff;
+      padding:8px 5%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      border-bottom-left-radius:30px;
+      border-bottom-right-radius:30px;
+      box-shadow:0 5px 20px rgba(0,0,0,.05);
+      position:sticky;
+      top:0;
+      z-index:10;
+    }
+    .nav-left,.nav-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+    .pill{
+      display:inline-block;padding:6px 12px;border-radius:999px;
+      background:#fff;border:2px dashed #d9ecff;font-size:12px;font-weight:800;opacity:.9;
+    }
+
+    /* BUTTON */
+    button{
+      padding:12px 20px;
+      background:var(--batik-blue);
+      color:#fff;
+      border:none;
+      border-radius:50px;
+      font-family:'Fredoka',sans-serif;
+      font-size:15px;
+      cursor:pointer;
+      box-shadow:0 5px 0 #2a5a82;
+      transition:.2s;
+      position:relative;
+      display:inline-block;
+      margin:4px;
+    }
+    button:hover{background:#4a8cbf;top:-2px;box-shadow:0 7px 0 #2a5a82}
+    button:active{top:3px;box-shadow:0 2px 0 #2a5a82}
+    .btn-back{background:var(--gray);box-shadow:0 5px 0 #636e72}
+    .btn-next{background:var(--gold);box-shadow:0 5px 0 #c79a00;color:#444}
+    .btn-green{background:#27ae60;box-shadow:0 5px 0 #1e8449}
+    .btn-logout{background:var(--red);box-shadow:0 5px 0 #cc4d4d;padding:8px 15px;font-size:12px}
+    .mini{font-size:12px;padding:8px 12px}
+
+    /* LAYOUT */
+    .module-container{
+      max-width:980px;
+      margin:18px auto;
+      padding:26px;
+      background:#fff;
+      border-radius:40px;
+      border:6px solid var(--soft-blue);
+      box-shadow:var(--shadow);
+    }
+    .section-box{
+      background:var(--soft-blue);
+      padding:18px;
+      border-radius:25px;
+      margin-bottom:16px;
+      border-left:10px solid var(--gold);
+    }
+    .section-green{
+      background:var(--green);
+      border-left:10px solid #27ae60;
+    }
+.capaian-box{
+      background:#fff;
+      border:2px solid #d9ecff;
+      border-left:10px solid var(--batik-blue);
+      border-radius:20px;
+      padding:18px;
+      margin-top:14px;
+      box-shadow:0 4px 10px rgba(0,0,0,.04);
+    }
+    .tujuan-box{
+      background:#fff;
+      border:2px solid #d9ecff;
+      border-left:10px solid var(--gold);
+      border-radius:20px;
+      padding:18px;
+      margin-top:14px;
+      box-shadow:0 4px 10px rgba(0,0,0,.04);
+    }
+    .capaian-box h4,.tujuan-box h4{color:var(--batik-blue);}
+    .capaian-box p,.tujuan-box li{color:#4d6f8f;}
+
+    /* LKPD */
+    .progress-bar{
+      width:100%;height:12px;background:#eee;border-radius:10px;
+      margin:0 0 16px 0;overflow:hidden;border:2px solid #fff;
+    }
+    .progress-fill{height:100%;background:var(--gold);width:0%;transition:.5s}
+    .badge-5e{
+      background:var(--batik-blue);color:#fff;padding:5px 14px;
+      border-radius:15px;font-size:13px;font-weight:bold;
+      margin-bottom:10px;display:inline-block;
+    }
+    .phase-card{display:none;animation:fadeIn .35s}
+    .phase-card.active{display:block}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+    input,select,textarea{
+      width:100%;
+      padding:12px;
+      margin-bottom:10px;
+      border:3px solid #f0f0f0;
+      border-radius:15px;
+      font-family:'Quicksand',sans-serif;
+      font-weight:700;
+      box-sizing:border-box;
+      background:#fff;
+    }
+    textarea{min-height:86px}
+
+    .mcq-option{
+      display:block;background:#fff;padding:10px;border-radius:12px;
+      margin:6px 0;border:2px solid #eee;cursor:pointer;
+      transition:.2s;text-align:left;font-size:13px;
+    }
+    .mcq-option:hover{background:var(--soft-blue)}
+    input[type="radio"]{width:auto;margin-right:8px}
+
+    .hint{
+      background:#fff;
+      border:2px dashed #d9ecff;
+      border-radius:18px;
+      padding:12px;
+      display:none;
+      margin-top:8px;
+      font-size:13px;
+    }
+    .done-pill{
+      display:inline-block;padding:6px 12px;border-radius:999px;
+      background:#fff;border:2px dashed #d9ecff;font-size:12px;font-weight:800;
+      margin-left:8px;
+    }
+
+    /* ===== Materi menyatu (tab-panel) ===== */
+    .tab-panel{display:none;}
+    .tab-panel.active{display:block;}
+    .tabbar-inline{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:8px;}
+    .figure-box{
+  background:#fff;
+  padding:15px;
+  border-radius:18px;
+  border:2px dashed #d9ecff;
+  margin-top:12px;
+}
+.figure-title{
+  font-weight:900;
+  margin-bottom:8px;
+  color:var(--batik-blue);
+}
+.figure-wrap{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  justify-content:center;
+  margin:10px 0;
+}
+.figure-img{
+  width:100%;
+  max-width:260px;
+  border-radius:14px;
+  display:block;
+}
+.figure-img.small{ max-width:220px; }
+.figure-caption{
+  font-size:13px;
+  opacity:.85;
+  text-align:center;
+  margin-top:6px;
+}
+
+.teacher-only{
+  display:none;
+}
+
+.answer-key-box{
+  background:#fff;
+  border:2px dashed #d9ecff;
+  border-left:10px solid #27ae60;
+  border-radius:20px;
+  padding:16px;
+  margin-top:16px;
+  color:#2f5f56;
+}
+
+.answer-key-box h3{
+  margin-top:0;
+  color:#1e8449;
+}
+
+.answer-key-box table{
+  width:100%;
+  border-collapse:collapse;
+  background:#fff;
+  font-size:12px;
+}
+
+.answer-key-box th,
+.answer-key-box td{
+  border:1px solid #d9ecff;
+  padding:8px;
+  text-align:left;
+}
+
+.answer-key-box th{
+  background:#27ae60;
+  color:#fff;
+}
+
+.feedback-auto-box{
+  display:none;
+  background:#fff;
+  border:2px dashed #d9ecff;
+  border-left:10px solid #27ae60;
+  border-radius:22px;
+  padding:18px;
+  margin-top:16px;
+  color:#2f5f56;
+  box-shadow:0 6px 16px rgba(0,0,0,.05);
+}
+
+.feedback-auto-box h3{
+  margin-top:0;
+  color:#1e8449;
+}
+
+.feedback-item{
+  background:#f8fff9;
+  border:1px solid #bdebd4;
+  border-radius:16px;
+  padding:12px 14px;
+  margin-bottom:12px;
+  font-size:14px;
+  line-height:1.7;
+}
+
+.feedback-item b{
+  color:#1e8449;
+}
+
+.locked-answer{
+  background:#f3f6f8 !important;
+  color:#555 !important;
+  border-color:#d0d7de !important;
+  cursor:not-allowed !important;
+}
+
+  </style>
+</head>
+
+<body onload="initLKPD()">
+
+  <nav>
+    <div class="nav-left">
+      <button class="btn-back mini" onclick="goMenu()">⬅️ Menu</button>
+      <button class="btn-next mini" onclick="goMateri()">📚 Materi</button>
+      <span class="pill" id="user-pill">Belum isi identitas</span>
+    </div>
+
+    <strong>Ikatan Kovalen</strong>
+
+    <div class="nav-right">
+      <button class="btn-logout" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <div class="module-container">
+    <div class="progress-bar"><div id="fill" class="progress-fill"></div></div>
+
+    <!-- ================= PHASE 0 ================= -->
+    <div class="phase-card active" id="p0">
+      <center><h2 style="margin-top:0;">IDENTITAS & INFORMASI LKPD</h2></center>
+
+      <div class="section-box section-green">
+        <p style="margin:0 0 8px 0;"><b>Isi identitas dulu ya:</b></p>
+        <input type="text" id="nama" placeholder="Nama kamu...">
+        <input type="text" id="kelas" placeholder="Kelas... (contoh: X-IPA 1)">
+        <input type="date" id="tgl">
+        <button class="btn-next" onclick="saveIdentity()">Simpan Identitas ✅</button>
+      </div>
+
+        <div class="capaian-box">
+          <h4 style="margin-top:0; margin-bottom:8px;">📘 Capaian Pembelajaran</h4>
+          <p style="margin:0; text-align:left; font-size:14px; line-height:1.7;">
+          Pada akhir Fase F, peserta didik mampu memahami sifat, struktur, dan interaksi partikel dalam membentuk berbagai senyawa serta kaitannya dengan sifat zat dalam kehidupan sehari-hari.
+        </p>
+      </div>
+
+      <div class="tujuan-box">
+  <h4 style="margin-top:0; margin-bottom:8px;">🎯 Tujuan Pembelajaran</h4>
+  <ol style="text-align:left; font-size:14px; line-height:1.7; margin:0; padding-left:20px;">
+    <li>Siswa mampu menjelaskan pembentukan ikatan kovalen sebagai penggunaan pasangan elektron bersama untuk mencapai kestabilan atom.</li>
+    <li>Siswa mampu membandingkan ikatan kovalen tunggal, rangkap dua, dan rangkap tiga berdasarkan jumlah pasangan elektron yang digunakan bersama.</li>
+    <li>Siswa mampu menjelaskan pembentukan ikatan kovalen koordinasi berdasarkan asal pasangan elektron ikatan.</li>
+    <li>Siswa mampu menghubungkan pembentukan ikatan kovalen dengan contoh molekul sederhana dalam kehidupan sehari-hari.</li>
+  </ol>
+</div>
+
+      <center><button class="btn-next" onclick="requireIdentityThenGo(1)">Mulai Engagement ➡️</button></center>
+    </div>
+
+    <!-- ================= PHASE 1 ================= -->
+<div class="phase-card" id="p1">
+  <span class="badge-5e">1. Engagement</span>
+
+  <!-- PENGANTAR FENOMENA -->
+  <div class="section-box" style="border-left:10px solid var(--batik-blue);">
+    <h2 style="margin-top:0;color:var(--batik-blue);">🔵 Engagement</h2>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Pernahkah kalian memperhatikan bahwa dalam kehidupan sehari-hari, ada banyak kegiatan
+      yang tidak dapat dilakukan sendiri? Misalnya ketika mengerjakan tugas kelompok,
+      setiap anggota perlu berbagi peran, ide, dan bantuan agar tujuan bersama dapat tercapai.
+    </p>
+
+    <center>
+      <img src="pemantik1.png"
+           alt="Kerja kelompok"
+           style="width:90%;max-width:620px;border-radius:18px;display:block;margin:10px 0;box-shadow:0 8px 20px rgba(0,0,0,.08);">
+      <p style="font-size:12px;opacity:.8;margin:8px 0 14px;">
+        Dalam kerja kelompok, setiap anggota saling berbagi peran agar tujuan tercapai.
+      </p>
+    </center>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Hal yang mirip juga terjadi pada atom. Tidak semua atom berada dalam keadaan stabil.
+      Beberapa atom memiliki elektron valensi yang belum lengkap sehingga cenderung berikatan
+      dengan atom lain untuk mencapai kestabilan, seperti konfigurasi gas mulia.
+    </p>
+
+    <center>
+      <img src="pemantik2.png"
+           alt="Saling membantu"
+           style="width:90%;max-width:620px;border-radius:18px;display:block;margin:10px 0;box-shadow:0 8px 20px rgba(0,0,0,.08);">
+      <p style="font-size:12px;opacity:.8;margin:8px 0 14px;">
+        Atom dapat mencapai kestabilan dengan cara berikatan dengan atom lain.
+      </p>
+    </center>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Pada ikatan ion, atom dapat mencapai kestabilan melalui perpindahan elektron.
+      Namun, ada atom-atom tertentu, terutama atom nonlogam, yang tidak mudah melepaskan
+      atau menerima elektron secara penuh. Atom-atom tersebut dapat mencapai kestabilan
+      dengan cara <b>menggunakan pasangan elektron secara bersama</b>.
+    </p>
+
+    <div style="background:#fff;padding:15px;border-radius:18px;border:2px dashed #d9ecff;margin-top:14px;">
+      <p style="font-size:14px;line-height:1.8;text-align:justify;margin:0;">
+        Contohnya, atom hidrogen dapat berikatan dengan atom hidrogen lain membentuk H₂.
+        Dua atom oksigen dapat membentuk O₂. Dua atom nitrogen dapat membentuk N₂.
+        Ketiga molekul tersebut sama-sama terbentuk melalui penggunaan pasangan elektron bersama,
+        tetapi jumlah pasangan elektron yang digunakan bersama tidak selalu sama.
+      </p>
+    </div>
+
+    <center style="margin-top:14px;">
+      <img src="h2o_lewis.png"
+           alt="Contoh pemakaian bersama pasangan elektron pada H2O"
+           style="width:80%;max-width:420px;border-radius:18px;display:block;margin:10px 0;box-shadow:0 8px 20px rgba(0,0,0,.08);">
+      <p style="font-size:12px;opacity:.8;margin:8px 0 0;">
+        Contoh pemakaian bersama pasangan elektron dalam molekul H₂O.
+      </p>
+    </center>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;margin-top:14px;">
+      Selain itu, ada juga ikatan kovalen yang pasangan elektron ikatannya berasal dari
+      satu atom saja. Ikatan seperti ini disebut <b>ikatan kovalen koordinasi</b>.
+      Misalnya, atom yang memiliki pasangan elektron bebas dapat menyumbangkan pasangan elektron
+      tersebut kepada atom atau ion lain yang membutuhkan pasangan elektron.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;margin-top:14px;">
+      Pada tahap ini, kamu <b>belum harus menjawab dengan benar</b>. Tuliskan dugaan awalmu
+      berdasarkan pengetahuan yang sudah kamu miliki. Untuk menemukan jawaban yang lebih lengkap,
+      kerjakan seluruh kegiatan LKPD ini secara berurutan, mulai dari membaca materi, melakukan
+      eksplorasi, menjelaskan hasil pengamatan, mengerjakan elaborasi, hingga menyelesaikan evaluasi.
+    </p>
+  </div>
+
+  <!-- RUMUSAN MASALAH -->
+  <div class="section-box" style="background:white;border-left:10px solid var(--batik-blue);border:2px dashed #d9ecff;">
+    <h3 style="margin-top:0;color:var(--batik-blue);">❓ Rumusan Masalah</h3>
+
+    <p style="font-size:15px;line-height:1.8;text-align:justify;margin-bottom:0;">
+      <b>
+        Bagaimana atom-atom nonlogam mencapai kestabilan melalui penggunaan pasangan elektron bersama,
+        bagaimana perbedaan ikatan kovalen tunggal, rangkap dua, dan rangkap tiga berdasarkan jumlah
+        pasangan elektron yang digunakan bersama, serta bagaimana ikatan kovalen koordinasi terbentuk
+        berdasarkan asal pasangan elektron ikatan?
+      </b>
+    </p>
+  </div>
+
+  <!-- HIPOTESIS AWAL -->
+  <div class="section-box" style="background:var(--green);border-left:10px solid #27ae60;">
+    <h3 style="margin-top:0;color:#1e8449;">💭 Hipotesis Awal</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Berdasarkan pengantar di atas, tuliskan dugaan awalmu untuk menjawab rumusan masalah.
+      Dugaan ini tidak harus langsung benar.
+    </p>
+
+    <textarea id="eng1" rows="5"
+      placeholder="Contoh awal: Menurut saya..."></textarea>
+  </div>
+
+  <!-- ARAH KEGIATAN SELANJUTNYA -->
+  <div class="section-box">
+    <h3 style="margin-top:0;">🧭 Arah Kegiatan Selanjutnya</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Untuk membuktikan hipotesismu, kerjakan kegiatan berikut secara berurutan!
+    </p>
+  </div>
+
+  <center>
+    <button class="btn-back" onclick="nextPhase(0)">⬅️ Kembali</button>
+    <button class="btn-next" onclick="nextPhase(2)">Lanjut ke Exploration ➡️</button>
+  </center>
+</div>
+
+   <!-- ================= PHASE 2 ================= -->
+<div class="phase-card" id="p2">
+  <span class="badge-5e">2. Exploration</span>
+
+  <!-- PENGANTAR EXPLORATION -->
+  <div class="section-box" style="border-left:10px solid var(--batik-blue);">
+    <h2 style="margin-top:0;color:var(--batik-blue);">🔍 Exploration</h2>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Pada tahap Engagement, kamu sudah menuliskan hipotesis awal tentang bagaimana atom-atom
+      nonlogam dapat mencapai kestabilan dengan cara menggunakan pasangan elektron bersama.
+      Sekarang, kamu akan menyelidiki konsep tersebut melalui bacaan materi, simulasi,
+      tabel eksplorasi, dan pertanyaan pemahaman.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      <b>Sebelum melakukan simulasi dan mengisi tabel, bacalah materi terlebih dahulu.</b>
+      Materi ini akan membantumu memahami pembentukan ikatan kovalen, perbedaan ikatan tunggal,
+      rangkap dua, rangkap tiga, serta pembentukan ikatan kovalen koordinasi.
+    </p>
+
+    <center>
+      <button class="btn-next" onclick="openMateriKovalen()">📚 Baca Materi Dulu</button>
+    </center>
+  </div>
+
+  <!-- PETUNJUK KEGIATAN -->
+  <div class="section-box" style="border-left:10px solid var(--gold);">
+    <h3 style="margin-top:0;color:var(--batik-blue);">🧭 Petunjuk Kegiatan Eksplorasi</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Setelah membaca materi, lakukan kegiatan eksplorasi berikut. Gunakan simulasi JavaLab
+      dan bacaan materi untuk membantu mengisi tabel. Fokus pengamatanmu adalah jumlah pasangan
+      elektron yang digunakan bersama dan asal pasangan elektron ikatan.
+    </p>
+
+    <ol style="font-size:14px;line-height:1.8;text-align:left;padding-left:22px;">
+      <li>Baca materi pendukung sampai bagian ikatan kovalen koordinasi.</li>
+      <li>Buka simulasi JavaLab Chemical Bonding.</li>
+      <li>Amati contoh pembentukan ikatan kovalen pada molekul sederhana.</li>
+      <li>Identifikasi jumlah pasangan elektron yang digunakan bersama pada H₂, O₂, N₂, dan CO₂.</li>
+      <li>Bandingkan ikatan kovalen tunggal, rangkap dua, dan rangkap tiga.</li>
+      <li>Amati contoh H₂O dan NH₃ untuk memahami pasangan elektron bebas.</li>
+      <li>Gunakan konsep pasangan elektron bebas untuk menjelaskan ikatan kovalen koordinasi pada NH₄⁺ atau H₃O⁺.</li>
+      <li>Lengkapi tabel eksplorasi dan jawab pertanyaan setelah melakukan pengamatan.</li>
+    </ol>
+  </div>
+
+  <!-- SIMULASI -->
+  <div class="section-box" style="background:white;border-left:10px solid var(--batik-blue);">
+    <h3 style="margin-top:0;color:var(--batik-blue);">🧪 Lab Virtual: Chemical Bonding</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Gunakan simulasi berikut untuk mengamati bagaimana atom-atom membentuk ikatan
+      dengan cara menggunakan pasangan elektron secara bersama.
+    </p>
+
+    <div style="
+      width:100%;
+      height:520px;
+      border-radius:20px;
+      overflow:hidden;
+      border:3px solid #d9ecff;
+      background:#fff;
+    ">
+      <iframe
+        src="https://javalab.org/en/chemical_bonding_en/"
+        width="100%"
+        height="100%"
+        style="border:none;"
+        loading="lazy"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <p style="font-size:12px;opacity:.75;margin-top:8px;">
+      💡 Jika simulasi tidak muncul, buka langsung:
+      <a href="https://javalab.org/en/chemical_bonding_en/" target="_blank" rel="noopener noreferrer">
+        JavaLab Chemical Bonding
+      </a>
+    </p>
+  </div>
+
+  <!-- TABEL 1 -->
+  <div class="section-box">
+    <h3 style="margin-top:0;color:var(--batik-blue);">📋 Tabel 1 Perbandingan Ikatan Kovalen Tunggal, Rangkap Dua, dan Rangkap Tiga</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Lengkapi tabel berikut berdasarkan materi dan hasil pengamatanmu. Kolom jawaban
+      sengaja dikosongkan agar kamu mengisinya sendiri.
+    </p>
+
+    <div style="overflow:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;min-width:920px;background:white;border-radius:15px;overflow:hidden;">
+        <tr style="background:var(--batik-blue);color:#fff;">
+          <th style="padding:10px;border:1px solid var(--soft-blue);">Molekul</th>
+          <th style="padding:10px;border:1px solid var(--soft-blue);">Atom Penyusun</th>
+          <th style="padding:10px;border:1px solid var(--soft-blue);">Kebutuhan Elektron untuk Stabil</th>
+          <th style="padding:10px;border:1px solid var(--soft-blue);">Jumlah Pasangan Elektron yang Digunakan Bersama</th>
+          <th style="padding:10px;border:1px solid var(--soft-blue);">Jenis Ikatan Kovalen</th>
+          <th style="padding:10px;border:1px solid var(--soft-blue);">Struktur Sederhana</th>
+        </tr>
+
+        <tr>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><b>H₂</b></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="eks-h2-atom" type="text"></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="eks-h2-stabil" type="text"></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="eks-h2-pasangan" type="text"></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="eks-h2-jenis" type="text"></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="eks-h2-struktur" type="text"></td>
+        </tr>
+
+        <tr>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><b>O₂</b></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="eks-o2-atom" type="text"></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="eks-o2-stabil" type="text"></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="eks-o2-pasangan" type="text"></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="eks-o2-jenis" type="text"></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="eks-o2-struktur" type="text"></td>
+        </tr>
+
+        <tr>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><b>N₂</b></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="eks-n2-atom" type="text"></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="eks-n2-stabil" type="text"></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="eks-n2-pasangan" type="text"></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="eks-n2-jenis" type="text"></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="eks-n2-struktur" type="text"></td>
+        </tr>
+
+        <tr>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><b>CO₂</b></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="eks-co2-atom" type="text"></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="eks-co2-stabil" type="text"></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="eks-co2-pasangan" type="text"></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="eks-co2-jenis" type="text"></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="eks-co2-struktur" type="text"></td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- KUNCI JAWABAN GURU -->
+    <div class="teacher-only answer-key-box">
+      <h3>🔐 Kunci Jawaban Guru — Tabel 1</h3>
+      <table>
+        <tr>
+          <th>Molekul</th>
+          <th>Atom Penyusun</th>
+          <th>Kebutuhan Stabil</th>
+          <th>Pasangan Elektron Bersama</th>
+          <th>Jenis Ikatan</th>
+          <th>Struktur</th>
+        </tr>
+        <tr>
+          <td>H₂</td>
+          <td>H dan H</td>
+          <td>Masing-masing H mencapai duplet</td>
+          <td>1 pasang</td>
+          <td>Kovalen tunggal</td>
+          <td>H–H</td>
+        </tr>
+        <tr>
+          <td>O₂</td>
+          <td>O dan O</td>
+          <td>Masing-masing O membutuhkan 2 elektron untuk oktet</td>
+          <td>2 pasang</td>
+          <td>Kovalen rangkap dua</td>
+          <td>O=O</td>
+        </tr>
+        <tr>
+          <td>N₂</td>
+          <td>N dan N</td>
+          <td>Masing-masing N membutuhkan 3 elektron untuk oktet</td>
+          <td>3 pasang</td>
+          <td>Kovalen rangkap tiga</td>
+          <td>N≡N</td>
+        </tr>
+        <tr>
+          <td>CO₂</td>
+          <td>C dan O</td>
+          <td>C dan O mencapai oktet</td>
+          <td>2 pasang pada tiap ikatan C=O</td>
+          <td>Dua ikatan kovalen rangkap dua</td>
+          <td>O=C=O</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- TABEL 2 -->
+  <div class="section-box">
+    <h3 style="margin-top:0;color:var(--batik-blue);">📋 Tabel 2 Ikatan Kovalen Koordinasi</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Ikatan kovalen koordinasi terjadi ketika pasangan elektron ikatan berasal dari satu atom saja.
+      Lengkapi tabel berikut berdasarkan materi tentang NH₄⁺ dan H₃O⁺.
+    </p>
+
+    <div style="overflow:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;min-width:900px;background:white;border-radius:15px;overflow:hidden;">
+        <tr style="background:var(--batik-blue);color:#fff;">
+          <th style="padding:10px;border:1px solid var(--soft-blue);">Spesi</th>
+          <th style="padding:10px;border:1px solid var(--soft-blue);">Atom Donor Pasangan Elektron</th>
+          <th style="padding:10px;border:1px solid var(--soft-blue);">Atom/Ion Akseptor</th>
+          <th style="padding:10px;border:1px solid var(--soft-blue);">Asal Pasangan Elektron Ikatan</th>
+          <th style="padding:10px;border:1px solid var(--soft-blue);">Alasan Termasuk Kovalen Koordinasi</th>
+        </tr>
+
+        <tr>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><b>NH₄⁺</b></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="eks-nh4-donor" type="text"></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="eks-nh4-akseptor" type="text"></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="eks-nh4-asal" type="text"></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="eks-nh4-alasan" type="text"></td>
+        </tr>
+
+        <tr>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><b>H₃O⁺</b></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="eks-h3o-donor" type="text"></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="eks-h3o-akseptor" type="text"></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="eks-h3o-asal" type="text"></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="eks-h3o-alasan" type="text"></td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- KUNCI JAWABAN GURU -->
+    <div class="teacher-only answer-key-box">
+      <h3>🔐 Kunci Jawaban Guru — Tabel 2</h3>
+      <table>
+        <tr>
+          <th>Spesi</th>
+          <th>Donor</th>
+          <th>Akseptor</th>
+          <th>Asal Pasangan Elektron</th>
+          <th>Alasan</th>
+        </tr>
+        <tr>
+          <td>NH₄⁺</td>
+          <td>N pada NH₃</td>
+          <td>H⁺</td>
+          <td>Pasangan elektron bebas dari N</td>
+          <td>Pasangan elektron ikatan berasal dari N, lalu digunakan bersama dengan H⁺.</td>
+        </tr>
+        <tr>
+          <td>H₃O⁺</td>
+          <td>O pada H₂O</td>
+          <td>H⁺</td>
+          <td>Pasangan elektron bebas dari O</td>
+          <td>Pasangan elektron ikatan berasal dari O, lalu digunakan bersama dengan H⁺.</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- PERTANYAAN EKSPLORASI -->
+  <div class="section-box" style="background:var(--green);border-left:10px solid #27ae60;">
+    <h3 style="margin-top:0;color:#1e8449;">🧠 Pertanyaan Eksplorasi</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Jawablah pertanyaan berikut setelah membaca materi, melakukan simulasi, dan mengisi tabel eksplorasi.
+    </p>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      1. Apa perbedaan utama antara ikatan kovalen tunggal, rangkap dua, dan rangkap tiga?
+    </p>
+    <textarea id="eks-kov-q1" rows="3"></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      2. Mengapa O₂ membentuk ikatan rangkap dua, sedangkan N₂ membentuk ikatan rangkap tiga?
+    </p>
+    <textarea id="eks-kov-q2" rows="3"></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      3. Bagaimana jumlah pasangan elektron yang digunakan bersama berhubungan dengan kekuatan ikatan?
+    </p>
+    <textarea id="eks-kov-q3" rows="3"></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      4. Apa perbedaan ikatan kovalen biasa dengan ikatan kovalen koordinasi?
+    </p>
+    <textarea id="eks-kov-q4" rows="3"></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      5. Jelaskan mengapa NH₄⁺ atau H₃O⁺ dapat disebut memiliki ikatan kovalen koordinasi.
+    </p>
+    <textarea id="eks-kov-q5" rows="3"></textarea>
+
+    <!-- KUNCI JAWABAN GURU -->
+    <div class="teacher-only answer-key-box">
+      <h3>🔐 Kunci Jawaban Guru — Pertanyaan Eksplorasi</h3>
+      <ol style="font-size:13px;line-height:1.8;">
+        <li>
+          Perbedaan utamanya terdapat pada jumlah pasangan elektron yang digunakan bersama:
+          tunggal 1 pasang, rangkap dua 2 pasang, rangkap tiga 3 pasang.
+        </li>
+        <li>
+          O memiliki 6 elektron valensi sehingga membutuhkan 2 elektron lagi untuk oktet,
+          maka O₂ berbagi 2 pasangan elektron. N memiliki 5 elektron valensi sehingga
+          membutuhkan 3 elektron lagi, maka N₂ berbagi 3 pasangan elektron.
+        </li>
+        <li>
+          Semakin banyak pasangan elektron yang digunakan bersama, ikatan umumnya semakin kuat
+          dan semakin pendek. Maka ikatan rangkap tiga lebih kuat daripada rangkap dua dan tunggal.
+        </li>
+        <li>
+          Pada ikatan kovalen biasa, pasangan elektron ikatan berasal dari kedua atom.
+          Pada ikatan kovalen koordinasi, pasangan elektron ikatan berasal dari satu atom donor saja.
+        </li>
+        <li>
+          NH₄⁺ terbentuk ketika N pada NH₃ menyumbangkan pasangan elektron bebas kepada H⁺.
+          H₃O⁺ terbentuk ketika O pada H₂O menyumbangkan pasangan elektron bebas kepada H⁺.
+        </li>
+      </ol>
+    </div>
+  </div>
+
+  <center>
+    <button class="btn-back" onclick="nextPhase(1)">⬅️ Kembali ke Engagement</button>
+    <button class="btn-next" onclick="nextPhase(3)">Lanjut ke Explanation ➡️</button>
+  </center>
+</div>
+
+<!-- ================= MATERI KOVALEN TERPISAH ================= -->
+<div class="phase-card" id="pMateriKovalen">
+  <span class="badge-5e">Materi Pendukung</span>
+
+  <div class="section-box" style="border-left:10px solid var(--batik-blue);">
+    <h2 style="margin-top:0;color:var(--batik-blue);">📚 Materi Pendukung — Ikatan Kovalen</h2>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Bacalah materi berikut sebelum melakukan simulasi dan mengisi tabel eksplorasi.
+      Materi ini membantumu memahami pembentukan ikatan kovalen, jenis ikatan kovalen,
+      serta ikatan kovalen koordinasi.
+    </p>
+
+    <center>
+      <button class="btn-back" onclick="backToExplorationKovalen()">⬅️ Kembali ke Exploration</button>
+    </center>
+  </div>
+
+  <!-- MATERI 1 -->
+  <div class="section-box">
+    <h3 style="margin-top:0;color:var(--batik-blue);">1. Pengertian Ikatan Kovalen</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Ikatan kovalen adalah ikatan yang terbentuk karena dua atom menggunakan pasangan elektron
+      secara bersama. Ikatan ini umumnya terjadi antaratom nonlogam. Dengan menggunakan elektron
+      bersama, atom-atom dapat mencapai kestabilan seperti gas mulia.
+    </p>
+
+    <div style="background:#fff;padding:15px;border-radius:18px;border:2px dashed #d9ecff;">
+      <p style="font-size:14px;line-height:1.8;margin:0;">
+        <b>Inti konsep:</b><br>
+        Ikatan ion → elektron berpindah.<br>
+        Ikatan kovalen → elektron digunakan bersama.
+      </p>
+    </div>
+  </div>
+
+  <!-- MATERI 2 -->
+  <div class="section-box">
+    <h3 style="margin-top:0;color:var(--batik-blue);">2. Ikatan Kovalen Tunggal</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Ikatan kovalen tunggal terbentuk ketika dua atom menggunakan <b>1 pasangan elektron</b>
+      secara bersama. Satu pasangan elektron berarti terdapat 2 elektron yang dipakai bersama.
+    </p>
+
+    <div style="background:#fff;padding:15px;border-radius:18px;border:2px dashed #d9ecff;">
+      <p style="font-size:14px;line-height:1.8;margin:0;">
+        Contoh: H₂<br>
+        H + H → H–H<br>
+        Dua atom H berbagi 1 pasangan elektron agar masing-masing mencapai duplet.
+      </p>
+    </div>
+
+    <center style="margin-top:10px;">
+      <img src="1a.png" alt="Ikatan kovalen tunggal H2" style="width:90%;max-width:620px;border-radius:15px;display:block;">
+    </center>
+  </div>
+
+  <!-- MATERI 3 -->
+  <div class="section-box">
+    <h3 style="margin-top:0;color:var(--batik-blue);">3. Ikatan Kovalen Rangkap Dua</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Ikatan kovalen rangkap dua terbentuk ketika dua atom menggunakan <b>2 pasangan elektron</b>
+      secara bersama. Dua pasangan elektron berarti terdapat 4 elektron yang digunakan bersama.
+    </p>
+
+    <div style="background:#fff;padding:15px;border-radius:18px;border:2px dashed #d9ecff;">
+      <p style="font-size:14px;line-height:1.8;margin:0;">
+        Contoh: O₂<br>
+        O=O<br>
+        Setiap atom O memiliki 6 elektron valensi dan membutuhkan 2 elektron lagi untuk mencapai oktet.
+      </p>
+    </div>
+
+    <center style="margin-top:10px;">
+      <img src="2a.png" alt="Ikatan kovalen rangkap dua O2" style="width:90%;max-width:620px;border-radius:15px;display:block;">
+    </center>
+  </div>
+
+  <!-- MATERI 4 -->
+  <div class="section-box">
+    <h3 style="margin-top:0;color:var(--batik-blue);">4. Ikatan Kovalen Rangkap Tiga</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Ikatan kovalen rangkap tiga terbentuk ketika dua atom menggunakan <b>3 pasangan elektron</b>
+      secara bersama. Tiga pasangan elektron berarti terdapat 6 elektron yang digunakan bersama.
+    </p>
+
+    <div style="background:#fff;padding:15px;border-radius:18px;border:2px dashed #d9ecff;">
+      <p style="font-size:14px;line-height:1.8;margin:0;">
+        Contoh: N₂<br>
+        N≡N<br>
+        Setiap atom N memiliki 5 elektron valensi dan membutuhkan 3 elektron lagi untuk mencapai oktet.
+      </p>
+    </div>
+
+    <center style="margin-top:10px;">
+      <img src="3a.png" alt="Ikatan kovalen rangkap tiga N2" style="width:90%;max-width:620px;border-radius:15px;display:block;">
+    </center>
+  </div>
+
+  <!-- MATERI 5 -->
+  <div class="section-box">
+    <h3 style="margin-top:0;color:var(--batik-blue);">5. Perbandingan Ikatan Tunggal, Rangkap Dua, dan Rangkap Tiga</h3>
+
+    <div style="overflow:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;min-width:720px;background:white;border-radius:15px;overflow:hidden;">
+        <tr style="background:var(--batik-blue);color:#fff;">
+          <th style="padding:10px;border:1px solid var(--soft-blue);">Jenis Ikatan</th>
+          <th style="padding:10px;border:1px solid var(--soft-blue);">Pasangan Elektron Bersama</th>
+          <th style="padding:10px;border:1px solid var(--soft-blue);">Contoh</th>
+          <th style="padding:10px;border:1px solid var(--soft-blue);">Kekuatan Ikatan</th>
+        </tr>
+        <tr>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">Tunggal</td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">1 pasang</td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">H₂, F₂, H₂O</td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">Paling lemah dibanding rangkap</td>
+        </tr>
+        <tr>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">Rangkap dua</td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">2 pasang</td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">O₂, CO₂</td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">Lebih kuat dari tunggal</td>
+        </tr>
+        <tr>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">Rangkap tiga</td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">3 pasang</td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">N₂</td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);">Paling kuat</td>
+        </tr>
+      </table>
+    </div>
+
+    <div style="background:var(--green);border-left:10px solid #27ae60;border-radius:18px;padding:14px;margin-top:14px;">
+      <p style="font-size:14px;line-height:1.8;margin:0;">
+        <b>Kesimpulan:</b> Semakin banyak pasangan elektron yang digunakan bersama,
+        ikatan umumnya semakin kuat dan semakin pendek.
+      </p>
+    </div>
+  </div>
+
+  <!-- MATERI 6 -->
+  <div class="section-box">
+    <h3 style="margin-top:0;color:var(--batik-blue);">6. Ikatan Kovalen Koordinasi</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Ikatan kovalen koordinasi adalah ikatan kovalen yang pasangan elektron ikatannya
+      berasal dari satu atom saja. Atom yang menyumbangkan pasangan elektron disebut donor,
+      sedangkan atom atau ion yang menerima pasangan elektron disebut akseptor.
+    </p>
+
+    <div style="background:#fff;padding:15px;border-radius:18px;border:2px dashed #d9ecff;">
+      <p style="font-size:14px;line-height:1.8;margin:0;">
+        <b>Contoh NH₄⁺:</b><br>
+        NH₃ memiliki pasangan elektron bebas pada atom N.<br>
+        H⁺ tidak memiliki elektron.<br>
+        N menyumbangkan pasangan elektron bebas kepada H⁺ sehingga terbentuk NH₄⁺.
+      </p>
+    </div>
+
+    <center style="margin-top:10px;">
+      <img src="koordinasi_h3o.png" alt="Contoh ikatan kovalen koordinasi" style="width:90%;max-width:620px;border-radius:15px;display:block;">
+    </center>
+
+    <div style="background:var(--green);border-left:10px solid #27ae60;border-radius:18px;padding:14px;margin-top:14px;">
+      <p style="font-size:14px;line-height:1.8;margin:0;">
+        <b>Intinya:</b> Pada ikatan kovalen biasa, pasangan elektron berasal dari kedua atom.
+        Pada ikatan kovalen koordinasi, pasangan elektron ikatan berasal dari satu atom donor saja.
+      </p>
+    </div>
+  </div>
+
+  <center>
+    <button class="btn-next" onclick="backToExplorationKovalen()">Saya Sudah Membaca, Kembali ke Exploration ➡️</button>
+  </center>
+</div>
+
+   <!-- ================= PHASE 3 ================= -->
+<div class="phase-card" id="p3">
+  <span class="badge-5e">3. Explanation</span>
+
+  <!-- PENGANTAR EXPLANATION -->
+  <div class="section-box" style="border-left:10px solid var(--batik-blue);">
+    <h2 style="margin-top:0;color:var(--batik-blue);">🟡 Explanation</h2>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Pada tahap Exploration, kamu sudah membaca materi, mengamati simulasi, mengisi tabel
+      perbandingan ikatan kovalen, dan menganalisis ikatan kovalen koordinasi.
+      Sekarang, jelaskan kembali hasil eksplorasimu dengan bahasamu sendiri.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Jelaskan bukan hanya jawabannya, tetapi juga <b>alasan mengapa kamu menjawab seperti itu</b>.
+      Gunakan data dari Tabel 1 dan Tabel 2 pada tahap Exploration sebagai dasar penjelasanmu.
+    </p>
+  </div>
+
+  <!-- PRESENTASI PEMAHAMAN SISWA -->
+  <div class="section-box">
+    <h3 style="margin-top:0;color:var(--batik-blue);">🎤 Penjelasan Pemahaman Siswa</h3>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      1. Berdasarkan Tabel 1, jelaskan perbedaan ikatan kovalen tunggal, rangkap dua,
+      dan rangkap tiga berdasarkan jumlah pasangan elektron yang digunakan bersama.
+    </p>
+    <textarea id="exp-kov-q1" rows="4"
+      placeholder="Jelaskan perbedaan 1 pasang, 2 pasang, dan 3 pasang elektron yang digunakan bersama..."></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      2. Mengapa H₂ hanya membentuk ikatan tunggal, sedangkan O₂ membentuk ikatan rangkap dua
+      dan N₂ membentuk ikatan rangkap tiga?
+    </p>
+    <textarea id="exp-kov-q2" rows="4"
+      placeholder="Hubungkan dengan kebutuhan elektron H, O, dan N..."></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      3. Berdasarkan hasil eksplorasi, jelaskan mengapa ikatan rangkap tiga umumnya lebih kuat
+      daripada ikatan rangkap dua dan ikatan tunggal.
+    </p>
+    <textarea id="exp-kov-q3" rows="4"
+      placeholder="Jelaskan hubungan jumlah pasangan elektron bersama dengan kekuatan ikatan..."></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      4. Berdasarkan Tabel 2, jelaskan perbedaan ikatan kovalen biasa dan ikatan kovalen koordinasi.
+    </p>
+    <textarea id="exp-kov-q4" rows="4"
+      placeholder="Jelaskan asal pasangan elektron ikatan pada kovalen biasa dan kovalen koordinasi..."></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      5. Jelaskan proses terbentuknya ikatan kovalen koordinasi pada NH₄⁺ atau H₃O⁺
+      berdasarkan atom donor, atom/ion akseptor, dan asal pasangan elektron ikatan.
+    </p>
+    <textarea id="exp-kov-q5" rows="5"
+      placeholder="Contoh: atom H memberikan satu elektronnya kepada Nitrogen..."></textarea>
+  </div>
+
+  <!-- REVISI HIPOTESIS -->
+  <div class="section-box" style="background:var(--green);border-left:10px solid #27ae60;">
+    <h3 style="margin-top:0;color:#1e8449;">🔁 Meninjau Kembali Hipotesis Awal</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Buka kembali hipotesis awalmu pada tahap Engagement. Setelah membaca materi,
+      melakukan simulasi, dan mengisi tabel eksplorasi, apakah hipotesismu sudah tepat?
+      Tuliskan perbaikan atau penguatan hipotesismu.
+    </p>
+
+    <textarea id="exp-kov-q6" rows="4"
+      placeholder="Tuliskan revisi hipotesis awalmu setelah memahami ikatan kovalen dan ikatan kovalen koordinasi..."></textarea>
+  </div>
+
+  <!-- UMPAN BALIK OTOMATIS -->
+  <div class="section-box" style="background:white;border-left:10px solid var(--gold);border:2px dashed #d9ecff;">
+    <h3 style="margin-top:0;color:var(--batik-blue);">💬 Simpan Jawaban dan Lihat Umpan Balik</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Setelah selesai menjawab semua pertanyaan Explanation, klik tombol di bawah ini.
+      Jawabanmu akan disimpan dan dikunci, lalu pembahasan akan muncul sebagai umpan balik otomatis.
+    </p>
+
+    <p style="font-size:13px;line-height:1.7;color:#cc4d4d;font-weight:bold;">
+      ⚠️ Setelah menekan tombol ini, jawaban tidak dapat diubah kembali sampai jawaban akhir dikirim ke spreadsheet.
+    </p>
+
+    <center>
+      <button class="btn-next" id="btn-save-explanation-kov" onclick="saveExplanationKovalenAndShowFeedback()">
+        💾 Simpan Jawaban & Lihat Umpan Balik
+      </button>
+    </center>
+
+    <div id="feedback-explanation-kov" class="feedback-auto-box">
+      <h3>✅ Umpan Balik Explanation</h3>
+
+      <div class="feedback-item">
+        <b>1. Perbedaan ikatan tunggal, rangkap dua, dan rangkap tiga.</b><br>
+        Ikatan kovalen tunggal menggunakan 1 pasangan elektron bersama. Ikatan kovalen rangkap dua
+        menggunakan 2 pasangan elektron bersama. Ikatan kovalen rangkap tiga menggunakan 3 pasangan
+        elektron bersama. Jadi perbedaan utamanya terletak pada jumlah pasangan elektron yang digunakan bersama.
+      </div>
+
+      <div class="feedback-item">
+        <b>2. Perbedaan H₂, O₂, dan N₂.</b><br>
+        H hanya membutuhkan 1 elektron lagi untuk mencapai duplet, sehingga H₂ cukup membentuk
+        ikatan tunggal. O memiliki 6 elektron valensi dan membutuhkan 2 elektron lagi untuk mencapai
+        oktet, sehingga O₂ membentuk ikatan rangkap dua. N memiliki 5 elektron valensi dan membutuhkan
+        3 elektron lagi, sehingga N₂ membentuk ikatan rangkap tiga.
+      </div>
+
+      <div class="feedback-item">
+        <b>3. Kekuatan ikatan.</b><br>
+        Semakin banyak pasangan elektron yang digunakan bersama, ikatan umumnya semakin kuat dan
+        semakin pendek. Karena itu, ikatan rangkap tiga lebih kuat daripada rangkap dua, dan ikatan
+        rangkap dua lebih kuat daripada ikatan tunggal.
+      </div>
+
+      <div class="feedback-item">
+        <b>4. Kovalen biasa dan kovalen koordinasi.</b><br>
+        Pada ikatan kovalen biasa, pasangan elektron ikatan berasal dari kontribusi kedua atom yang
+        berikatan. Pada ikatan kovalen koordinasi, pasangan elektron ikatan berasal dari satu atom
+        saja, yaitu atom donor yang memiliki pasangan elektron bebas.
+      </div>
+
+      <div class="feedback-item">
+        <b>5. Contoh kovalen koordinasi.</b><br>
+        Pada NH₄⁺, atom N dalam NH₃ memiliki pasangan elektron bebas dan menyumbangkannya kepada H⁺.
+        Pada H₃O⁺, atom O dalam H₂O menyumbangkan pasangan elektron bebas kepada H⁺. Karena pasangan
+        elektron ikatan berasal dari satu atom donor, ikatan tersebut disebut ikatan kovalen koordinasi.
+      </div>
+
+      <div class="feedback-item">
+        <b>6. Revisi hipotesis awal.</b><br>
+        Hipotesis yang baik seharusnya menyebutkan bahwa atom nonlogam dapat mencapai kestabilan
+        dengan menggunakan pasangan elektron bersama. Ikatan tunggal, rangkap dua, dan rangkap tiga
+        dibedakan berdasarkan jumlah pasangan elektron bersama, sedangkan ikatan kovalen koordinasi
+        dibedakan berdasarkan asal pasangan elektron ikatannya.
+      </div>
+    </div>
+  </div>
+
+  <!-- KUNCI / ARAHAN GURU KHUSUS OWNER -->
+  <div class="teacher-only answer-key-box">
+    <h3>🔐 Panduan Guru — Poin Penting Explanation</h3>
+
+    <ol style="font-size:13px;line-height:1.8;">
+      <li>
+        Siswa mampu menyebutkan bahwa ikatan tunggal, rangkap dua, dan rangkap tiga berbeda
+        pada jumlah pasangan elektron bersama.
+      </li>
+      <li>
+        Siswa mampu menghubungkan H₂ dengan duplet, O₂ dengan kebutuhan 2 elektron untuk oktet,
+        dan N₂ dengan kebutuhan 3 elektron untuk oktet.
+      </li>
+      <li>
+        Siswa mampu menjelaskan bahwa semakin banyak pasangan elektron bersama, ikatan umumnya
+        semakin kuat dan pendek.
+      </li>
+      <li>
+        Siswa mampu membedakan kovalen biasa dan kovalen koordinasi berdasarkan asal pasangan elektron.
+      </li>
+      <li>
+        Siswa mampu menjelaskan contoh NH₄⁺ atau H₃O⁺ dengan konsep donor pasangan elektron dan akseptor H⁺.
+      </li>
+    </ol>
+  </div>
+
+  <center>
+    <button class="btn-back" onclick="nextPhase(2)">⬅️ Kembali ke Exploration</button>
+    <button class="btn-next" onclick="nextPhase(4)">Lanjut ke Elaboration ➡️</button>
+  </center>
+</div>
+
+<!-- ================= PHASE 4 ================= -->
+<div class="phase-card" id="p4">
+  <span class="badge-5e">4. Elaboration</span>
+
+  <!-- PENGANTAR ELABORATION -->
+  <div class="section-box" style="border-left:10px solid var(--batik-blue);">
+    <h2 style="margin-top:0;color:var(--batik-blue);">🌍 Elaboration</h2>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Pada tahap Engagement, kamu sudah melihat bahwa atom dapat mencapai kestabilan dengan cara
+      menggunakan pasangan elektron secara bersama. Contoh yang digunakan adalah molekul air atau
+      <b>H₂O</b>. Pada tahap ini, kamu akan membahas H₂O secara lebih mendalam.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Kamu akan menganalisis bagaimana atom H dan O membentuk ikatan kovalen tunggal,
+      bagaimana atom O masih memiliki pasangan elektron bebas, dan bagaimana pasangan elektron bebas
+      tersebut dapat digunakan untuk membentuk <b>ikatan kovalen koordinasi</b> pada ion H₃O⁺.
+    </p>
+  </div>
+
+  <!-- KASUS 1 -->
+  <div class="section-box">
+    <h3 style="margin-top:0;color:var(--batik-blue);">💧 Kasus 1: Bagaimana Ikatan Kovalen Terbentuk pada H₂O?</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Molekul air atau H₂O tersusun dari dua atom hidrogen dan satu atom oksigen.
+      Atom H memiliki 1 elektron valensi dan membutuhkan 1 elektron lagi agar mencapai
+      kestabilan duplet seperti helium. Atom O memiliki 6 elektron valensi dan membutuhkan
+      2 elektron lagi agar mencapai kestabilan oktet.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Dalam molekul H₂O, atom O menggunakan satu pasangan elektron bersama dengan atom H pertama,
+      dan satu pasangan elektron bersama dengan atom H kedua. Karena setiap ikatan O–H menggunakan
+      <b>1 pasangan elektron bersama</b>, maka ikatan O–H termasuk <b>ikatan kovalen tunggal</b>.
+    </p>
+
+    <div style="background:white;border:2px dashed #d9ecff;border-radius:18px;padding:14px;margin:12px 0;color:var(--batik-blue);font-size:14px;line-height:1.8;font-weight:700;">
+      H membutuhkan 1 elektron → mencapai duplet<br>
+      O membutuhkan 2 elektron → mencapai oktet<br>
+      O berbagi 1 pasangan elektron dengan setiap H<br>
+      H–O–H memiliki dua ikatan kovalen tunggal
+    </div>
+
+    <center style="margin-top:12px;">
+      <img src="h2o_lewis.png"
+           alt="Struktur Lewis H2O"
+           style="width:90%;max-width:520px;border-radius:15px;display:block;">
+      <p style="font-size:12px;opacity:.8;margin:8px 0 0;">
+        Struktur Lewis H₂O menunjukkan pasangan elektron ikatan dan pasangan elektron bebas.
+      </p>
+    </center>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      Pertanyaan 1: Jelaskan mengapa ikatan O–H dalam H₂O termasuk ikatan kovalen tunggal.
+    </p>
+    <textarea id="elab-kov-q1" rows="4"></textarea>
+  </div>
+
+  <!-- KASUS 2 -->
+  <div class="section-box" style="border-left:10px solid #27ae60;">
+    <h3 style="margin-top:0;color:#1e8449;">🧩 Kasus 2: Pasangan Elektron Bebas pada Atom O</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Setelah membentuk dua ikatan kovalen tunggal dengan dua atom H, atom O dalam H₂O tetap memiliki
+      pasangan elektron yang tidak digunakan untuk berikatan. Pasangan elektron ini disebut
+      <b>pasangan elektron bebas</b>.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Pasangan elektron bebas penting karena dapat memengaruhi bentuk molekul dan juga dapat
+      berperan dalam pembentukan ikatan kovalen koordinasi. Atom yang memiliki pasangan elektron bebas
+      dapat bertindak sebagai <b>donor pasangan elektron</b>.
+    </p>
+
+    <div style="background:white;border:2px dashed #d9ecff;border-radius:18px;padding:14px;margin:12px 0;color:var(--batik-blue);font-size:14px;line-height:1.8;font-weight:700;">
+      Pada H₂O:<br>
+      O memiliki 2 pasangan elektron ikatan dengan H<br>
+      O masih memiliki pasangan elektron bebas<br>
+      Pasangan elektron bebas dapat didonorkan kepada H⁺
+    </div>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      Pertanyaan 2: Apa yang dimaksud pasangan elektron bebas, dan mengapa pasangan elektron bebas pada atom O penting?
+    </p>
+    <textarea id="elab-kov-q2" rows="4"></textarea>
+  </div>
+
+  <!-- KASUS 3 -->
+  <div class="section-box" style="border-left:10px solid #e91e63;">
+    <h3 style="margin-top:0;color:#e91e63;">🧷 Kasus 3: Pembentukan Ikatan Kovalen Koordinasi pada H₃O⁺</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Ion hidronium atau H₃O⁺ dapat terbentuk ketika molekul H₂O berikatan dengan ion H⁺.
+      Ion H⁺ tidak memiliki elektron. Sementara itu, atom O pada H₂O memiliki pasangan elektron bebas.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Atom O dapat menyumbangkan salah satu pasangan elektron bebasnya kepada H⁺.
+      Setelah pasangan elektron tersebut digunakan bersama oleh O dan H⁺, terbentuklah ikatan O–H baru.
+      Karena pasangan elektron ikatan berasal dari satu atom saja, yaitu atom O, maka ikatan ini disebut
+      <b>ikatan kovalen koordinasi</b>.
+    </p>
+
+    <div style="background:white;border:2px dashed #d9ecff;border-radius:18px;padding:14px;margin:12px 0;color:var(--batik-blue);font-size:14px;line-height:1.8;font-weight:700;">
+      H₂O + H⁺ → H₃O⁺<br>
+      Donor pasangan elektron: O pada H₂O<br>
+      Akseptor pasangan elektron: H⁺<br>
+      Asal pasangan elektron ikatan: dari O
+    </div>
+
+    <center style="margin-top:12px;">
+      <img src="koordinasi_h3o.png"
+           alt="Ikatan kovalen koordinasi H3O+"
+           style="width:90%;max-width:620px;border-radius:15px;display:block;">
+      <p style="font-size:12px;opacity:.8;margin:8px 0 0;">
+        H₃O⁺ terbentuk karena O pada H₂O mendonorkan pasangan elektron bebas kepada H⁺.
+      </p>
+    </center>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      Pertanyaan 3: Jelaskan proses terbentuknya ikatan kovalen koordinasi pada H₃O⁺ berdasarkan donor, akseptor, dan asal pasangan elektron ikatan.
+    </p>
+    <textarea id="elab-kov-q3" rows="4"></textarea>
+  </div>
+
+  <!-- KASUS 4 -->
+  <div class="section-box" style="border-left:10px solid #ff9800;">
+    <h3 style="margin-top:0;color:#ff9800;">🧪 Kasus 4: Membandingkan Kovalen Biasa dan Kovalen Koordinasi</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Dalam molekul H₂O, dua ikatan O–H awal merupakan ikatan kovalen biasa karena pasangan elektron
+      ikatan berasal dari kontribusi atom H dan atom O. Namun, ketika H₂O berikatan dengan H⁺ membentuk
+      H₃O⁺, pasangan elektron untuk ikatan O–H baru berasal dari atom O saja.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Setelah ikatan terbentuk, ikatan kovalen koordinasi tetap merupakan ikatan kovalen karena
+      pasangan elektron digunakan bersama. Perbedaannya terletak pada <b>asal pasangan elektron</b>
+      saat ikatan terbentuk.
+    </p>
+
+    <div style="background:white;border:2px dashed #d9ecff;border-radius:18px;padding:14px;margin:12px 0;color:var(--batik-blue);font-size:14px;line-height:1.8;font-weight:700;">
+      Kovalen biasa → pasangan elektron berasal dari kedua atom<br>
+      Kovalen koordinasi → pasangan elektron berasal dari satu atom donor<br>
+      Setelah terbentuk → pasangan elektron tetap digunakan bersama
+    </div>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      Pertanyaan 4: Apa perbedaan utama antara ikatan kovalen biasa dan ikatan kovalen koordinasi?
+    </p>
+    <textarea id="elab-kov-q4" rows="4"></textarea>
+  </div>
+
+  <!-- TABEL ELABORASI -->
+  <div class="section-box">
+    <h3 style="margin-top:0;color:var(--batik-blue);">📋 Tabel Elaborasi</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Lengkapi tabel berikut berdasarkan bacaan kasus dan pemahamanmu.
+    </p>
+
+    <div style="overflow:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;min-width:980px;background:white;border-radius:15px;overflow:hidden;">
+        <tr style="background:var(--batik-blue);color:#fff;">
+          <th style="padding:10px;border:1px solid var(--soft-blue);">Spesi</th>
+          <th style="padding:10px;border:1px solid var(--soft-blue);">Jenis Ikatan yang Dianalisis</th>
+          <th style="padding:10px;border:1px solid var(--soft-blue);">Pasangan Elektron Bersama</th>
+          <th style="padding:10px;border:1px solid var(--soft-blue);">Donor Pasangan Elektron</th>
+          <th style="padding:10px;border:1px solid var(--soft-blue);">Akseptor</th>
+          <th style="padding:10px;border:1px solid var(--soft-blue);">Alasan</th>
+        </tr>
+
+        <tr>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><b>H₂O</b></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="elab-kov-tab-1" type="text"></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="elab-kov-tab-2" type="text"></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="elab-kov-tab-3" type="text"></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="elab-kov-tab-4" type="text"></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="elab-kov-tab-5" type="text"></td>
+        </tr>
+
+        <tr>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><b>H₃O⁺</b></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="elab-kov-tab-6" type="text"></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="elab-kov-tab-7" type="text"></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="elab-kov-tab-8" type="text"></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="elab-kov-tab-9" type="text"></td>
+          <td style="padding:8px;border:1px solid var(--soft-blue);"><input id="elab-kov-tab-10" type="text"></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- SINTESIS -->
+  <div class="section-box" style="background:var(--green);border-left:10px solid #27ae60;">
+    <h3 style="margin-top:0;color:#1e8449;">✍️ Sintesis Elaborasi</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Berdasarkan bacaan kasus dan tabel elaborasi, tuliskan kesimpulanmu.
+    </p>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      Bagaimana konsep pemakaian pasangan elektron bersama pada H₂O dapat diperluas untuk menjelaskan pembentukan ikatan kovalen koordinasi pada H₃O⁺?
+    </p>
+
+    <textarea id="elab-kov-q5" rows="5"></textarea>
+  </div>
+
+  <!-- UMPAN BALIK OTOMATIS -->
+  <div class="section-box" style="background:white;border-left:10px solid var(--gold);border:2px dashed #d9ecff;">
+    <h3 style="margin-top:0;color:var(--batik-blue);">💬 Simpan Jawaban dan Lihat Umpan Balik</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Setelah menjawab pertanyaan dan mengisi tabel elaborasi, klik tombol berikut.
+      Jawabanmu akan dikunci, lalu pembahasan otomatis akan muncul.
+    </p>
+
+    <p style="font-size:13px;line-height:1.7;color:#cc4d4d;font-weight:bold;">
+      ⚠️ Setelah menekan tombol ini, jawaban tidak dapat diubah kembali sampai jawaban akhir dikirim ke spreadsheet.
+    </p>
+
+    <center>
+      <button class="btn-next" id="btn-save-elaboration-kov" onclick="saveElaborationKovalenAndShowFeedback()">
+        💾 Simpan Jawaban & Lihat Umpan Balik
+      </button>
+    </center>
+
+    <div id="feedback-elaboration-kov" class="feedback-auto-box">
+      <h3>✅ Umpan Balik Elaboration</h3>
+
+      <div class="feedback-item">
+        <b>1. Ikatan O–H pada H₂O adalah ikatan kovalen tunggal.</b><br>
+        Setiap ikatan O–H menggunakan 1 pasangan elektron bersama. Atom H mencapai duplet,
+        sedangkan atom O mencapai oktet setelah berikatan dengan dua atom H.
+      </div>
+
+      <div class="feedback-item">
+        <b>2. Pasangan elektron bebas pada O.</b><br>
+        Pasangan elektron bebas adalah pasangan elektron yang tidak digunakan untuk berikatan.
+        Pada H₂O, atom O masih memiliki pasangan elektron bebas yang dapat bertindak sebagai donor.
+      </div>
+
+      <div class="feedback-item">
+        <b>3. Pembentukan H₃O⁺.</b><br>
+        H₃O⁺ terbentuk ketika O pada H₂O menyumbangkan pasangan elektron bebas kepada H⁺.
+        Karena pasangan elektron ikatan berasal dari O saja, ikatan baru tersebut merupakan
+        ikatan kovalen koordinasi.
+      </div>
+
+      <div class="feedback-item">
+        <b>4. Kovalen biasa dan kovalen koordinasi.</b><br>
+        Pada kovalen biasa, pasangan elektron ikatan berasal dari kedua atom. Pada kovalen koordinasi,
+        pasangan elektron ikatan berasal dari satu atom donor saja. Setelah ikatan terbentuk,
+        pasangan elektron tetap digunakan bersama.
+      </div>
+
+      <div class="feedback-item">
+        <b>5. Kesimpulan konsep.</b><br>
+        Konsep berbagi pasangan elektron pada H₂O dapat diperluas untuk memahami H₃O⁺.
+        H₂O memiliki pasangan elektron bebas pada O, dan pasangan elektron bebas tersebut dapat
+        didonorkan kepada H⁺ sehingga terbentuk ikatan kovalen koordinasi.
+      </div>
+    </div>
+  </div>
+
+ <!-- KUNCI JAWABAN GURU -->
+<div class="teacher-only answer-key-box">
+  <h3>🔐 Kunci Jawaban Guru — Elaboration</h3>
+
+  <p style="font-size:13px;line-height:1.8;margin-top:0;">
+    Catatan: Jawaban siswa tidak harus sama persis. Jawaban dianggap benar jika siswa mampu
+    menghubungkan konsep pemakaian pasangan elektron bersama, pasangan elektron bebas,
+    donor-akseptor, dan asal pasangan elektron ikatan.
+  </p>
+
+  <h4 style="color:#1e8449;">A. Kunci Pertanyaan Elaborasi</h4>
+
+  <ol style="font-size:13px;line-height:1.8;padding-left:22px;">
+    <li>
+      <b>Ikatan O–H dalam H₂O termasuk ikatan kovalen tunggal</b> karena setiap ikatan antara
+      O dan H menggunakan satu pasangan elektron bersama. Atom H memperoleh kestabilan duplet,
+      sedangkan atom O mencapai kestabilan oktet setelah membentuk dua ikatan O–H.
+    </li>
+
+    <li style="margin-top:10px;">
+      <b>Pasangan elektron bebas</b> adalah pasangan elektron pada atom pusat yang tidak digunakan
+      untuk membentuk ikatan. Pada H₂O, atom O masih memiliki pasangan elektron bebas.
+      Pasangan elektron bebas ini penting karena dapat bertindak sebagai pasangan elektron donor
+      dalam pembentukan ikatan kovalen koordinasi.
+    </li>
+
+    <li style="margin-top:10px;">
+      <b>Ikatan kovalen koordinasi pada H₃O⁺</b> terbentuk ketika atom O pada H₂O menyumbangkan
+      pasangan elektron bebasnya kepada ion H⁺. Dalam proses ini, atom O bertindak sebagai donor
+      pasangan elektron, sedangkan H⁺ bertindak sebagai akseptor. Karena pasangan elektron ikatan
+      berasal dari satu atom saja, yaitu O, maka ikatan baru tersebut disebut ikatan kovalen koordinasi.
+    </li>
+
+    <li style="margin-top:10px;">
+      <b>Perbedaan utama kovalen biasa dan kovalen koordinasi</b> terletak pada asal pasangan
+      elektron ikatan. Pada ikatan kovalen biasa, pasangan elektron berasal dari kontribusi kedua
+      atom yang berikatan. Pada ikatan kovalen koordinasi, pasangan elektron ikatan berasal dari
+      satu atom donor saja. Setelah ikatan terbentuk, pasangan elektron tetap digunakan bersama.
+    </li>
+
+    <li style="margin-top:10px;">
+      <b>Sintesis:</b> Pada H₂O, atom O menggunakan pasangan elektron bersama dengan dua atom H
+      untuk membentuk dua ikatan kovalen tunggal. Atom O masih memiliki pasangan elektron bebas.
+      Pasangan elektron bebas tersebut dapat didonorkan kepada H⁺ sehingga terbentuk H₃O⁺.
+      Dengan demikian, konsep pemakaian pasangan elektron bersama pada H₂O dapat diperluas
+      untuk menjelaskan pembentukan ikatan kovalen koordinasi pada H₃O⁺.
+    </li>
+  </ol>
+
+  <h4 style="color:#1e8449;margin-top:16px;">B. Kunci Tabel Elaborasi</h4>
+
+  <table>
+    <tr>
+      <th>Spesi</th>
+      <th>Jenis Ikatan yang Dianalisis</th>
+      <th>Pasangan Elektron Bersama</th>
+      <th>Donor Pasangan Elektron</th>
+      <th>Akseptor</th>
+      <th>Alasan</th>
+    </tr>
+
+    <tr>
+      <td><b>H₂O</b></td>
+      <td>Ikatan kovalen tunggal O–H</td>
+      <td>1 pasangan elektron bersama pada setiap ikatan O–H</td>
+      <td>O dan H sama-sama berkontribusi dalam ikatan kovalen biasa</td>
+      <td>Tidak ada akseptor khusus seperti pada kovalen koordinasi</td>
+      <td>
+        H₂O memiliki dua ikatan O–H. Setiap ikatan terbentuk karena O dan H menggunakan
+        satu pasangan elektron bersama, sehingga termasuk ikatan kovalen tunggal biasa.
+      </td>
+    </tr>
+
+    <tr>
+      <td><b>H₃O⁺</b></td>
+      <td>Ikatan kovalen koordinasi O–H</td>
+      <td>1 pasangan elektron yang didonorkan oleh O kepada H⁺</td>
+      <td>Atom O pada H₂O</td>
+      <td>Ion H⁺</td>
+      <td>
+        H₃O⁺ terbentuk ketika O pada H₂O menyumbangkan pasangan elektron bebas kepada H⁺.
+        Karena pasangan elektron ikatan berasal dari O saja, ikatan baru yang terbentuk
+        termasuk ikatan kovalen koordinasi.
+      </td>
+    </tr>
+  </table>
+</div>
+
+  <center>
+    <button class="btn-back" onclick="nextPhase(3)">⬅️ Kembali ke Explanation</button>
+    <button class="btn-next" onclick="nextPhase(5)">Lanjut ke Evaluation ➡️</button>
+  </center>
+</div>
+
+
+    <!-- ================= PHASE 5 ================= -->
+<div class="phase-card" id="p5">
+  <span class="badge-5e">5. Evaluation</span>
+
+  <!-- PENGANTAR EVALUATION -->
+  <div class="section-box" style="border-left:10px solid var(--batik-blue);">
+    <h2 style="margin-top:0;color:var(--batik-blue);">⭐ Evaluation — Latihan Pemahaman Konsep Ikatan Kovalen</h2>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Tahap ini berisi latihan soal umum tentang materi ikatan kovalen. Soal-soal berikut
+      tidak lagi berfokus pada kegiatan sebelumnya, tetapi digunakan untuk mengukur pemahaman
+      konsep setelah kamu mempelajari materi.
+    </p>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Pilih satu jawaban yang paling tepat. Setelah selesai, klik tombol
+      <b>Simpan Evaluasi & Lihat Pembahasan</b>. Jawaban akan dikunci dan pembahasan otomatis akan muncul.
+    </p>
+
+    <p style="font-size:13px;line-height:1.7;color:#cc4d4d;font-weight:bold;">
+      ⚠️ Setelah evaluasi disimpan, jawaban tidak dapat diubah kembali sampai jawaban akhir dikirim ke spreadsheet.
+    </p>
+  </div>
+
+  <!-- SOAL EVALUASI -->
+  <div class="section-box" id="quiz-kovalen-container"></div>
+
+  <center>
+    <button class="btn-next" id="btn-save-evaluation-kov" onclick="saveEvaluationKovalenAndShowFeedback()">
+      💾 Simpan Evaluasi & Lihat Pembahasan
+    </button>
+  </center>
+
+  <!-- HASIL SKOR -->
+  <div id="skor-evaluation-kov-box" class="section-box section-green hidden" style="text-align:center;">
+    <h3 style="margin-top:0;">🏆 Hasil Evaluasi</h3>
+    <p id="skor-evaluation-kov-text" style="font-size:22px;font-weight:bold;margin:8px 0;"></p>
+    <p id="skor-evaluation-kov-message" style="font-size:14px;line-height:1.7;margin:0;"></p>
+  </div>
+
+  <!-- PEMBAHASAN OTOMATIS -->
+  <div id="feedback-evaluation-kov" class="feedback-auto-box">
+    <h3>✅ Pembahasan Evaluasi Ikatan Kovalen</h3>
+    <div id="evaluation-kov-feedback-content"></div>
+  </div>
+
+  <!-- KUNCI JAWABAN GURU - EVALUATION -->
+<div class="teacher-only answer-key-box">
+  <h3>🔐 Kunci Jawaban Guru — Evaluation Ikatan Kovalen</h3>
+
+  <table>
+    <tr>
+      <th>No</th>
+      <th>Kunci</th>
+      <th>Pembahasan Singkat</th>
+    </tr>
+
+    <tr>
+      <td>1</td>
+      <td>B</td>
+      <td>Ikatan kovalen terbentuk karena atom menggunakan pasangan elektron secara bersama untuk mencapai kestabilan.</td>
+    </tr>
+
+    <tr>
+      <td>2</td>
+      <td>A</td>
+      <td>Dua atom H berbagi satu pasangan elektron sehingga masing-masing mencapai duplet.</td>
+    </tr>
+
+    <tr>
+      <td>3</td>
+      <td>A</td>
+      <td>Ikatan kovalen tunggal menggunakan satu pasangan elektron bersama.</td>
+    </tr>
+
+    <tr>
+      <td>4</td>
+      <td>B</td>
+      <td>O₂ memiliki ikatan rangkap dua karena dua atom O berbagi dua pasangan elektron.</td>
+    </tr>
+
+    <tr>
+      <td>5</td>
+      <td>B</td>
+      <td>N₂ memiliki ikatan rangkap tiga karena dua atom N berbagi tiga pasangan elektron agar mencapai oktet.</td>
+    </tr>
+
+    <tr>
+      <td>6</td>
+      <td>C</td>
+      <td>Perbedaan ikatan tunggal, rangkap dua, dan rangkap tiga terletak pada jumlah pasangan elektron yang digunakan bersama.</td>
+    </tr>
+
+    <tr>
+      <td>7</td>
+      <td>B</td>
+      <td>Semakin banyak pasangan elektron yang digunakan bersama, ikatan umumnya semakin kuat dan lebih pendek.</td>
+    </tr>
+
+    <tr>
+      <td>8</td>
+      <td>A</td>
+      <td>Ikatan kovalen koordinasi memiliki pasangan elektron ikatan yang berasal dari satu atom donor saja.</td>
+    </tr>
+
+    <tr>
+      <td>9</td>
+      <td>B</td>
+      <td>N pada NH₃ memiliki pasangan elektron bebas yang dapat disumbangkan kepada H⁺.</td>
+    </tr>
+
+    <tr>
+      <td>10</td>
+      <td>C</td>
+      <td>Ikatan kovalen terjadi melalui penggunaan pasangan elektron bersama, termasuk pada kovalen koordinasi setelah ikatan terbentuk.</td>
+    </tr>
+  </table>
+</div>
+
+  <!-- REFLEKSI PEMBELAJARAN -->
+  <div class="section-box" style="margin-top:18px;border-left:10px solid #9c27b0;background:#f4ecff;">
+    <h2 style="margin-top:0;color:#9c27b0;">🪞 Refleksi Pembelajaran</h2>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Bagian ini bukan bagian dari skor evaluasi. Refleksi digunakan untuk mengetahui
+      pemahaman dan kesulitanmu setelah mempelajari materi ikatan kovalen.
+    </p>
+
+    <table style="width:100%;border-collapse:collapse;font-size:13px;background:white;border-radius:15px;overflow:hidden;">
+      <tr style="background:#9c27b0;color:#fff;">
+        <th style="padding:10px;border:1px solid #ead7ff;">Pernyataan</th>
+        <th style="padding:10px;border:1px solid #ead7ff;">Ya</th>
+        <th style="padding:10px;border:1px solid #ead7ff;">Tidak</th>
+      </tr>
+
+      <tr>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:left;">
+          Saya memahami bahwa ikatan kovalen terbentuk karena penggunaan pasangan elektron bersama.
+        </td>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:center;">
+          <input type="radio" name="ref-kov-1" value="Ya">
+        </td>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:center;">
+          <input type="radio" name="ref-kov-1" value="Tidak">
+        </td>
+      </tr>
+
+      <tr>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:left;">
+          Saya dapat membandingkan ikatan kovalen tunggal, rangkap dua, dan rangkap tiga.
+        </td>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:center;">
+          <input type="radio" name="ref-kov-2" value="Ya">
+        </td>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:center;">
+          <input type="radio" name="ref-kov-2" value="Tidak">
+        </td>
+      </tr>
+
+      <tr>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:left;">
+          Saya dapat menjelaskan pembentukan ikatan kovalen koordinasi berdasarkan asal pasangan elektron ikatan.
+        </td>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:center;">
+          <input type="radio" name="ref-kov-3" value="Ya">
+        </td>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:center;">
+          <input type="radio" name="ref-kov-3" value="Tidak">
+        </td>
+      </tr>
+
+      <tr>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:left;">
+          Saya dapat memberi contoh molekul yang memiliki ikatan kovalen dalam kehidupan sehari-hari.
+        </td>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:center;">
+          <input type="radio" name="ref-kov-4" value="Ya">
+        </td>
+        <td style="padding:10px;border:1px solid #ead7ff;text-align:center;">
+          <input type="radio" name="ref-kov-4" value="Tidak">
+        </td>
+      </tr>
+    </table>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      Bagian mana yang paling mudah kamu pahami?
+    </p>
+    <textarea id="ref-kov-teks-1" rows="3"></textarea>
+
+    <p style="font-size:14px;font-weight:bold;margin-bottom:6px;">
+      Bagian mana yang masih membingungkan atau perlu kamu pelajari kembali?
+    </p>
+    <textarea id="ref-kov-teks-2" rows="3"></textarea>
+  </div>
+
+  <!-- KIRIM AKHIR -->
+  <div class="section-box" style="background:var(--green);border-left:10px solid #27ae60;">
+    <h3 style="margin-top:0;color:#1e8449;">📤 Kirim Jawaban Akhir</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Setelah menyelesaikan evaluasi dan refleksi, klik tombol berikut untuk mengirim seluruh
+      jawaban LKPD ke spreadsheet Guru Rusyda.
+    </p>
+
+    <center>
+      <button class="btn-green" id="btn-final-submit-kov" onclick="finalSubmit()">
+        ✨ SELESAI & KIRIM ✨
+      </button>
+    </center>
+  </div>
+
+  <center>
+    <button class="btn-back" onclick="nextPhase(4)">⬅️ Kembali ke Elaboration</button>
+  </center>
+</div>
+
+    </div>
+
+  </div>
+
+  <script>
+
+    const ID_KEY = "kovalen_identity";
+let currentPhase = 0;
+
+// GANTI email ini dengan email akun guru/pemilik web
+const OWNER_EMAILS = [
+  "rusydarama@gmail.com"
+];
+
+    function initLKPD(){
+      // auto tanggal hari ini (opsional)
+      const tgl=document.getElementById("tgl");
+      if(tgl && !tgl.value){
+        const now=new Date();
+        const yyyy=now.getFullYear();
+        const mm=String(now.getMonth()+1).padStart(2,'0');
+        const dd=String(now.getDate()).padStart(2,'0');
+        tgl.value=`${yyyy}-${mm}-${dd}`;
+      }
+
+     loadIdentity();
+renderKovalenQuiz();
+updateProgress();
+showTeacherOnlyIfOwner();
+
+setTimeout(restoreEvaluationKovalenLock, 0);
+
+restoreExplanationKovalenLock();
+restoreElaborationKovalenLock();
+
+// ambil dari login menu (kimia_user) kalau identitas LKPD belum ada
+if(!localStorage.getItem(ID_KEY)){
+  const uStr = localStorage.getItem("kimia_user");
+  if(uStr){
+    const u = JSON.parse(uStr);
+    if(u?.nama){
+      document.getElementById("nama").value = u.nama;
+      // kelas & tgl tetap diisi siswa kalau belum ada
+    }
+  }
+}
+    }
+
+function getCurrentUserEmail(){
+  try{
+    const rawUser = localStorage.getItem("kimia_user");
+    if(rawUser){
+      const u = JSON.parse(rawUser);
+      return String(u.email || u.gmail || u.username || u.userEmail || "").toLowerCase().trim();
+    }
+  }catch(e){}
+
+  return String(
+    localStorage.getItem("email") ||
+    localStorage.getItem("userEmail") ||
+    ""
+  ).toLowerCase().trim();
+}
+
+function isOwner(){
+  const email = getCurrentUserEmail();
+  return OWNER_EMAILS.map(e => e.toLowerCase().trim()).includes(email);
+}
+
+function showTeacherOnlyIfOwner(){
+  const show = isOwner();
+
+  document.querySelectorAll(".teacher-only").forEach(function(el){
+    el.style.display = show ? "block" : "none";
+  });
+
+  console.log("Email login:", getCurrentUserEmail());
+  console.log("Mode guru aktif:", show);
+}
+
+    function goMenu(){
+  window.location.href = "menu.html";   // sesuaikan nama file menu kamu
+}
+    function goMateri(){
+  openMateriKovalen();
+}
+
+function openMateriKovalen(){
+  document.querySelectorAll(".phase-card").forEach(x => x.classList.remove("active"));
+  document.getElementById("pMateriKovalen").classList.add("active");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function backToExplorationKovalen(){
+  document.querySelectorAll(".phase-card").forEach(x => x.classList.remove("active"));
+  document.getElementById("p2").classList.add("active");
+  currentPhase = 2;
+  updateProgress();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+    function logout(){
+  localStorage.removeItem("kimia_user");   // ini yang dipakai menu kamu
+  window.location.href = "index.html";     // halaman login kamu
+
+    }
+
+    /* ========= TAB MATERI ========= */
+    function showMateriTab(which){
+      const ids=["pengertian","jenis","koordinasi","kepolaran","sifat"];
+      ids.forEach(k=>{
+        const el=document.getElementById("tab-"+k);
+        if(el) el.classList.remove("active");
+      });
+      const target=document.getElementById("tab-"+which);
+      if(target) target.classList.add("active");
+    }
+
+    /* ========= PHASE CONTROL ========= */
+    function nextPhase(p){
+      document.querySelectorAll(".phase-card").forEach(x=>x.classList.remove("active"));
+      document.getElementById("p"+p).classList.add("active");
+      currentPhase=p;
+      updateProgress();
+      window.scrollTo({top:0,behavior:"smooth"});
+    }
+    function updateProgress(){
+      document.getElementById("fill").style.width = (currentPhase/5*100) + "%";
+    }
+
+    /* ========= IDENTITAS ========= */
+    function saveIdentity(){
+      const n=val("nama");
+      const k=val("kelas");
+      const t=document.getElementById("tgl").value;
+      if(!n || !k || !t){
+        alert("Lengkapi Nama, Kelas, dan Tanggal ya 😊");
+        return;
+      }
+      localStorage.setItem(ID_KEY, JSON.stringify({nama:n, kelas:k, tgl:t}));
+      document.getElementById("user-pill").innerText = `${n} • ${k}`;
+      alert("Identitas tersimpan ✅");
+    }
+    function loadIdentity(){
+      const raw=localStorage.getItem(ID_KEY);
+      if(!raw) return;
+      try{
+        const id=JSON.parse(raw);
+        if(id?.nama) document.getElementById("nama").value=id.nama;
+        if(id?.kelas) document.getElementById("kelas").value=id.kelas;
+        if(id?.tgl) document.getElementById("tgl").value=id.tgl;
+        if(id?.nama && id?.kelas){
+          document.getElementById("user-pill").innerText = `${id.nama} • ${id.kelas}`;
+        }
+      }catch(e){
+        localStorage.removeItem(ID_KEY);
+      }
+    }
+    function identityComplete(){
+      const n=val("nama"), k=val("kelas"), t=document.getElementById("tgl").value;
+      return !!(n && k && t);
+    }
+    function requireIdentityThenGo(phase){
+      if(!identityComplete()){
+        alert("Isi identitas (Nama, Kelas, Tanggal) dulu ya 😊");
+        nextPhase(0);
+        return;
+      }
+      nextPhase(phase);
+    }
+
+    /* ========= Hints & Done ========= */
+    function toggleHint(id){
+      const el=document.getElementById(id);
+      el.style.display = (el.style.display==="block") ? "none" : "block";
+    }
+    function markDone(m){
+      document.getElementById("done-"+m).classList.remove("hidden");
+    }
+
+
+    function lockInputsInBox(boxId){
+  const box = document.getElementById(boxId);
+  if(!box) return;
+
+  const fields = box.querySelectorAll("input, textarea, select");
+  fields.forEach(function(field){
+    field.disabled = true;
+    field.classList.add("locked-answer");
+  });
+}
+
+function unlockInputsInBox(boxId){
+  const box = document.getElementById(boxId);
+  if(!box) return;
+
+  const fields = box.querySelectorAll("input, textarea, select");
+  fields.forEach(function(field){
+    field.disabled = false;
+    field.classList.remove("locked-answer");
+  });
+}
+
+function saveExplanationKovalenAndShowFeedback(){
+  const requiredIds = [
+    "exp-kov-q1",
+    "exp-kov-q2",
+    "exp-kov-q3",
+    "exp-kov-q4",
+    "exp-kov-q5",
+    "exp-kov-q6"
+  ];
+
+  for(const id of requiredIds){
+    const el = document.getElementById(id);
+    if(!el || !el.value.trim()){
+      alert("Lengkapi semua jawaban Explanation dulu ya 😊");
+      return;
+    }
+  }
+
+  const savedExplanation = {
+    q1: val("exp-kov-q1"),
+    q2: val("exp-kov-q2"),
+    q3: val("exp-kov-q3"),
+    q4: val("exp-kov-q4"),
+    q5: val("exp-kov-q5"),
+    q6: val("exp-kov-q6"),
+    savedAt: new Date().toLocaleString()
+  };
+
+  localStorage.setItem("kovalen_explanation_saved", JSON.stringify(savedExplanation));
+
+  lockInputsInBox("p3");
+
+  const feedbackBox = document.getElementById("feedback-explanation-kov");
+  if(feedbackBox){
+    feedbackBox.style.display = "block";
+    feedbackBox.scrollIntoView({behavior:"smooth"});
+  }
+
+  const btn = document.getElementById("btn-save-explanation-kov");
+  if(btn){
+    btn.innerText = "✅ Jawaban Tersimpan";
+    btn.disabled = true;
+  }
+
+  alert("Jawaban Explanation sudah disimpan dan dikunci ✅");
+}
+
+function restoreExplanationKovalenLock(){
+  const raw = localStorage.getItem("kovalen_explanation_saved");
+  if(!raw) return;
+
+  try{
+    const data = JSON.parse(raw);
+
+    if(document.getElementById("exp-kov-q1")) document.getElementById("exp-kov-q1").value = data.q1 || "";
+    if(document.getElementById("exp-kov-q2")) document.getElementById("exp-kov-q2").value = data.q2 || "";
+    if(document.getElementById("exp-kov-q3")) document.getElementById("exp-kov-q3").value = data.q3 || "";
+    if(document.getElementById("exp-kov-q4")) document.getElementById("exp-kov-q4").value = data.q4 || "";
+    if(document.getElementById("exp-kov-q5")) document.getElementById("exp-kov-q5").value = data.q5 || "";
+    if(document.getElementById("exp-kov-q6")) document.getElementById("exp-kov-q6").value = data.q6 || "";
+
+    lockInputsInBox("p3");
+
+    const feedbackBox = document.getElementById("feedback-explanation-kov");
+    if(feedbackBox){
+      feedbackBox.style.display = "block";
+    }
+
+    const btn = document.getElementById("btn-save-explanation-kov");
+    if(btn){
+      btn.innerText = "✅ Jawaban Tersimpan";
+      btn.disabled = true;
+    }
+  }catch(e){
+    localStorage.removeItem("kovalen_explanation_saved");
+  }
+}
+
+function resetExplanationKovalenAfterSubmit(){
+  localStorage.removeItem("kovalen_explanation_saved");
+
+  unlockInputsInBox("p3");
+
+  const feedbackBox = document.getElementById("feedback-explanation-kov");
+  if(feedbackBox){
+    feedbackBox.style.display = "none";
+  }
+
+  const btn = document.getElementById("btn-save-explanation-kov");
+  if(btn){
+    btn.innerText = "💾 Simpan Jawaban & Lihat Umpan Balik";
+    btn.disabled = false;
+  }
+}
+
+function saveElaborationKovalenAndShowFeedback(){
+  const requiredIds = [
+    "elab-kov-q1",
+    "elab-kov-q2",
+    "elab-kov-q3",
+    "elab-kov-q4",
+    "elab-kov-q5"
+  ];
+
+  for(const id of requiredIds){
+    const el = document.getElementById(id);
+    if(!el || !el.value.trim()){
+      alert("Lengkapi semua jawaban Elaboration dulu ya 😊");
+      return;
+    }
+  }
+
+  const tableIds = [
+    "elab-kov-tab-1",
+    "elab-kov-tab-2",
+    "elab-kov-tab-3",
+    "elab-kov-tab-4",
+    "elab-kov-tab-5",
+    "elab-kov-tab-6",
+    "elab-kov-tab-7",
+    "elab-kov-tab-8",
+    "elab-kov-tab-9",
+    "elab-kov-tab-10"
+  ];
+
+  for(const id of tableIds){
+    const el = document.getElementById(id);
+    if(!el || !el.value.trim()){
+      alert("Lengkapi semua tabel Elaboration dulu ya 😊");
+      return;
+    }
+  }
+
+  const savedElaboration = {
+    q1: val("elab-kov-q1"),
+    q2: val("elab-kov-q2"),
+    q3: val("elab-kov-q3"),
+    q4: val("elab-kov-q4"),
+    q5: val("elab-kov-q5"),
+
+    tab1: val("elab-kov-tab-1"),
+    tab2: val("elab-kov-tab-2"),
+    tab3: val("elab-kov-tab-3"),
+    tab4: val("elab-kov-tab-4"),
+    tab5: val("elab-kov-tab-5"),
+    tab6: val("elab-kov-tab-6"),
+    tab7: val("elab-kov-tab-7"),
+    tab8: val("elab-kov-tab-8"),
+    tab9: val("elab-kov-tab-9"),
+    tab10: val("elab-kov-tab-10"),
+
+    savedAt: new Date().toLocaleString()
+  };
+
+  localStorage.setItem("kovalen_elaboration_saved", JSON.stringify(savedElaboration));
+
+  lockInputsInBox("p4");
+
+  const feedbackBox = document.getElementById("feedback-elaboration-kov");
+  if(feedbackBox){
+    feedbackBox.style.display = "block";
+    feedbackBox.scrollIntoView({behavior:"smooth"});
+  }
+
+  const btn = document.getElementById("btn-save-elaboration-kov");
+  if(btn){
+    btn.innerText = "✅ Jawaban Tersimpan";
+    btn.disabled = true;
+  }
+
+  alert("Jawaban Elaboration sudah disimpan dan dikunci ✅");
+}
+
+function restoreElaborationKovalenLock(){
+  const raw = localStorage.getItem("kovalen_elaboration_saved");
+  if(!raw) return;
+
+  try{
+    const data = JSON.parse(raw);
+
+    if(document.getElementById("elab-kov-q1")) document.getElementById("elab-kov-q1").value = data.q1 || "";
+    if(document.getElementById("elab-kov-q2")) document.getElementById("elab-kov-q2").value = data.q2 || "";
+    if(document.getElementById("elab-kov-q3")) document.getElementById("elab-kov-q3").value = data.q3 || "";
+    if(document.getElementById("elab-kov-q4")) document.getElementById("elab-kov-q4").value = data.q4 || "";
+    if(document.getElementById("elab-kov-q5")) document.getElementById("elab-kov-q5").value = data.q5 || "";
+
+    for(let i = 1; i <= 10; i++){
+      const el = document.getElementById("elab-kov-tab-" + i);
+      if(el) el.value = data["tab" + i] || "";
+    }
+
+    lockInputsInBox("p4");
+
+    const feedbackBox = document.getElementById("feedback-elaboration-kov");
+    if(feedbackBox){
+      feedbackBox.style.display = "block";
+    }
+
+    const btn = document.getElementById("btn-save-elaboration-kov");
+    if(btn){
+      btn.innerText = "✅ Jawaban Tersimpan";
+      btn.disabled = true;
+    }
+  }catch(e){
+    localStorage.removeItem("kovalen_elaboration_saved");
+  }
+}
+
+function resetElaborationKovalenAfterSubmit(){
+  localStorage.removeItem("kovalen_elaboration_saved");
+
+  unlockInputsInBox("p4");
+
+  const feedbackBox = document.getElementById("feedback-elaboration-kov");
+  if(feedbackBox){
+    feedbackBox.style.display = "none";
+  }
+
+  const btn = document.getElementById("btn-save-elaboration-kov");
+  if(btn){
+    btn.innerText = "💾 Simpan Jawaban & Lihat Umpan Balik";
+    btn.disabled = false;
+  }
+}
+
+const quizKovalenData = [
+  {
+    id: 1,
+    level: "C2 - Menjelaskan",
+    q: "Ikatan kovalen terbentuk ketika dua atom...",
+    options: {
+      A: "saling memindahkan elektron secara penuh sehingga membentuk ion",
+      B: "menggunakan pasangan elektron secara bersama untuk mencapai kestabilan",
+      C: "melepaskan seluruh elektron valensinya ke lingkungan",
+      D: "membentuk logam melalui lautan elektron",
+      E: "tidak melibatkan elektron valensi"
+    }
+  },
+  {
+    id: 2,
+    level: "C2 - Menafsirkan",
+    q: "Atom H memiliki 1 elektron valensi dan stabil jika mencapai duplet. Mengapa molekul H₂ cukup membentuk ikatan kovalen tunggal?",
+    options: {
+      A: "Karena dua atom H berbagi satu pasangan elektron sehingga masing-masing mencapai duplet",
+      B: "Karena setiap atom H melepas satu elektron membentuk H⁺",
+      C: "Karena atom H membutuhkan tiga pasangan elektron bersama",
+      D: "Karena H₂ terbentuk dari ikatan rangkap dua",
+      E: "Karena atom H tidak memerlukan elektron untuk stabil"
+    }
+  },
+  {
+    id: 3,
+    level: "C2 - Mengklasifikasikan",
+    q: "Ikatan kovalen tunggal ditunjukkan oleh penggunaan bersama...",
+    options: {
+      A: "1 pasangan elektron",
+      B: "2 pasangan elektron",
+      C: "3 pasangan elektron",
+      D: "4 pasangan elektron",
+      E: "semua elektron dalam atom"
+    }
+  },
+  {
+    id: 4,
+    level: "C2 - Mengklasifikasikan",
+    q: "Molekul O₂ memiliki ikatan kovalen rangkap dua karena dua atom O...",
+    options: {
+      A: "berbagi 1 pasangan elektron",
+      B: "berbagi 2 pasangan elektron",
+      C: "berbagi 3 pasangan elektron",
+      D: "memindahkan elektron sepenuhnya",
+      E: "tidak menggunakan elektron valensi"
+    }
+  },
+  {
+    id: 5,
+    level: "C2 - Menjelaskan",
+    q: "Molekul N₂ memiliki ikatan rangkap tiga. Penjelasan yang tepat adalah...",
+    options: {
+      A: "setiap atom N menerima elektron penuh dari atom N lainnya",
+      B: "dua atom N berbagi tiga pasangan elektron agar masing-masing mencapai oktet",
+      C: "dua atom N hanya berbagi satu pasangan elektron",
+      D: "N₂ terbentuk dari ion N⁺ dan N⁻",
+      E: "atom N tidak memiliki elektron valensi"
+    }
+  },
+  {
+    id: 6,
+    level: "C2 - Membandingkan",
+    q: "Perbedaan utama antara ikatan kovalen tunggal, rangkap dua, dan rangkap tiga adalah...",
+    options: {
+      A: "jenis atom penyusunnya selalu berbeda",
+      B: "jumlah proton pada atom yang berikatan",
+      C: "jumlah pasangan elektron yang digunakan bersama",
+      D: "warna molekul yang terbentuk",
+      E: "jumlah neutron dalam inti atom"
+    }
+  },
+  {
+    id: 7,
+    level: "C2 - Menyimpulkan",
+    q: "Jika semakin banyak pasangan elektron yang digunakan bersama, maka ikatan kovalen umumnya...",
+    options: {
+      A: "semakin lemah dan semakin panjang",
+      B: "semakin kuat dan cenderung lebih pendek",
+      C: "berubah menjadi ikatan ion",
+      D: "tidak lagi melibatkan elektron",
+      E: "selalu menjadi nonpolar"
+    }
+  },
+  {
+    id: 8,
+    level: "C2 - Menjelaskan",
+    q: "Ikatan kovalen koordinasi berbeda dari ikatan kovalen biasa karena...",
+    options: {
+      A: "pada kovalen koordinasi, pasangan elektron ikatan berasal dari satu atom donor saja",
+      B: "pada kovalen koordinasi, elektron selalu berpindah penuh",
+      C: "pada kovalen koordinasi, tidak ada pasangan elektron yang digunakan bersama",
+      D: "pada kovalen koordinasi, ikatan hanya terjadi antar logam",
+      E: "pada kovalen koordinasi, atom tidak memerlukan kestabilan"
+    }
+  },
+  {
+    id: 9,
+    level: "C2 - Menafsirkan",
+    q: "Pada pembentukan NH₄⁺ dari NH₃ dan H⁺, atom N pada NH₃ bertindak sebagai donor karena...",
+    options: {
+      A: "N menerima pasangan elektron dari H⁺",
+      B: "N memiliki pasangan elektron bebas yang dapat disumbangkan kepada H⁺",
+      C: "H⁺ memiliki banyak pasangan elektron bebas",
+      D: "NH₃ melepaskan semua elektronnya",
+      E: "H⁺ menyumbangkan dua elektron kepada N"
+    }
+  },
+  {
+    id: 10,
+    level: "C2 - Menyimpulkan",
+    q: "Pernyataan yang paling tepat tentang ikatan kovalen adalah...",
+    options: {
+      A: "ikatan kovalen hanya terjadi karena perpindahan elektron penuh",
+      B: "ikatan kovalen selalu melibatkan pembentukan ion positif dan negatif",
+      C: "ikatan kovalen terjadi melalui penggunaan pasangan elektron bersama, termasuk pada ikatan koordinasi setelah terbentuk",
+      D: "ikatan kovalen tidak berhubungan dengan elektron valensi",
+      E: "ikatan kovalen hanya terjadi pada logam"
+    }
+  }
+];
+
+const correctKovalenAnswers = {
+  q1: "B",
+  q2: "A",
+  q3: "A",
+  q4: "B",
+  q5: "B",
+  q6: "C",
+  q7: "B",
+  q8: "A",
+  q9: "B",
+  q10: "C"
+};
+
+const quizKovalenExplanation = {
+  1: "Ikatan kovalen terbentuk karena atom-atom menggunakan pasangan elektron secara bersama untuk mencapai kestabilan, bukan karena perpindahan elektron penuh.",
+  2: "Dua atom H masing-masing memiliki 1 elektron. Dengan berbagi 1 pasangan elektron, masing-masing H memperoleh 2 elektron di sekitar dirinya dan mencapai duplet.",
+  3: "Ikatan kovalen tunggal menggunakan 1 pasangan elektron bersama atau 2 elektron yang digunakan bersama oleh dua atom.",
+  4: "Pada O₂, setiap atom O membutuhkan 2 elektron lagi untuk mencapai oktet. Karena itu, dua atom O berbagi 2 pasangan elektron dan membentuk ikatan rangkap dua.",
+  5: "Atom N memiliki 5 elektron valensi dan membutuhkan 3 elektron lagi untuk mencapai oktet. Dua atom N berbagi 3 pasangan elektron sehingga terbentuk ikatan rangkap tiga.",
+  6: "Perbedaan utama ikatan tunggal, rangkap dua, dan rangkap tiga adalah jumlah pasangan elektron yang digunakan bersama: 1, 2, atau 3 pasangan.",
+  7: "Semakin banyak pasangan elektron yang digunakan bersama, ikatan umumnya semakin kuat dan cenderung lebih pendek. Ikatan rangkap tiga lebih kuat daripada rangkap dua dan tunggal.",
+  8: "Pada ikatan kovalen koordinasi, pasangan elektron ikatan berasal dari satu atom donor saja, lalu pasangan elektron itu digunakan bersama setelah ikatan terbentuk.",
+  9: "Pada NH₄⁺, N dalam NH₃ memiliki pasangan elektron bebas. Pasangan elektron bebas tersebut dapat didonorkan kepada H⁺ sehingga terbentuk ikatan kovalen koordinasi.",
+  10: "Ikatan kovalen melibatkan penggunaan pasangan elektron bersama. Pada ikatan kovalen koordinasi, pasangan elektron awalnya berasal dari satu atom, tetapi setelah ikatan terbentuk tetap digunakan bersama."
+};
+
+function renderKovalenQuiz(){
+  const container = document.getElementById("quiz-kovalen-container");
+  if(!container) return;
+
+  container.innerHTML = "";
+
+  quizKovalenData.forEach(item => {
+    let html = `
+      <div class="section-box" id="quiz-kov-box-${item.id}" style="background:white;border-left:10px solid var(--gold);">
+        <p style="font-size:12px;font-weight:bold;color:#6d7f91;margin:0 0 6px 0;">
+        </p>
+
+        <p style="font-size:14px;line-height:1.7;margin:0 0 10px 0;">
+          <b>${item.id}. ${item.q}</b>
+        </p>
+    `;
+
+    Object.entries(item.options).forEach(([key, val]) => {
+      html += `
+        <label class="mcq-option">
+          <input type="radio" name="q${item.id}" value="${key}">
+          <b>${key}.</b> ${val}
+        </label>
+      `;
+    });
+
+    html += `</div>`;
+    container.innerHTML += html;
+  });
+}
+
+function lockEvaluationKovalen(){
+  for(let i = 1; i <= 10; i++){
+    document.querySelectorAll(`input[name="q${i}"]`).forEach(function(input){
+      input.disabled = true;
+    });
+  }
+}
+
+function unlockEvaluationKovalen(){
+  for(let i = 1; i <= 10; i++){
+    document.querySelectorAll(`input[name="q${i}"]`).forEach(function(input){
+      input.disabled = false;
+    });
+  }
+}
+
+function saveEvaluationKovalenAndShowFeedback(){
+  let score = 0;
+  const savedAnswers = {};
+
+  for(let i = 1; i <= 10; i++){
+    const pick = document.querySelector(`input[name="q${i}"]:checked`)?.value;
+
+    if(!pick){
+      alert("Jawab semua soal evaluasi terlebih dahulu ya 😊");
+      return;
+    }
+
+    savedAnswers["q" + i] = pick;
+
+    if(pick === correctKovalenAnswers["q" + i]){
+      score += 10;
+    }
+  }
+
+  localStorage.setItem("kovalen_evaluation_saved", JSON.stringify({
+    answers: savedAnswers,
+    score: score,
+    savedAt: new Date().toLocaleString()
+  }));
+
+  lockEvaluationKovalen();
+
+  const skorBox = document.getElementById("skor-evaluation-kov-box");
+  const skorText = document.getElementById("skor-evaluation-kov-text");
+  const skorMsg = document.getElementById("skor-evaluation-kov-message");
+
+  if(skorBox && skorText && skorMsg){
+    skorBox.classList.remove("hidden");
+    skorText.innerText = `Skor kamu: ${score}/100`;
+
+    if(score >= 80){
+      skorMsg.innerText = "🌟 Bagus sekali! Pemahaman konsep ikatan kovalenmu sudah kuat.";
+    }else if(score >= 60){
+      skorMsg.innerText = "👍 Cukup baik. Bacalah pembahasan untuk memperkuat bagian yang masih keliru.";
+    }else{
+      skorMsg.innerText = "💪 Tetap semangat. Gunakan pembahasan untuk memahami kembali konsep ikatan kovalen, ikatan rangkap, dan kovalen koordinasi.";
+    }
+  }
+
+  const feedbackContent = document.getElementById("evaluation-kov-feedback-content");
+  let html = "";
+
+  quizKovalenData.forEach(item => {
+    const userPick = savedAnswers["q" + item.id];
+    const correct = correctKovalenAnswers["q" + item.id];
+    const benar = userPick === correct;
+
+    html += `
+      <div class="feedback-item">
+        <b>Soal ${item.id}</b><br>
+        Jawaban kamu: <b>${userPick}</b><br>
+        Kunci jawaban: <b>${correct}</b><br>
+        Status: <b style="color:${benar ? '#1e8449' : '#cc4d4d'};">${benar ? 'Benar' : 'Perlu diperbaiki'}</b><br>
+        Pembahasan: ${quizKovalenExplanation[item.id]}
+      </div>
+    `;
+  });
+
+  if(feedbackContent){
+    feedbackContent.innerHTML = html;
+  }
+
+  const feedbackBox = document.getElementById("feedback-evaluation-kov");
+  if(feedbackBox){
+    feedbackBox.style.display = "block";
+    feedbackBox.scrollIntoView({behavior:"smooth"});
+  }
+
+  const btn = document.getElementById("btn-save-evaluation-kov");
+  if(btn){
+    btn.innerText = "✅ Evaluasi Tersimpan";
+    btn.disabled = true;
+  }
+}
+
+function restoreEvaluationKovalenLock(){
+  const raw = localStorage.getItem("kovalen_evaluation_saved");
+  if(!raw) return;
+
+  try{
+    const data = JSON.parse(raw);
+    const answers = data.answers || {};
+
+    Object.entries(answers).forEach(([name, value]) => {
+      const input = document.querySelector(`input[name="${name}"][value="${value}"]`);
+      if(input) input.checked = true;
+    });
+
+    lockEvaluationKovalen();
+
+    const skorBox = document.getElementById("skor-evaluation-kov-box");
+    const skorText = document.getElementById("skor-evaluation-kov-text");
+    const skorMsg = document.getElementById("skor-evaluation-kov-message");
+
+    if(skorBox && skorText && skorMsg){
+      skorBox.classList.remove("hidden");
+      skorText.innerText = `Skor kamu: ${data.score}/100`;
+
+      if(data.score >= 80){
+        skorMsg.innerText = "🌟 Bagus sekali! Pemahaman konsep ikatan kovalenmu sudah kuat.";
+      }else if(data.score >= 60){
+        skorMsg.innerText = "👍 Cukup baik. Bacalah pembahasan untuk memperkuat bagian yang masih keliru.";
+      }else{
+        skorMsg.innerText = "💪 Tetap semangat. Gunakan pembahasan untuk memahami kembali konsep ikatan kovalen, ikatan rangkap, dan kovalen koordinasi.";
+      }
+    }
+
+    const feedbackContent = document.getElementById("evaluation-kov-feedback-content");
+    if(feedbackContent){
+      let html = "";
+
+      quizKovalenData.forEach(item => {
+        const userPick = answers["q" + item.id];
+        const correct = correctKovalenAnswers["q" + item.id];
+        const benar = userPick === correct;
+
+        html += `
+          <div class="feedback-item">
+            <b>Soal ${item.id}</b><br>
+            Jawaban kamu: <b>${userPick}</b><br>
+            Kunci jawaban: <b>${correct}</b><br>
+            Status: <b style="color:${benar ? '#1e8449' : '#cc4d4d'};">${benar ? 'Benar' : 'Perlu diperbaiki'}</b><br>
+            Pembahasan: ${quizKovalenExplanation[item.id]}
+          </div>
+        `;
+      });
+
+      feedbackContent.innerHTML = html;
+    }
+
+    const feedbackBox = document.getElementById("feedback-evaluation-kov");
+    if(feedbackBox){
+      feedbackBox.style.display = "block";
+    }
+
+    const btn = document.getElementById("btn-save-evaluation-kov");
+    if(btn){
+      btn.innerText = "✅ Evaluasi Tersimpan";
+      btn.disabled = true;
+    }
+  }catch(e){
+    localStorage.removeItem("kovalen_evaluation_saved");
+  }
+}
+
+function resetEvaluationKovalenAfterSubmit(){
+  localStorage.removeItem("kovalen_evaluation_saved");
+
+  unlockEvaluationKovalen();
+
+  const skorBox = document.getElementById("skor-evaluation-kov-box");
+  if(skorBox){
+    skorBox.classList.add("hidden");
+  }
+
+  const feedbackBox = document.getElementById("feedback-evaluation-kov");
+  if(feedbackBox){
+    feedbackBox.style.display = "none";
+  }
+
+  const feedbackContent = document.getElementById("evaluation-kov-feedback-content");
+  if(feedbackContent){
+    feedbackContent.innerHTML = "";
+  }
+
+  const btn = document.getElementById("btn-save-evaluation-kov");
+  if(btn){
+    btn.innerText = "💾 Simpan Evaluasi & Lihat Pembahasan";
+    btn.disabled = false;
+  }
+}
+
+function resetAllKovalenLocksAfterSubmit(){
+  resetExplanationKovalenAfterSubmit();
+  resetElaborationKovalenAfterSubmit();
+  resetEvaluationKovalenAfterSubmit();
+}
+
+    function finalSubmit(){
+  // ================== HELPER ==================
+  const getVal = (id) => {
+    const el = document.getElementById(id);
+    return el ? el.value.trim() : "";
+  };
+
+  const getRadio = (name) => {
+    return document.querySelector(`input[name="${name}"]:checked`)?.value || "";
+  };
+
+  const getQuizAnswer = (i) => {
+    return document.querySelector(`input[name="q${i}"]:checked`)?.value || "";
+  };
+
+  // ================== CEK IDENTITAS ==================
+  const namaSiswa = getVal("nama");
+  const kelasSiswa = getVal("kelas");
+  const tanggalLKPD = document.getElementById("tgl")?.value || "";
+
+  if(!namaSiswa || !kelasSiswa || !tanggalLKPD){
+    alert("Isi identitas Nama, Kelas, dan Tanggal terlebih dahulu ya 😊");
+    nextPhase(0);
+    return;
+  }
+
+  // ================== CEK EVALUASI 10 SOAL ==================
+  let score = 0;
+  const jawabanEvaluasi = {};
+
+  for(let i = 1; i <= 10; i++){
+    const pick = getQuizAnswer(i);
+
+    if(!pick){
+      alert("Jawab semua soal evaluasi terlebih dahulu ya 😊");
+      nextPhase(5);
+      return;
+    }
+
+    jawabanEvaluasi[`Evaluasi_Q${i}`] = pick;
+
+    if(pick === correctKovalenAnswers[`q${i}`]){
+      score += 10;
+    }
+  }
+
+  // ================== CEK REFLEKSI ==================
+  if(
+    !getRadio("ref-kov-1") ||
+    !getRadio("ref-kov-2") ||
+    !getRadio("ref-kov-3") ||
+    !getRadio("ref-kov-4")
+  ){
+    alert("Lengkapi semua pilihan refleksi Ya/Tidak terlebih dahulu ya 😊");
+    nextPhase(5);
+    return;
+  }
+
+  if(!getVal("ref-kov-teks-1") || !getVal("ref-kov-teks-2")){
+    alert("Lengkapi refleksi teks terlebih dahulu ya 😊");
+    nextPhase(5);
+    return;
+  }
+
+  // ================== STATUS SIMPAN / LOCK ==================
+  const explanationSaved = localStorage.getItem("kovalen_explanation_saved") ? "Sudah disimpan" : "Belum disimpan";
+  const elaborationSaved = localStorage.getItem("kovalen_elaboration_saved") ? "Sudah disimpan" : "Belum disimpan";
+  const evaluationSaved = localStorage.getItem("kovalen_evaluation_saved") ? "Sudah disimpan" : "Belum disimpan";
+
+  // ================== SUSUN DATA LENGKAP ==================
+  const jawabanLengkap = {
+    timestamp: new Date().toLocaleString(),
+    nama: namaSiswa,
+    kelas: kelasSiswa,
+    tanggal: tanggalLKPD,
+    materi: "Ikatan Kovalen",
+    skor: score,
+
+    // ================== ENGAGEMENT ==================
+    Engagement_Hipotesis_Awal: getVal("eng1"),
+    Engagement_Rumusan_Masalah:
+      "Bagaimana atom-atom nonlogam mencapai kestabilan melalui penggunaan pasangan elektron bersama, bagaimana perbedaan ikatan kovalen tunggal, rangkap dua, dan rangkap tiga berdasarkan jumlah pasangan elektron yang digunakan bersama, serta bagaimana ikatan kovalen koordinasi terbentuk berdasarkan asal pasangan elektron ikatan?",
+
+    // ================== EXPLORATION - TABEL 1 ==================
+    Eksplorasi_H2_Atom_Penyusun: getVal("eks-h2-atom"),
+    Eksplorasi_H2_Kebutuhan_Stabil: getVal("eks-h2-stabil"),
+    Eksplorasi_H2_Pasangan_Elektron: getVal("eks-h2-pasangan"),
+    Eksplorasi_H2_Jenis_Ikatan: getVal("eks-h2-jenis"),
+    Eksplorasi_H2_Struktur: getVal("eks-h2-struktur"),
+
+    Eksplorasi_O2_Atom_Penyusun: getVal("eks-o2-atom"),
+    Eksplorasi_O2_Kebutuhan_Stabil: getVal("eks-o2-stabil"),
+    Eksplorasi_O2_Pasangan_Elektron: getVal("eks-o2-pasangan"),
+    Eksplorasi_O2_Jenis_Ikatan: getVal("eks-o2-jenis"),
+    Eksplorasi_O2_Struktur: getVal("eks-o2-struktur"),
+
+    Eksplorasi_N2_Atom_Penyusun: getVal("eks-n2-atom"),
+    Eksplorasi_N2_Kebutuhan_Stabil: getVal("eks-n2-stabil"),
+    Eksplorasi_N2_Pasangan_Elektron: getVal("eks-n2-pasangan"),
+    Eksplorasi_N2_Jenis_Ikatan: getVal("eks-n2-jenis"),
+    Eksplorasi_N2_Struktur: getVal("eks-n2-struktur"),
+
+    Eksplorasi_CO2_Atom_Penyusun: getVal("eks-co2-atom"),
+    Eksplorasi_CO2_Kebutuhan_Stabil: getVal("eks-co2-stabil"),
+    Eksplorasi_CO2_Pasangan_Elektron: getVal("eks-co2-pasangan"),
+    Eksplorasi_CO2_Jenis_Ikatan: getVal("eks-co2-jenis"),
+    Eksplorasi_CO2_Struktur: getVal("eks-co2-struktur"),
+
+    // ================== EXPLORATION - TABEL 2 ==================
+    Eksplorasi_NH4_Donor: getVal("eks-nh4-donor"),
+    Eksplorasi_NH4_Akseptor: getVal("eks-nh4-akseptor"),
+    Eksplorasi_NH4_Asal_Pasangan_Elektron: getVal("eks-nh4-asal"),
+    Eksplorasi_NH4_Alasan: getVal("eks-nh4-alasan"),
+
+    Eksplorasi_H3O_Donor: getVal("eks-h3o-donor"),
+    Eksplorasi_H3O_Akseptor: getVal("eks-h3o-akseptor"),
+    Eksplorasi_H3O_Asal_Pasangan_Elektron: getVal("eks-h3o-asal"),
+    Eksplorasi_H3O_Alasan: getVal("eks-h3o-alasan"),
+
+    // ================== EXPLORATION - PERTANYAAN ==================
+    Eksplorasi_Q1_Perbedaan_Tunggal_Rangkap: getVal("eks-kov-q1"),
+    Eksplorasi_Q2_O2_N2: getVal("eks-kov-q2"),
+    Eksplorasi_Q3_Pasangan_Elektron_Kekuatan: getVal("eks-kov-q3"),
+    Eksplorasi_Q4_Kovalen_Biasa_Koordinasi: getVal("eks-kov-q4"),
+    Eksplorasi_Q5_NH4_H3O_Koordinasi: getVal("eks-kov-q5"),
+
+    // ================== EXPLANATION ==================
+    Explanation_Q1_Perbedaan_Tunggal_Rangkap: getVal("exp-kov-q1"),
+    Explanation_Q2_H2_O2_N2: getVal("exp-kov-q2"),
+    Explanation_Q3_Kekuatan_Ikatan: getVal("exp-kov-q3"),
+    Explanation_Q4_Kovalen_Biasa_Koordinasi: getVal("exp-kov-q4"),
+    Explanation_Q5_Proses_Koordinasi: getVal("exp-kov-q5"),
+    Explanation_Revisi_Hipotesis: getVal("exp-kov-q6"),
+    Explanation_Status_Simpan: explanationSaved,
+
+    // ================== ELABORATION - PERTANYAAN ==================
+    Elaboration_Q1_H2O_Kovalen_Tunggal: getVal("elab-kov-q1"),
+    Elaboration_Q2_Pasangan_Elektron_Bebas: getVal("elab-kov-q2"),
+    Elaboration_Q3_H3O_Koordinasi: getVal("elab-kov-q3"),
+    Elaboration_Q4_Beda_Kovalen_Biasa_Koordinasi: getVal("elab-kov-q4"),
+    Elaboration_Sintesis: getVal("elab-kov-q5"),
+
+    // ================== ELABORATION - TABEL ==================
+    Elaboration_H2O_Jenis_Ikatan: getVal("elab-kov-tab-1"),
+    Elaboration_H2O_Pasangan_Elektron_Bersama: getVal("elab-kov-tab-2"),
+    Elaboration_H2O_Donor: getVal("elab-kov-tab-3"),
+    Elaboration_H2O_Akseptor: getVal("elab-kov-tab-4"),
+    Elaboration_H2O_Alasan: getVal("elab-kov-tab-5"),
+
+    Elaboration_H3O_Jenis_Ikatan: getVal("elab-kov-tab-6"),
+    Elaboration_H3O_Pasangan_Elektron_Bersama: getVal("elab-kov-tab-7"),
+    Elaboration_H3O_Donor: getVal("elab-kov-tab-8"),
+    Elaboration_H3O_Akseptor: getVal("elab-kov-tab-9"),
+    Elaboration_H3O_Alasan: getVal("elab-kov-tab-10"),
+
+    Elaboration_Status_Simpan: elaborationSaved,
+
+    // ================== EVALUATION ==================
+    ...jawabanEvaluasi,
+    Skor_Evaluasi: score,
+    Evaluation_Status_Simpan: evaluationSaved,
+
+    // ================== REFLEKSI ==================
+    Refleksi_Pembentukan_Ikatan_Kovalen: getRadio("ref-kov-1"),
+    Refleksi_Membandingkan_Ikatan_Rangkap: getRadio("ref-kov-2"),
+    Refleksi_Kovalen_Koordinasi: getRadio("ref-kov-3"),
+    Refleksi_Contoh_Kehidupan: getRadio("ref-kov-4"),
+    Refleksi_Bagian_Mudah: getVal("ref-kov-teks-1"),
+    Refleksi_Bagian_Membingungkan: getVal("ref-kov-teks-2")
+  };
+
+  // ================== SIMPAN LOKAL CADANGAN ==================
+  const LOCAL_KEY = "db_kovalen_final";
+  const db = JSON.parse(localStorage.getItem(LOCAL_KEY) || "[]");
+  db.push(jawabanLengkap);
+  localStorage.setItem(LOCAL_KEY, JSON.stringify(db));
+
+  // ================== KIRIM KE GOOGLE SHEETS ==================
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxKpCSPf89k27shqjsCq14blROlcfsYU4wuwwU9bwzjdc6yQTqrV-IDcCvz0RpE9TU/exec";
+
+  const btnSubmit = document.getElementById("btn-final-submit-kov") || document.querySelector('button[onclick="finalSubmit()"]');
+
+  if(btnSubmit){
+    btnSubmit.innerText = "Sedang mengirim... ⏳";
+    btnSubmit.disabled = true;
+  }
+
+  const payload = {
+    nama: namaSiswa,
+    kelas: kelasSiswa,
+    materi: "Ikatan Kovalen",
+    skor: score,
+    jawabanLengkap: jawabanLengkap
+  };
+
+  fetch(SCRIPT_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  })
+  .then(() => {
+    alert(`✅ LKPD selesai!\nSkor evaluasi kamu: ${score}/100\nJawaban berhasil dikirim ke Guru Rusyda! 🌈`);
+
+    // Setelah berhasil dikirim ke spreadsheet, semua bagian terkunci boleh dibuka lagi
+    resetAllKovalenLocksAfterSubmit();
+
+    if(btnSubmit){
+      btnSubmit.innerText = "✅ Sudah Terkirim";
+      btnSubmit.disabled = true;
+    }
+
+    // Kalau ingin otomatis kembali ke menu, buka komentar baris ini:
+    // window.location.href = "menu.html";
+  })
+  .catch(() => {
+    alert(`Evaluasi selesai!\nSkor kamu: ${score}/100\n⚠️ Gagal kirim, cek koneksi internet.`);
+
+    if(btnSubmit){
+      btnSubmit.innerText = "✨ SELESAI & KIRIM ✨";
+      btnSubmit.disabled = false;
+    }
+  });
+}
+
+function tampilkanPembahasanKuis(){
+  const expBox = document.getElementById("quiz-explanation");
+  const expContent = document.getElementById("quiz-explanation-content");
+
+  if(!expBox || !expContent) return;
+
+  let html = "";
+
+  QUIZ.forEach(item => {
+    const userPick = document.querySelector(`input[name="q${item.id}"]:checked`)?.value || "-";
+    const ex = QUIZ_EXPLANATION[item.id];
+
+    html += `
+      <div style="margin-bottom:14px;">
+        <b>Soal ${item.id}</b><br>
+        Jawaban kamu: <b>${userPick}</b><br>
+        ${ex.text}
+        <hr style="border:none;border-top:2px dashed #ddd;margin:10px 0;">
+      </div>
+    `;
+  });
+
+  expContent.innerHTML = html;
+  expBox.classList.remove("hidden");
+}
+
+    function val(id){
+      const el=document.getElementById(id);
+      return el ? el.value.trim() : "";
+    }
+      function lockInputs(containerId){
+    const box = document.getElementById(containerId);
+    if(!box) return;
+    box.querySelectorAll("input, textarea, select, button").forEach(el=>{
+      if(el.tagName !== "BUTTON"){
+        el.disabled = true;
+      }
+    });
+  }
+
+  function saveScore(key, value){
+    const scores = JSON.parse(localStorage.getItem("lkpd_scores")) || {};
+    scores[key] = value;
+    localStorage.setItem("lkpd_scores", JSON.stringify(scores));
+  }
+  </script>
+</body>
+</html>

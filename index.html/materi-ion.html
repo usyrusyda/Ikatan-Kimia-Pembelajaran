@@ -1,0 +1,2323 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LKPD Ikatan Ion - 5E</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --gold: #ffc107;
+      --batik-blue: #3a7caf;
+      --cream: #fffdf2;
+      --red-accent: #ff6b6b;
+      --white: #ffffff;
+      --soft-blue: #e3f2fd;
+      --green-cute: #a8e6cf;
+      --gray-cute: #b2bec3;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      margin: 0;
+      background-color: var(--cream);
+      color: var(--batik-blue);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 { font-family: 'Fredoka', sans-serif; margin-bottom: 10px; }
+    .hidden { display: none !important; }
+
+    /* BACKGROUND */
+    .bg-mascot-decor { position: fixed; z-index: -1; opacity: 0.08; pointer-events: none; }
+    #bg-1 { width: 350px; top: -50px; left: -80px; animation: float 10s infinite; }
+    #bg-2 { width: 250px; bottom: 20px; right: -40px; animation: float 8s infinite reverse; }
+    @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-30px) rotate(8deg); } }
+
+    /* BUTTON */
+    button {
+      padding: 12px 20px; background: var(--batik-blue); color: white;
+      border: none; border-radius: 50px; font-family: 'Fredoka', sans-serif;
+      font-size: 15px; cursor: pointer; box-shadow: 0 5px 0 #2a5a82;
+      transition: 0.2s; position: relative; display: inline-block; margin: 5px;
+    }
+    button:hover { background: #4a8cbf; top: -2px; box-shadow: 0 7px 0 #2a5a82; }
+    button:active { top: 3px; box-shadow: 0 2px 0 #2a5a82; }
+    .btn-back { background: var(--gray-cute); box-shadow: 0 5px 0 #636e72; }
+    .btn-next { background: var(--gold); box-shadow: 0 5px 0 #c79a00; color: #555; }
+
+    nav {
+      background: white; padding: 8px 5%;
+      display: flex; justify-content: space-between; align-items: center;
+      border-bottom-left-radius: 30px; border-bottom-right-radius: 30px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav-left, .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pill{
+  display:inline-block;
+  padding:6px 12px;
+  border-radius:999px;
+  background:#fff;
+  border:2px dashed #d9ecff;
+  font-size:12px;
+  font-weight:800;
+  opacity:.9;
+}
+
+.mini{
+  font-size:12px;
+  padding:8px 12px;
+}
+
+.section-green{
+  background:var(--green-cute);
+  border-left:10px solid #27ae60;
+}
+
+    .module-container {
+      max-width: 900px; margin: 20px auto; background: white; padding: 30px;
+      border-radius: 40px; border: 6px solid var(--soft-blue);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+
+    .phase-card { display: none; animation: fadeIn 0.35s; }
+    .phase-card.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .section-box {
+      background: var(--soft-blue);
+      padding: 20px; border-radius: 25px; margin-bottom: 20px;
+      border-left: 10px solid var(--gold);
+    }
+
+    .badge-5e {
+      background: var(--batik-blue); color: white; padding: 5px 15px;
+      border-radius: 15px; font-size: 13px; font-weight: bold;
+      margin-bottom: 10px; display: inline-block;
+    }
+
+    input, select, textarea {
+      width: 100%; padding: 12px; margin-bottom: 10px; border: 3px solid #f0f0f0;
+      border-radius: 15px; font-family: 'Quicksand', sans-serif; font-weight: 700; box-sizing: border-box;
+    }
+
+       .capaian-box{
+      background:#fff;
+      border:2px solid #d9ecff;
+      border-left:10px solid var(--batik-blue);
+      border-radius:20px;
+      padding:18px;
+      margin-top:14px;
+      box-shadow:0 4px 10px rgba(0,0,0,.04);
+    }
+    .tujuan-box{
+      background:#fff;
+      border:2px solid #d9ecff;
+      border-left:10px solid var(--gold);
+      border-radius:20px;
+      padding:18px;
+      margin-top:14px;
+      box-shadow:0 4px 10px rgba(0,0,0,.04);
+    }
+    .capaian-box h4,.tujuan-box h4{color:var(--batik-blue);}
+    .capaian-box p,.tujuan-box li{color:#4d6f8f;}
+
+    /* TABLES */
+    .module-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0;
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      font-size: 13px;
+    }
+    .module-table th, .module-table td { border: 1px solid var(--soft-blue); padding: 8px; text-align: center; }
+    .module-table th { background: var(--batik-blue); color: white; }
+    .module-table input { border: 1px solid #ddd; padding: 4px; border-radius: 5px; width: 95%; text-align: center; font-size: 12px; margin-bottom: 0; }
+
+    /* MCQ */
+    .mcq-option {
+      display: block; background: #fff; padding: 10px;
+      border-radius: 12px; margin: 5px 0;
+      border: 2px solid #eee; cursor: pointer;
+      transition: 0.2s; text-align: left; font-size: 13px;
+    }
+    .mcq-option:hover { background: var(--soft-blue); }
+    input[type="radio"] { width: auto; margin-right: 8px; }
+
+    .progress-bar { width: 100%; height: 12px; background: #eee; border-radius: 10px; margin-bottom: 20px; overflow: hidden; border: 2px solid #fff; }
+    .progress-fill { height: 100%; background: var(--gold); width: 0%; transition: 0.5s; }
+
+    .btn-logout {
+      background: var(--red-accent);
+      box-shadow: 0 5px 0 #cc4d4d;
+      padding: 8px 15px;
+      font-size: 12px;
+    }
+
+    /* ===== Materi (digabung di Exploration) ===== */
+    img.materi-img {
+      width: 100%;
+      border-radius: 15px;
+      display: block;
+    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .teacher-only{
+  display:none;
+}
+
+.answer-key-box{
+  background:#fff;
+  border:2px dashed #d9ecff;
+  border-left:10px solid #27ae60;
+  border-radius:20px;
+  padding:16px;
+  margin-top:16px;
+  color:#2f5f56;
+}
+
+.answer-key-box h3{
+  margin-top:0;
+  color:#1e8449;
+}
+
+.answer-key-box table{
+  width:100%;
+  border-collapse:collapse;
+  background:#fff;
+  font-size:12px;
+}
+
+.answer-key-box th,
+.answer-key-box td{
+  border:1px solid #d9ecff;
+  padding:8px;
+  text-align:left;
+}
+
+.answer-key-box th{
+  background:#27ae60;
+  color:#fff;
+}
+.feedback-auto-box{
+  display:none;
+  background:#fff;
+  border:2px dashed #d9ecff;
+  border-left:10px solid #27ae60;
+  border-radius:22px;
+  padding:18px;
+  margin-top:16px;
+  color:#2f5f56;
+  box-shadow:0 6px 16px rgba(0,0,0,.05);
+}
+
+.feedback-auto-box h3{
+  margin-top:0;
+  color:#1e8449;
+}
+
+.feedback-item{
+  background:#f8fff9;
+  border:1px solid #bdebd4;
+  border-radius:16px;
+  padding:12px 14px;
+  margin-bottom:12px;
+  font-size:14px;
+  line-height:1.7;
+}
+
+.feedback-item b{
+  color:#1e8449;
+}
+
+.locked-answer{
+  background:#f3f6f8 !important;
+  color:#555 !important;
+  border-color:#d0d7de !important;
+  cursor:not-allowed !important;
+}
+  </style>
+</head>
+
+<body onload="initLKPD()">
+  <img src="maskot.png" class="bg-mascot-decor" id="bg-1">
+  <img src="maskot.png" class="bg-mascot-decor" id="bg-2">
+
+  <nav>
+  <div class="nav-left">
+    <button class="btn-back mini" onclick="goMenu()">⬅️ Menu</button>
+    <button class="btn-next mini" onclick="openMateriIon()">📚 Materi</button>
+    <span class="pill" id="user-pill">Belum isi identitas</span>
+  </div>
+
+  <strong>Ikatan Ion</strong>
+
+  <div class="nav-right">
+    <button class="btn-logout" onclick="logout()">Logout</button>
+  </div>
+</nav>
+
+  <div class="module-container">
+    <div class="progress-bar"><div id="p-fill" class="progress-fill"></div></div>
+
+    <!-- FASE 0 -->
+    <div class="phase-card active" id="p0">
+      <center><h2 style="color:var(--batik-blue);">IDENTITAS & INFORMASI LKPD</h2></center>
+
+      <div class="section-box" style="background:var(--green-cute); border-left:10px solid #27ae60;">
+        <p>Nama: <b id="form-nama">...</b></p>
+        <p>Kelas: <input type="text" id="f-kelas" placeholder="X-IPA 1"></p>
+        <p>Tanggal: <input type="date" id="f-tgl"></p>
+      </div>
+
+      <div class="capaian-box">
+          <h4 style="margin-top:0; margin-bottom:8px;">📘 Capaian Pembelajaran</h4>
+          <p style="margin:0; text-align:left; font-size:14px; line-height:1.7;">
+          Pada akhir Fase F, peserta didik mampu memahami sifat, struktur, dan interaksi partikel dalam membentuk berbagai senyawa serta kaitannya dengan sifat zat dalam kehidupan sehari-hari.
+        </p>
+      </div>
+
+     <div class="tujuan-box">
+  <h4 style="margin-top:0; margin-bottom:8px;">🎯 Tujuan Pembelajaran</h4>
+  <ol style="text-align:left; font-size:14px; line-height:1.7; margin:0; padding-left:20px;">
+    <li>Siswa mampu menjelaskan kecenderungan atom mencapai kestabilan berdasarkan aturan oktet dan duplet.</li>
+    <li>Siswa mampu menyajikan struktur Lewis berdasarkan jumlah elektron valensi.</li>
+    <li>Siswa mampu menjelaskan proses pembentukan ikatan ion berdasarkan perpindahan elektron dan gaya tarik elektrostatik.</li>
+  </ol>
+</div>
+
+      <center><button class="btn-next" onclick="nextPhase(1)">Mulai Engagement ➡️</button></center>
+    </div>
+
+    <!-- FASE 1 -->
+<div class="phase-card" id="p1">
+  <span class="badge-5e">1. Engagement</span>
+
+  <div class="section-box">
+    <h2 style="margin-top:0; color:var(--batik-blue);">🔵 Engagement</h2>
+
+    <!-- GAMBAR PENGANTAR -->
+    <center>
+      <img src="engagement.png"
+           alt="Fenomena garam dapur dan pembentukan ikatan ion"
+           style="width:90%; max-width:620px; border-radius:18px; margin:8px 0 16px; box-shadow:0 8px 20px rgba(0,0,0,.08);">
+    </center>
+
+    <p style="font-size:14px; line-height:1.8; text-align:justify;">
+      Pernahkah kamu memperhatikan garam dapur yang sering digunakan di rumah?
+      Garam dapur terlihat seperti butiran kristal putih, mudah larut dalam air,
+      tetapi tidak dapat menghantarkan listrik ketika masih berupa padatan.
+      Namun, ketika garam dilarutkan dalam air, larutannya dapat menghantarkan listrik.
+    </p>
+
+    <p style="font-size:14px; line-height:1.8; text-align:justify;">
+      Fenomena ini menarik karena garam dapur tersusun dari atom natrium (Na) dan klorin (Cl).
+      Natrium merupakan unsur logam, sedangkan klorin merupakan unsur nonlogam.
+      Keduanya memiliki sifat yang sangat berbeda, tetapi ketika bergabung dapat membentuk
+      senyawa baru, yaitu natrium klorida (NaCl), yang memiliki sifat berbeda dari unsur penyusunnya.
+    </p>
+
+    <p style="font-size:14px; line-height:1.8; text-align:justify;">
+      Pada tahap ini, kamu <b>belum harus menjawab dengan benar</b>.
+      Tuliskan dugaan awalmu berdasarkan pengetahuan yang sudah kamu miliki.
+      Untuk membuktikan dugaan tersebut, kamu akan membaca materi, mengamati data,
+      mengisi tabel eksplorasi, menjelaskan hasilnya, dan mengerjakan evaluasi pada LKPD ini.
+    </p>
+  </div>
+
+  <div class="section-box" style="background:white; border-left:10px solid var(--batik-blue); border:2px dashed #d9ecff;">
+    <h3 style="margin-top:0; color:var(--batik-blue);">❓ Rumusan Masalah</h3>
+
+    <p style="font-size:15px; line-height:1.8; text-align:justify; margin-bottom:0;">
+      <b>
+        Bagaimana kecenderungan atom mencapai kestabilan melalui aturan oktet dan duplet,
+        serta bagaimana struktur Lewis dapat digunakan untuk menjelaskan pembentukan ikatan ion
+        melalui perpindahan elektron dan gaya tarik elektrostatik?
+      </b>
+    </p>
+  </div>
+
+  <div class="section-box" style="background:var(--green-cute); border-left:10px solid #27ae60;">
+    <h3 style="margin-top:0; color:#1e8449;">💭 Hipotesis Awal</h3>
+
+    <p style="font-size:14px; line-height:1.8; text-align:justify;">
+      Berdasarkan fenomena garam dapur di atas, tuliskan dugaan awalmu untuk menjawab rumusan masalah.
+      Kamu boleh menuliskan jawaban sederhana. 
+    </p>
+
+    <textarea id="ans-eng-1" rows="5"
+      placeholder="Contoh awal: Menurut saya..."></textarea>
+
+    <!-- Disimpan agar kode pengiriman lama tidak error karena masih mengambil ans-eng-2 -->
+    <textarea id="ans-eng-2" class="hidden">Rumusan masalah: Bagaimana kecenderungan atom mencapai kestabilan melalui aturan oktet dan duplet, serta bagaimana struktur Lewis dapat digunakan untuk menjelaskan pembentukan ikatan ion melalui perpindahan elektron dan gaya tarik elektrostatik?</textarea>
+  </div>
+
+  <div class="section-box">
+    <h3 style="margin-top:0;">🧭 Arah Kegiatan Selanjutnya</h3>
+
+    <p style="font-size:14px; line-height:1.8; text-align:justify;">
+      Untuk membuktikan hipotesismu, kerjakan kegiatan berikut secara berurutan!
+    </p>
+
+  <center>
+    <button class="btn-back" onclick="nextPhase(0)">⬅️</button>
+    <button class="btn-next" onclick="nextPhase(2)">➡️</button>
+  </center>
+</div>
+</div>
+
+   <!-- FASE 2 -->
+<div class="phase-card" id="p2">
+  <span class="badge-5e">2. Exploration</span>
+
+  <!-- PENGANTAR EXPLORATION -->
+  <div class="section-box" style="border-left:10px solid var(--batik-blue);">
+    <h2 style="margin-top:0; color:var(--batik-blue);">🔍 Exploration</h2>
+
+    <p style="font-size:14px; line-height:1.8; text-align:justify;">
+      Pada tahap Engagement, kamu sudah menuliskan hipotesis awal tentang bagaimana atom
+      mencapai kestabilan dan membentuk ikatan ion. Sekarang, kamu akan menyelidiki
+      hipotesis tersebut melalui bacaan materi, tabel data, dan pertanyaan eksplorasi.
+    </p>
+
+    <p style="font-size:14px; line-height:1.8; text-align:justify;">
+      <b>Sebelum mengisi tabel, bacalah materi terlebih dahulu</b> agar kamu memahami
+      aturan oktet dan duplet, struktur Lewis, serta proses pembentukan ikatan ion.
+    </p>
+
+    <center>
+      <button class="btn-next" onclick="openMateriIon()">📚 Baca Materi Dulu</button>
+    </center>
+  </div>
+
+  <!-- PETUNJUK EKSPLORASI -->
+  <div class="section-box" style="border-left:10px solid var(--gold);">
+    <h3 style="margin-top:0; color:var(--batik-blue);">🧭 Petunjuk Kegiatan Eksplorasi</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Setelah membaca materi, lakukan kegiatan eksplorasi berikut.
+      Gunakan tabel periodik interaktif untuk membantu menentukan konfigurasi elektron,
+      elektron valensi, dan kecenderungan atom.
+    </p>
+
+    <ol style="font-size:14px;line-height:1.8;text-align:left;padding-left:22px;">
+      <li>Amati unsur Na, Cl, H, O, Mg, dan F pada tabel periodik.</li>
+      <li>Tentukan konfigurasi elektron sederhana setiap atom.</li>
+      <li>Tentukan jumlah elektron valensi.</li>
+      <li>Tentukan aturan kestabilan yang sesuai: oktet atau duplet.</li>
+      <li>Tentukan kecenderungan atom: melepas, menerima, atau berbagi elektron.</li>
+      <li>Tuliskan struktur Lewis sederhana berdasarkan elektron valensinya.</li>
+      <li>Gunakan data tersebut untuk menjelaskan pembentukan ikatan ion.</li>
+    </ol>
+  </div>
+
+  <!-- PERIODIC TABLE INTERAKTIF -->
+  <div class="section-box" style="background:white; border-left:10px solid var(--batik-blue);">
+    <h3 style="margin-top:0;">🧾 Tabel Periodik Interaktif</h3>
+    <p style="font-size:13px; opacity:.9; margin-top:-6px;">
+      Gunakan tabel periodik berikut untuk membantu menentukan nomor atom, konfigurasi elektron, dan elektron valensi.
+    </p>
+
+    <div style="width:100%; height:500px; border-radius:20px; overflow:hidden; border:3px solid #d9ecff;">
+      <iframe 
+        src="https://artsexperiments.withgoogle.com/periodic-table/?exp=true&lang=en"
+        width="100%" 
+        height="100%" 
+        style="border:none;">
+      </iframe>
+    </div>
+
+    <p style="font-size:12px; opacity:.75; margin-top:8px;">
+      💡 Jika tabel tidak muncul, kamu boleh menggunakan tabel periodik dari buku atau sumber lain yang disediakan guru.
+    </p>
+  </div>
+
+  <!-- TABEL EKSPLORASI 1 -->
+  <div class="section-box">
+    <h3 style="margin-top:0; color:var(--batik-blue);">📋 Tabel 1</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Lengkapi tabel berikut berdasarkan materi yang sudah kamu baca dan data dari tabel periodik.
+      Kolom jawaban sengaja dikosongkan agar kamu mengisinya sendiri.
+    </p>
+
+    <div style="overflow-x:auto;">
+      <table class="module-table">
+        <tr>
+          <th>Unsur</th>
+          <th>Konfigurasi Elektron</th>
+          <th>Elektron Valensi</th>
+          <th>Aturan Kestabilan</th>
+          <th>Kecenderungan Atom</th>
+          <th>Struktur Lewis</th>
+        </tr>
+
+        <tr>
+          <td>Na</td>
+          <td><input type="text" id="tab-na-1"></td>
+          <td><input type="text" id="tab-na-2"></td>
+          <td><input type="text" id="tab-na-4"></td>
+          <td><input type="text" id="tab-na-3"></td>
+          <td><input type="text" id="tab-na-5"></td>
+        </tr>
+
+        <tr>
+          <td>Cl</td>
+          <td><input type="text" id="tab-cl-1"></td>
+          <td><input type="text" id="tab-cl-2"></td>
+          <td><input type="text" id="tab-cl-4"></td>
+          <td><input type="text" id="tab-cl-3"></td>
+          <td><input type="text" id="tab-cl-5"></td>
+        </tr>
+
+        <tr>
+          <td>H</td>
+          <td><input type="text" id="tab-h-1"></td>
+          <td><input type="text" id="tab-h-2"></td>
+          <td><input type="text" id="tab-h-4"></td>
+          <td><input type="text" id="tab-h-3"></td>
+          <td><input type="text" id="tab-h-5"></td>
+        </tr>
+
+        <tr>
+          <td>O</td>
+          <td><input type="text" id="tab-o-1"></td>
+          <td><input type="text" id="tab-o-2"></td>
+          <td><input type="text" id="tab-o-4"></td>
+          <td><input type="text" id="tab-o-3"></td>
+          <td><input type="text" id="tab-o-5"></td>
+        </tr>
+
+        <tr>
+          <td>Mg</td>
+          <td><input type="text" id="tab-mg-1"></td>
+          <td><input type="text" id="tab-mg-2"></td>
+          <td><input type="text" id="tab-mg-4"></td>
+          <td><input type="text" id="tab-mg-3"></td>
+          <td><input type="text" id="tab-mg-5"></td>
+        </tr>
+
+        <tr>
+          <td>F</td>
+          <td><input type="text" id="tab-f-1"></td>
+          <td><input type="text" id="tab-f-2"></td>
+          <td><input type="text" id="tab-f-4"></td>
+          <td><input type="text" id="tab-f-3"></td>
+          <td><input type="text" id="tab-f-5"></td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- KUNCI JAWABAN GURU -->
+    <div class="teacher-only answer-key-box">
+      <h3>🔐 Kunci Jawaban Guru — Tabel 1</h3>
+      <table>
+        <tr>
+          <th>Unsur</th>
+          <th>Konfigurasi</th>
+          <th>Valensi</th>
+          <th>Kestabilan</th>
+          <th>Kecenderungan</th>
+          <th>Lewis</th>
+        </tr>
+        <tr><td>Na</td><td>2,8,1</td><td>1</td><td>Oktet</td><td>Melepas 1 e⁻</td><td>Na•</td></tr>
+        <tr><td>Cl</td><td>2,8,7</td><td>7</td><td>Oktet</td><td>Menerima 1 e⁻</td><td>Cl dengan 7 titik</td></tr>
+        <tr><td>H</td><td>1</td><td>1</td><td>Duplet</td><td>Menerima/berbagi 1 e⁻</td><td>H•</td></tr>
+        <tr><td>O</td><td>2,6</td><td>6</td><td>Oktet</td><td>Menerima 2 e⁻ / berbagi 2 e⁻</td><td>O dengan 6 titik</td></tr>
+        <tr><td>Mg</td><td>2,8,2</td><td>2</td><td>Oktet</td><td>Melepas 2 e⁻</td><td>Mg dengan 2 titik</td></tr>
+        <tr><td>F</td><td>2,7</td><td>7</td><td>Oktet</td><td>Menerima 1 e⁻</td><td>F dengan 7 titik</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- TABEL EKSPLORASI 2 -->
+  <div class="section-box">
+    <h3 style="margin-top:0; color:var(--batik-blue);">📋 Tabel 2</h3>
+
+    <p style="font-size:14px;line-height:1.8;text-align:justify;">
+      Berdasarkan data pada Tabel 1, lengkapi proses pembentukan ikatan ion berikut.
+    </p>
+
+    <div style="overflow-x:auto;">
+      <table class="module-table">
+        <tr>
+          <th>Pasangan Atom</th>
+          <th>Atom yang Melepas Elektron</th>
+          <th>Atom yang Menerima Elektron</th>
+          <th>Ion yang Terbentuk</th>
+          <th>Gaya Tarik Elektrostatik</th>
+          <th>Senyawa Ion</th>
+        </tr>
+
+        <tr>
+          <td>Na dan Cl</td>
+          <td><input type="text" id="ion-nacl-1"></td>
+          <td><input type="text" id="ion-nacl-2"></td>
+          <td><input type="text" id="ion-nacl-3"></td>
+          <td><input type="text" id="ion-nacl-4"></td>
+          <td><input type="text" id="ion-nacl-5"></td>
+        </tr>
+
+        <tr>
+          <td>Mg dan F</td>
+          <td><input type="text" id="ion-mgf-1"></td>
+          <td><input type="text" id="ion-mgf-2"></td>
+          <td><input type="text" id="ion-mgf-3"></td>
+          <td><input type="text" id="ion-mgf-4"></td>
+          <td><input type="text" id="ion-mgf-5"></td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- KUNCI JAWABAN GURU -->
+    <div class="teacher-only answer-key-box">
+      <h3>🔐 Kunci Jawaban Guru — Tabel 2</h3>
+      <table>
+        <tr>
+          <th>Pasangan</th>
+          <th>Melepas</th>
+          <th>Menerima</th>
+          <th>Ion</th>
+          <th>Elektrostatik</th>
+          <th>Senyawa</th>
+        </tr>
+        <tr>
+          <td>Na dan Cl</td>
+          <td>Na melepas 1 e⁻</td>
+          <td>Cl menerima 1 e⁻</td>
+          <td>Na⁺ dan Cl⁻</td>
+          <td>Na⁺ tertarik dengan Cl⁻</td>
+          <td>NaCl</td>
+        </tr>
+        <tr>
+          <td>Mg dan F</td>
+          <td>Mg melepas 2 e⁻</td>
+          <td>2 atom F menerima masing-masing 1 e⁻</td>
+          <td>Mg²⁺ dan 2F⁻</td>
+          <td>Mg²⁺ tertarik dengan F⁻</td>
+          <td>MgF₂</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- PERTANYAAN EKSPLORASI -->
+  <div class="section-box" style="border-left:10px solid #27ae60; background:var(--green-cute);">
+    <h3 style="margin-top:0; color:#1e8449;">🧠 Pertanyaan Eksplorasi</h3>
+
+    <p style="font-size:14px; line-height:1.8;">
+      Jawablah pertanyaan berikut berdasarkan materi dan data pada tabel yang sudah kamu isi.
+    </p>
+
+    <p style="font-size:14px; font-weight:bold; margin-bottom:6px;">
+      1. Bagaimana hubungan jumlah elektron valensi dengan kecenderungan atom melepas atau menerima elektron?
+    </p>
+    <textarea id="eks_q1" rows="3"></textarea>
+
+    <p style="font-size:14px; font-weight:bold; margin-bottom:6px;">
+      2. Bagaimana struktur Lewis membantu menunjukkan elektron valensi atom?
+    </p>
+    <textarea id="eks_q2" rows="3"></textarea>
+
+    <p style="font-size:14px; font-weight:bold; margin-bottom:6px;">
+      3. Mengapa Na dan Cl dapat membentuk ikatan ion?
+    </p>
+    <textarea id="eks_q3" rows="3"></textarea>
+
+    <p style="font-size:14px; font-weight:bold; margin-bottom:6px;">
+      4. Mengapa senyawa MgF₂ memerlukan dua atom F untuk berikatan dengan satu atom Mg?
+    </p>
+    <textarea id="eks_q4" rows="3"></textarea>
+
+    <!-- KUNCI JAWABAN GURU -->
+    <div class="teacher-only answer-key-box">
+      <h3>🔐 Kunci Jawaban Guru — Pertanyaan Eksplorasi</h3>
+      <ol style="font-size:13px;line-height:1.8;">
+        <li>Atom dengan 1–3 elektron valensi cenderung melepas elektron, sedangkan atom dengan 5–7 elektron valensi cenderung menerima elektron agar mencapai oktet.</li>
+        <li>Struktur Lewis menunjukkan jumlah elektron valensi melalui titik-titik di sekitar lambang unsur.</li>
+        <li>Na melepas 1 elektron membentuk Na⁺, Cl menerima 1 elektron membentuk Cl⁻, lalu keduanya saling tarik-menarik secara elektrostatik.</li>
+        <li>Mg melepas 2 elektron, sedangkan setiap atom F menerima 1 elektron. Karena itu diperlukan 2 atom F agar elektron dari Mg diterima seluruhnya dan muatan menjadi seimbang.</li>
+      </ol>
+    </div>
+  </div>
+
+  <center>
+    <button class="btn-back" onclick="nextPhase(1)">⬅️</button>
+    <button class="btn-next" onclick="nextPhase(3)">Lanjut ke Explanation ➡️</button>
+  </center>
+</div>
+
+<!-- MATERI ION TERPISAH -->
+<div class="phase-card" id="pMateriIon">
+  <span class="badge-5e">Materi Pendukung</span>
+
+  <div class="section-box" style="border-left:10px solid var(--batik-blue);">
+    <h2 style="margin-top:0; color:var(--batik-blue);">📚 Materi Pendukung — Ikatan Ion</h2>
+
+    <p style="font-size:14px; line-height:1.8; text-align:justify;">
+      Bacalah materi berikut sebelum mengisi tabel eksplorasi. Materi ini membantumu memahami
+      mengapa atom berikatan, bagaimana struktur Lewis dibuat, dan bagaimana ikatan ion terbentuk.
+    </p>
+
+    <center>
+      <button class="btn-back" onclick="backToExploration()">⬅️ Kembali ke Exploration</button>
+    </center>
+  </div>
+
+  <!-- MATERI 1 -->
+  <div class="section-box">
+    <h3 style="margin-top:0; color:var(--batik-blue);">1. Kestabilan Atom: Aturan Oktet dan Duplet</h3>
+
+    <p style="font-size:14px; line-height:1.8; text-align:justify;">
+      Atom-atom cenderung berikatan agar mencapai keadaan yang lebih stabil.
+      Kestabilan atom sering dibandingkan dengan konfigurasi elektron gas mulia,
+      karena gas mulia memiliki kulit terluar yang penuh dan relatif sukar bereaksi.
+    </p>
+
+    <ul style="font-size:14px; line-height:1.8;">
+      <li><b>Aturan duplet</b>: atom stabil jika kulit terluarnya berisi 2 elektron, seperti helium.</li>
+      <li><b>Aturan oktet</b>: atom stabil jika kulit terluarnya berisi 8 elektron, seperti neon atau argon.</li>
+    </ul>
+
+    <p style="font-size:14px; line-height:1.8; text-align:justify;">
+      Untuk mencapai kestabilan, atom dapat melepas elektron, menerima elektron,
+      atau menggunakan elektron bersama dengan atom lain.
+    </p>
+
+    <div style="background:white; padding:15px; border-radius:18px; border:2px dashed #d9ecff;">
+      <h4 style="margin-top:0;">📌 Konfigurasi Gas Mulia</h4>
+      <img class="materi-img" src="materi_kestabilan_1.png" alt="Kestabilan atom dan konfigurasi gas mulia">
+    </div>
+  </div>
+
+  <!-- MATERI 2 -->
+  <div class="section-box">
+    <h3 style="margin-top:0; color:var(--batik-blue);">2. Elektron Valensi dan Struktur Lewis</h3>
+
+    <p style="font-size:14px; line-height:1.8; text-align:justify;">
+      Elektron valensi adalah elektron yang berada pada kulit terluar atom.
+      Elektron inilah yang berperan penting dalam pembentukan ikatan kimia.
+    </p>
+
+    <p style="font-size:14px; line-height:1.8; text-align:justify;">
+      Struktur Lewis atau simbol titik Lewis digunakan untuk menggambarkan elektron valensi.
+      Titik-titik di sekitar lambang unsur menunjukkan jumlah elektron valensi atom tersebut.
+    </p>
+
+    <div style="background:white; padding:15px; border-radius:18px; border:2px dashed #d9ecff;">
+      <h4 style="margin-top:0;">📌 Simbol Titik Lewis</h4>
+      <img class="materi-img" src="materi_lewis.png" alt="Simbol titik Lewis">
+    </div>
+  </div>
+
+  <!-- MATERI 3 -->
+  <div class="section-box">
+    <h3 style="margin-top:0; color:var(--batik-blue);">3. Pembentukan Ikatan Ion</h3>
+
+    <p style="font-size:14px; line-height:1.8; text-align:justify;">
+      Ikatan ion umumnya terbentuk antara atom logam dan atom nonlogam.
+      Atom logam cenderung <b>melepaskan elektron</b> sehingga membentuk
+      <b>kation</b> atau ion positif. Atom nonlogam cenderung <b>menerima elektron</b>
+      sehingga membentuk <b>anion</b> atau ion negatif.
+    </p>
+
+    <p style="font-size:14px; line-height:1.8; text-align:justify;">
+      Setelah terbentuk kation dan anion, kedua ion yang bermuatan berlawanan
+      saling tarik-menarik. Gaya tarik antara ion positif dan ion negatif ini disebut
+      <b>gaya tarik elektrostatik</b>. Gaya tarik inilah yang membentuk ikatan ion.
+    </p>
+
+    <div style="
+      background:white;
+      border:2px dashed #d9ecff;
+      border-radius:18px;
+      padding:15px;
+      margin-bottom:16px;
+    ">
+      <h4 style="margin-top:0;color:var(--batik-blue);">📌 Pembentukan NaCl</h4>
+      <p style="font-size:14px; line-height:1.8;">
+        Na → Na⁺ + e⁻<br>
+        Cl + e⁻ → Cl⁻<br>
+        Na⁺ + Cl⁻ → NaCl
+      </p>
+      <img class="materi-img" src="materi_nacl.png" alt="Pembentukan ikatan ion NaCl">
+    </div>
+
+    <div style="
+      background:white;
+      border:2px dashed #d9ecff;
+      border-radius:18px;
+      padding:15px;
+    ">
+      <h4 style="margin-top:0;color:var(--batik-blue);">📌 Pembentukan LiF</h4>
+      <p style="font-size:14px; line-height:1.8; text-align:justify;">
+        Litium memiliki 1 elektron valensi sehingga cenderung melepas 1 elektron menjadi Li⁺.
+        Fluorin memiliki 7 elektron valensi sehingga cenderung menerima 1 elektron menjadi F⁻.
+        Li⁺ dan F⁻ kemudian saling tarik-menarik membentuk senyawa ion LiF.
+      </p>
+      <img class="materi-img" src="materi_lif.png" alt="Pembentukan ikatan ion LiF">
+    </div>
+  </div>
+
+  <!-- PENUTUP MATERI -->
+  <div class="section-box" style="background:var(--green-cute); border-left:10px solid #27ae60;">
+    <h3 style="margin-top:0; color:#1e8449;">✅ Kesimpulan Materi</h3>
+    <p style="font-size:14px; line-height:1.8; text-align:justify;">
+      Atom berikatan untuk mencapai kestabilan. Struktur Lewis membantu menunjukkan
+      elektron valensi. Ikatan ion terbentuk ketika elektron berpindah dari atom logam
+      ke atom nonlogam sehingga terbentuk kation dan anion yang saling tarik-menarik
+      melalui gaya elektrostatik.
+    </p>
+
+    <center>
+      <button class="btn-next" onclick="backToExploration()">Saya Sudah Membaca, Kembali ke Exploration ➡️</button>
+    </center>
+  </div>
+</div>
+
+    <!-- FASE 3 -->
+<div class="phase-card" id="p3">
+  <span class="badge-5e">3. Explanation</span>
+
+  <!-- PENGANTAR EXPLANATION -->
+  <div class="section-box" style="border-left:10px solid var(--batik-blue);">
+    <h2 style="margin-top:0; color:var(--batik-blue);">🟡 Explanation</h2>
+
+    <p style="font-size:14px; line-height:1.8; text-align:justify;">
+      Pada tahap Exploration, kamu sudah membaca materi, mengisi tabel kestabilan atom,
+      struktur Lewis, dan pembentukan ikatan ion. Sekarang, jelaskan kembali hasil
+      eksplorasimu dengan bahasamu sendiri.
+    </p>
+
+    <p style="font-size:14px; line-height:1.8; text-align:justify;">
+      Jelaskan bukan hanya
+      jawabannya, tetapi juga <b>alasan mengapa kamu menjawab seperti itu</b>.
+      Gunakan data dari Tabel 1 dan Tabel 2 sebagai dasar penjelasanmu.
+    </p>
+  </div>
+
+  <!-- PRESENTASI PEMAHAMAN -->
+  <div class="section-box">
+    <h3 style="margin-top:0; color:var(--batik-blue);">🎤 Penjelasan Pemahaman Siswa</h3>
+
+    <p style="font-size:14px; font-weight:bold; margin-bottom:6px;">
+      1. Berdasarkan Tabel 1, jelaskan mengapa atom Na dan Mg cenderung melepas elektron
+      untuk mencapai kestabilan.
+    </p>
+    <textarea id="ans-exp-1" rows="4"
+      placeholder="Jelaskan berdasarkan elektron valensi, aturan oktet, dan pembentukan kation..."></textarea>
+
+    <p style="font-size:14px; font-weight:bold; margin-bottom:6px;">
+      2. Berdasarkan Tabel 1, jelaskan mengapa atom Cl dan F cenderung menerima elektron
+      untuk mencapai kestabilan.
+    </p>
+    <textarea id="ans-exp-2" rows="4"
+      placeholder="Jelaskan berdasarkan elektron valensi, aturan oktet, dan pembentukan anion..."></textarea>
+
+    <p style="font-size:14px; font-weight:bold; margin-bottom:6px;">
+      3. Bagaimana struktur Lewis membantumu mengetahui jumlah elektron valensi dan
+      kecenderungan atom dalam membentuk ikatan?
+    </p>
+    <textarea id="ans-exp-3" rows="4"
+      placeholder="Jelaskan hubungan titik Lewis, elektron valensi, dan kecenderungan atom..."></textarea>
+
+    <p style="font-size:14px; font-weight:bold; margin-bottom:6px;">
+      4. Jelaskan proses pembentukan ikatan ion pada NaCl berdasarkan perpindahan elektron
+      dan gaya tarik elektrostatik.
+    </p>
+    <textarea id="ans-exp-4" rows="5"
+      placeholder="Jelaskan tahap Na melepas elektron, Cl menerima elektron, terbentuk Na⁺ dan Cl⁻, lalu terjadi gaya tarik elektrostatik..."></textarea>
+
+    <p style="font-size:14px; font-weight:bold; margin-bottom:6px;">
+      5. Jelaskan mengapa MgF₂ memerlukan dua atom F untuk berikatan dengan satu atom Mg.
+    </p>
+    <textarea id="ans-exp-5" rows="5"
+      placeholder="Jelaskan berdasarkan jumlah elektron yang dilepas Mg dan jumlah elektron yang diterima F..."></textarea>
+  </div>
+
+  <!-- REVISI HIPOTESIS -->
+  <div class="section-box" style="background:var(--green-cute); border-left:10px solid #27ae60;">
+    <h3 style="margin-top:0; color:#1e8449;">🔁 Meninjau Kembali Hipotesis Awal</h3>
+
+    <p style="font-size:14px; line-height:1.8; text-align:justify;">
+      Buka kembali hipotesis awalmu pada tahap Engagement. Setelah membaca materi dan
+      melakukan eksplorasi, apakah hipotesismu sudah tepat? Tuliskan perbaikannya jika perlu.
+    </p>
+
+    <textarea id="ans-exp-6" rows="4"
+      placeholder="Tuliskan revisi atau penguatan hipotesis awalmu setelah melakukan eksplorasi..."></textarea>
+  </div>
+
+<!-- UMPAN BALIK OTOMATIS -->
+<div class="section-box" style="background:white; border-left:10px solid var(--gold); border:2px dashed #d9ecff;">
+  <h3 style="margin-top:0; color:var(--batik-blue);">💬 Simpan Jawaban dan Lihat Umpan Balik</h3>
+
+  <p style="font-size:14px; line-height:1.8; text-align:justify;">
+    Setelah selesai menjawab semua pertanyaan Explanation, klik tombol di bawah ini.
+    Jawabanmu akan disimpan dan dikunci, lalu pembahasan akan muncul sebagai umpan balik otomatis.
+  </p>
+
+  <p style="font-size:13px; line-height:1.7; color:#cc4d4d; font-weight:bold;">
+    ⚠️ Setelah menekan tombol ini, jawaban tidak dapat diubah kembali.
+  </p>
+
+  <center>
+    <button class="btn-next" id="btn-save-explanation" onclick="saveExplanationAndShowFeedback()">
+      💾 Simpan Jawaban & Lihat Umpan Balik
+    </button>
+  </center>
+
+  <div id="feedback-explanation" class="feedback-auto-box">
+    <h3>✅ Umpan Balik Explanation</h3>
+
+    <div class="feedback-item">
+      <b>1. Na dan Mg cenderung melepas elektron.</b><br>
+      Na memiliki 1 elektron valensi, sedangkan Mg memiliki 2 elektron valensi.
+      Keduanya lebih mudah mencapai kestabilan oktet dengan cara melepas elektron.
+      Na membentuk Na⁺, sedangkan Mg membentuk Mg²⁺.
+    </div>
+
+    <div class="feedback-item">
+      <b>2. Cl dan F cenderung menerima elektron.</b><br>
+      Cl dan F memiliki 7 elektron valensi. Untuk mencapai oktet, keduanya hanya
+      perlu menerima 1 elektron. Oleh karena itu, Cl membentuk Cl⁻ dan F membentuk F⁻.
+    </div>
+
+    <div class="feedback-item">
+      <b>3. Struktur Lewis menunjukkan elektron valensi.</b><br>
+      Titik-titik pada struktur Lewis menunjukkan jumlah elektron valensi atom.
+      Dari jumlah titik tersebut, kita dapat memperkirakan apakah atom cenderung
+      melepas, menerima, atau menggunakan elektron bersama.
+    </div>
+
+    <div class="feedback-item">
+      <b>4. Pembentukan ikatan ion pada NaCl.</b><br>
+      Atom Na melepas 1 elektron sehingga menjadi Na⁺. Atom Cl menerima 1 elektron
+      sehingga menjadi Cl⁻. Ion Na⁺ dan Cl⁻ memiliki muatan berlawanan, sehingga
+      saling tarik-menarik melalui gaya tarik elektrostatik dan membentuk ikatan ion.
+    </div>
+
+    <div class="feedback-item">
+      <b>5. Pembentukan MgF₂.</b><br>
+      Atom Mg melepas 2 elektron sehingga menjadi Mg²⁺. Setiap atom F hanya menerima
+      1 elektron, sehingga diperlukan 2 atom F untuk menerima 2 elektron dari Mg.
+      Akhirnya terbentuk Mg²⁺ dan 2F⁻, sehingga senyawanya adalah MgF₂.
+    </div>
+
+    <div class="feedback-item">
+      <b>6. Revisi hipotesis awal.</b><br>
+      Hipotesis yang baik seharusnya menyebutkan bahwa atom berikatan untuk mencapai
+      kestabilan. Pada ikatan ion, elektron berpindah dari atom logam ke atom nonlogam,
+      lalu terbentuk kation dan anion yang saling tarik-menarik.
+    </div>
+  </div>
+</div>
+
+  <!-- KUNCI / ARAHAN GURU KHUSUS OWNER -->
+  <div class="teacher-only answer-key-box">
+    <h3>🔐 Kunci Jawaban Guru — Explanation</h3>
+
+    <ol style="font-size:13px; line-height:1.8;">
+      <li>
+        Na dan Mg cenderung melepas elektron karena memiliki sedikit elektron valensi.
+        Dengan melepas elektron, keduanya membentuk kation dan mencapai konfigurasi stabil seperti gas mulia.
+      </li>
+      <li>
+        Cl dan F cenderung menerima elektron karena memiliki 7 elektron valensi.
+        Dengan menerima 1 elektron, keduanya mencapai oktet dan membentuk anion.
+      </li>
+      <li>
+        Struktur Lewis menunjukkan elektron valensi melalui titik-titik di sekitar lambang unsur,
+        sehingga membantu memprediksi apakah atom cenderung melepas atau menerima elektron.
+      </li>
+      <li>
+        Pada NaCl, Na melepas 1 elektron menjadi Na⁺, Cl menerima 1 elektron menjadi Cl⁻,
+        lalu Na⁺ dan Cl⁻ saling tarik-menarik melalui gaya elektrostatik.
+      </li>
+      <li>
+        Pada MgF₂, Mg melepas 2 elektron, sedangkan satu atom F hanya menerima 1 elektron.
+        Karena itu diperlukan 2 atom F agar terbentuk Mg²⁺ dan 2F⁻ dengan muatan total netral.
+      </li>
+    </ol>
+  </div>
+
+  <center>
+    <button class="btn-back" onclick="nextPhase(2)">⬅️ Kembali ke Exploration</button>
+    <button class="btn-next" onclick="nextPhase(4)">Lanjut ke Elaboration ➡️</button>
+  </center>
+</div>
+
+   <!-- FASE 4 -->
+<div class="phase-card" id="p4">
+  <span class="badge-5e">4. Elaboration</span>
+
+  <!-- PENGANTAR ELABORATION -->
+  <div class="section-box" style="border-left:10px solid var(--batik-blue);">
+    <h2 style="margin-top:0; color:var(--batik-blue);">🌍 Elaboration</h2>
+
+    <p style="font-size:14px; line-height:1.8; text-align:justify;">
+      Pada tahap Engagement, kamu telah mengamati fenomena garam dapur. Pada tahap
+      Exploration dan Explanation, kamu juga telah mempelajari kecenderungan atom mencapai
+      kestabilan, struktur Lewis, perpindahan elektron, pembentukan kation dan anion,
+      serta gaya tarik elektrostatik.
+    </p>
+
+    <p style="font-size:14px; line-height:1.8; text-align:justify;">
+      Sekarang, gunakan konsep tersebut untuk menjelaskan fenomena yang lebih kompleks.
+      Bacaan berikut tidak hanya membahas bagaimana NaCl terbentuk, tetapi juga menghubungkan
+      ikatan ion dengan sifat senyawa ion, seperti bentuk kristal, daya hantar listrik,
+      titik leleh tinggi, dan sifat rapuh.
+    </p>
+  </div>
+
+  <!-- BACAAN ELABORASI -->
+  <div class="section-box">
+    <h3 style="margin-top:0; color:var(--batik-blue);">📖 Mengapa Garam Memiliki Sifat yang Khas?</h3>
+
+    <div style="background:#f8fbff;border:2px dashed #d9ecff;border-radius:18px;padding:15px;margin-top:12px;">
+      <h4 style="margin-top:0;color:var(--batik-blue);">Fenomena 1: Garam Dapur sebagai Senyawa Ion</h4>
+
+      <p style="font-size:14px; line-height:1.8; text-align:justify;">
+        Garam dapur atau natrium klorida memiliki rumus kimia <b>NaCl</b>. Senyawa ini
+        terbentuk dari atom natrium dan atom klorin. Natrium memiliki satu elektron valensi,
+        sedangkan klorin memiliki tujuh elektron valensi. Agar mencapai kestabilan, natrium
+        cenderung melepaskan satu elektron, sedangkan klorin cenderung menerima satu elektron.
+      </p>
+
+      <p style="font-size:14px; line-height:1.8; text-align:justify;">
+        Setelah elektron berpindah, natrium berubah menjadi ion positif <b>Na⁺</b>,
+        sedangkan klorin berubah menjadi ion negatif <b>Cl⁻</b>. Ion-ion yang muatannya
+        berlawanan tersebut saling tarik-menarik melalui gaya tarik elektrostatik.
+      </p>
+
+      <div style="background:white;border:2px dashed #d9ecff;border-radius:18px;padding:14px;margin-top:12px;color:var(--batik-blue);font-size:14px;line-height:1.8;font-weight:700;">
+        Na → Na⁺ + e⁻<br>
+        Cl + e⁻ → Cl⁻<br>
+        Na⁺ + Cl⁻ → NaCl
+      </div>
+    </div>
+
+    <div style="background:#f8fbff;border:2px dashed #d9ecff;border-radius:18px;padding:15px;margin-top:12px;">
+      <h4 style="margin-top:0;color:var(--batik-blue);">Fenomena 2: Garam Berbentuk Kristal Padat</h4>
+
+      <p style="font-size:14px; line-height:1.8; text-align:justify;">
+        Dalam kristal NaCl, ion Na⁺ dan Cl⁻ tidak hanya membentuk satu pasangan ion.
+        Ion-ion tersebut tersusun secara teratur dan berulang. Setiap ion positif dikelilingi
+        oleh ion negatif, dan setiap ion negatif dikelilingi oleh ion positif. Susunan teratur
+        ini disebut <b>kisi kristal ion</b>.
+      </p>
+
+      <p style="font-size:14px; line-height:1.8; text-align:justify;">
+        Karena gaya tarik elektrostatik antara ion positif dan ion negatif berlangsung kuat
+        ke berbagai arah, senyawa ion seperti NaCl umumnya berbentuk padatan kristal dan
+        memiliki titik leleh yang relatif tinggi. Untuk melelehkannya, diperlukan energi cukup
+        besar agar susunan ion dalam kristal dapat terpisah.
+      </p>
+    </div>
+
+    <div style="background:#f8fbff;border:2px dashed #d9ecff;border-radius:18px;padding:15px;margin-top:12px;">
+      <h4 style="margin-top:0;color:var(--batik-blue);">Fenomena 3: Garam Padat dan Larutan Garam</h4>
+
+      <p style="font-size:14px; line-height:1.8; text-align:justify;">
+        Garam padat tidak dapat menghantarkan listrik dengan baik karena ion-ionnya berada
+        pada posisi yang tetap dalam kisi kristal. Walaupun senyawa ion tersusun dari partikel
+        bermuatan, ion-ion tersebut tidak bebas bergerak ketika masih dalam keadaan padat.
+      </p>
+
+      <p style="font-size:14px; line-height:1.8; text-align:justify;">
+        Berbeda dengan garam padat, larutan garam dapat menghantarkan listrik. Ketika NaCl
+        dilarutkan dalam air, ion Na⁺ dan Cl⁻ terpisah dari kisi kristalnya dan dapat bergerak
+        bebas dalam larutan. Ion-ion yang bergerak bebas inilah yang dapat membawa muatan
+        listrik.
+      </p>
+
+      <div style="background:white;border:2px dashed #d9ecff;border-radius:18px;padding:14px;margin-top:12px;color:var(--batik-blue);font-size:14px;line-height:1.8;font-weight:700;">
+        NaCl(s) → Na⁺(aq) + Cl⁻(aq)
+      </div>
+    </div>
+
+    <div style="background:#f8fbff;border:2px dashed #d9ecff;border-radius:18px;padding:15px;margin-top:12px;">
+      <h4 style="margin-top:0;color:var(--batik-blue);">Fenomena 4: Kristal Ion Keras tetapi Rapuh</h4>
+
+      <p style="font-size:14px; line-height:1.8; text-align:justify;">
+        Banyak senyawa ion bersifat keras karena ion-ionnya diikat oleh gaya tarik elektrostatik
+        yang kuat. Namun, kristal ion juga dapat bersifat rapuh. Ketika kristal mendapat tekanan,
+        lapisan ion di dalam kristal dapat bergeser.
+      </p>
+
+      <p style="font-size:14px; line-height:1.8; text-align:justify;">
+        Pergeseran lapisan tersebut dapat membuat ion-ion bermuatan sama saling berdekatan.
+        Karena muatan sejenis saling tolak-menolak, susunan kristal menjadi tidak stabil dan
+        kristal dapat pecah.
+      </p>
+
+      <div style="background:white; padding:15px; border-radius:18px; border:2px dashed #d9ecff; margin:12px 0;">
+        <h4 style="margin-top:0; color:var(--batik-blue);">📌 Ilustrasi Kristal Ion Saat Diberi Tekanan</h4>
+        <img class="materi-img" src="materi_sifat_ion.png" alt="Sifat rapuh senyawa ion">
+        <p style="font-size:12px; opacity:.8; margin:8px 0 0;">
+          Ketika lapisan ion bergeser, ion bermuatan sama dapat berdekatan dan saling tolak-menolak.
+        </p>
+      </div>
+    </div>
+
+    <div style="background:#f8fbff;border:2px dashed #d9ecff;border-radius:18px;padding:15px;margin-top:12px;">
+      <h4 style="margin-top:0;color:var(--batik-blue);">Fenomena 5: Senyawa Ion Tidak Selalu Tersusun dari Ion Sederhana</h4>
+
+      <p style="font-size:14px; line-height:1.8; text-align:justify;">
+        Tidak semua senyawa ion tersusun dari ion sederhana seperti Na⁺ dan Cl⁻.
+        Beberapa senyawa ion mengandung <b>ion poliatomik</b>, yaitu ion yang tersusun dari
+        beberapa atom tetapi memiliki muatan tertentu.
+      </p>
+
+      <p style="font-size:14px; line-height:1.8; text-align:justify;">
+        Contohnya, <b>CaCO₃</b> tersusun dari ion Ca²⁺ dan CO₃²⁻, sedangkan
+        <b>CaSO₄</b> tersusun dari ion Ca²⁺ dan SO₄²⁻. Walaupun ion negatifnya tersusun
+        dari beberapa atom, senyawa tersebut tetap termasuk senyawa ion karena terdapat gaya
+        tarik elektrostatik antara kation dan anion.
+      </p>
+    </div>
+
+    <div style="background:#fff7d6;border-left:10px solid var(--gold);border-radius:18px;padding:14px;margin-top:14px;">
+      <p style="font-size:15px;line-height:1.8;text-align:justify;margin:0;">
+        <b>Masalah yang harus kamu pecahkan:</b><br>
+        Bagaimana proses pembentukan ikatan ion dapat menjelaskan sifat khas senyawa ion,
+        seperti bentuk kristal, titik leleh tinggi, daya hantar listrik dalam larutan, sifat
+        rapuh, dan keberadaan senyawa ion yang mengandung ion poliatomik?
+      </p>
+    </div>
+  </div>
+
+  <!-- PERTANYAAN ELABORASI -->
+  <div class="section-box" style="background:var(--green-cute); border-left:10px solid #27ae60;">
+    <h3 style="margin-top:0; color:#1e8449;">✍️ Pertanyaan Elaborasi</h3>
+
+    <p style="font-size:14px; line-height:1.8; text-align:justify;">
+      Jawablah pertanyaan berikut berdasarkan bacaan elaborasi dan konsep yang sudah kamu
+      pelajari pada tahap sebelumnya. Gunakan istilah <b>kation</b>, <b>anion</b>,
+      <b>perpindahan elektron</b>, <b>gaya tarik elektrostatik</b>, dan
+      <b>kisi kristal ion</b> dengan tepat.
+    </p>
+
+<p style="font-size:14px; font-weight:bold; margin-bottom:6px;">
+  1. Jelaskan proses terbentuknya NaCl berdasarkan perpindahan elektron antara atom Na dan atom Cl.
+</p>
+<textarea id="el-1" rows="4"></textarea>
+
+<p style="font-size:14px; font-weight:bold; margin-bottom:6px;">
+  2. Mengapa NaCl dapat berbentuk kristal padat dan memiliki titik leleh relatif tinggi?
+</p>
+<textarea id="el-2" rows="4"></textarea>
+
+<p style="font-size:14px; font-weight:bold; margin-bottom:6px;">
+  3. Mengapa NaCl padat tidak menghantarkan listrik, sedangkan larutan NaCl dapat menghantarkan listrik?
+</p>
+<textarea id="el-3" rows="4"></textarea>
+
+<p style="font-size:14px; font-weight:bold; margin-bottom:6px;">
+  4. Mengapa senyawa ion umumnya keras tetapi rapuh?
+</p>
+<textarea id="el-4" rows="4"></textarea>
+
+<p style="font-size:14px; font-weight:bold; margin-bottom:6px;">
+  5. Mengapa CaCO₃ dan CaSO₄ tetap termasuk senyawa ion meskipun mengandung ion poliatomik?
+</p>
+<textarea id="el-5" rows="4"></textarea>
+</div>
+  
+
+ 
+  <!-- UMPAN BALIK OTOMATIS ELABORATION -->
+  <div class="section-box" style="background:white; border-left:10px solid var(--gold); border:2px dashed #d9ecff;">
+    <h3 style="margin-top:0; color:var(--batik-blue);">💬 Simpan Jawaban dan Lihat Umpan Balik</h3>
+
+    <p style="font-size:14px; line-height:1.8; text-align:justify;">
+      Setelah selesai menjawab semua pertanyaan Elaboration, klik tombol berikut.
+      Jawabanmu akan dikunci, lalu pembahasan otomatis akan muncul.
+    </p>
+
+    <p style="font-size:13px; line-height:1.7; color:#cc4d4d; font-weight:bold;">
+      ⚠️ Setelah menekan tombol ini, jawaban tidak dapat diubah kembali sampai jawaban akhir dikirim ke spreadsheet.
+    </p>
+
+    <center>
+      <button class="btn-next" id="btn-save-elaboration" onclick="saveElaborationAndShowFeedback()">
+        💾 Simpan Jawaban & Lihat Umpan Balik
+      </button>
+    </center>
+
+    <div id="feedback-elaboration" class="feedback-auto-box">
+      <h3>✅ Umpan Balik Elaboration</h3>
+
+      <div class="feedback-item">
+        <b>1. Pembentukan NaCl.</b><br>
+        Atom Na melepaskan satu elektron valensinya sehingga menjadi Na⁺.
+        Atom Cl menerima satu elektron sehingga menjadi Cl⁻. Ion Na⁺ dan Cl⁻ yang bermuatan
+        berlawanan saling tarik-menarik melalui gaya tarik elektrostatik dan membentuk ikatan ion.
+      </div>
+
+      <div class="feedback-item">
+        <b>2. Kristal padat dan titik leleh tinggi.</b><br>
+        NaCl berbentuk kristal karena ion Na⁺ dan Cl⁻ tersusun teratur dalam kisi kristal ion.
+        Gaya tarik elektrostatik antara ion-ion berlawanan muatan sangat kuat dan terjadi ke
+        berbagai arah, sehingga diperlukan energi besar untuk memisahkan ion-ionnya.
+      </div>
+
+      <div class="feedback-item">
+        <b>3. Daya hantar listrik.</b><br>
+        NaCl padat tidak menghantarkan listrik karena ion-ionnya terkunci pada posisi tetap
+        dalam kisi kristal. Larutan NaCl dapat menghantarkan listrik karena ion Na⁺ dan Cl⁻
+        bergerak bebas dalam larutan sehingga dapat membawa muatan listrik.
+      </div>
+
+      <div class="feedback-item">
+        <b>4. Keras tetapi rapuh.</b><br>
+        Senyawa ion keras karena gaya tarik elektrostatiknya kuat. Namun, ketika lapisan ion
+        bergeser, ion-ion bermuatan sama dapat saling berdekatan. Tolakan antara ion sejenis
+        membuat kristal pecah sehingga senyawa ion bersifat rapuh.
+      </div>
+
+      <div class="feedback-item">
+        <b>5. Senyawa ion poliatomik.</b><br>
+        CaCO₃ dan CaSO₄ tetap termasuk senyawa ion karena tersusun dari kation dan anion.
+        CaCO₃ terdiri dari Ca²⁺ dan CO₃²⁻, sedangkan CaSO₄ terdiri dari Ca²⁺ dan SO₄²⁻.
+        Gaya tarik elektrostatik antara ion positif dan ion negatif tetap menjadi dasar pembentukan senyawanya.
+      </div>
+    </div>
+  </div>
+
+  <!-- KUNCI JAWABAN GURU KHUSUS OWNER -->
+  <div class="teacher-only answer-key-box">
+    <h3>🔐 Kunci Jawaban Guru — Elaboration</h3>
+
+    <p style="font-size:13px; line-height:1.8; margin-top:0;">
+      Catatan: Jawaban siswa tidak harus sama persis. Jawaban dianggap baik jika siswa mampu
+      menerapkan konsep perpindahan elektron, kation, anion, gaya tarik elektrostatik, dan kisi
+      kristal ion untuk menjelaskan sifat senyawa ion.
+    </p>
+
+    <ol style="font-size:13px; line-height:1.8; padding-left:22px;">
+      <li>
+        <b>NaCl terbentuk</b> ketika Na melepas 1 elektron menjadi Na⁺ dan Cl menerima
+        1 elektron menjadi Cl⁻. Ion Na⁺ dan Cl⁻ saling tarik-menarik karena muatannya berlawanan.
+      </li>
+
+      <li style="margin-top:10px;">
+        <b>NaCl berbentuk kristal padat</b> karena ion Na⁺ dan Cl⁻ tersusun teratur dalam
+        kisi kristal ion. Gaya tarik elektrostatik yang kuat menyebabkan titik leleh relatif tinggi.
+      </li>
+
+      <li style="margin-top:10px;">
+        <b>NaCl padat tidak menghantarkan listrik</b> karena ion-ionnya tidak bebas bergerak.
+        Larutan NaCl menghantarkan listrik karena ion Na⁺ dan Cl⁻ bergerak bebas dalam air.
+      </li>
+
+      <li style="margin-top:10px;">
+        <b>Senyawa ion keras tetapi rapuh</b> karena gaya tarik antarmuatan berlawanan kuat,
+        tetapi saat lapisan ion bergeser, ion sejenis dapat berdekatan dan saling tolak-menolak.
+      </li>
+
+      <li style="margin-top:10px;">
+        <b>CaCO₃ dan CaSO₄</b> tetap termasuk senyawa ion karena memiliki kation dan anion.
+        CaCO₃ terdiri atas Ca²⁺ dan CO₃²⁻, sedangkan CaSO₄ terdiri atas Ca²⁺ dan SO₄²⁻.
+      </li>
+    </ol>
+  </div>
+
+  <center>
+    <button class="btn-back" onclick="nextPhase(3)">⬅️ Kembali ke Explanation</button>
+    <button class="btn-next" onclick="nextPhase(5)">Lanjut ke Evaluation ➡️</button>
+  </center>
+</div>
+
+   <!-- FASE 5 -->
+<div class="phase-card" id="p5">
+  <span class="badge-5e">5. Evaluation</span>
+
+  <!-- PENGANTAR EVALUATION -->
+  <div class="section-box" style="border-left:10px solid var(--batik-blue);">
+    <h2 style="margin-top:0; color:var(--batik-blue);">⭐ Evaluation</h2>
+
+    <p style="font-size:14px; line-height:1.8; text-align:justify;">
+      Tahap ini berisi soal umum tentang materi Ikatan Ion. Soal-soal berikut dirancang
+      untuk mengukur pemahaman konsepmu, bukan sekadar hafalan. Bacalah setiap soal
+      dengan teliti, lalu pilih jawaban yang paling tepat.
+    </p>
+
+    <p style="font-size:13px; line-height:1.7; color:#cc4d4d; font-weight:bold;">
+      ⚠️ Setelah kamu menekan tombol “Simpan Evaluasi & Lihat Pembahasan”, jawaban kuis
+      akan dikunci dan tidak dapat diubah kembali.
+    </p>
+  </div>
+
+  <!-- SOAL EVALUASI -->
+  <div class="section-box" id="quiz-container"></div>
+
+  <center>
+    <button class="btn-next" id="btn-save-evaluation" onclick="saveEvaluationAndShowFeedback()">
+      💾 Simpan Evaluasi & Lihat Pembahasan
+    </button>
+  </center>
+
+  <!-- HASIL SKOR -->
+  <div id="skor-evaluation-box" class="section-box section-green hidden" style="text-align:center;">
+    <h3 style="margin-top:0;">🏆 Hasil Evaluasi</h3>
+    <p id="skor-evaluation-text" style="font-size:22px;font-weight:bold;margin:8px 0;"></p>
+    <p id="skor-evaluation-message" style="font-size:14px;line-height:1.7;margin:0;"></p>
+  </div>
+
+  <!-- PEMBAHASAN OTOMATIS -->
+  <div id="feedback-evaluation" class="feedback-auto-box">
+    <h3>✅ Pembahasan Evaluasi Ikatan Ion</h3>
+    <div id="evaluation-feedback-content"></div>
+  </div>
+
+  <!-- REFLEKSI PEMBELAJARAN -->
+  <div class="section-box" style="margin-top:18px; border-left:10px solid #9c27b0; background:#f4ecff;">
+    <h2 style="margin-top:0; color:#9c27b0;">🪞 Refleksi Pembelajaran</h2>
+
+    <p style="font-size:14px; line-height:1.8; text-align:justify;">
+      Bagian ini bukan bagian dari skor evaluasi. Refleksi digunakan untuk mengetahui
+      pemahaman, kesulitan, dan perasaanmu setelah menyelesaikan LKPD Ikatan Ion.
+    </p>
+
+    <table class="module-table">
+      <tr>
+        <th>Pernyataan</th>
+        <th>Ya</th>
+        <th>Tidak</th>
+      </tr>
+      <tr>
+        <td style="text-align:left;">Saya memahami aturan oktet dan duplet dalam kestabilan atom.</td>
+        <td><input type="radio" name="ref1" value="Ya"></td>
+        <td><input type="radio" name="ref1" value="Tidak"></td>
+      </tr>
+      <tr>
+        <td style="text-align:left;">Saya dapat menggambarkan struktur Lewis berdasarkan elektron valensi.</td>
+        <td><input type="radio" name="ref2" value="Ya"></td>
+        <td><input type="radio" name="ref2" value="Tidak"></td>
+      </tr>
+      <tr>
+        <td style="text-align:left;">Saya dapat menjelaskan proses pembentukan ikatan ion melalui perpindahan elektron.</td>
+        <td><input type="radio" name="ref3" value="Ya"></td>
+        <td><input type="radio" name="ref3" value="Tidak"></td>
+      </tr>
+      <tr>
+        <td style="text-align:left;">Saya dapat menjelaskan bahwa ikatan ion terjadi karena gaya tarik elektrostatik antara kation dan anion.</td>
+        <td><input type="radio" name="ref4" value="Ya"></td>
+        <td><input type="radio" name="ref4" value="Tidak"></td>
+      </tr>
+    </table>
+
+    <p style="font-size:14px; font-weight:bold; margin-bottom:6px;">
+      Bagian mana yang paling mudah kamu pahami?
+    </p>
+    <textarea id="ref_teks_1" rows="3"></textarea>
+
+    <p style="font-size:14px; font-weight:bold; margin-bottom:6px;">
+      Bagian mana yang masih membingungkan atau perlu kamu pelajari kembali?
+    </p>
+    <textarea id="ref_teks_2" rows="3"></textarea>
+  </div>
+
+  <div class="teacher-only answer-key-box">
+  <h3>🔐 Kunci Jawaban Guru — Evaluation</h3>
+
+  <table>
+    <tr>
+      <th>No</th>
+      <th>Kunci</th>
+      <th>Pembahasan Singkat</th>
+    </tr>
+    <tr><td>1</td><td>B</td><td>Na mencapai kestabilan dengan melepas 1 elektron.</td></tr>
+    <tr><td>2</td><td>C</td><td>Cl menerima 1 elektron agar mencapai oktet dan membentuk Cl⁻.</td></tr>
+    <tr><td>3</td><td>B</td><td>Ikatan ion umumnya terbentuk antara logam dan nonlogam.</td></tr>
+    <tr><td>4</td><td>C</td><td>Ion bermuatan berlawanan saling tarik-menarik secara elektrostatik.</td></tr>
+    <tr><td>5</td><td>A</td><td>Mg melepas 2 elektron, sehingga membutuhkan 2 atom F.</td></tr>
+    <tr><td>6</td><td>D</td><td>Ikatan ion melibatkan perpindahan elektron, kovalen melibatkan pemakaian bersama elektron.</td></tr>
+    <tr><td>7</td><td>B</td><td>Struktur Lewis menunjukkan elektron valensi.</td></tr>
+    <tr><td>8</td><td>C</td><td>Titik leleh tinggi karena gaya elektrostatik dalam kisi kristal sangat kuat.</td></tr>
+    <tr><td>9</td><td>D</td><td>Larutan NaCl menghantarkan listrik karena ion-ionnya bergerak bebas.</td></tr>
+    <tr><td>10</td><td>A</td><td>Senyawa ion tersusun dari kation dan anion yang terikat oleh gaya elektrostatik.</td></tr>
+  </table>
+</div>
+
+  <!-- SUBMIT AKHIR -->
+  <div class="section-box" style="background:var(--green-cute); border-left:10px solid #27ae60;">
+    <h3 style="margin-top:0; color:#1e8449;">📤 Kirim Jawaban Akhir</h3>
+
+    <p style="font-size:14px; line-height:1.8; text-align:justify;">
+      Setelah menyelesaikan evaluasi dan refleksi, klik tombol berikut untuk mengirim seluruh
+      jawaban LKPD ke Guru Rusyda.
+    </p>
+
+    <center>
+      <button onclick="finalSubmit()" style="background:var(--green-cute); color:#333; width:100%;">
+        ✨ SELESAI & KIRIM ✨
+      </button>
+    </center>
+  </div>
+
+  <center>
+    <button class="btn-back" onclick="nextPhase(4)">⬅️ Kembali ke Elaboration</button>
+  </center>
+</div>
+
+    </div>
+
+  </div>
+
+  <script>
+   const CORRECT_ANSWERS = {
+  q1:'B',
+  q2:'C',
+  q3:'B',
+  q4:'C',
+  q5:'A',
+  q6:'D',
+  q7:'B',
+  q8:'C',
+  q9:'D',
+  q10:'A'
+};
+
+    // ====== SOAL ======
+    const quizData = [
+  {
+    id: 1,
+    q: "Atom natrium (Na) memiliki konfigurasi elektron 2,8,1. Mengapa atom Na cenderung melepas 1 elektron ketika membentuk ikatan ion?",
+    options: {
+      A: "Karena Na ingin memiliki lebih banyak elektron daripada gas mulia",
+      B: "Karena dengan melepas 1 elektron, Na mencapai konfigurasi stabil seperti gas mulia",
+      C: "Karena Na termasuk nonlogam yang mudah menerima elektron",
+      D: "Karena Na membentuk pasangan elektron bersama dengan Cl",
+      E: "Karena Na tidak memiliki elektron valensi"
+    }
+  },
+  {
+    id: 2,
+    q: "Atom klorin (Cl) memiliki 7 elektron valensi. Pernyataan yang paling tepat untuk menjelaskan kecenderungan atom Cl adalah...",
+    options: {
+      A: "Cl cenderung melepas 7 elektron agar menjadi stabil",
+      B: "Cl cenderung melepas 1 elektron agar membentuk Cl⁺",
+      C: "Cl cenderung menerima 1 elektron agar mencapai oktet dan membentuk Cl⁻",
+      D: "Cl sudah stabil karena memiliki lebih dari 2 elektron",
+      E: "Cl selalu membentuk ikatan logam dengan atom lain"
+    }
+  },
+  {
+    id: 3,
+    q: "Pasangan atom berikut yang paling mungkin membentuk ikatan ion adalah...",
+    options: {
+      A: "H dan O, karena keduanya nonlogam",
+      B: "Mg dan Cl, karena Mg logam dan Cl nonlogam",
+      C: "C dan H, karena keduanya berbagi elektron",
+      D: "O dan O, karena keduanya memiliki elektron valensi sama",
+      E: "N dan H, karena keduanya membentuk ikatan hidrogen"
+    }
+  },
+  {
+    id: 4,
+    q: "Ikatan ion pada NaCl terbentuk setelah terjadi perpindahan elektron dari Na ke Cl. Mengapa ion Na⁺ dan Cl⁻ kemudian dapat saling berikatan?",
+    options: {
+      A: "Karena keduanya sama-sama bermuatan positif",
+      B: "Karena keduanya sama-sama bermuatan negatif",
+      C: "Karena ion bermuatan berlawanan saling tarik-menarik secara elektrostatik",
+      D: "Karena keduanya menggunakan pasangan elektron bersama",
+      E: "Karena Na dan Cl berubah menjadi molekul nonpolar"
+    }
+  },
+  {
+    id: 5,
+    q: "Senyawa MgF₂ terbentuk dari Mg dan F. Mg melepas 2 elektron, sedangkan setiap atom F menerima 1 elektron. Kesimpulan yang paling tepat adalah...",
+    options: {
+      A: "Satu atom Mg berikatan dengan dua atom F agar jumlah elektron yang dilepas dan diterima seimbang",
+      B: "Dua atom Mg diperlukan untuk menerima elektron dari satu atom F",
+      C: "Mg dan F membentuk ikatan kovalen karena saling berbagi elektron",
+      D: "MgF₂ terbentuk karena Mg menerima elektron dari F",
+      E: "MgF₂ tidak termasuk senyawa ion karena mengandung lebih dari dua atom"
+    }
+  },
+  {
+    id: 6,
+    q: "Perbedaan utama antara pembentukan ikatan ion dan ikatan kovalen adalah...",
+    options: {
+      A: "Ikatan ion terjadi karena pemakaian bersama elektron, sedangkan kovalen karena perpindahan elektron",
+      B: "Ikatan ion hanya terjadi antara sesama nonlogam, sedangkan kovalen antara logam dan nonlogam",
+      C: "Ikatan ion tidak melibatkan elektron valensi, sedangkan kovalen melibatkan elektron valensi",
+      D: "Ikatan ion melibatkan perpindahan elektron, sedangkan kovalen melibatkan pemakaian bersama elektron",
+      E: "Ikatan ion selalu membentuk molekul sederhana, sedangkan kovalen selalu membentuk kisi ion"
+    }
+  },
+  {
+    id: 7,
+    q: "Struktur Lewis digunakan dalam pembelajaran ikatan ion karena...",
+    options: {
+      A: "Menunjukkan massa atom relatif setiap unsur",
+      B: "Menunjukkan jumlah elektron valensi yang berperan dalam pembentukan ikatan",
+      C: "Menunjukkan jumlah neutron dalam inti atom",
+      D: "Menentukan warna senyawa yang terbentuk",
+      E: "Menentukan titik didih senyawa secara langsung"
+    }
+  },
+  {
+    id: 8,
+    q: "Mengapa senyawa ion seperti NaCl memiliki titik leleh relatif tinggi?",
+    options: {
+      A: "Karena NaCl tersusun atas molekul-molekul kecil yang mudah dipisahkan",
+      B: "Karena ion-ion dalam NaCl tidak memiliki gaya tarik",
+      C: "Karena gaya tarik elektrostatik antara ion-ion dalam kisi kristal sangat kuat",
+      D: "Karena NaCl hanya tersusun atas atom netral",
+      E: "Karena NaCl tidak larut dalam air"
+    }
+  },
+  {
+    id: 9,
+    q: "NaCl padat tidak menghantarkan listrik, tetapi larutan NaCl dapat menghantarkan listrik. Penjelasan yang tepat adalah...",
+    options: {
+      A: "Dalam padatan, elektron NaCl bergerak bebas, sedangkan dalam larutan tidak",
+      B: "Dalam larutan, NaCl berubah menjadi atom netral yang membawa arus",
+      C: "Dalam padatan, NaCl tidak memiliki ion",
+      D: "Dalam larutan, ion Na⁺ dan Cl⁻ dapat bergerak bebas membawa muatan listrik",
+      E: "Dalam padatan, NaCl membentuk ikatan kovalen"
+    }
+  },
+  {
+    id: 10,
+    q: "Pernyataan berikut yang paling tepat menggambarkan senyawa ion adalah...",
+    options: {
+      A: "Senyawa yang tersusun dari kation dan anion yang terikat oleh gaya tarik elektrostatik",
+      B: "Senyawa yang selalu tersusun dari molekul-molekul netral",
+      C: "Senyawa yang terbentuk karena pemakaian bersama elektron antar nonlogam",
+      D: "Senyawa yang hanya dapat terbentuk dari dua atom yang sama",
+      E: "Senyawa yang tidak melibatkan elektron valensi"
+    }
+  }
+];
+const quizExplanation = {
+  1: {
+    correct: "B",
+    text: "Na memiliki konfigurasi 2,8,1. Dengan melepas 1 elektron, Na menjadi Na⁺ dan mencapai konfigurasi stabil seperti gas mulia terdekat. Ini menunjukkan kecenderungan atom mencapai kestabilan."
+  },
+  2: {
+    correct: "C",
+    text: "Cl memiliki 7 elektron valensi. Agar mencapai oktet, Cl lebih mudah menerima 1 elektron daripada melepas 7 elektron. Setelah menerima elektron, Cl menjadi Cl⁻."
+  },
+  3: {
+    correct: "B",
+    text: "Ikatan ion umumnya terbentuk antara logam dan nonlogam. Mg adalah logam yang cenderung melepas elektron, sedangkan Cl adalah nonlogam yang cenderung menerima elektron."
+  },
+  4: {
+    correct: "C",
+    text: "Setelah Na melepas elektron dan Cl menerima elektron, terbentuk Na⁺ dan Cl⁻. Kedua ion bermuatan berlawanan ini saling tarik-menarik melalui gaya elektrostatik."
+  },
+  5: {
+    correct: "A",
+    text: "Mg melepas 2 elektron, sedangkan satu atom F hanya menerima 1 elektron. Karena itu diperlukan dua atom F agar elektron yang dilepas Mg dapat diterima seluruhnya dan muatan senyawa menjadi netral."
+  },
+  6: {
+    correct: "D",
+    text: "Ikatan ion melibatkan perpindahan elektron dari atom logam ke atom nonlogam. Ikatan kovalen melibatkan pemakaian bersama pasangan elektron antar atom nonlogam."
+  },
+  7: {
+    correct: "B",
+    text: "Struktur Lewis menampilkan elektron valensi sebagai titik di sekitar lambang unsur. Elektron valensi inilah yang menentukan kecenderungan atom melepas, menerima, atau berbagi elektron."
+  },
+  8: {
+    correct: "C",
+    text: "Senyawa ion memiliki titik leleh tinggi karena ion positif dan ion negatif dalam kisi kristal saling tarik-menarik kuat. Diperlukan energi besar untuk memisahkan ion-ion tersebut."
+  },
+  9: {
+    correct: "D",
+    text: "NaCl padat tidak menghantarkan listrik karena ion-ionnya terkunci dalam kisi kristal. Ketika larut dalam air, ion Na⁺ dan Cl⁻ bergerak bebas sehingga dapat membawa arus listrik."
+  },
+  10: {
+    correct: "A",
+    text: "Senyawa ion tersusun dari kation dan anion yang berikatan melalui gaya tarik elektrostatik. Senyawa ion tidak tersusun dari molekul netral sederhana seperti senyawa kovalen."
+  }
+};
+    let user = null;
+let currentPhase = 0;
+
+// GANTI email di bawah ini dengan email akun pemilik/guru
+const OWNER_EMAILS = [
+  "rusydarama@gmail.com"
+];
+
+    // ====== INIT ======
+    function initLKPD() {
+      // guard login
+      const uStr = localStorage.getItem("kimia_user");
+      if (!uStr) {
+        window.location.href = "index.html";
+        return;
+      }
+      user = JSON.parse(uStr);
+
+      const pill = document.getElementById("user-pill");
+if(pill){
+  pill.innerText = `${user.nama || "Siswa"} • ${user.email || ""}`;
+}
+
+      // tampilkan nama
+      const n = document.getElementById("form-nama");
+      if (n) n.innerText = user.nama;
+
+    // render quiz
+    renderQuiz();
+    setTimeout(restoreEvaluationLock, 0);
+
+     // progress
+    updateProgress();
+    showTeacherOnlyIfOwner();
+    restoreExplanationLock();
+    restoreElaborationLock();
+
+      // auto tanggal hari ini (opsional)
+      const tgl = document.getElementById("f-tgl");
+      if (tgl && !tgl.value) {
+        const now = new Date();
+        const yyyy = now.getFullYear();
+        const mm = String(now.getMonth() + 1).padStart(2, '0');
+        const dd = String(now.getDate()).padStart(2, '0');
+        tgl.value = `${yyyy}-${mm}-${dd}`;
+      }
+    }
+
+   function renderQuiz() {
+  const container = document.getElementById('quiz-container');
+  container.innerHTML = "";
+
+  quizData.forEach(item => {
+    let html = `
+      <div class="section-box" id="quiz-box-${item.id}" style="background:white; border-left:10px solid var(--gold);">
+        <p style="font-size:12px; font-weight:bold; color:#6d7f91; margin:0 0 6px 0;">
+        </p>
+        <p style="font-size:14px; line-height:1.7; margin:0 0 10px 0;">
+          <b>${item.id}. ${item.q}</b>
+        </p>
+    `;
+
+    Object.entries(item.options).forEach(([key, val]) => {
+      html += `
+        <label class="mcq-option">
+          <input type="radio" name="q${item.id}" value="${key}">
+          <b>${key}.</b> ${val}
+        </label>
+      `;
+    });
+
+    html += `</div>`;
+    container.innerHTML += html;
+  });
+}
+
+    // ====== NAVIGATION ======
+    function goMenu() { window.location.href = "menu.html"; }
+
+    // Tombol "Materi" diarahkan ke Exploration (karena materinya sudah di situ)
+    function goMateri() {
+  openMateriIon();
+}
+
+function openMateriIon(){
+  document.querySelectorAll('.phase-card').forEach(c => c.classList.remove('active'));
+  document.getElementById('pMateriIon').classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function backToExploration(){
+  document.querySelectorAll('.phase-card').forEach(c => c.classList.remove('active'));
+  document.getElementById('p2').classList.add('active');
+  currentPhase = 2;
+  updateProgress();
+  showTeacherOnlyIfOwner();
+  window.scrollTo(0,0);
+}
+function getCurrentUserEmail(){
+  try{
+    const rawUser = localStorage.getItem("kimia_user");
+    if(rawUser){
+      const u = JSON.parse(rawUser);
+      return String(u.email || u.gmail || u.username || u.userEmail || "").toLowerCase().trim();
+    }
+  }catch(e){}
+
+  return String(
+    localStorage.getItem("email") ||
+    localStorage.getItem("userEmail") ||
+    ""
+  ).toLowerCase().trim();
+}
+
+function isOwner(){
+  const email = getCurrentUserEmail();
+  return OWNER_EMAILS.map(e => e.toLowerCase().trim()).includes(email);
+}
+
+function showTeacherOnlyIfOwner(){
+  const show = isOwner();
+
+  document.querySelectorAll(".teacher-only").forEach(function(el){
+    el.style.display = show ? "block" : "none";
+  });
+
+  console.log("Email login:", getCurrentUserEmail());
+  console.log("Mode guru aktif:", show);
+}
+    function logout() {
+      localStorage.removeItem("kimia_user");
+      window.location.href = "index.html";
+    }
+
+
+    // ====== PHASE CONTROL ======
+    function nextPhase(p) {
+      document.querySelectorAll('.phase-card').forEach(c => c.classList.remove('active'));
+      document.getElementById('p' + p).classList.add('active');
+      currentPhase = p;
+      updateProgress();
+      window.scrollTo(0,0);
+    }
+
+    function updateProgress() {
+      const fill = document.getElementById('p-fill');
+      fill.style.width = (currentPhase / 5 * 100) + "%";
+    }
+function lockInputsInBox(boxId){
+  const box = document.getElementById(boxId);
+  if(!box) return;
+
+  const fields = box.querySelectorAll("input, textarea, select");
+  fields.forEach(function(field){
+    field.disabled = true;
+    field.classList.add("locked-answer");
+  });
+}
+
+function saveExplanationAndShowFeedback(){
+  const requiredIds = [
+    "ans-exp-1",
+    "ans-exp-2",
+    "ans-exp-3",
+    "ans-exp-4",
+    "ans-exp-5",
+    "ans-exp-6"
+  ];
+
+  for(const id of requiredIds){
+    const el = document.getElementById(id);
+    if(!el || !el.value.trim()){
+      alert("Lengkapi semua jawaban Explanation dulu ya 😊");
+      return;
+    }
+  }
+
+  const savedExplanation = {
+    ansExp1: document.getElementById("ans-exp-1").value,
+    ansExp2: document.getElementById("ans-exp-2").value,
+    ansExp3: document.getElementById("ans-exp-3").value,
+    ansExp4: document.getElementById("ans-exp-4").value,
+    ansExp5: document.getElementById("ans-exp-5").value,
+    ansExp6: document.getElementById("ans-exp-6").value,
+    savedAt: new Date().toLocaleString()
+  };
+
+  localStorage.setItem("ion_explanation_saved", JSON.stringify(savedExplanation));
+
+  lockInputsInBox("p3");
+
+  const feedbackBox = document.getElementById("feedback-explanation");
+  if(feedbackBox){
+    feedbackBox.style.display = "block";
+    feedbackBox.scrollIntoView({behavior:"smooth"});
+  }
+
+  const btn = document.getElementById("btn-save-explanation");
+  if(btn){
+    btn.innerText = "✅ Jawaban Tersimpan";
+    btn.disabled = true;
+  }
+
+  alert("Jawaban Explanation sudah disimpan dan dikunci ✅");
+}
+
+function saveElaborationAndShowFeedback(){
+  const requiredIds = [
+    "el-1",
+    "el-2",
+    "el-3",
+    "el-4",
+    "el-5"
+  ];
+
+  for(const id of requiredIds){
+    const el = document.getElementById(id);
+    if(!el || !el.value.trim()){
+      alert("Lengkapi semua jawaban Elaboration dulu ya 😊");
+      return;
+    }
+  }
+
+  const savedElaboration = {
+    el1: document.getElementById("el-1").value,
+    el2: document.getElementById("el-2").value,
+    el3: document.getElementById("el-3").value,
+    el4: document.getElementById("el-4").value,
+    el5: document.getElementById("el-5").value,
+    savedAt: new Date().toLocaleString()
+  };
+
+  localStorage.setItem("ion_elaboration_saved", JSON.stringify(savedElaboration));
+
+  lockInputsInBox("p4");
+
+  const feedbackBox = document.getElementById("feedback-elaboration");
+  if(feedbackBox){
+    feedbackBox.style.display = "block";
+    feedbackBox.scrollIntoView({behavior:"smooth"});
+  }
+
+  const btn = document.getElementById("btn-save-elaboration");
+  if(btn){
+    btn.innerText = "✅ Jawaban Tersimpan";
+    btn.disabled = true;
+  }
+
+  alert("Jawaban Elaboration sudah disimpan dan dikunci ✅");
+}
+
+function restoreElaborationLock(){
+  const raw = localStorage.getItem("ion_elaboration_saved");
+  if(!raw) return;
+
+  try{
+    const data = JSON.parse(raw);
+
+    if(document.getElementById("el-1")) document.getElementById("el-1").value = data.el1 || "";
+    if(document.getElementById("el-2")) document.getElementById("el-2").value = data.el2 || "";
+    if(document.getElementById("el-3")) document.getElementById("el-3").value = data.el3 || "";
+    if(document.getElementById("el-4")) document.getElementById("el-4").value = data.el4 || "";
+    if(document.getElementById("el-5")) document.getElementById("el-5").value = data.el5 || "";
+
+    lockInputsInBox("p4");
+
+    const feedbackBox = document.getElementById("feedback-elaboration");
+    if(feedbackBox){
+      feedbackBox.style.display = "block";
+    }
+
+    const btn = document.getElementById("btn-save-elaboration");
+    if(btn){
+      btn.innerText = "✅ Jawaban Tersimpan";
+      btn.disabled = true;
+    }
+  }catch(e){
+    localStorage.removeItem("ion_elaboration_saved");
+  }
+}
+
+
+function lockEvaluationQuiz(){
+  for(let i = 1; i <= 10; i++){
+    document.querySelectorAll(`input[name="q${i}"]`).forEach(function(input){
+      input.disabled = true;
+    });
+  }
+}
+
+function saveEvaluationAndShowFeedback(){
+  let score = 0;
+  const savedAnswers = {};
+  const feedbackContent = document.getElementById("evaluation-feedback-content");
+
+  for(let i = 1; i <= 10; i++){
+    const pick = document.querySelector(`input[name="q${i}"]:checked`)?.value;
+
+    if(!pick){
+      alert("Jawab semua soal evaluasi terlebih dahulu ya 😊");
+      return;
+    }
+
+    savedAnswers["q" + i] = pick;
+
+    if(pick === CORRECT_ANSWERS["q" + i]){
+      score += 10;
+    }
+  }
+
+  localStorage.setItem("ion_evaluation_saved", JSON.stringify({
+    answers: savedAnswers,
+    score: score,
+    savedAt: new Date().toLocaleString()
+  }));
+
+  lockEvaluationQuiz();
+
+  const skorBox = document.getElementById("skor-evaluation-box");
+  const skorText = document.getElementById("skor-evaluation-text");
+  const skorMsg = document.getElementById("skor-evaluation-message");
+
+  skorBox.classList.remove("hidden");
+  skorText.innerText = `Skor kamu: ${score}/100`;
+
+  if(score >= 80){
+    skorMsg.innerText = "🌟 Bagus sekali! Pemahaman konsep ikatan ionmu sudah kuat.";
+  }else if(score >= 60){
+    skorMsg.innerText = "👍 Cukup baik. Bacalah pembahasan untuk memperkuat bagian yang masih keliru.";
+  }else{
+    skorMsg.innerText = "💪 Tetap semangat. Gunakan pembahasan untuk memahami kembali konsep oktet, Lewis, dan ikatan ion.";
+  }
+
+  let html = "";
+
+  quizData.forEach(item => {
+    const userPick = savedAnswers["q" + item.id];
+    const ex = quizExplanation[item.id];
+    const benar = userPick === ex.correct;
+
+    html += `
+      <div class="feedback-item">
+        <b>Soal ${item.id}</b><br>
+        Jawaban kamu: <b>${userPick}</b><br>
+        Kunci jawaban: <b>${ex.correct}</b><br>
+        Status: <b style="color:${benar ? '#1e8449' : '#cc4d4d'};">${benar ? 'Benar' : 'Perlu diperbaiki'}</b><br>
+        Pembahasan: ${ex.text}
+      </div>
+    `;
+  });
+
+  feedbackContent.innerHTML = html;
+
+  const feedbackBox = document.getElementById("feedback-evaluation");
+  feedbackBox.style.display = "block";
+
+  const btn = document.getElementById("btn-save-evaluation");
+  if(btn){
+    btn.innerText = "✅ Evaluasi Tersimpan";
+    btn.disabled = true;
+  }
+
+  feedbackBox.scrollIntoView({behavior:"smooth"});
+}
+
+function restoreEvaluationLock(){
+  const raw = localStorage.getItem("ion_evaluation_saved");
+  if(!raw) return;
+
+  try{
+    const data = JSON.parse(raw);
+    const answers = data.answers || {};
+
+    Object.entries(answers).forEach(([name, value]) => {
+      const input = document.querySelector(`input[name="${name}"][value="${value}"]`);
+      if(input) input.checked = true;
+    });
+
+    lockEvaluationQuiz();
+
+    const skorBox = document.getElementById("skor-evaluation-box");
+    const skorText = document.getElementById("skor-evaluation-text");
+    const skorMsg = document.getElementById("skor-evaluation-message");
+
+    if(skorBox && skorText && skorMsg){
+      skorBox.classList.remove("hidden");
+      skorText.innerText = `Skor kamu: ${data.score}/100`;
+
+      if(data.score >= 80){
+        skorMsg.innerText = "🌟 Bagus sekali! Pemahaman konsep ikatan ionmu sudah kuat.";
+      }else if(data.score >= 60){
+        skorMsg.innerText = "👍 Cukup baik. Bacalah pembahasan untuk memperkuat bagian yang masih keliru.";
+      }else{
+        skorMsg.innerText = "💪 Tetap semangat. Gunakan pembahasan untuk memahami kembali konsep oktet, Lewis, dan ikatan ion.";
+      }
+    }
+
+    const feedbackContent = document.getElementById("evaluation-feedback-content");
+    if(feedbackContent){
+      let html = "";
+
+      quizData.forEach(item => {
+        const userPick = answers["q" + item.id];
+        const ex = quizExplanation[item.id];
+        const benar = userPick === ex.correct;
+
+        html += `
+          <div class="feedback-item">
+            <b>Soal ${item.id}</b><br>
+            Jawaban kamu: <b>${userPick}</b><br>
+            Kunci jawaban: <b>${ex.correct}</b><br>
+            Status: <b style="color:${benar ? '#1e8449' : '#cc4d4d'};">${benar ? 'Benar' : 'Perlu diperbaiki'}</b><br>
+            Pembahasan: ${ex.text}
+          </div>
+        `;
+      });
+
+      feedbackContent.innerHTML = html;
+    }
+
+    const feedbackBox = document.getElementById("feedback-evaluation");
+    if(feedbackBox){
+      feedbackBox.style.display = "block";
+    }
+
+    const btn = document.getElementById("btn-save-evaluation");
+    if(btn){
+      btn.innerText = "✅ Evaluasi Tersimpan";
+      btn.disabled = true;
+    }
+  }catch(e){
+    localStorage.removeItem("ion_evaluation_saved");
+  }
+}
+
+function unlockInputsInBox(boxId){
+  const box = document.getElementById(boxId);
+  if(!box) return;
+
+  const fields = box.querySelectorAll("input, textarea, select");
+  fields.forEach(function(field){
+    field.disabled = false;
+    field.classList.remove("locked-answer");
+  });
+}
+
+function resetExplanationAfterSubmit(){
+  localStorage.removeItem("ion_explanation_saved");
+
+  unlockInputsInBox("p3");
+
+  const feedbackBox = document.getElementById("feedback-explanation");
+  if(feedbackBox){
+    feedbackBox.style.display = "none";
+  }
+
+  const btn = document.getElementById("btn-save-explanation");
+  if(btn){
+    btn.innerText = "💾 Simpan Jawaban & Lihat Umpan Balik";
+    btn.disabled = false;
+  }
+}
+
+function resetElaborationAfterSubmit(){
+  localStorage.removeItem("ion_elaboration_saved");
+
+  unlockInputsInBox("p4");
+
+  const feedbackBox = document.getElementById("feedback-elaboration");
+  if(feedbackBox){
+    feedbackBox.style.display = "none";
+  }
+
+  const btn = document.getElementById("btn-save-elaboration");
+  if(btn){
+    btn.innerText = "💾 Simpan Jawaban & Lihat Umpan Balik";
+    btn.disabled = false;
+  }
+}
+
+function unlockEvaluationQuiz(){
+  for(let i = 1; i <= 10; i++){
+    document.querySelectorAll(`input[name="q${i}"]`).forEach(function(input){
+      input.disabled = false;
+    });
+  }
+}
+
+function resetEvaluationAfterSubmit(){
+  localStorage.removeItem("ion_evaluation_saved");
+
+  unlockEvaluationQuiz();
+
+  const skorBox = document.getElementById("skor-evaluation-box");
+  if(skorBox){
+    skorBox.classList.add("hidden");
+  }
+
+  const feedbackBox = document.getElementById("feedback-evaluation");
+  if(feedbackBox){
+    feedbackBox.style.display = "none";
+  }
+
+  const feedbackContent = document.getElementById("evaluation-feedback-content");
+  if(feedbackContent){
+    feedbackContent.innerHTML = "";
+  }
+
+  const btn = document.getElementById("btn-save-evaluation");
+  if(btn){
+    btn.innerText = "💾 Simpan Evaluasi & Lihat Pembahasan";
+    btn.disabled = false;
+  }
+}
+
+function resetAllIonLocksAfterSubmit(){
+  resetExplanationAfterSubmit();
+  resetElaborationAfterSubmit();
+  resetEvaluationAfterSubmit();
+}
+
+    // ====== SUBMIT ======
+    function finalSubmit() {
+  // ================== HELPER ==================
+  const getVal = (id) => {
+    const el = document.getElementById(id);
+    return el ? el.value.trim() : "";
+  };
+
+  const getRadio = (name) => {
+    return document.querySelector(`input[name="${name}"]:checked`)?.value || "";
+  };
+
+  const getQuizAnswer = (i) => {
+    return document.querySelector(`input[name="q${i}"]:checked`)?.value || "";
+  };
+
+  // ================== CEK IDENTITAS ==================
+  const namaSiswa = user?.nama || "";
+  const emailSiswa = user?.email || "";
+  const kelasSiswa = getVal("f-kelas");
+  const tanggalLKPD = getVal("f-tgl");
+
+  if(!namaSiswa || !kelasSiswa || !tanggalLKPD){
+    alert("Lengkapi nama, kelas, dan tanggal terlebih dahulu ya 😊");
+    nextPhase(0);
+    return;
+  }
+
+  // ================== CEK REFLEKSI ==================
+  if(!getRadio("ref1") || !getRadio("ref2") || !getRadio("ref3") || !getRadio("ref4")){
+    alert("Lengkapi semua pilihan refleksi Ya/Tidak terlebih dahulu ya 😊");
+    nextPhase(5);
+    return;
+  }
+
+  if(!getVal("ref_teks_1") || !getVal("ref_teks_2")){
+    alert("Lengkapi refleksi teks terlebih dahulu ya 😊");
+    nextPhase(5);
+    return;
+  }
+
+  // ================== HITUNG SKOR EVALUASI ==================
+  let score = 0;
+  const jawabanEvaluasi = {};
+
+  for(let i = 1; i <= 10; i++){
+    const pick = getQuizAnswer(i);
+    jawabanEvaluasi[`Evaluasi_Q${i}`] = pick || "(belum dijawab)";
+
+    if(pick === CORRECT_ANSWERS[`q${i}`]){
+      score += 10;
+    }
+  }
+
+  // Kalau siswa belum mengerjakan semua evaluasi
+  for(let i = 1; i <= 10; i++){
+    if(!getQuizAnswer(i)){
+      alert("Jawab semua soal evaluasi terlebih dahulu ya 😊");
+      nextPhase(5);
+      return;
+    }
+  }
+
+  // ================== AMBIL STATUS LOCK / SIMPANAN LOKAL ==================
+  const explanationSaved = localStorage.getItem("ion_explanation_saved") ? "Sudah disimpan" : "Belum disimpan";
+  const elaborationSaved = localStorage.getItem("ion_elaboration_saved") ? "Sudah disimpan" : "Belum disimpan";
+  const evaluationSaved = localStorage.getItem("ion_evaluation_saved") ? "Sudah disimpan" : "Belum disimpan";
+
+  // ================== SUSUN DATA LENGKAP ==================
+  const dataFull = {
+    timestamp: new Date().toLocaleString(),
+    nama: namaSiswa,
+    email: emailSiswa,
+    kelas: kelasSiswa,
+    tanggal: tanggalLKPD,
+    materi: "Ikatan Ion",
+
+    // ================== ENGAGEMENT ==================
+    Engagement_Hipotesis_Awal: getVal("ans-eng-1"),
+    Engagement_Rumusan_Masalah: getVal("ans-eng-2"),
+
+    // ================== EXPLORATION - TABEL 1 ==================
+    Eksplorasi_Na_Konfigurasi: getVal("tab-na-1"),
+    Eksplorasi_Na_Valensi: getVal("tab-na-2"),
+    Eksplorasi_Na_Aturan_Kestabilan: getVal("tab-na-4"),
+    Eksplorasi_Na_Kecenderungan: getVal("tab-na-3"),
+    Eksplorasi_Na_Struktur_Lewis: getVal("tab-na-5"),
+
+    Eksplorasi_Cl_Konfigurasi: getVal("tab-cl-1"),
+    Eksplorasi_Cl_Valensi: getVal("tab-cl-2"),
+    Eksplorasi_Cl_Aturan_Kestabilan: getVal("tab-cl-4"),
+    Eksplorasi_Cl_Kecenderungan: getVal("tab-cl-3"),
+    Eksplorasi_Cl_Struktur_Lewis: getVal("tab-cl-5"),
+
+    Eksplorasi_H_Konfigurasi: getVal("tab-h-1"),
+    Eksplorasi_H_Valensi: getVal("tab-h-2"),
+    Eksplorasi_H_Aturan_Kestabilan: getVal("tab-h-4"),
+    Eksplorasi_H_Kecenderungan: getVal("tab-h-3"),
+    Eksplorasi_H_Struktur_Lewis: getVal("tab-h-5"),
+
+    Eksplorasi_O_Konfigurasi: getVal("tab-o-1"),
+    Eksplorasi_O_Valensi: getVal("tab-o-2"),
+    Eksplorasi_O_Aturan_Kestabilan: getVal("tab-o-4"),
+    Eksplorasi_O_Kecenderungan: getVal("tab-o-3"),
+    Eksplorasi_O_Struktur_Lewis: getVal("tab-o-5"),
+
+    Eksplorasi_Mg_Konfigurasi: getVal("tab-mg-1"),
+    Eksplorasi_Mg_Valensi: getVal("tab-mg-2"),
+    Eksplorasi_Mg_Aturan_Kestabilan: getVal("tab-mg-4"),
+    Eksplorasi_Mg_Kecenderungan: getVal("tab-mg-3"),
+    Eksplorasi_Mg_Struktur_Lewis: getVal("tab-mg-5"),
+
+    Eksplorasi_F_Konfigurasi: getVal("tab-f-1"),
+    Eksplorasi_F_Valensi: getVal("tab-f-2"),
+    Eksplorasi_F_Aturan_Kestabilan: getVal("tab-f-4"),
+    Eksplorasi_F_Kecenderungan: getVal("tab-f-3"),
+    Eksplorasi_F_Struktur_Lewis: getVal("tab-f-5"),
+
+    // ================== EXPLORATION - TABEL 2 ==================
+    Eksplorasi_NaCl_Melepas: getVal("ion-nacl-1"),
+    Eksplorasi_NaCl_Menerima: getVal("ion-nacl-2"),
+    Eksplorasi_NaCl_Ion_Terbentuk: getVal("ion-nacl-3"),
+    Eksplorasi_NaCl_Gaya_Elektrostatik: getVal("ion-nacl-4"),
+    Eksplorasi_NaCl_Senyawa: getVal("ion-nacl-5"),
+
+    Eksplorasi_MgF2_Melepas: getVal("ion-mgf-1"),
+    Eksplorasi_MgF2_Menerima: getVal("ion-mgf-2"),
+    Eksplorasi_MgF2_Ion_Terbentuk: getVal("ion-mgf-3"),
+    Eksplorasi_MgF2_Gaya_Elektrostatik: getVal("ion-mgf-4"),
+    Eksplorasi_MgF2_Senyawa: getVal("ion-mgf-5"),
+
+    // ================== EXPLORATION - PERTANYAAN ==================
+    Eksplorasi_Q1_Hubungan_Valensi_Kecenderungan: getVal("eks_q1"),
+    Eksplorasi_Q2_Struktur_Lewis: getVal("eks_q2"),
+    Eksplorasi_Q3_Pembentukan_NaCl: getVal("eks_q3"),
+    Eksplorasi_Q4_Pembentukan_MgF2: getVal("eks_q4"),
+
+    // ================== EXPLANATION ==================
+    Explanation_Q1_Na_Mg_Melepas_Elektron: getVal("ans-exp-1"),
+    Explanation_Q2_Cl_F_Menerima_Elektron: getVal("ans-exp-2"),
+    Explanation_Q3_Struktur_Lewis: getVal("ans-exp-3"),
+    Explanation_Q4_Proses_NaCl: getVal("ans-exp-4"),
+    Explanation_Q5_Proses_MgF2: getVal("ans-exp-5"),
+    Explanation_Revisi_Hipotesis: getVal("ans-exp-6"),
+    Explanation_Status_Simpan: explanationSaved,
+
+    // ================== ELABORATION ==================
+Elaboration_Q1_Proses_Terbentuknya_NaCl: getVal("el-1"),
+Elaboration_Q2_Kristal_dan_Titik_Leleh_NaCl: getVal("el-2"),
+Elaboration_Q3_Daya_Hantar_NaCl_Padat_dan_Larutan: getVal("el-3"),
+Elaboration_Q4_Senyawa_Ion_Keras_Tetapi_Rapuh: getVal("el-4"),
+Elaboration_Q5_Ion_Poliatomik_CaCO3_CaSO4: getVal("el-5"),
+Elaboration_Status_Simpan: elaborationSaved,
+
+    // ================== EVALUATION ==================
+    ...jawabanEvaluasi,
+    Skor_Evaluasi: score,
+    Evaluation_Status_Simpan: evaluationSaved,
+
+    // ================== REFLEKSI ==================
+    Refleksi_Oktet_Duplet: getRadio("ref1"),
+    Refleksi_Struktur_Lewis: getRadio("ref2"),
+    Refleksi_Pembentukan_Ikatan_Ion: getRadio("ref3"),
+    Refleksi_Gaya_Elektrostatik: getRadio("ref4"),
+    Refleksi_Bagian_Mudah: getVal("ref_teks_1"),
+    Refleksi_Bagian_Membingungkan: getVal("ref_teks_2")
+  };
+
+  // ================== SIMPAN LOKAL SEBAGAI CADANGAN ==================
+  const LOCAL_KEY = "db_ikatan_ion_final";
+  const db = JSON.parse(localStorage.getItem(LOCAL_KEY) || "[]");
+  db.push(dataFull);
+  localStorage.setItem(LOCAL_KEY, JSON.stringify(db));
+
+  // ================== KIRIM KE GOOGLE SHEETS ==================
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxKpCSPf89k27shqjsCq14blROlcfsYU4wuwwU9bwzjdc6yQTqrV-IDcCvz0RpE9TU/exec";
+
+  const btnSubmit = document.querySelector('button[onclick="finalSubmit()"]');
+  if(btnSubmit){
+    btnSubmit.innerText = "Sedang mengirim... ⏳";
+    btnSubmit.disabled = true;
+  }
+
+  const payload = {
+    nama: dataFull.nama || "Siswa",
+    kelas: dataFull.kelas || "-",
+    materi: "Ikatan Ion",
+    skor: score,
+    jawabanLengkap: dataFull
+  };
+
+  fetch(SCRIPT_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  })
+  .then(() => {
+  alert(`Selesai! Skor kamu: ${score}/100 ✅\nJawaban berhasil dikirim ke Guru Rusyda! 🌈`);
+
+  resetAllIonLocksAfterSubmit();
+
+  if(btnSubmit){
+    btnSubmit.innerText = "✅ Sudah Terkirim";
+    btnSubmit.disabled = true;
+  }
+
+  // Setelah berhasil, kembali ke menu
+  window.location.href = "menu.html";
+})
+  .catch(() => {
+    alert("Gagal kirim, coba cek koneksi internetmu ya!");
+
+    if(btnSubmit){
+      btnSubmit.innerText = "✨ SELESAI & KIRIM ✨";
+      btnSubmit.disabled = false;
+    }
+  });
+}
+
+    function restoreExplanationLock(){
+  const raw = localStorage.getItem("ion_explanation_saved");
+  if(!raw) return;
+
+  try{
+    const data = JSON.parse(raw);
+
+    if(document.getElementById("ans-exp-1")) document.getElementById("ans-exp-1").value = data.ansExp1 || "";
+    if(document.getElementById("ans-exp-2")) document.getElementById("ans-exp-2").value = data.ansExp2 || "";
+    if(document.getElementById("ans-exp-3")) document.getElementById("ans-exp-3").value = data.ansExp3 || "";
+    if(document.getElementById("ans-exp-4")) document.getElementById("ans-exp-4").value = data.ansExp4 || "";
+    if(document.getElementById("ans-exp-5")) document.getElementById("ans-exp-5").value = data.ansExp5 || "";
+    if(document.getElementById("ans-exp-6")) document.getElementById("ans-exp-6").value = data.ansExp6 || "";
+
+    lockInputsInBox("p3");
+
+    const feedbackBox = document.getElementById("feedback-explanation");
+    if(feedbackBox){
+      feedbackBox.style.display = "block";
+    }
+
+    const btn = document.getElementById("btn-save-explanation");
+    if(btn){
+      btn.innerText = "✅ Jawaban Tersimpan";
+      btn.disabled = true;
+    }
+  }catch(e){
+    localStorage.removeItem("ion_explanation_saved");
+  }
+}
+  </script>
+</body>
+</html>

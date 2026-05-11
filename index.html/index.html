@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ikatan Kimia Seru! ✨ - Landing</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --gold: #ffc107;
+      --batik-blue: #3a7caf;
+      --cream: #fffdf2;
+      --red-accent: #ff6b6b;
+      --soft-blue: #e3f2fd;
+      --gray-cute: #b2bec3;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      margin: 0;
+      background-color: var(--cream);
+      color: var(--batik-blue);
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4 { font-family: 'Fredoka', sans-serif; margin-bottom: 10px; }
+
+    /* BACKGROUND DEKORASI */
+    .bg-mascot-decor { position: fixed; z-index: -1; opacity: 0.08; pointer-events: none; }
+    #bg-1 { width: 350px; top: -50px; left: -80px; animation: float 10s infinite; }
+    #bg-2 { width: 250px; bottom: 20px; right: -40px; animation: float 8s infinite reverse; }
+    @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-30px) rotate(8deg); } }
+
+    /* BUTTON */
+    button {
+      padding: 12px 20px; background: var(--batik-blue); color: white;
+      border: none; border-radius: 50px; font-family: 'Fredoka', sans-serif;
+      font-size: 15px; cursor: pointer; box-shadow: 0 5px 0 #2a5a82;
+      transition: 0.2s; position: relative; display: inline-block; margin: 5px;
+      width: 100%;
+    }
+    button:hover { background: #4a8cbf; top: -2px; box-shadow: 0 7px 0 #2a5a82; }
+    button:active { top: 3px; box-shadow: 0 2px 0 #2a5a82; }
+
+    /* LAYOUT LANDING */
+    #cover-page { height: 100vh; display: flex; justify-content: center; align-items: center; }
+    .login-box {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 40px; border-radius: 40px;
+      box-shadow: 0 15px 40px rgba(58, 124, 175, 0.15);
+      width: 90%; max-width: 360px; text-align: center;
+      border: 5px solid #ffedb5; backdrop-filter: blur(10px);
+    }
+    .main-maskot { width: 150px; animation: wiggle 3s infinite; }
+    @keyframes wiggle { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+
+    input {
+      width: 100%; padding: 12px; margin-bottom: 10px;
+      border: 3px solid #f0f0f0; border-radius: 15px;
+      font-family: 'Quicksand', sans-serif; font-weight: 700;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+  <img src="maskot.png" class="bg-mascot-decor" id="bg-1">
+  <img src="maskot.png" class="bg-mascot-decor" id="bg-2">
+
+  <!-- LANDING / LOGIN -->
+  <div id="cover-page">
+    <div class="login-box">
+      <img src="maskot.png" class="main-maskot">
+      <h1>Ikatan Kimia</h1>
+      <p>E-Learning Interaktif Seru! ✨</p>
+      <input type="text" id="user-nama" placeholder="Tulis Nama Kamu...">
+      <input type="email" id="user-email" placeholder="Email @gmail.com...">
+      <button onclick="handleLogin()">Ayo Belajar! 🚀</button>
+    </div>
+  </div>
+
+  <script>
+    const ADMIN_EMAIL = "rusydarama@gmail.com";
+
+    function handleLogin() {
+      const n = document.getElementById('user-nama').value.trim();
+      const e = document.getElementById('user-email').value.trim().toLowerCase();
+
+      if (!n || !e.endsWith("@gmail.com")) {
+        alert("Data harus lengkap & gunakan @gmail.com!");
+        return;
+      }
+
+      // simpan user agar bisa dipakai di halaman lain
+      localStorage.setItem("kimia_user", JSON.stringify({ nama: n, email: e }));
+
+      // admin langsung ke menu (atau dashboard kalau nanti dibuat)
+      if (e === ADMIN_EMAIL) {
+        window.location.href = "menu.html";
+      } else {
+        window.location.href = "video.html";
+      }
+    }
+  </script>
+</body>
+</html>
